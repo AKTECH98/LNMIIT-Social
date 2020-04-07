@@ -1,0 +1,22 @@
+/* properties that apply throughout the website */
+
+html{
+  height:100%;
+  width:100%;
+  padding:0px;
+  margin:0px;
+}
+
+body{
+  height:100%;
+  width:100%;
+  padding:0px;
+  margin:0px;
+}
+
+#LNMIIT_SOCIAL_SKILL_CONNECT_ROOT_TAG{
+  height:100%;
+  width:100%;
+  padding:0px;
+  margin:0px;
+}
