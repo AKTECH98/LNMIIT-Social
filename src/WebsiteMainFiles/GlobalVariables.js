@@ -1,10 +1,17 @@
-export default {
-  colors:{
-    success: "#29aae2",
-    failure: "#f26631",
-    default:"#000000",
-    background:"#0000FF",
-    neutral: "#33AAFF"
-  }
+import React from 'react';
 
-};
+import {ColorsContext,ColorsProvider} from '../globals/Colors.js';
+import {UserContext,UsersProvider} from '../globals/User.js';
+
+export {ColorsContext,UserContext};
+
+
+export function Providers(props){
+  return(
+    <ColorsProvider>
+      <UsersProvider>
+        {props.children}
+      </UsersProvider>
+    </ColorsProvider>
+  );
+}

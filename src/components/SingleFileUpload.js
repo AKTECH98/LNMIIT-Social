@@ -1,35 +1,29 @@
-import React from 'react';
+import React,{useState,useContext} from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from "prop-types";
 
-import GlobalVariables from 'WebsiteMainFiles/GlobalVariables.js';
+import {ColorsContext} from '../WebsiteMainFiles/GlobalVariables.js';
 import TextField from './TextField.js';
 import Grid from './Grid';
 import GridItem from './GridItem';
 import Button from './Button'
 
-class SingleFileUpload extends React.Component
+function SingleFileUpload(props)
 {
-  constructor(props){
-    super(props);
-    this.state={
-      files: null,
-      fileName: null,
-    };
-  }
 
-  render()
-  {
+    const [files,setFiles]=useState(null);
+    const [fileName,setFileName]=useState(null);
+
     const {
       text,
       returnValue,
       accept,
-    } = this.props;
+    } = props;
 
     const labelStyling = {
       borderRadius: '4px',
       padding: '6px 16px',
-      backgroundColor: GlobalVariables.colors.neutral,
+      backgroundColor: useContext(ColorsContext).objectDefault,
       display: 'inline-block',
       cursor: 'pointer'
     };
@@ -51,10 +45,10 @@ class SingleFileUpload extends React.Component
                        accept={accept}
                        style={inputStyling}
                        onChange={(event)=>{
-                            let files = event.target.files
-                            this.setState({files:files})
-                            this.setState({fileName:files[0].name})
-                            returnValue(files[0])
+                            let file = event.target.files
+                            setFiles(file)
+                            setFileName(file[0].name)
+                            returnValue(file[0])
                         }}
                 />
                 {text}
@@ -62,19 +56,18 @@ class SingleFileUpload extends React.Component
             <Button
               text="X"
               onClick={()=>{
-                this.setState({files:null})
-                this.setState({fileName:null})
+                setFiles(null)
+                setFileName(null)
                 returnValue(null)
               }}
             />
 
       </GridItem>
       <GridItem large={6} medium={6} small={6}>
-          {(this.state.fileName==null)?'No image selected':this.state.fileName}
+          {(fileName==null)?'No image selected':fileName}
       </GridItem>
       </Grid>
     );
-  }
 }
 
 

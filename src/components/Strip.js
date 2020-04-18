@@ -1,30 +1,27 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import PropTypes from "prop-types";
 import MaterialUICard from '@material-ui/core/Card';
 import MaterialUICardContent from '@material-ui/core/CardContent';
 import MaterialUICardHeader from '@material-ui/core/CardHeader';
 
-//TODO: Set background color of card from GlobalVariables
-export default class Strip extends React.Component
-{
-  constructor(props){
-    super(props);
-  }
+import {ColorsContext} from '../WebsiteMainFiles/GlobalVariables.js';
 
-  render()
-  {
+function Strip (props)
+{
     const {
       children,
       headerContent,
-    } = this.props;
+    } = props;
 
-    return(<MaterialUICard>
+    const cardStyle={
+      background:useContext(ColorsContext).foreground
+    }
+    return(<MaterialUICard style={cardStyle}>
               <MaterialUICardContent>
                 {children}
               </MaterialUICardContent>
           </MaterialUICard>
     );
-  }
 }
 
 Strip.propTypes = {
@@ -33,3 +30,5 @@ Strip.propTypes = {
   //For rendering
   children: PropTypes.any.isRequired
 };
+
+export default Strip;

@@ -3,12 +3,14 @@ import {createBrowserHistory} from 'history';
 import { Router, Route, Switch, Redirect } from 'react-router-dom';
 
 
+import MyProfile from '../Pages/Profile/MyProfile';
 import Header from '../components/Header';
 import FrontPage from '../Pages/FrontPage';
 import LoginPage from '../Pages/Login/Login';
 import ForgotPassword from '../Pages/Login/ForgotPassword';
 import TestPage from '../Pages/TestPage';
 import SignUp from '../Pages/Login/SignUp';
+import PageNotFound from '../Pages/PageNotFound';
 
 export default class PageHandler extends React.Component{
 
@@ -20,12 +22,14 @@ export default class PageHandler extends React.Component{
       <Router history={hist}>
       <Header/>
         <Switch>
+          <Redirect from="/" exact={true} to="/Front" />
+          <Route path="/MyProfile" component={MyProfile}/>
           <Route path="/Front" component={FrontPage} />
           <Route path="/SignUp" component={SignUp} />
           <Route path="/Test" component ={TestPage}/>
           <Route path="/Login" component ={LoginPage}/>
           <Route path="/ForgotPassword" component={ForgotPassword}/>
-          <Redirect from="/" to="/Front" />
+          <Route path='*' component={PageNotFound} />
         </Switch>
       </Router>
     );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from "prop-types";
 import ReactCrop from 'react-image-crop';
@@ -9,23 +9,16 @@ import Button from './Button';
 import Grid from './Grid';
 import GridItem from './GridItem';
 
-class PhotoSelector extends React.Component
+function PhotoSelector(props)
 {
-  constructor(props){
-    super(props);
-    this.state={
-      crop:{ aspect: props.aspectRatio},
-      src: null,
-      inputImage:null,
 
-    };
+    const [crop, setCrop]=useState({ aspect: props.aspectRatio});
+    const [src, setSrc]=useState(null);
+    const [inputImage, setInputImage]=useState(null);
 
-  }
-  render()
-  {
     const {
       returnValue
-    } = this.props;
+    } = props;
 
     return(<Grid>
                 <GridItem large={6} medium={6} small={12}>
@@ -34,15 +27,15 @@ class PhotoSelector extends React.Component
                                         returnValue={(file)=>{
                                             if(file==null)
                                             {
-                                              this.setState({ src: null });
-                                              this.setState({ inputImage: null});
+                                              setSrc(null);
+                                              setInputImage(null);
                                             }
                                             else {
                                               const reader = new FileReader();
                                               reader.addEventListener('load', () =>
                                                 {
-                                                  this.setState({ src: reader.result });
-                                                  this.setState({ inputImage: file});
+                                                  setSrc(reader.result);
+                                                  setInputImage(file);
                                                 }
                                               );
                                               reader.readAsDataURL(file);
@@ -52,14 +45,14 @@ class PhotoSelector extends React.Component
                 </GridItem>
                 <GridItem large={6} medium={6} small={12}>
                 {
-                  (this.state.src == null)?'':
+                  (src == null)?'':
 
                     <Button
                        text='Submit'
                        onClick={()=>{
-                                 returnValue(this.state.crop, this.state.inputImage);
-                                 this.setState({ src: null });
-                                 this.setState({ inputImage: null});
+                                 returnValue(crop, inputImage);
+                                 setSrc(null);
+                                 setInputImage(null);
                                }}
                      />
                 }
@@ -67,10 +60,10 @@ class PhotoSelector extends React.Component
                 <GridItem large={12} medium={12} small={12}>
 
                       <ReactCrop
-                        src={this.state.src}
-                        crop={this.state.crop}
+                        src={src}
+                        crop={crop}
                         onChange={(newCrop) =>{
-                            this.setState({crop:newCrop})
+                            setCrop(newCrop)
                           }}
                      />
 
@@ -78,7 +71,6 @@ class PhotoSelector extends React.Component
           </Grid>
 
     );
-  }
 }
 
 

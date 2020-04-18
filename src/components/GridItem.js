@@ -4,23 +4,14 @@ import PropTypes from "prop-types";
 
 import MaterialUIGrid from '@material-ui/core/Grid';
 
-class GridItem extends React.Component
+function GridItem(props)
 {
-  constructor(props){
-    super(props);
-    this.state={
-    };
-  }
-
-
-  render()
-  {
     const {
       small,
       medium,
       large,
       children
-    } = this.props;
+    } = props;
 
 
     return(
@@ -35,7 +26,6 @@ class GridItem extends React.Component
         {children}
       </MaterialUIGrid>
     );
-  }
 }
 
 

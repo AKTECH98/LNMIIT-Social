@@ -1,27 +1,18 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from "prop-types";
 
-import GlobalVariables from 'WebsiteMainFiles/GlobalVariables.js';
+import {ColorsContext} from '../WebsiteMainFiles/GlobalVariables.js';
 
-class Button extends React.Component
+function Button(props)
 {
-  constructor(props){
-    super(props);
-    this.state={
-    };
-  }
-
-
-  render()
-  {
-    const {
-      text,
-      onClick
-    } = this.props;
+    const{
+      onClick,
+      text
+    } = props;
 
     const buttonStyle={
-      background: GlobalVariables.colors.neutral,
+      background: useContext(ColorsContext).objectDefault,
       borderRadius: '4px',
       padding: '6px 16px',
       display: 'inline-block',
@@ -32,7 +23,6 @@ class Button extends React.Component
         {text}
       </button>
     );
-  }
 }
 
 
@@ -41,7 +31,7 @@ Button.propTypes = {
 
   //For rendering
   text: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func
 };
 
 export default Button;

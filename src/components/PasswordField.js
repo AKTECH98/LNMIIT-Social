@@ -1,41 +1,34 @@
-import React from 'react';
+import React,{useState,useContext} from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from "prop-types";
 import MaterialUITextField from '@material-ui/core/TextField';
 import MaterialUIInputAdornment from '@material-ui/core/InputAdornment';
 
-import GlobalVariables from 'WebsiteMainFiles/GlobalVariables.js';
+import {ColorsContext} from '../WebsiteMainFiles/GlobalVariables.js';
 
-export default class PasswordField extends React.Component
+function PasswordField(props)
 {
-  constructor(props){
-    super(props);
-    this.state={
-      value:props.defaultValue,
-      colorValue: (((props.error==undefined)?false:(props.defaultValue.match(props.error) !=null))?GlobalVariables.colors.failure:(((props.success==undefined)?false:(props.defaultValue.match(props.success) !=null))?GlobalVariables.colors.success:GlobalVariables.colors.default))
-    };
 
-  }
-  render()
-  {
+    const [value,setValue]=useState(props.defaultValue);
+    const [colorValue,setColorValue]=useState(((props.error==undefined)?false:(props.defaultValue.match(props.error) !=null))?useContext(ColorsContext).textFailure:(((props.success==undefined)?false:(props.defaultValue.match(props.success) !=null))?useContext(ColorsContext).textSuccess:useContext(ColorsContext).textDefault));
+
     const {
       label,
       disabled,
       error,
       success,
       returnValue
-    } = this.props;
+    } = props;
 
     return(
       <MaterialUITextField
         fullWidth
         label = {label}
         disabled = {(disabled==undefined)?false:disabled}
-        value={this.state.value}
+        value={value}
         onChange = {(event)=>{
-          this.setState({value:event.target.value});
-
-          this.setState({colorValue: (((error==undefined)?false:(event.target.value.match(error) !=null))?GlobalVariables.colors.failure:(((success==undefined)?false:(event.target.value.match(success) !=null))?GlobalVariables.colors.success:GlobalVariables.colors.default))})
+          setValue(event.target.value);
+          setColorValue(((error==undefined)?false:(event.target.value.match(error) !=null))?useContext(ColorsContext).textFailure:(((success==undefined)?false:(event.target.value.match(success) !=null))?useContext(ColorsContext).textSuccess:useContext(ColorsContext).textDefault))
           returnValue(event.target.value)
         }}
 
@@ -44,16 +37,15 @@ export default class PasswordField extends React.Component
             disableUnderline:true,
             type:'password',
             style: {
-              color: this.state.colorValue,
-              borderBottom:'2px solid '+ this.state.colorValue,
+              color: colorValue,
+              borderBottom:'2px solid '+ colorValue,
             }
           }
         }
 
-        InputLabelProps = {{ style: {color:this.state.colorValue} }}
+        InputLabelProps = {{ style: {color:colorValue} }}
       />
     );
-  }
 }
 PasswordField.propTypes = {
   //For states
@@ -66,3 +58,5 @@ PasswordField.propTypes = {
   error: PropTypes.instanceOf(RegExp),
   returnValue: PropTypes.func.isRequired
 };
+
+export default PasswordField;

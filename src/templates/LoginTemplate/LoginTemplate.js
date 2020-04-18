@@ -8,7 +8,7 @@ import GridItem from '../../components/GridItem';
 
 import LoginTemplateBackground from './LoginTemplateBackground.jpg';
 
-export default class Login extends React.Component
+export default class LoginTemplate extends React.Component
 {
   constructor(props){
     super(props);
