@@ -1,20 +1,18 @@
-import React,{useContext} from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 import PropTypes from "prop-types";
 
-function Button(props)
-{
-    const{
-      onClick,
-      text
-    } = props;
+const Button = (props) => {
+  const{
+    onClick,
+    text
+  } = props;
 
-    return(<button onClick={onClick}>
-        {text}
-      </button>
-    );
+  return(
+    <button onClick={onClick}>
+      {text}
+    </button>
+  );
 }
-
 
 Button.propTypes = {
   //For states

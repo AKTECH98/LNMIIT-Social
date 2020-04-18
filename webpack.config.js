@@ -14,31 +14,32 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            filename: 'index.html',
-            template: './src/WebsiteMainFiles/Index.html',
-            publicPath: '/'
-        })
+          filename: 'index.html',
+          template: './src/WebsiteMainFiles/Index.html',
+          publicPath: '/'
+      })
     ],
     resolve: {
-            modules: [path.resolve(__dirname, 'src'), 'node_modules']
+      modules: [path.resolve(__dirname, 'src'), 'node_modules']
     },
     module: {
-      rules : [
-                // JavaScript/JSX Files
-                {
-                  test: /\.js$/,
-                  exclude: /node_modules/,
-                  use: ['babel-loader'],
-                },
-                // CSS Files
-                {
-                  test: /\.css$/,
-                  use: ['style-loader', 'css-loader'],
-                },
-                {
-                  test: /\.(png|svg|jpg|gif)$/,
-                  use: ['file-loader'],
-                },
-              ]
+      rules: [        
+        // JavaScript/JSX Files
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          use: ['babel-loader'],
+        },
+        // CSS and SCSS Files
+        {
+          test: /\.s?css$/,
+          use: ['style-loader', 'css-loader'],
+        },
+        //Photo
+        {
+          test: /\.(png|svg|jpg|gif)$/,
+          use: ['file-loader'],
+        },
+      ]
     }
 };

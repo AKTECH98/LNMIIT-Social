@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from "prop-types";
 
 import MaterialUIGrid from '@material-ui/core/Grid';
@@ -15,13 +14,14 @@ function GridItem(props)
 
 
     return(
-      <MaterialUIGrid item
-                      zeroMinWidth
-                      xs={small}
-                      sm={medium}
-                      md={medium}
-                      lg={large}
-                      xl={large}
+      <MaterialUIGrid 
+      item
+      zeroMinWidth
+      xs={small}
+      sm={medium}
+      md={medium}
+      lg={large}
+      xl={large}
       >
         {children}
       </MaterialUIGrid>
