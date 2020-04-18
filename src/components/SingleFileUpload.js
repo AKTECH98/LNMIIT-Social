@@ -2,7 +2,6 @@ import React,{useState,useContext} from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from "prop-types";
 
-import {ColorsContext} from '../WebsiteMainFiles/GlobalVariables.js';
 import TextField from './TextField.js';
 import Grid from './Grid';
 import GridItem from './GridItem';
@@ -23,7 +22,7 @@ function SingleFileUpload(props)
     const labelStyling = {
       borderRadius: '4px',
       padding: '6px 16px',
-      backgroundColor: useContext(ColorsContext).objectDefault,
+      //backgroundColor: useContext(ColorsContext).objectDefault,
       display: 'inline-block',
       cursor: 'pointer'
     };

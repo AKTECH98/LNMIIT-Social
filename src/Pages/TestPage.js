@@ -1,8 +1,5 @@
 import React from 'react';
 
-import ColorPicker from '../components/ColorPicker';
-import ProfileTemplate from '../templates/ProfileTemplate';
-
 export default class TestPage extends React.Component {
     render(){
         return(

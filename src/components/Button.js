@@ -2,8 +2,6 @@ import React,{useContext} from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from "prop-types";
 
-import {ColorsContext} from '../WebsiteMainFiles/GlobalVariables.js';
-
 function Button(props)
 {
     const{
@@ -11,15 +9,7 @@ function Button(props)
       text
     } = props;
 
-    const buttonStyle={
-      background: useContext(ColorsContext).objectDefault,
-      borderRadius: '4px',
-      padding: '6px 16px',
-      display: 'inline-block',
-      cursor: 'pointer'
-    }
-
-    return(<button onClick={onClick} style={buttonStyle}>
+    return(<button onClick={onClick}>
         {text}
       </button>
     );

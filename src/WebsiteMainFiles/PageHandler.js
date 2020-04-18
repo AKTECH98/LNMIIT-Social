@@ -3,7 +3,6 @@ import {createBrowserHistory} from 'history';
 import { Router, Route, Switch, Redirect } from 'react-router-dom';
 
 
-import MyProfile from '../Pages/Profile/MyProfile';
 import Header from '../components/Header';
 import FrontPage from '../Pages/FrontPage';
 import LoginPage from '../Pages/Login/Login';
@@ -23,7 +22,6 @@ export default class PageHandler extends React.Component{
       <Header/>
         <Switch>
           <Redirect from="/" exact={true} to="/Front" />
-          <Route path="/MyProfile" component={MyProfile}/>
           <Route path="/Front" component={FrontPage} />
           <Route path="/SignUp" component={SignUp} />
           <Route path="/Test" component ={TestPage}/>

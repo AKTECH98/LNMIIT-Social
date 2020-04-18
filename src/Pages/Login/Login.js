@@ -3,15 +3,11 @@ import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";
 
-import Header from '../../components/Header'
 import TextField from '../../components/TextField';
-import Card from '../../components/Strip';
 import PasswordField from '../../components/PasswordField';
 import Grid from '../../components/Grid';
 import GridItem from '../../components/GridItem';
 import Button from '../../components/Button';
-
-import LoginTemplate from '../../templates/LoginTemplate/LoginTemplate';
 
 export default class Login extends React.Component
 {
@@ -25,7 +21,6 @@ export default class Login extends React.Component
   render()
   {
     return(
-        <LoginTemplate>
             <Grid>
                 <GridItem small={12} medium={12} large={12}>
                     <TextField
@@ -58,7 +53,6 @@ export default class Login extends React.Component
                   </div>
                 </GridItem>
             </Grid>
-        </LoginTemplate>
 
     );
   }

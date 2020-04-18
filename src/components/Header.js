@@ -7,18 +7,11 @@ import Card from './Strip'
 import Button from './Button'
 import Grid from './Grid'
 import GridItem from './GridItem'
+
+
 export default class Header extends React.Component {
-
-
-
     render() {
-        const stickyStyle={
-          postion: 'fixed',
-          bottom:0,
-          left:0
-        }
         return (
-            <div style={stickyStyle}>
             <Card>
                 <Grid>
                 <GridItem large={10} medium={10} small={12}>
@@ -34,7 +27,6 @@ export default class Header extends React.Component {
                 </GridItem>
                 </Grid>
             </Card>
-            </div>
         )
     }
 

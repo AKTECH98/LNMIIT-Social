@@ -10,8 +10,6 @@ import Grid from '../../components/Grid';
 import GridItem from '../../components/GridItem';
 import Button from '../../components/Button';
 
-import LoginTemplate from '../../templates/LoginTemplate/LoginTemplate';
-
 export default class ForgotPassword extends React.Component
 {
   constructor(props){
@@ -24,7 +22,6 @@ export default class ForgotPassword extends React.Component
   render()
   {
     return(
-        <LoginTemplate>
             <Grid>
                 <GridItem small={12} medium={12} large={12}>
                     <PasswordField
@@ -52,7 +49,6 @@ export default class ForgotPassword extends React.Component
                   </div>
                 </GridItem>
             </Grid>
-        </LoginTemplate>
 
     );
   }
