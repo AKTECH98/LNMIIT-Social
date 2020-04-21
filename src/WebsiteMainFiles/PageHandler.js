@@ -16,7 +16,6 @@ export default class PageHandler extends React.Component{
     const hist = createBrowserHistory();
     return(
       <Router history={hist}>
-      <Header/>
         <Switch>
           <Redirect from="/" exact={true} to="/Front" />
           <Route path="/Front" component={FrontPage} />

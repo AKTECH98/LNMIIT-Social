@@ -1,0 +1,21 @@
+.button {
+    background: $purple;
+    border: none;
+    border-bottom: 0.3rem solid darken($purple, 10%);
+    color: white;
+    font-weight: 500;
+    padding: $xs-size;
+}
+
+.button__header {
+    text-align: center;
+    background: $off-black;
+    border: 0.3rem solid ligthen($light-blue, 10%);
+    color: white;
+    margin: 0 $xs-size $xs-size 0;
+}
+
+.button--link { // -- is used as a naming convention for Modifier in BEM
+    color: $off-white;
+    border: none;
+}

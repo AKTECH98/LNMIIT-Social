@@ -1,0 +1,49 @@
+.login {
+    display: flex;
+    flex-direction: column;
+    border-color: $purple;
+}
+
+.login__header {
+    color: $purple;
+    text-align:  center;
+    line-height: 0.5;
+}
+
+.login__title {
+    font-size: $m-size;
+}
+
+.login__subtitle {
+    font-size: $l-size;
+    font-weight: 500;
+}
+
+.login__byline {
+    color: $off-white;
+    font-size: $ms-size;
+    font-style: italic;
+}
+
+.login__input {
+    color: white;
+}
+
+.login__button {
+    font-size: $m-size;
+    margin-top: $m-size;
+}
+
+.login__link {
+    text-decoration: none;
+    font-size: $ms-size;
+    text-align: center;
+    margin-top: $ms-size;
+}
+
+.login__new {
+    margin-top: $s-size;
+    color: $purple;
+    text-align: center;
+    font-size: $ms-size;
+}

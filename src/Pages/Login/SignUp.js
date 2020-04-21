@@ -1,11 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import TextField from '../../components/TextField';
-import PasswordField from '../../components/PasswordField';
-import Grid from '../../components/Grid';
-import GridItem from '../../components/GridItem';
+import TextField from '@material-ui/core/TextField';
 import Button from '../../components/Button';
+import Header from '../../components/Header';
 
 export default class SignUp extends React.Component
 {
@@ -20,35 +18,115 @@ export default class SignUp extends React.Component
   render()
   {
     return(
-      <div>  
+      <div>
+      <Header/>
+      <div className = "center signup">
+      
+        <p className = "signup__byline">REGISTER and Connect Your Skills</p>
+
         <TextField
-          defaultValue=''
-          label='Email Id'
-          returnValue={(text)=>{
-            this.setState({emailId:text});  
+          variant = "filled"
+          style={{
+            marginTop: 5,
+            marginBottom: 5
           }}
-        />            
-        <PasswordField
+          InputProps = {{
+            style: {
+              fontWeight: 300,
+              color: 'white',
+              fontSize: 20
+            }
+          }}
+          InputLabelProps = {{
+            style: {
+              fontWeight: 500,
+              color: 'white',
+              fontSize: 15
+            }
+          }}
+          defaultValue=''
+          label='Email'
+        />                
+        
+        <div className = "signup__details">
+          <TextField
+            variant = "filled"
+            style={{
+              marginRight: 5,
+              marginTop: 5,
+              marginBottom: 5
+            }}
+            InputProps = {{
+              style: {
+                fontWeight: 300,
+                color: 'white',
+                fontSize: 20
+              }
+            }}
+            InputLabelProps = {{
+              style: {
+                fontWeight: 500,
+                color: 'white',
+                fontSize: 15
+              }
+            }}
+            defaultValue=''
+            label='First Name'
+          />
+
+          <TextField
+            variant = "filled"
+            style={{
+              marginLeft: 5,
+              marginTop: 5,
+              marginBottom: 5
+            }}
+            InputProps = {{
+              style: {
+                fontWeight: 300,
+                color: 'white',
+                fontSize: 20
+              }
+            }}
+            InputLabelProps = {{
+              style: {
+                fontWeight: 500,
+                color: 'white',
+                fontSize: 15
+              }
+            }}
+            defaultValue=''
+            label='Last Name'
+          />
+        </div>
+
+        <TextField
+          variant = "filled"
+          style={{
+            marginTop: 5,
+            marginBottom: 5
+          }}
+          InputProps = {{
+            style: {
+              fontWeight: 300,
+              color: 'white',
+              fontSize: 20
+            }
+          }}
+          InputLabelProps = {{
+            style: {
+              fontWeight: 500,
+              color: 'white',
+              fontSize: 15
+            }
+          }}
           defaultValue=''
           label='Password'
-          returnValue={(text)=>{
-            this.setState({password:text});
-          }}
-        />                      
-        <PasswordField
-          defaultValue=''
-          label='Confirm Password'
-          returnValue={(text)=>{
-            this.setState({confirmPassword:text});
-          }}  
-        />          
-        <Link to={'/ForgotPassword'}>
-          Forgot password?
-        </Link>
-        <div>
-          <Button text='Login'/>  
-        </div>      
+        />
+
+        <Button text='Connect' type = 'button signup__button'/>  
       </div>
+      </div>      
     );
-  }
-}
+};
+};

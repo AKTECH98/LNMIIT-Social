@@ -7,6 +7,9 @@ const PasswordField = (props) =>{
   const [value,setValue]=useState(props.defaultValue);
 
   const {
+    marginTop,
+    size,
+    variant,
     label,
     disabled,
     returnValue
@@ -14,6 +17,9 @@ const PasswordField = (props) =>{
 
   return(
     <MaterialUITextField
+      variant = {variant}
+      size = {size}
+      marginTop = {marginTop}
       label = {label}
       disabled = {(disabled==undefined)?false:disabled}
       value={value}
@@ -30,6 +36,9 @@ PasswordField.propTypes = {
   defaultValue:PropTypes.string.isRequired,
 
   //For rendering
+  marginTop:PropTypes.number,
+  variant:PropTypes.string,
+  size:PropTypes.string,
   label:PropTypes.string.isRequired,
   disabled:PropTypes.bool,
   success: PropTypes.instanceOf(RegExp),

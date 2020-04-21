@@ -7,6 +7,8 @@ const TextField = (props) => {
   const [value,setValue]=useState(props.defaultValue);
 
   const {
+    size,
+    variant,
     label,
     disabled,
     returnValue,
@@ -14,8 +16,9 @@ const TextField = (props) => {
   } = props;
  
   return(
-  
     <MaterialUITextField
+    variant = {variant}
+    size = {size}
     label={label}
     disabled={(disabled==undefined)?false:disabled}  
     multiline={(multiline==undefined)?false:multiline}
@@ -34,6 +37,8 @@ TextField.propTypes = {
   defaultValue:PropTypes.string.isRequired,
 
   //For rendering
+  size:PropTypes.string,
+  variant:PropTypes.string,
   label:PropTypes.string.isRequired,
   disabled:PropTypes.bool,
   success: PropTypes.instanceOf(RegExp),

@@ -9,8 +9,7 @@ module.exports = {
     },
     devServer: {
         contentBase: './dist',
-        historyApiFallback: true,
-        port:3001,
+        historyApiFallback: true
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -33,7 +32,7 @@ module.exports = {
         // CSS and SCSS Files
         {
           test: /\.s?css$/,
-          use: ['style-loader', 'css-loader'],
+          use: ['style-loader', 'css-loader', 'sass-loader'],
         },
         //Photo
         {

@@ -1,0 +1,22 @@
+.signup {
+    display: flex;
+    flex-direction: column;
+    border-color: $purple;
+}
+
+.signup__byline {
+    color: $off-white;
+    font-size: $m-size;
+    font-style: italic;
+}
+
+.signup__details {
+    display: flex;
+    flex-direction: row;
+    border-color: $purple;
+}
+
+.signup__button {
+    font-size: $m-size;
+    margin-top: $m-size;
+}
