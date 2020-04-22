@@ -21,7 +21,7 @@ export default class SignUp extends React.Component
       <div>
       <Header/>
       <div className = "center signup">
-      
+
         <p className = "signup__byline">REGISTER and Connect Your Skills</p>
 
         <TextField
@@ -46,8 +46,8 @@ export default class SignUp extends React.Component
           }}
           defaultValue=''
           label='Email'
-        />                
-        
+        />
+
         <div className = "signup__details">
           <TextField
             variant = "filled"
@@ -122,11 +122,12 @@ export default class SignUp extends React.Component
           }}
           defaultValue=''
           label='Password'
+          type="password"
         />
 
-        <Button text='Connect' type = 'button signup__button'/>  
+        <Button text='Connect' type = 'button signup__button'/>
       </div>
-      </div>      
+      </div>
     );
 };
 };

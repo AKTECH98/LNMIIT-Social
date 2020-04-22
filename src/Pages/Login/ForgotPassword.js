@@ -35,7 +35,7 @@ export default class ForgotPassword extends React.Component
             defaultValue=''
             label='Email'
           />
-            
+
           <TextField
             variant = "filled"
             style={{
@@ -58,8 +58,9 @@ export default class ForgotPassword extends React.Component
             }}
             defaultValue=''
             label='New Password'
+            type="password"
           />
-          
+
           <TextField
             variant = "filled"
             style={{
@@ -81,6 +82,7 @@ export default class ForgotPassword extends React.Component
             }}
             defaultValue=''
             label='Confirm Password'
+            type="password"
           />
 
           <Button text='Submit' type = 'button fpwd__button' />

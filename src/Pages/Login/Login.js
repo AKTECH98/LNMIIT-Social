@@ -12,7 +12,7 @@ export default class Login extends React.Component
       emailId:'',
       password:''
     };
-  }; 
+  };
 
   render()
   {
@@ -52,7 +52,7 @@ export default class Login extends React.Component
           defaultValue=''
           label='Email'
         />
-              
+
         <TextField
           variant = "filled"
           style={{
@@ -78,16 +78,17 @@ export default class Login extends React.Component
           }
           defaultValue=''
           label='Password'
+          type="password"
         />
-              
+
         <Button text='Login' type = 'button login__button'/>
 
         <Link to={'/ForgotPassword'} className = "button--link login__link">
-          Forgot password? 
-        </Link> 
+          Forgot password?
+        </Link>
 
         <div className = "login__new">
-          New User? 
+          New User?
           <Link to = {'/SignUp'} className = "button--link login__link">Connect</Link>
         </div>
       </div>
