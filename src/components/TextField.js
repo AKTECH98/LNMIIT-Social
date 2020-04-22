@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import MaterialUITextField from '@material-ui/core/TextField';
 
-const TextField = (props) => {  
+const TextField = (props) => {
   const [value,setValue]=useState(props.defaultValue);
 
   const {
@@ -12,19 +12,21 @@ const TextField = (props) => {
     label,
     disabled,
     returnValue,
-    multiline
+    multiline,
+    type
   } = props;
- 
+
   return(
     <MaterialUITextField
     variant = {variant}
+    type={type}
     size = {size}
     label={label}
-    disabled={(disabled==undefined)?false:disabled}  
+    disabled={(disabled==undefined)?false:disabled}
     multiline={(multiline==undefined)?false:multiline}
     value={value}
     onChange={(event)=>{
-      setValue(event.target.value)      
+      setValue(event.target.value)
       returnValue(event.target.value)
       }
     }
