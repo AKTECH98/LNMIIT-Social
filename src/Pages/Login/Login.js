@@ -52,11 +52,13 @@ export default class Login extends React.Component
           defaultValue=''
           label='Email'
         />
-
+        <form>
         <TextField
+          type = 'Password'
           variant = "filled"
           style={{
             marginTop: 3,
+            width: 400
           }}
           InputProps = {
             {
@@ -78,9 +80,8 @@ export default class Login extends React.Component
           }
           defaultValue=''
           label='Password'
-          type="password"
         />
-
+        </form>
         <Button text='Login' type = 'button login__button'/>
 
         <Link to={'/ForgotPassword'} className = "button--link login__link">

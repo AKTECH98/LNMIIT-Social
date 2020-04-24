@@ -5,7 +5,7 @@ project.
 
 ### 'npm run start'
 
-Set to run at port http://localhost:3001 so that django can run at 3000
+Set to run at port http://localhost:8080 so that django can run at 3000
 The page will reload if you make edits.
 You will also see any lint errors in the console
 

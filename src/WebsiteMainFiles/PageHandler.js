@@ -8,7 +8,7 @@ import LoginPage from '../Pages/Login/Login';
 import ForgotPassword from '../Pages/Login/ForgotPassword';
 import TestPage from '../Pages/TestPage';
 import SignUp from '../Pages/Login/SignUp';
-import EditProfilePage from '../Pages/Profile/EditProfilePage';
+import EditProfile from '../Pages/Profile/EditProfile';
 
 export default class PageHandler extends React.Component{
 
@@ -24,7 +24,7 @@ export default class PageHandler extends React.Component{
           <Route path="/Test" component ={TestPage}/>
           <Route path="/Login" component ={LoginPage}/>
           <Route path="/ForgotPassword" component={ForgotPassword}/>
-          <Route path="/EditProfile" component={EditProfilePage}/>
+          <Route path="/EditProfile" component={EditProfile}/>
         </Switch>
       </Router>
     );

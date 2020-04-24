@@ -1,8 +1,12 @@
 @import './base/settings';
 @import './base/base';
+
 @import './Components/header';
 @import './Components/container' ;
 @import './Components/button';
+@import './Components/singlefileupload';
+
 @import './Pages/login';
 @import './Pages/forgotpassword';
 @import './Pages/signup';
+@import './Pages/editprofile';

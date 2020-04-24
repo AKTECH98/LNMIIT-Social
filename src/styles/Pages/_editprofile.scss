@@ -1,0 +1,18 @@
+.editProfile {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.profile__detail {
+    font-size: $xl-size;
+}
+
+.profilePicture {
+    display: flex;
+    flex-direction: column;
+}
+
+.personal {
+    display: flex;
+    flex-direction: column;
+}
