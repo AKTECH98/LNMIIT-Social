@@ -1,10 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import TextField from '@material-ui/core/TextField';
 import Header from '../../components/Header';
 import Dropdown from '../../components/Dropdown';
 import PhotoSelector from '../../components/PhotoSelector';
 import DatePicker from '../../components/DatePicker';
+import Button from '../../components/Button';
 
 export default class EditProfilePage extends React.Component {
   constructor(props){
@@ -24,6 +26,7 @@ export default class EditProfilePage extends React.Component {
     return(
       <div>
         <Header />
+        <div className = "editProfile__changes">
         <div className = "editProfile">
           <div className = "profilePicture">
             <h1 className = "profile__detail">Profile Picture</h1>
@@ -141,6 +144,11 @@ export default class EditProfilePage extends React.Component {
               menuItems={['Male','Female']}
             />
           </div>
+        </div>
+        <Link to = {"/ProfilePage"} >
+          <Button text = "Submit Changes" type = "button editProfile__button" />
+          <Button text = "Discard Changes" type = "button editProfile__button" />
+        </Link>
         </div>
       </div>
     )

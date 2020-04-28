@@ -3,6 +3,19 @@
     justify-content: space-evenly;
 }
 
+.editProfile__changes {
+    text-align: center;
+}
+
+.editProfile__button {
+    margin-top: $xl-size;
+    margin-left: $lm-size;
+    margin-right: $lm-size;
+    width: 12.5%; 
+    font-size: $ms-size;
+    font-weight: 500;
+}
+
 .profile__detail {
     font-size: $xl-size;
 }

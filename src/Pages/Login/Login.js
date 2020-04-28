@@ -24,7 +24,6 @@ export default class Login extends React.Component
           <p className = "login__byline"> Login to connect to LNMIIT and Explore Skills </p>
         </div>
         <TextField
-          className = "login__input"
           variant = "filled"
           style={{
             width: 400,

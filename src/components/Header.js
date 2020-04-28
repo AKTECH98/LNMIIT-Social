@@ -5,7 +5,11 @@ import Button from './Button'
 
 const Header = () => (
   <div className = "header">
-    <p className = "button--link header__title">LNMIIT SOCIAL</p>
+    <p className = "header__title">
+      <Link to="/" className = "button--link">
+        LNMIIT SOCIAL
+      </Link>
+    </p>
     <div>
       <Link to='/Login'>
         <Button text='Login' type = 'button__header'/>
