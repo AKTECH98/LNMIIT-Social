@@ -5,9 +5,7 @@ const OptionList = (props) => (
     <p className = "option__text">{props.count}. {props.optionText}</p>
     <button
       className = "button button--link"
-      onClick={(e) => {
-        props.deleteProject(props.optionText);
-      }}
+      onClick={props.deleteProject}
     >
       remove
     </button>

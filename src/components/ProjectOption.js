@@ -7,9 +7,9 @@ const ProjectOptions = (props) => (
       props.projects.map((project,index) => (
         <OptionList
           count = {index+1}
-          key={project}
-          optionText={project}
-          deleteProject={props.deleteProject}
+          key={index}
+          optionText={'Project:'+project.title+' Descrip:'+project.description+' Member:'+project.members}
+          deleteProject={()=>{props.deleteProject(index)}}
         />
       ))
     }

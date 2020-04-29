@@ -9,10 +9,12 @@ const ProjectModal = (props) => (
     onRequestClose={props.submitProject}
     contentLabel="Project Details"
     className = "modal"
+    ariaHideApp={false}
   >
     <h3 className = "modal__title">Project Details</h3>
     <AddProject
         handleAddProject={props.handleAddProject}
+        projects={props.projects}
     />
     <button className = "button" onClick={props.submitProject}>Submit</button>
   </Modal>

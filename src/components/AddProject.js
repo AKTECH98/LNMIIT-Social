@@ -2,24 +2,25 @@ import React from 'react';
 
 export default class AddProject extends React.Component {
   state = {
-    title: undefined,
-    description: undefined,
-    members: undefined
+    projects:this.props.projects,
   };
+
   handleAddOption = (e) => {
     e.preventDefault();
+    const elements= e.target.elements;
+    const title = elements.title.value.trim();
+    const description = elements.descrip.value.trim();
+    const members = elements.memb.value.trim();
+    const error = this.props.handleAddProject(this.state.projects);
 
-    const title = e.target.elements.title.value.trim();
-    const description = e.target.elements.descrip.value.trim();
-    const members = e.target.elements.memb.value.trim();
-
-    const error = this.props.handleAddProject(title);
-
-    console.log(title,description,members);
-    
+    let projects=this.state.projects;
+    projects.push({title:title, description:description,members:members})
+    this.setState(projects);
 
     if (!error) {
-      e.target.elements.title.value = '';
+      elements.title.value = '';
+      elements.descrip.value='';
+      elements.memb.value='';
     }
   };
   render() {

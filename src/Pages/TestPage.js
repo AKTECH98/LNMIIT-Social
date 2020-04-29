@@ -13,25 +13,23 @@ const Header = (props) => (
 
 export default class ProjectList extends React.Component {
   state = {
-    projects: [],
-    addProject: undefined
+    projects: []
   };
+
   editProject = () => {
-    console.log("Hello I am Alive");
     this.setState(() => ({ addProject: true }));
   };
   submitProject = () => {
     this.setState(() => ({ addProject: undefined }));
   };
-  deleteProject = (projectToRemove) => {
-    this.setState((prevState) => ({
-      projects: prevState.projects.filter((project) => projectToRemove !== project)
-    }));
+  deleteProject = (projectIndex) => {
+    let projects=this.state.projects;
+    projects.splice(projectIndex,1);
+    this.setState(projects);
+
   };
-  handleAddProject = (project) => {
-    this.setState((prevState) => ({
-      projects: prevState.projects.concat(project)
-    }));
+  handleAddProject = (newProject) => {
+    this.setState({projects:newProject});
   };
   render() {
     return (
@@ -45,6 +43,7 @@ export default class ProjectList extends React.Component {
         addProject={this.state.addProject}
         submitProject={this.submitProject}
         handleAddProject={this.handleAddProject}
+        projects={this.state.projects}
         />
     </div>
     );
