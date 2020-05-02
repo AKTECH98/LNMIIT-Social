@@ -8,8 +8,8 @@ const ProjectOptions = (props) => (
         <OptionList
           count = {index+1}
           key={index}
-          optionText={'Project:'+project.title+' Descrip:'+project.description+' Member:'+project.members}
-          deleteProject={()=>{props.deleteProject(index)}}
+          optionText={project.title}
+          ShowDetails = {() => {props.ShowDetails(index)}}
         />
       ))
     }

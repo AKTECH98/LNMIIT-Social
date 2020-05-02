@@ -1,18 +1,37 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import TextField from '@material-ui/core/TextField';
 import Button from '../../components/Button';
+import TextField from '../../components/TextField';
 
 export default class Login extends React.Component
 {
-  constructor(props){
-    super(props);
-    this.state={
-      emailId:'',
-      password:''
-    };
+  state={
+    emailId:'',
+    password:''
   };
+
+  styleProp = {
+    width: 400,
+    marginTop: 5,
+    marginBottom: 5
+  }
+
+  inputPropStyle = {
+    style: {
+      fontWeight: 300,
+      color: 'white',
+      fontSize: 20
+    }
+  }
+
+  labelPropStyle = {
+    style: {
+      fontWeight: 500,
+      color: 'white',
+      fontSize: 15
+    }
+  }
 
   render()
   {
@@ -25,62 +44,21 @@ export default class Login extends React.Component
         </div>
         <TextField
           variant = "filled"
-          style={{
-            width: 400,
-            marginTop: 5,
-            marginBottom: 5
-          }}
-          InputProps = {
-            {
-              style: {
-                fontWeight: 300,
-                color: 'white',
-                fontSize: 20
-              }
-            }
-          }
-          InputLabelProps = {
-            {
-              style: {
-                fontWeight: 500,
-                color: 'white',
-                fontSize: 15
-              }
-            }
-          }
+          FeildStyle = {this.styleProp}
+          inputprops = {this.inputPropStyle}
+          LabelStyle = {this.labelPropStyle}
           defaultValue=''
           label='Email'
         />
-        <form>
         <TextField
           type = 'Password'
           variant = "filled"
-          style={{
-            marginTop: 3,
-            width: 400
-          }}
-          InputProps = {
-            {
-              style: {
-                fontWeight: 300,
-                color: 'white',
-                fontSize: 20
-              }
-            }
-          }
-          InputLabelProps = {
-            {
-              style: {
-                fontWeight: 500,
-                color: 'white',
-                fontSize: 15
-              }
-            }
-          }
+          FeildStyle = {this.styleProp}
+          inputprops = {this.inputPropStyle}
+          LabelStyle = {this.labelPropStyle}
           defaultValue=''
           label='Password'
         />
-        </form>
         <Button text='Login' type = 'button login__button'/>
 
         <Link to={'/ForgotPassword'} className = "button--link login__link">

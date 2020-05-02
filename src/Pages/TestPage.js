@@ -13,38 +13,110 @@ const Header = (props) => (
 
 export default class ProjectList extends React.Component {
   state = {
-    projects: []
+    projects: [],
+    openModal: false,
+    addDetail: false,
+    showDetail: false,
+    editDetail:false,
+    project: {
+      index: -1,
+      title: null,
+      description: null,
+      member: 0
+    }
   };
 
-  editProject = () => {
-    this.setState(() => ({ addProject: true }));
+  AddDetail = () => {
+    this.setState(() => ({
+      openModal: true,
+      addDetail: true
+    }));
+  }
+
+  ShowDetails = (index) => {
+    let pro = this.state.projects[index];
+    
+    this.setState(() => ({
+      project: {
+        index: index,
+        title: pro.title,
+        description: pro.description,
+        member: pro.member
+      },
+      showDetail: true,
+      openModal: true
+    }))
+  }
+
+  EditDetails = (index) => {
+
+    this.DeleteProject(index);
+
+    this.setState(() => ({
+      showDetail: false,
+      editDetail: true,
+      openModal: true
+    }))
+  }
+
+  SubmitDetails = (project) => {
+    this.setState((prevSate) => ({
+      projects: prevSate.projects.concat(project), 
+      addDetail: false,
+      editDetail: false,
+      openModal: false 
+    }));
   };
-  submitProject = () => {
-    this.setState(() => ({ addProject: undefined }));
-  };
-  deleteProject = (projectIndex) => {
+
+  DiscardDetails = () => {
+    this.setState(() => ({
+      addDetail:false,
+      editDetail: false,
+      showDetail: false,
+      openModal: false
+    }))
+  }
+
+  EditProject = (index) => {
+    console.log(index)
+  }
+
+  DeleteProject = (projectIndex) => {
     let projects=this.state.projects;
     projects.splice(projectIndex,1);
-    this.setState(projects);
+    this.setState(() => ({
+      openModal: false,
+      showDetail: false,
+      projects
+    }));
+  };
 
-  };
-  handleAddProject = (newProject) => {
-    this.setState({projects:newProject});
-  };
   render() {
     return (
       <div>
-        <Header newProject = {this.editProject} />
+        <Header newProject = {this.AddDetail} />
         <ProjectOption
-        projects={this.state.projects}
-        deleteProject={this.deleteProject}
+          projects={this.state.projects}
+          ShowDetails={this.ShowDetails}
         />
-        <ProjectModal
-        addProject={this.state.addProject}
-        submitProject={this.submitProject}
-        handleAddProject={this.handleAddProject}
-        projects={this.state.projects}
-        />
+        {
+          (this.state.openModal)? 
+          <ProjectModal
+            openModal = {this.state.openModal}
+            addDetail = {this.state.addDetail}
+            showDetail = {this.state.showDetail}
+            editDetail = {this.state.editDetail}
+            project = {this.state.project}
+
+            SubmitDetails = {this.SubmitDetails}
+            DiscardDetails = {this.DiscardDetails}
+            EditDetails = {this.EditDetails}
+            DeleteProject = {this.DeleteProject}
+            EditProject = {this.EditProject}
+          />
+          :
+          ''
+        }
     </div>
     );
   }
