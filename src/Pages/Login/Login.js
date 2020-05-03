@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Button from '../../components/Button';
 import TextField from '../../components/TextField';
 
+
 export default class Login extends React.Component
 {
   state={
@@ -59,7 +60,9 @@ export default class Login extends React.Component
           defaultValue=''
           label='Password'
         />
-        <Button text='Login' type = 'button login__button'/>
+        <Link to={'/Home'} className="button login__button">
+          Login
+        </Link>
 
         <Link to={'/ForgotPassword'} className = "button--link login__link">
           Forgot password?
