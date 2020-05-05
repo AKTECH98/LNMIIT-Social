@@ -6,11 +6,14 @@ import 'react-image-crop/dist/ReactCrop.css';
 import SingleFileUpload from './SingleFileUpload';
 import Button from './Button';
 
+import DefaultUser from '../img/DefaultUser.png';
+
 function PhotoSelector(props)
 {
   const [crop, setCrop]=useState({ aspect: props.aspectRatio});
   const [src, setSrc]=useState(null);
   const [inputImage, setInputImage]=useState(null);
+  const [displayImage, setDisplayImage]=useState(DefaultUser);
 
   const {
     returnValue
@@ -18,36 +21,40 @@ function PhotoSelector(props)
 
   return(
     <div>
-      <SingleFileUpload 
+      <img src={displayImage}/>
+      <SingleFileUpload
         accept="image/*"
-        text="Click to upload"
+        text="Change"
         returnValue={(file)=>{
-          if(file==null){            
+          if(file==null){
             setSrc(null);
             setInputImage(null);
+            setDisplayImage(DefaultUser);
           }
           else{
             const reader = new FileReader();
-            reader.addEventListener('load', () =>{          
+            reader.addEventListener('load', () =>{
                 setSrc(reader.result);
                 setInputImage(file);
               }
-            );                                  
+            );
             reader.readAsDataURL(file);
           }
         }}
       />
-      
+
       <div>
       {
         (src == null)?'':
         <Button
           text='Submit'
-          onClick={()=>{                     
-            returnValue(crop, inputImage);        
+          onClick={()=>{
+            returnValue(crop, inputImage);
+            setDisplayImage(src);
             setSrc(null);
             setInputImage(null);
-          }}  
+
+          }}
         />
       }
       </div>
@@ -55,7 +62,7 @@ function PhotoSelector(props)
         <ReactCrop
           src={src}
           crop={crop}
-          onChange={(newCrop) =>{                
+          onChange={(newCrop) =>{
             setCrop(newCrop)
           }}
         />

@@ -1,9 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
+import TextField from '@material-ui/core/TextField';
 import Header from '../../components/Header';
-import ProjectWidget from '../../components/ProjectWidget';
-import HackWidget from '../../components/HackWidget';
-import Personal from '../../components/Personal';
+import Dropdown from '../../components/Dropdown';
+import PhotoSelector from '../../components/PhotoSelector';
+import DatePicker from '../../components/DatePicker';
+import Button from '../../components/Button';
 
 export default class ProfilePage extends React.Component {
     
@@ -11,19 +14,12 @@ export default class ProfilePage extends React.Component {
     return(
       <div>
         <Header />
-        <div className = "profile__page">
-          <div className = "profile__image">
-          IMAGE
-          </div>
-          <div className = "profile__info">
-            <div className = "profile__detail">
-              <Personal />
-            </div>
-            <div className = "profile__widget">
-              <ProjectWidget />
-              <HackWidget />
-            </div>
-          </div>
+        <div>
+          <p>IMAGE</p>
+        </div>
+        <div>
+        </div>
+        <div>
         </div>
       </div>
     )

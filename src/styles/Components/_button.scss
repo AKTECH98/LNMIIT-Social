@@ -1,21 +1,10 @@
 .button {
     background: $purple;
     border: none;
-    border-radius: $m-size;
     border-bottom: 0.3rem solid darken($purple, 10%);
     color: white;
     font-weight: 500;
     padding: $xs-size;
-}
-
-.close__button {
-    border-radius: 90%;
-    width: fit-content;
-    height: fit-content;
-    color: red;
-    background: none;
-    border: 0.3rem;   
-    font-size: $m-size;
 }
 
 .button__header {
@@ -24,15 +13,6 @@
     border: 0.3rem solid ligthen($light-blue, 10%);
     color: white;
     margin: 0 $xs-size $xs-size 0;
-}
-
-.button__edit {
-    text-align: center;
-    background: none;
-    border: 0.1rem solid ligthen($light-blue, 10%);
-    color: white;
-    font-size: $s-size;
-    font-weight: 700;
 }
 
 .button--link { // -- is used as a naming convention for Modifier in BEM

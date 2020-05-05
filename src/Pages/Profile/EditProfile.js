@@ -21,7 +21,7 @@ export default class EditProfilePage extends React.Component {
       dateOfBirth:null
     }
   }
-    
+
   render(){
     return(
       <div>
@@ -30,16 +30,16 @@ export default class EditProfilePage extends React.Component {
         <div className = "editProfile">
           <div className = "profilePicture">
             <h1 className = "profile__detail">Profile Picture</h1>
-            <PhotoSelector 
+            <PhotoSelector
               aspectRatio={1}
-              returnValue={(file) => {                     
+              returnValue={(file) => {
                 this.setState({photo:file});
               }}
             />
           </div>
           <div className = "personal">
             <h1 className = "profile__detail">Personal Details</h1>
-            <TextField 
+            <TextField
               label='Full Name'
               defaultValue=''
               variant = "filled"
@@ -63,7 +63,7 @@ export default class EditProfilePage extends React.Component {
                 }
               }}
             />
-            <TextField 
+            <TextField
               label='Email Id'
               defaultValue=''
               variant = "filled"
@@ -87,7 +87,7 @@ export default class EditProfilePage extends React.Component {
                 }
               }}
             />
-            <TextField 
+            <TextField
               label='Phone Number'
               defaultValue=''
               variant = "filled"
@@ -111,7 +111,7 @@ export default class EditProfilePage extends React.Component {
                 }
               }}
             />
-            <TextField 
+            <TextField
               label='College'
               defaultValue=''
               variant = "filled"
@@ -135,13 +135,19 @@ export default class EditProfilePage extends React.Component {
                 }
               }}
             />
-            <DatePicker 
+            <DatePicker
               label="Date Of Birth"
               format="dd/MM/yyyy"
+              returnValue={(date) => {
+                this.setState({dateOfBirth:date});
+              }}
             />
-            <Dropdown 
+            <Dropdown
               label='Gender'
               menuItems={['Male','Female']}
+              returnValue={(option) => {
+                this.setState({gender:option});
+              }}
             />
           </div>
         </div>
