@@ -60,17 +60,20 @@ export default class Login extends React.Component
           defaultValue=''
           label='Password'
         />
-        <Link to={'/Home'} className="button login__button">
-          Login
-        </Link>
 
-        <Link to={'/ForgotPassword'} className = "button--link login__link">
-          Forgot password?
-        </Link>
+        <div className = "login__login">
+          <Link to={'/Home'}>
+            <Button text="Login" type = "login__button button"/>
+          </Link>
 
-        <div className = "login__new">
-          New User?
-          <Link to = {'/SignUp'} className = "button--link login__link">Connect</Link>
+          <Link to={'/ForgotPassword'} className = "button--link login__forgot">
+            Forgot password?
+          </Link>
+
+          <div className = "login__new">
+            New User?
+            <Link to = {'/SignUp'} className = "button--link login__link">Connect</Link>
+          </div>
         </div>
       </div>
     );

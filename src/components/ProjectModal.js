@@ -10,11 +10,23 @@ const Details = (props) => (
       disabled = {!props.edit}
       default = {props.title}
       label = "Title"
+      FeildStyle = {{
+        width: 275,
+        marginTop: 5,
+        marginBottom: 5
+      }}
       inputprops = {{
         style: {
           fontWeight: 300,
           color: 'white',
           fontSize: 20
+        }
+      }}
+      LabelStyle = {{
+        style: {
+          fontWeight: 500,
+          color: 'white',
+          fontSize: 15
         }
       }}
       Change = {props.AddTitle}
@@ -23,11 +35,23 @@ const Details = (props) => (
       disabled = {!props.edit}
       default = {props.description}
       label = "Description"
+      FeildStyle = {{
+        width: 275,
+        marginTop: 5,
+        marginBottom: 5
+      }}
       inputprops = {{
         style: {
           fontWeight: 300,
           color: 'white',
           fontSize: 20
+        }
+      }}
+      LabelStyle = {{
+        style: {
+          fontWeight: 500,
+          color: 'white',
+          fontSize: 15
         }
       }}
       Change = {props.AddDescription}
@@ -43,6 +67,18 @@ const Details = (props) => (
           fontSize: 20
         },
         type: 'Number'
+      }}
+      FeildStyle = {{
+        width: 275,
+        marginTop: 5,
+        marginBottom: 5
+      }}
+      LabelStyle = {{
+        style: {
+          fontWeight: 500,
+          color: 'white',
+          fontSize: 15
+        }
       }}
       Change = {props.AddMembers}
     />
@@ -98,7 +134,7 @@ export default class ProjectModal extends React.Component {
     }
     else {
       let project = this.state
-      this.props.SubmitDetails(project);
+      this.props.SubmitDetails(project,this.props.editDetail,this.props.project.index);
     }
   }
 
@@ -111,13 +147,15 @@ export default class ProjectModal extends React.Component {
         className = "modal"
         ariaHideApp={false}
       >
-        <h3 className = "modal__title">Project Details</h3>
-        <Button text = "X" type = "button" onClick = {this.props.DiscardDetails} />
+        <h3 className = "modal__header">
+        Project Details
+        <Button text = "X" type = "close__button" onClick = {this.props.DiscardDetails} />
+        </h3>
         {
           (this.state.error)?
           <div>
-          <p>Please Enter All Valid Details</p>
-          <Button text = "Continue" type = "button" onClick = {this.FixError} />
+          <p className = "modal__body">Please Enter All Valid Details</p>
+          <Button text = "Continue" type = "button continue__button" onClick = {this.FixError} />
           </div>
           :
           <div>
@@ -133,13 +171,13 @@ export default class ProjectModal extends React.Component {
           {
             (this.props.showDetail)?
             <div>
-            <Button text = "EDIT" type = "button" onClick = {() => {this.props.EditDetails(this.props.project.index)}}/>
-            <Button text = "DELETE" type = "button" onClick = {() => {this.props.DeleteProject(this.props.project.index)}} />
+            <Button text = "EDIT" type = "button modal__button" onClick = {() => {this.props.EditDetails()}}/>
+            <Button text = "DELETE" type = "button modal__button" onClick = {() => {this.props.DeleteProject(this.props.project.index)}} />
             </div>
             :
             <div>
-              <Button text = "Save Details" type = "button" onClick = {this.SaveDetails}/>
-              <Button text = "Discard Details" type = "button" onClick = {this.props.DiscardDetails}/>
+              <Button text = "Save Details" type = "button modal__button" onClick = {this.SaveDetails}/>
+              <Button text = "Discard Details" type = "button modal__button" onClick = {this.props.DiscardDetails}/>
             </div>
           }
           </div>
