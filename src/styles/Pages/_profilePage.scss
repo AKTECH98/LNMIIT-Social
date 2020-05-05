@@ -1,0 +1,23 @@
+.profile__page {
+    margin-top: $l-size;
+    border: 0.3rem solid white;
+}
+
+.profile__image {
+    border: 0.3rem solid green;
+}
+
+.profile__info {
+    display: grid;
+    grid-template-columns: 80% 20%;
+    margin-top: $m-size;
+    border: 0.3rem solid red;
+}
+
+.profile__detail {
+    margin: $xs-size;
+}
+
+.profile__widget {
+    margin: $xs-size;
+}

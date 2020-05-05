@@ -25,21 +25,27 @@
     font-style: italic;
 }
 
+.login__login {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
 .login__button {
     font-size: $m-size;
     margin-top: $m-size;
+    text-align: center;
+    text-decoration: none;
+    width: 40%;
 }
 
-.login__link {
-    text-decoration: none;
-    font-size: $ms-size;
-    text-align: center;
+.login__forgot {
     margin-top: $ms-size;
+    font-size: $ms-size;
 }
 
 .login__new {
     margin-top: $s-size;
     color: $purple;
-    text-align: center;
     font-size: $ms-size;
 }

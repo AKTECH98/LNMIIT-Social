@@ -124,8 +124,9 @@ export default class SignUp extends React.Component
           label='Password'
           type="password"
         />
-
+        <div className = "signup__connect">
         <Button text='Connect' type = 'button signup__button'/>
+        </div>
       </div>
       </div>
     );

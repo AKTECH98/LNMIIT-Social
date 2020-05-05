@@ -1,8 +1,8 @@
 import React from 'react';
 import Modal from 'react-modal';
 
-import TextField from '../components/TextField';
-import Button from '../components/Button';
+import TextField from './TextField';
+import Button from './Button';
 
 const Details = (props) => (
   <div>
@@ -85,7 +85,7 @@ const Details = (props) => (
   </div>
 )
 
-export default class ProjectModal extends React.Component {
+export default class HackModal extends React.Component {
   state = {
     title: null,
     description: null,
@@ -97,9 +97,9 @@ export default class ProjectModal extends React.Component {
     try {
       if(this.props.showDetail){
         this.setState(() => ({
-          title : this.props.project.title,
-          description: this.props.project.description,
-          member: this.props.project.member
+          title : this.props.hack.title,
+          description: this.props.hack.description,
+          member: this.props.hack.member
         }))
       }
     } catch(e) {
@@ -111,17 +111,17 @@ export default class ProjectModal extends React.Component {
     this.setState(() => ({error : false}));
   }
 
-  AddProjectTitle = (e) => {
+  AddHackTitle = (e) => {
     const title = e.target.value;
     this.setState(() => ({ title }))
   };
 
-  AddProjectDescription = (e) => {
+  AddHackDescription = (e) => {
     const description = e.target.value;
     this.setState(() => ({ description }))
   };
 
-  AddProjectMembers = (e) => {
+  AddHackMembers = (e) => {
     const member = e.target.value;
 
     this.setState(() => ({ member }));
@@ -133,8 +133,8 @@ export default class ProjectModal extends React.Component {
       this.setState(() => ({error : true}));
     }
     else {
-      let project = this.state
-      this.props.SubmitDetails(project,this.props.editDetail,this.props.project.index);
+      let hack = this.state
+      this.props.SubmitDetails(hack,this.props.editDetail,this.props.hack.index);
     }
   }
 
@@ -143,12 +143,12 @@ export default class ProjectModal extends React.Component {
       <Modal
         isOpen={!!this.props.openModal}
         onRequestClose={this.props.DiscardDetails}
-        contentLabel="Project Details"
+        contentLabel="Hackathon Details"
         className = "modal"
         ariaHideApp={false}
       >
         <h3 className = "modal__header">
-        Project Details
+        Hackathon Details
         <Button text = "X" type = "close__button" onClick = {this.props.DiscardDetails} />
         </h3>
         {
@@ -164,15 +164,15 @@ export default class ProjectModal extends React.Component {
             title = {this.state.title}
             description = {this.state.description}
             member = {this.state.member}
-            AddTitle = {this.AddProjectTitle}
-            AddDescription = {this.AddProjectDescription}
-            AddMembers = {this.AddProjectMembers}
+            AddTitle = {this.AddHackTitle}
+            AddDescription = {this.AddHackDescription}
+            AddMembers = {this.AddHackMembers}
           />
           {
             (this.props.showDetail)?
             <div>
             <Button text = "EDIT" type = "button modal__button" onClick = {() => {this.props.EditDetails()}}/>
-            <Button text = "DELETE" type = "button modal__button" onClick = {() => {this.props.DeleteProject(this.props.project.index)}} />
+            <Button text = "DELETE" type = "button modal__button" onClick = {() => {this.props.DeleteHack(this.props.hack.index)}} />
             </div>
             :
             <div>

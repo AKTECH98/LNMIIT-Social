@@ -22,17 +22,25 @@
     color: white;
     max-width: 30rem;
     outline: none;
-    padding: $m-size;
+    padding: $ms-size;
     text-align: center;
 }
 
-.modal__title {
-    margin: 0 0 $m-size 0;
+.modal__body {
+    font-size: $m-size;
+    font-weight: 300;
+    margin: 0 0 $lm-size 0;
+    word-break: break-all;
 }
 
-.modal__body {
-    font-size: 2rem;
-    font-weight: 300;
-    margin: 0 0 $l-size 0;
-    word-break: break-all;
+.modal__header {
+    display: flex;
+    justify-content:space-between;
+}
+
+.modal__button {
+    margin: $m-size $m-size 0 0;
+    font-size: $ms-size;
+    font-weight: 600;
+    width: fit-content;
 }

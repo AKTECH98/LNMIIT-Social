@@ -1,13 +1,11 @@
 import React from 'react';
-import OptionList from './OptionList';
+import WidgetItem from './WidgetItem';
 
-const ProjectOptions = (props) => (
+const WidgetView = (props) => (
   <div>
     {
       props.projects.map((project,index) => (
-        <OptionList
-          count = {index+1}
-          key={index}
+        <WidgetItem
           optionText={project.title}
           ShowDetails = {() => {props.ShowDetails(index)}}
         />
@@ -16,4 +14,4 @@ const ProjectOptions = (props) => (
   </div>
 );
 
-export default ProjectOptions;
+export default WidgetView;
