@@ -15,6 +15,7 @@ export default class TextFeild extends React.Component {
         onChange = {this.props.Change}
         defaultValue={this.props.default}
         label={this.props.label}
+        multiline={this.props.multiline}
       />
     )
   }

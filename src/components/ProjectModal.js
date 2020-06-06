@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 
 import TextField from '../components/TextField';
 import Button from '../components/Button';
-
+import DatePicker from '../components/DatePicker'
 const Details = (props) => (
   <div>
     <TextField
@@ -31,32 +31,8 @@ const Details = (props) => (
       }}
       Change = {props.AddTitle}
     />
-    <TextField 
-      disabled = {!props.edit}
-      default = {props.description}
-      label = "Description"
-      FeildStyle = {{
-        width: 275,
-        marginTop: 5,
-        marginBottom: 5
-      }}
-      inputprops = {{
-        style: {
-          fontWeight: 300,
-          color: 'white',
-          fontSize: 20
-        }
-      }}
-      LabelStyle = {{
-        style: {
-          fontWeight: 500,
-          color: 'white',
-          fontSize: 15
-        }
-      }}
-      Change = {props.AddDescription}
-    />
-    <TextField 
+
+    <TextField
       disabled = {!props.edit}
       default = {props.member}
       label = "Members"
@@ -82,6 +58,132 @@ const Details = (props) => (
       }}
       Change = {props.AddMembers}
     />
+    <DatePicker
+      disabled = {!props.edit}
+      default = {props.startDate}
+      label = "Start Date"
+      inputprops = {{
+        style: {
+          fontWeight: 300,
+          color: 'white',
+          fontSize: 20
+        },
+      }}
+      FeildStyle = {{
+        width: 275,
+        marginTop: 5,
+        marginBottom: 5
+      }}
+      LabelStyle = {{
+        style: {
+          fontWeight: 500,
+          color: 'white',
+          fontSize: 15
+        }
+      }}
+      Change = {props.AddStartDate}
+    />
+    <DatePicker
+      disabled = {!props.edit}
+      default = {props.endDate}
+      label = "End Date"
+      inputprops = {{
+        style: {
+          fontWeight: 300,
+          color: 'white',
+          fontSize: 20
+        },
+      }}
+      FeildStyle = {{
+        width: 275,
+        marginTop: 5,
+        marginBottom: 5
+      }}
+      LabelStyle = {{
+        style: {
+          fontWeight: 500,
+          color: 'white',
+          fontSize: 15
+        }
+      }}
+      Change = {props.AddEndDate}
+    />
+    <TextField
+      disabled = {!props.edit}
+      default = {props.requirements}
+      label = "Requirements (or skills??)"
+      inputprops = {{
+        style: {
+          fontWeight: 300,
+          color: 'white',
+          fontSize: 20
+        },
+      }}
+      FeildStyle = {{
+        width: 275,
+        marginTop: 5,
+        marginBottom: 5
+      }}
+      LabelStyle = {{
+        style: {
+          fontWeight: 500,
+          color: 'white',
+          fontSize: 15
+        }
+      }}
+      Change = {props.AddRequirements}
+    />
+    <TextField
+      disabled = {!props.edit}
+      default = {props.mentor}
+      label = "Mentor"
+      FeildStyle = {{
+        width: 275,
+        marginTop: 5,
+        marginBottom: 5
+      }}
+      inputprops = {{
+        style: {
+          fontWeight: 300,
+          color: 'white',
+          fontSize: 20
+        }
+      }}
+      LabelStyle = {{
+        style: {
+          fontWeight: 500,
+          color: 'white',
+          fontSize: 15
+        }
+      }}
+      Change = {props.AddMentor}
+    />
+    <TextField
+      disabled = {!props.edit}
+      default = {props.description}
+      label = "Description"
+      multiline
+      FeildStyle = {{
+        width: 275,
+        marginTop: 5,
+        marginBottom: 5
+      }}
+      inputprops = {{
+        style: {
+          fontWeight: 300,
+          color: 'white',
+          fontSize: 20
+        }
+      }}
+      LabelStyle = {{
+        style: {
+          fontWeight: 500,
+          color: 'white',
+          fontSize: 15
+        }
+      }}
+      Change = {props.AddDescription}
+    />
   </div>
 )
 
@@ -89,6 +191,10 @@ export default class ProjectModal extends React.Component {
   state = {
     title: null,
     description: null,
+    startDate: null,
+    endDate: null,
+    mentor: null,
+    requirements: null,
     member: 0,
     error: false
   };
@@ -99,7 +205,11 @@ export default class ProjectModal extends React.Component {
         this.setState(() => ({
           title : this.props.project.title,
           description: this.props.project.description,
-          member: this.props.project.member
+          startDate: this.props.project.startDate,
+          endDate: this.props.project.endDate,
+          requirements: this.props.project.requirements,
+          member: this.props.project.member,
+          mentor: this.props.project.mentor
         }))
       }
     } catch(e) {
@@ -121,6 +231,27 @@ export default class ProjectModal extends React.Component {
     this.setState(() => ({ description }))
   };
 
+  AddProjectStartDate = (date) => {
+    const startDate = date;
+    this.setState(() => ({ startDate }))
+  };
+
+  AddProjectEndDate = (date) => {
+    const endDate = date;
+    this.setState(() => ({ endDate }))
+  };
+
+  AddProjectRequirements = (e) => {
+    const requirements = e.target.value;
+    this.setState(() => ({ requirements }))
+  };
+
+
+  AddProjectMentor = (e) => {
+    const mentor = e.target.value;
+    this.setState(() => ({ mentor }))
+  };
+
   AddProjectMembers = (e) => {
     const member = e.target.value;
 
@@ -129,7 +260,7 @@ export default class ProjectModal extends React.Component {
 
   SaveDetails = () => {
 
-    if(!this.state.title || !this.state.description || !this.state.member){
+    if(!this.state.title || !this.state.description || !this.state.member || !this.state.mentor || !this.state.requirements || !this.state.startDate || !this.state.endDate){
       this.setState(() => ({error : true}));
     }
     else {
@@ -159,13 +290,21 @@ export default class ProjectModal extends React.Component {
           </div>
           :
           <div>
-          <Details 
+          <Details
             edit = {(this.props.addDetail || this.props.editDetail) || !this.props.showDetail}
             title = {this.state.title}
             description = {this.state.description}
+            startDate = {this.state.startDate}
+            endDate = {this.state.endDate}
+            requirements = {this.state.requirements}
             member = {this.state.member}
+            mentor = {this.state.mentor}
             AddTitle = {this.AddProjectTitle}
             AddDescription = {this.AddProjectDescription}
+            AddStartDate = {this.AddProjectStartDate}
+            AddEndDate = {this.AddProjectEndDate}
+            AddRequirements = {this.AddProjectRequirements}
+            AddMentor = {this.AddProjectMentor}
             AddMembers = {this.AddProjectMembers}
           />
           {
