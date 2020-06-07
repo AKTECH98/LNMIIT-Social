@@ -15,7 +15,8 @@ export default class Login extends React.Component
   styleProp = {
     width: 400,
     marginTop: 5,
-    marginBottom: 5
+    marginBottom: 5,
+    backgroundColor: '#20222b'
   }
 
   inputPropStyle = {

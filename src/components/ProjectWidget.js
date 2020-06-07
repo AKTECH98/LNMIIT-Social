@@ -4,7 +4,7 @@ import Button from './Button';
 import ProjectModal from './ProjectModal';
 import WidgetView from './WidgetView';
 
-import { Card, CardActions, CardContent, Typography } from '@material-ui/core';
+import { Card, CardActions, CardContent, Typography, CardHeader } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({

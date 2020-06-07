@@ -29,9 +29,10 @@
 .button__edit {
     text-align: center;
     background: none;
-    border: 0.1rem solid ligthen($light-blue, 10%);
-    color: white;
-    font-size: $s-size;
+    color:$off-white;
+    border-color: $off-white;
+    padding: $xs-size;
+    font-size: 1.25rem;
     font-weight: 700;
 }
 
