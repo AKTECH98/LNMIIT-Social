@@ -3,6 +3,7 @@ import React from 'react';
 import Button from './Button';
 import ProjectModal from './ProjectModal';
 import WidgetView from './WidgetView';
+import WidgetTableView from './WidgetTableView';
 
 import { Card, CardActions, CardContent, Typography, CardHeader } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -37,6 +38,10 @@ const Header = (props) => (
 )
 
 export default class ProjectWidget extends React.Component {
+  /*
+  ** Pass the prop "showOnlyTitle = {true}"  to show only the title
+  ** Otherwise, entire table is displayed
+  */
   state = {
     projects: [],
     openModal: false,
@@ -47,6 +52,10 @@ export default class ProjectWidget extends React.Component {
       index: -1,
       title: null,
       description: null,
+      startDate: null,
+      endDate: null,
+      requirements: null,
+      mentor:null,
       member: 0
     }
   };
@@ -60,12 +69,16 @@ export default class ProjectWidget extends React.Component {
 
   ShowDetails = (index) => {
     let pro = this.state.projects[index];
-    
+
     this.setState(() => ({
       project: {
         index: index,
         title: pro.title,
         description: pro.description,
+        startDate: pro.startDate,
+        endDate: pro.endDate,
+        requirements: pro.requirements,
+        mentor: pro.mentor,
         member: pro.member
       },
       showDetail: true,
@@ -85,10 +98,10 @@ export default class ProjectWidget extends React.Component {
 
     if(!edit){
       this.setState((prevSate) => ({
-        projects: prevSate.projects.concat(project), 
+        projects: prevSate.projects.concat(project),
         addDetail: false,
         editDetail: false,
-        openModal: false 
+        openModal: false
       }));
     }
     else{
@@ -126,16 +139,44 @@ export default class ProjectWidget extends React.Component {
   };
 
   render() {
+    if(this.props.showOnlyTitle)
     return (
       <div className = "project__list">
-        
+
         <Header newProject = {this.AddDetail} />
         <WidgetView
           projects={this.state.projects}
           ShowDetails={this.ShowDetails}
         />
         {
-          (this.state.openModal)? 
+          (this.state.openModal)?
+          <ProjectModal
+            openModal = {this.state.openModal}
+            addDetail = {this.state.addDetail}
+            showDetail = {this.state.showDetail}
+            editDetail = {this.state.editDetail}
+            project = {this.state.project}
+            SubmitDetails = {this.SubmitDetails}
+            DiscardDetails = {this.DiscardDetails}
+            EditDetails = {this.EditDetails}
+            DeleteProject = {this.DeleteProject}
+            EditProject = {this.EditProject}
+          />
+          :
+          ''
+        }
+      </div>
+    );
+    else //if !this.props.showOnlyTitle
+    return (
+      <div className = "project__list">
+        <Header newProject = {this.AddDetail} />
+        <WidgetTableView
+          projects={this.state.projects}
+          ShowDetails={this.ShowDetails}
+        />
+        {
+          (this.state.openModal)?
           <ProjectModal
             openModal = {this.state.openModal}
             addDetail = {this.state.addDetail}
