@@ -4,15 +4,17 @@ import { Link } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import Button from '../../components/Button';
 import Header from '../../components/Header';
+import {postRequest} from '../../components/CallApi'
 
 export default class SignUp extends React.Component
 {
   constructor(props){
     super(props);
     this.state={
-      emailId:'',
-      password:'',
-      confirmPassword:''
+      email:'default mail',
+      password:'default pwd',
+      firstName:'default first name',
+      lastName:'default last name'
     };
   }
   render()
@@ -23,7 +25,6 @@ export default class SignUp extends React.Component
       <div className = "center signup">
 
         <p className = "signup__byline">REGISTER and Connect Your Skills</p>
-
         <TextField
           variant = "filled"
           style={{
@@ -44,7 +45,8 @@ export default class SignUp extends React.Component
               fontSize: 15
             }
           }}
-          defaultValue=''
+          defaultValue={this.state.email}
+          onChange={(e)=>{this.setState({email:e.target.value})}}
           label='Email'
         />
 
@@ -70,7 +72,8 @@ export default class SignUp extends React.Component
                 fontSize: 15
               }
             }}
-            defaultValue=''
+            defaultValue={this.state.firstName}
+            onChange={(e)=>{this.setState({firstName:e.target.value})}}
             label='First Name'
           />
 
@@ -95,7 +98,8 @@ export default class SignUp extends React.Component
                 fontSize: 15
               }
             }}
-            defaultValue=''
+            onChange={(e)=>{this.setState({lastName:e.target.value})}}
+            defaultValue={this.state.lastName}
             label='Last Name'
           />
         </div>
@@ -120,12 +124,24 @@ export default class SignUp extends React.Component
               fontSize: 15
             }
           }}
-          defaultValue=''
+          onChange={(e)=>{this.setState({password:e.target.value})}}
+          defaultValue={this.state.password}
           label='Password'
           type="password"
         />
         <div className = "signup__connect">
-        <Button text='Connect' type = 'button signup__button'/>
+        <Button text='Connect'
+                type = 'button signup__button'
+                onClick = {()=>postRequest('login/signup',
+                                           {
+                                             'email':this.state.email,
+                                             'firstName': this.state.firstName,
+                                             'lastName': this.state.lastName,
+                                             'password': this.state.password
+                                           },
+                                           (res)=>console.log(window.alert(res.message))
+                )}
+        />
         </div>
       </div>
       </div>
