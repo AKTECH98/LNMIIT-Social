@@ -15,8 +15,8 @@ const WidgetTableView = (props) => (
         <tr>
           <td>{project.title}</td>
           <td>{project.mentor}</td>
-          <td>{project.startDate.toString()}</td>
-          <td>{project.endDate.toString()}</td>
+          <td>{''+project.startDate.getDate()+'-'+(project.startDate.getMonth()+1)+'-'+project.startDate.getFullYear()}</td>
+          <td>{''+project.endDate.getDate()+'-'+(project.endDate.getMonth()+1)+'-'+project.endDate.getFullYear()}</td>
           <td>{project.member}</td>
         </tr>
       ))

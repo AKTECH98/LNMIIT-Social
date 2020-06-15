@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link,Redirect } from 'react-router-dom';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '../../components/Button';
@@ -16,7 +16,8 @@ export default class SignUp extends React.Component
       firstName:'',
       middleName:'',
       lastName:'',
-      errorMessage:''
+      errorMessage:'',
+      redirect:false
     };
   }
   render()
@@ -158,6 +159,9 @@ export default class SignUp extends React.Component
         <div>
           {this.state.errorMessage}
         </div>
+        {
+          this.state.redirect?<Redirect to ='/login'/>:""
+        }
         <div className = "signup__connect">
         <Button text='Connect'
                 type = 'button signup__button'
@@ -170,7 +174,10 @@ export default class SignUp extends React.Component
                                              'password': this.state.password
                                            },
                                            (res)=>{
-                                             window.alert(res.message)
+                                             if(res.message=="SUCCESS")
+                                             {
+                                               this.setState({redirect:true})
+                                             }
                                              this.setState({errorMessage:res.reason})
                                            }
                 )}

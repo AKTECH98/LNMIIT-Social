@@ -9,7 +9,6 @@ export const postRequest = (api, parameters, processResponse)=>{
     },
     'body': JSON.stringify(parameters)
   }
-
   fetch(url,request).then(res => res.json()).then(json=>processResponse(json))
 
 

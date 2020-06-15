@@ -69,6 +69,7 @@ const Details = (props) => (
           fontSize: 20
         },
       }}
+      format = "dd-MM-yyyy"
       FeildStyle = {{
         width: 275,
         marginTop: 5,
@@ -86,6 +87,7 @@ const Details = (props) => (
     <DatePicker
       disabled = {!props.edit}
       default = {props.endDate}
+      format = "dd-MM-yyyy"
       label = "End Date"
       inputprops = {{
         style: {
