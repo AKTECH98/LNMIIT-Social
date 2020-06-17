@@ -18,10 +18,9 @@ export default class ProfilePage extends React.Component {
           <div className = "profile__info">
             <div className = "profile__detail">
               <Personal />
-              <ProjectWidget/>
             </div>
             <div className = "profile__widget">
-              <ProjectWidget showOnlyTitle={true}/>
+              <ProjectWidget />
               <HackWidget />
             </div>
           </div>
