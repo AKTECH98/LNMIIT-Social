@@ -25,7 +25,7 @@ export default class EditProfilePage extends React.Component {
   render(){
     return(
       <div>
-        <Header />
+        <Header logout={true}/>
         <div className = "editProfile__changes">
         <div className = "editProfile">
           <div className = "profilePicture">

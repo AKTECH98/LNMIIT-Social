@@ -137,7 +137,7 @@ export default class ProjectsPage extends React.Component {
   render(){
     return(
       <div>
-        <Header />
+        <Header logout = {true}/>
         <div className = "project__list">
         <PageHeader newProject = {this.AddDetail} />
         <WorkView

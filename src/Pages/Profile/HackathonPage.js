@@ -9,7 +9,7 @@ export default class HackathonPage extends React.Component {
   render(){
     return(
       <div>
-        <Header />
+        <Header logout = {true} />
         <HackWidget />
       </div>
     )

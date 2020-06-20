@@ -10,7 +10,7 @@ export default class ProfilePage extends React.Component {
   render(){
     return(
       <div>
-        <Header />
+        <Header logout={true}/>
         <div className = "profile__page">
           <div className = "profile__image">
           IMAGE

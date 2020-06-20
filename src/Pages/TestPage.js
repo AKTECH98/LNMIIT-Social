@@ -1,24 +1,17 @@
 import React from 'react';
-import { SearchBar } from 'react-native-elements';
+
+import Header from '../components/Header';
+import ProjectWidget from '../components/ProjectWidget';
+import HackWidget from '../components/HackWidget';
+import FeedWidget from '../components/FeedWidget';
+import PostView from '../components/PostView';
 
 export default class Test extends React.Component{
-  state = {
-    search: '',
-  };
-
-  updateSearch = (search) => {
-    this.setState({ search });
-  };
-
   render() {
-    const { search } = this.state;
-
-    return (
-      <SearchBar
-        placeholder="Type Here..."
-        onChangeText={this.updateSearch}
-        value={search}
-      />
+    return(
+      <div>
+        Hello
+      </div>
     );
   }
 }

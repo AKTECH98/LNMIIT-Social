@@ -1,0 +1,29 @@
+.post__button{
+    color: white;
+    background-color: $off-black;
+    border: none;
+    font-size: $l-size;
+    text-decoration: underline;
+    margin-top: $s-size;
+}
+
+.home__view {
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+}
+
+.home__feed {
+    background-color: $pink-red;
+    margin-left: $m-size;
+    margin-right: $m-size;
+}
+
+.home__feed--wid{
+    background-color: black;
+    width: 100%;
+}
+
+.home__photo{
+    background-color: $pink-red;
+    height : wrap;
+}

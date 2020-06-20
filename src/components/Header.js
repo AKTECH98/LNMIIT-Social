@@ -32,7 +32,9 @@ export default function Header(props){
           <Link to='/Projects'>
             <Button text='Projects' type = 'button__header'/>
           </Link>
-          <Button text='Hacks' type = 'button__header'/>
+          <Link to='/Hacks'>
+            <Button text='Hacks' type = 'button__header'/>
+          </Link>
           <Button text='Logout' type = 'button__header'/>
         </div>
       }   

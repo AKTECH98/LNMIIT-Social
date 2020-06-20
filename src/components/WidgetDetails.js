@@ -6,7 +6,6 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { datePickerDefaultProps } from '@material-ui/pickers/constants/prop-types';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,7 +23,10 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     fontSize: 15
-  }
+  },
+  rootIcon: {
+    color: 'white'
+	},
 }));
 
 export default function Details(props) {
@@ -39,7 +41,7 @@ export default function Details(props) {
         }
       }
         action={
-          <IconButton aria-label="settings">
+          <IconButton classes = {{root: classes.rootIcon}}>
             <MoreVertIcon />
           </IconButton>
         }
