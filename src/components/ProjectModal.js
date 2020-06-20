@@ -4,6 +4,7 @@ import Modal from 'react-modal';
 import TextField from '../components/TextField';
 import Button from '../components/Button';
 import DatePicker from '../components/DatePicker'
+
 const Details = (props) => (
   <div>
     <TextField
