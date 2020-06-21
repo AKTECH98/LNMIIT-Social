@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {Redirect } from 'react-router-dom';
 import Header from '../../components/Header';
 import ProjectWidget from '../../components/ProjectWidget';
 import HackWidget from '../../components/HackWidget';

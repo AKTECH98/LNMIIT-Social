@@ -26,7 +26,6 @@ export default class SignUp extends React.Component
       <div>
       <Header/>
       <div className = "center signup">
-
         <p className = "signup__byline">REGISTER and Connect Your Skills</p>
         <TextField
           variant = "filled"

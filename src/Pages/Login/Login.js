@@ -24,6 +24,7 @@ export default class Login extends React.Component
   render()
   {
     return(
+
       <div className = "center login">
         <div className = "login__header">
           <p className = "login__title">LNMIIT SOCIAL</p>
@@ -94,9 +95,11 @@ export default class Login extends React.Component
                                                (res)=>{
                                                  if(res.message=="SUCCESS")
                                                  {
+                                                   window.localStorage.setItem('email',this.state.email)
+                                                   window.localStorage.setItem('password',this.state.password)
                                                    this.setState({redirect:true})
                                                  }
-                                                 
+
                                                  this.setState({errorMessage:res.reason})
                                                }
                                 )}
