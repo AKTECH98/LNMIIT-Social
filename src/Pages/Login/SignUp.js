@@ -13,6 +13,7 @@ export default class SignUp extends React.Component
     this.state={
       email:'',
       password:'',
+      confirmPassword:'',
       firstName:'',
       middleName:'',
       lastName:'',
@@ -155,6 +156,31 @@ export default class SignUp extends React.Component
           label='Password'
           type="password"
         />
+        <TextField
+          variant = "filled"
+          style={{
+            marginTop: 5,
+            marginBottom: 5
+          }}
+          InputProps = {{
+            style: {
+              fontWeight: 300,
+              color: 'white',
+              fontSize: 20
+            }
+          }}
+          InputLabelProps = {{
+            style: {
+              fontWeight: 500,
+              color: 'white',
+              fontSize: 15
+            }
+          }}
+          onChange={(e)=>{this.setState({confirmPassword:e.target.value})}}
+          defaultValue={this.state.confirmPassword}
+          label='Confirm Password'
+          type="password"
+        />
         <div>
           {this.state.errorMessage}
         </div>
@@ -164,7 +190,13 @@ export default class SignUp extends React.Component
         <div className = "signup__connect">
         <Button text='Connect'
                 type = 'button signup__button'
-                onClick = {()=>postRequest('login/signup',
+                onClick = {()=>{
+                          if (this.state.password !=this.state.confirmPassword)
+                          {
+                            this.setState({errorMessage:'The passwords entered do not match'})
+                            return
+                          }
+                          postRequest('login/signup',
                                            {
                                              'email':this.state.email,
                                              'firstName': this.state.firstName,
@@ -179,7 +211,7 @@ export default class SignUp extends React.Component
                                              }
                                              this.setState({errorMessage:res.reason})
                                            }
-                )}
+                )}}
         />
         </div>
       </div>

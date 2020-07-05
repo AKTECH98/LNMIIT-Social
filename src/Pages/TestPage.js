@@ -4,7 +4,7 @@ export default class Tesr extends React.Component {
   render() {
     return (
       <div>
-        Hello There I am the Tester
+        This is a test page for development purposes
       </div>
     );
   }

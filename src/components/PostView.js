@@ -7,8 +7,9 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-
-const useStyles = makeStyles((theme) => ({
+import {postRequest} from './CallApi';
+import {Redirect} from 'react-router-dom';
+/*const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: '#20222b',
     height: 'fit-content',
@@ -32,32 +33,48 @@ const useStyles = makeStyles((theme) => ({
   rootIcon: {
     color: 'white'
   },
-}));
+}));*/
 
-export default function PostView() {
+export default class PostView extends React.Component{
+  constructor(props)
+  {
+    super(props)
+    this.state = {
+      posts:[{email:'default@lnmiit.ac.in', content:'Dummy Post for debugging', date_of_post:'Default Date'}]
+    }
+  }
+
+  render(){
+    postRequest('posts/fetchposts',
+                               {
+                                 'email':window.localStorage.getItem('email'),
+                                 'password':window.localStorage.getItem('password')
+                               },
+                               (res)=>{this.setState({posts:res.results})}
+                )
   return (
-    <Card className = {useStyles().root}>
+    <div>
+    {this.state.posts==undefined?'':this.state.posts.map(item=>
+    <Card>
       <CardHeader
-        classes = {{
-            title: useStyles().title,
-            subheader: useStyles().subheader
-        }}
         avatar={
-          <Avatar className = {useStyles().avatar}>
-            Initials
+          <Avatar>
+            {item.initials}
           </Avatar>
         }
         action={
-          <IconButton classes = {{root:useStyles().rootIcon}}>
+          <IconButton>
             <MoreVertIcon />
           </IconButton>
         }
-        title="Posted By"
-        subheader="Date of Post"
+        title={"Posted By: "+ item.email}
+        subheader={"Date On: "+item.date_of_post}
       />
-      <CardContent classes = {{root: useStyles().content}}>
-        Post Content
+      <CardContent>
+        {item.content}
       </CardContent>
     </Card>
-  );
+  )}
+    </div>
+  )}
 }

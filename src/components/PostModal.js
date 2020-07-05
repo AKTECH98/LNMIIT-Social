@@ -1,8 +1,9 @@
 import React from 'react';
 import Modal from 'react-modal';
-
+import {Redirect} from 'react-router-dom';
 import Button from './Button'
 import TextField from './TextField';
+import {postRequest} from './CallApi'
 
 export default class PostModal extends React.Component {
 
@@ -21,6 +22,36 @@ export default class PostModal extends React.Component {
     {
       let myPost = this.state.post;
       this.props.addPost(myPost);
+      var d = new Date(),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+      if (month.length < 2)
+        month = '0' + month;
+      if (day.length < 2)
+        day = '0' + day;
+      postRequest('posts/submitpost',
+                                 {
+                                   'email':window.localStorage.getItem('email'),
+                                   'password':window.localStorage.getItem('password'),
+                                   'content':this.state.post,
+                                   'dateOfPost':[year, month, day].join('-')
+                                 },
+                                 (res)=>{
+                                   if(res.message=="SUCCESS")
+                                   {
+
+                                    <Redirect to='/home'/>
+                                   }
+                                   else {
+                                    {
+                                        window.alert(res)
+                                        console.log(res)
+                                    }
+                                   }
+                                 }
+                  )
     }
     else
     {
@@ -42,7 +73,7 @@ export default class PostModal extends React.Component {
           <Button text = "X" type = "close__button" onClick = {this.props.discardPost} />
         </div>
         <TextField
-          default = "Write a Post"
+          default = ""
           label = "Post"
           multiline
           FeildStyle = {{
@@ -69,7 +100,7 @@ export default class PostModal extends React.Component {
         {
           (this.state.error)?
             <div>
-              Please Enter a Valid Details
+              Please Enter some details. Post cannot be blank
             </div>
           :
           ''

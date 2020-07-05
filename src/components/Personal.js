@@ -5,8 +5,9 @@ import Button from './Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardContent, CardHeader } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
+import {postRequest} from './CallApi';
 
-const useStyles = makeStyles({
+/*const useStyles = makeStyles({
   root: {
     backgroundColor: '#20222b',
     height: 'fit-content'
@@ -44,63 +45,63 @@ const useStyles = makeStyles({
     fontSize: 12,
     width: 500
   }
-});
+});*/
 
-const Personal = (props) => (
-  <Card className = {useStyles().root}>
-    <CardHeader classes = {      
-      {
-        root: useStyles().rootHeader,
-        title: useStyles().title,
-        action: useStyles().action
-      }
+class Personal extends React.Component{
+  constructor(props)
+  {
+    super(props)
+    this.state={
+      details:null
     }
+  }
+  render()
+  {
+    postRequest('profile/getprofiledetails',
+                               {
+                                 'email':window.localStorage.getItem('email'),
+                                 'password':window.localStorage.getItem('password')
+                               },
+                               (res)=>{this.setState({details:res.response})}
+                )
+  return(
+  <Card>
+    <CardHeader
       action = {
         <Button text="EDIT" type = "button__edit" />
-      } 
-      title= "Profile Name" 
+      }
+      title= {this.state.details==null?'Default Name':this.state.details.first_name + ' ' + this.state.details.middle_name + ' ' + this.state.details.last_name}
     />
-    <CardContent classes = {{ root: useStyles().content }}>
-      
-      <Card className = {useStyles().subRoot}>
+    <CardContent>
+
+      <Card>
         <CardHeader
-          classes = {
-            {
-              root: useStyles().subHeader,
-              title: useStyles().subTitle
-            }
-          }
-          title= "About" 
+          title= "About"
         />
-        <CardContent classes = {{ root: useStyles().subContent }}>
-          <Typography variant = "body2" classes = {{body2: useStyles().body2}}>
-            Something About ME
+        <CardContent>
+          <Typography variant = "body2">
+            {this.state.details==null?'Default Description':this.state.details.profile_description}
           </Typography>
         </CardContent>
       </Card>
 
-      <Card className = {useStyles().subRoot}>
+      <Card>
         <CardHeader
-          classes = {
-            {
-              root: useStyles().subHeader,
-              title: useStyles().subTitle
-            }
-          }
-          title= "Contact Info." 
+          title= "Contact Info."
         />
-        <CardContent classes = {{ root: useStyles().subContent }}>
+        <CardContent>
           <Typography variant = "h5">
             Phone No. : ******1234
           </Typography>
           <Typography variant = "h5">
-            Email-ID : example@gmail.com
+            Email-ID : {this.state.details==null?'Default Email':this.state.details.email}
           </Typography>
         </CardContent>
       </Card>
 
     </CardContent>
   </Card>
-)
+)}
+}
 
 export default Personal;
