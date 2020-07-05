@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {Link} from 'react-router-dom';
 import Button from './Button';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -68,7 +68,9 @@ class Personal extends React.Component{
   <Card>
     <CardHeader
       action = {
+        <Link to='editProfile'>
         <Button text="EDIT" type = "button__edit" />
+        </Link>
       }
       title= {this.state.details==null?'Default Name':this.state.details.first_name + ' ' + this.state.details.middle_name + ' ' + this.state.details.last_name}
     />
@@ -91,7 +93,7 @@ class Personal extends React.Component{
         />
         <CardContent>
           <Typography variant = "h5">
-            Phone No. : ******1234
+            Phone No. : {this.state.details==null?'Default Phone':this.state.details.phone}
           </Typography>
           <Typography variant = "h5">
             Email-ID : {this.state.details==null?'Default Email':this.state.details.email}

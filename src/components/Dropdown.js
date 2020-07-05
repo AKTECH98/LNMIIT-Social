@@ -26,7 +26,7 @@ const Dropdown = (props) => {
     }
     <div>{label}</div>
           <Select
-            value={menuItems.includes(value)?value:''}
+            value={menuItems.includes(props.value)?props.value:''}
             onChange={(event)=>{
               setValue(event.target.value)
               returnValue(event.target.value)

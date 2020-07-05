@@ -3,7 +3,6 @@ import DateFnsUtils from '@date-io/date-fns';
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 
 const BasicDateTimePicker = (props) => {
-  const [selectedDate, handleDateChange] = useState(props.default==undefined?null:props.default);
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -14,13 +13,12 @@ const BasicDateTimePicker = (props) => {
         InputProps = {props.inputprops}
         InputLabelProps = {props.LabelStyle}
         onChange={(date)=>{
-          handleDateChange(date);
-          props.Change(date);
+          props.onChange(date);
         }}
         label={props.label}
         clearable
         format={props.format}
-        value={selectedDate}
+        value={props.value}
 
       />
     </MuiPickersUtilsProvider>
