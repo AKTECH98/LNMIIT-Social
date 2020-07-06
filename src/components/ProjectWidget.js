@@ -3,7 +3,7 @@ import React from 'react';
 import Button from './Button';
 import WidgetView from './WidgetView';
 
-import { Card, CardActions, CardContent, Typography, CardHeader } from '@material-ui/core';
+import { Card, CardActions, CardContent, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 
@@ -42,13 +42,6 @@ export default class ProjectWidget extends React.Component {
   /*
     Modify WidgetView
   */
-
- ShowProjects = () => {
-  this.setState(() => ({
-    openModal: true,
-    addDetail: true
-  }));
-}
 
   render() {
     return (

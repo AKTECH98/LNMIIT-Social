@@ -5,10 +5,10 @@ import WidgetDetails from './WidgetDetails';
 const WorkView = (props) => (
   <div className = "Widget__View">
     {
-      props.projects.map((project,index) => (
+      props.works.map((work,index) => (
         <div key = {index}>
         <WidgetDetails
-          optionText = {project}
+          optionText = {work}
         />
         </div>
       ))
