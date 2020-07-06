@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Button from './Button';
-import ProjectModal from './ProjectModal';
 import WidgetView from './WidgetView';
 
 import { Card, CardActions, CardContent, Typography, CardHeader } from '@material-ui/core';
