@@ -5,9 +5,8 @@ import Button from './Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardContent, CardHeader } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
-import {postRequest} from './CallApi';
 
-/*const useStyles = makeStyles({
+const useStyles = makeStyles({
   root: {
     backgroundColor: '#20222b',
     height: 'fit-content'
@@ -16,7 +15,13 @@ import {postRequest} from './CallApi';
     borderBottom: '0.3rem solid #333745',
     height: 'fit-content'
   },
-  subRoot: {
+  subRootA: {
+    backgroundColor: '#20222b',
+    minWidth: 500,
+    minHeight: 200,
+    maxHeight: 200
+  },
+  subRootB:{
     backgroundColor: '#20222b',
     minHeight: 200,
     maxHeight: 200
@@ -36,67 +41,64 @@ import {postRequest} from './CallApi';
   },
   content: {
     display: 'flex',
-    justifyContent: 'space-between'
+    justifyContent: 'space-around'
   },
   subContent: {
     color: 'white',
-  },
-  body2: {
-    fontSize: 12,
-    width: 500
+    fontSize: 15
   }
-});*/
+});
 
-class Personal extends React.Component{
-  constructor(props)
-  {
-    super(props)
-    this.state={
-      details:null
-    }
-  }
-  render()
-  {
-    postRequest('profile/getprofiledetails',
-                               {
-                                 'email':window.localStorage.getItem('email'),
-                                 'password':window.localStorage.getItem('password')
-                               },
-                               (res)=>{this.setState({details:res.response})}
-                )
+export default function Personal(props){
+
+  const classes = useStyles();
+
   return(
-  <Card>
-    <CardHeader
+  <Card className = {classes.root}>
+    <CardHeader 
+      classes = {
+        {
+          root: classes.rootHeader,
+          title : classes.title,
+          subheader: classes.subHeader
+        }
+      }
       action = {
         <Link to='editProfile'>
         <Button text="EDIT" type = "button__edit" />
         </Link>
       }
-      title= {this.state.details==null?'Default Name':this.state.details.first_name + ' ' + this.state.details.middle_name + ' ' + this.state.details.last_name}
+      title= {props.personal==null?'Default Name': props.personal.first_name + ' ' + props.personal.middle_name + ' ' + props.personal.last_name}
     />
-    <CardContent>
+    <CardContent classes = {{root:classes.content}}>
 
-      <Card>
+      <Card className = {classes.subRootA}>
         <CardHeader
+          classes = {{
+            root: classes.subHeader,
+            title: classes.subTitle
+          }}
           title= "About"
         />
-        <CardContent>
-          <Typography variant = "body2">
-            {this.state.details==null?'Default Description':this.state.details.profile_description}
-          </Typography>
+        <CardContent classes = {{root:classes.subContent}}>
+          {props.personal==null?'Default Description':props.personal.profile_description}
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className = {classes.subRootB}>
         <CardHeader
+          classes = {{
+            root: classes.subHeader,
+            title: classes.subTitle
+          }}
           title= "Contact Info."
         />
-        <CardContent>
+        <CardContent classes = {{root:classes.subContent}}>
           <Typography variant = "h5">
-            Phone No. : {this.state.details==null?'Default Phone':this.state.details.phone}
+            Phone No. : {props.personal==null?'Default Phone':props.personal.phone}
           </Typography>
           <Typography variant = "h5">
-            Email-ID : {this.state.details==null?'Default Email':this.state.details.email}
+            Email-ID : {props.personal==null?'Default Email':props.personal.email}
           </Typography>
         </CardContent>
       </Card>
@@ -104,6 +106,3 @@ class Personal extends React.Component{
     </CardContent>
   </Card>
 )}
-}
-
-export default Personal;
