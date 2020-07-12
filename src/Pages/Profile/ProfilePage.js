@@ -1,3 +1,4 @@
+
 import React from 'react';
 import {Redirect } from 'react-router-dom';
 import Header from '../../components/Header';
@@ -18,13 +19,13 @@ export default class ProfilePage extends React.Component {
 
   render(){
 
-    //postRequest('profile/getprofiledetails',
-      //          {
-        //          'email':window.localStorage.getItem('email'),
-          //        'password':window.localStorage.getItem('password')
-            //   },
-              //(res)=>{this.setState({personal:res.response})}
-    //)
+    postRequest('profile/getprofiledetails',
+                {
+                  'email':window.localStorage.getItem('email'),
+                  'password':window.localStorage.getItem('password')
+               },
+              (res)=>{this.setState({personal:res.response})}
+    )
 
     return(
       <div>

@@ -15,8 +15,8 @@ export default function Header(props){
         (!props.logout)? // If fasle show the logout and other buttons in
         <div>
         {
-        //  (window.localStorage.getItem('email')!=null)?
-          //<Redirect to ='/home'/>:''
+          (window.localStorage.getItem('email')!=null)?
+          <Redirect to ='/home'/>:''
 
         }
           <Link to='/Login'>
@@ -29,8 +29,8 @@ export default function Header(props){
         :
         <div>
           {
-            //(window.localStorage.getItem('email')==null)?
-            //<Redirect to ='/login'/>:''
+            (window.localStorage.getItem('email')==null)?
+            <Redirect to ='/login'/>:''
 
           }
           <Link to='/Home'>

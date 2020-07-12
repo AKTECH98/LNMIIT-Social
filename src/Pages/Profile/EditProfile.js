@@ -190,20 +190,7 @@ export default class EditProfilePage extends React.Component {
               label="Date Of Birth"
               format="yyyy-MM-dd"
               onChange={(date)=>{
-                if (date==null){
-                  this.setState({dateOfBirth:null})
-                  return
-                }
-                  var d = new Date(date),
-                  month = '' + (d.getMonth() + 1),
-                  day = '' + d.getDate(),
-                  year = d.getFullYear();
-
-                  if (month.length < 2)
-                      month = '0' + month;
-                  if (day.length < 2)
-                      day = '0' + day;
-                this.setState({dateOfBirth:[year, month, day].join('-')})}
+                this.setState({dateOfBirth:date})}
               }
             />
             <Dropdown
@@ -219,7 +206,24 @@ export default class EditProfilePage extends React.Component {
           <Button
             text = "Submit Changes"
             type = "button editProfile__button"
-            onClick = {()=>postRequest('profile/editprofiledetails',
+            onClick = {()=>{
+              let date_to_post=null
+              if (this.state.dateOfBirth!=null){
+
+                var d = new Date(this.state.dateOfBirth),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+
+                if (month.length < 2)
+                    month = '0' + month;
+                if (day.length < 2)
+                    day = '0' + day;
+              date_to_post =[year, month, day].join('-')
+
+            }
+
+              postRequest('profile/editprofiledetails',
                                        {
                                          'email':window.localStorage.getItem('email'),
                                          'password':window.localStorage.getItem('password'),
@@ -229,7 +233,7 @@ export default class EditProfilePage extends React.Component {
                                          'phone':this.state.phone,
                                          'description':this.state.description,
                                          'gender':this.state.gender,
-                                         'date_of_birth':this.state.dateOfBirth,
+                                         'date_of_birth':date_to_post,
                                        },
                                        (res)=>{
                                          if(res.message=="SUCCESS")
@@ -239,7 +243,7 @@ export default class EditProfilePage extends React.Component {
 
                                          this.setState({errorMessage:res.reason})
                                        }
-                        )}
+                        )}}
           />
           <Button text = "Discard Changes" type = "button editProfile__button" />
         </Link>

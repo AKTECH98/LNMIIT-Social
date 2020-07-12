@@ -1,11 +1,12 @@
 import React from 'react';
-
+import {Redirect } from 'react-router-dom';
 import Button from '../../components/Button';
 import Header from '../../components/Header';
 import ProjectModal from '../../components/ProjectModal';
 import WorkView from '../../components/WorkView';
+import {postRequest} from '../../components/CallApi'
 
-import { Card, CardActions, CardContent, Typography} from '@material-ui/core';
+import { Card, CardActions, CardContent, Typography, CardHeader } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
@@ -38,23 +39,55 @@ const PageHeader = (props) => (
 )
 
 export default class ProjectsPage extends React.Component {
-  state = {
-    projects: [],
-    openModal: false,
-    addDetail: false,
-    showDetail: false,
-    editDetail: false,
-    project: {
-      index: -1,
-      title: null,
-      description: null,
-      startDate: null,
-      endDate: null,
-      requirements: null,
-      mentor:null,
-      member: 0
-    }
-  };
+  constructor(props)
+  {
+    super(props)
+    this.state = {
+      projects: [],
+      openModal: false,
+      addDetail: false,
+      showDetail: false,
+      editDetail: false,
+      project: {
+        index: -1,
+        title: null,
+        description: null,
+        startDate: null,
+        endDate: null,
+        requirements: null,
+        mentor:null,
+        member: 0
+      }
+    };
+
+    postRequest('project/fetchprojects',
+                              {
+                                'email':window.localStorage.getItem('email'),
+                                'password': window.localStorage.getItem('password'),
+                              },
+                              (res)=>{
+                                if(res.message=="SUCCESS")
+                                {
+                                  let default_projects = []
+                                  res.return_value.forEach((item)=>{
+                                    default_projects.push({
+                                      title : item.title,
+                                      description: item.description,
+                                      startDate: item.startDate,
+                                      endDate: item.endDate,
+                                      requirements: item.skills_required,
+                                      member: item.members,
+                                      mentor: item.mentor
+                                    })
+                                  })
+                                  console.log(default_projects)
+                                  this.setState({projects: default_projects})
+                                }
+
+                              }
+               )
+  }
+
 
   AddDetail = () => {
     this.setState(() => ({

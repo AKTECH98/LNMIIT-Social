@@ -46,13 +46,19 @@ export default function Details(props) {
           </IconButton>
         }
         title={props.optionText.title}
-        subheader={"Mentor: " + props.optionText.mentor}
+        subheader={<div>
+          <em>{'Total Members: ' + props.optionText.member}</em>
+        </div>}
       />
       <CardContent classes = {
         {
           root: classes.content
         }
       }>
+          {"Mentor: " + props.optionText.mentor}
+          <hr/>
+          {"Skills needed: " + props.optionText.requirements}
+          <hr/>
           {props.optionText.description}
       </CardContent>
     </Card>
