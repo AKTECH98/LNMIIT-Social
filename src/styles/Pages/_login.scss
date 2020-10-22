@@ -1,27 +1,27 @@
 .login {
     display: flex;
     flex-direction: column;
-    border-color: $purple;
 }
 
 .login__header {
+    font-family: cursive;
     color: $purple;
     text-align:  center;
     line-height: 0.5;
 }
 
 .login__title {
-    font-size: $m-size;
+    font-size: $xl-size;
 }
 
 .login__subtitle {
-    font-size: $l-size;
+    font-size: $lm-size;
     font-weight: 500;
 }
 
 .login__byline {
     color: $off-white;
-    font-size: $ms-size;
+    font-size: $m-size;
     font-style: italic;
 }
 
@@ -41,11 +41,10 @@
 
 .login__forgot {
     margin-top: $ms-size;
-    font-size: $ms-size;
+    font-size: $m-size;
 }
 
 .login__new {
-    margin-top: $s-size;
-    color: $purple;
+    margin-top: $xxs-size;
     font-size: $ms-size;
 }

@@ -19,11 +19,14 @@
 }
 
 .button__header {
+    font-size: $m-size;
+    font-family: cursive;
+    font-weight: 200;
     text-align: center;
-    background: $off-black;
-    border: 0.3rem solid ligthen($light-blue, 10%);
+    background: $black-blue;
+    border: none;
+    border-right: 0.1rem solid white;
     color: white;
-    margin: 0 $xs-size $xs-size 0;
 }
 
 .button__edit {
@@ -37,7 +40,6 @@
 }
 
 .button--link { // -- is used as a naming convention for Modifier in BEM
-    color: $off-white;
     border: none;
     text-decoration: none;
 }

@@ -1,5 +1,4 @@
 .header {
-    background: $off-black;
     color: white;
     display: flex;
     justify-content: space-between;
@@ -9,7 +8,18 @@
 }
 
 .header__title {
-    font-size: $m-size;
+    color: $pink-red;
+    font-size: $xl-size;
     margin: none;
     padding: none;
+}
+
+.sub__header {
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $black-blue;
+    height: fit-content;
+    width: 75%
 }

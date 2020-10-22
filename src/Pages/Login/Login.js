@@ -19,8 +19,6 @@ export default class Login extends React.Component
 
   }
 
-
-
   render()
   {
     return(
@@ -41,14 +39,14 @@ export default class Login extends React.Component
           InputProps = {{
             style: {
               fontWeight: 300,
-              color: 'white',
+              color: 'black',
               fontSize: 20
             }
           }}
           InputLabelProps = {{
             style: {
               fontWeight: 500,
-              color: 'white',
+              color: 'purple',
               fontSize: 15
             }
           }}
@@ -65,21 +63,21 @@ export default class Login extends React.Component
           InputProps = {{
             style: {
               fontWeight: 300,
-              color: 'white',
+              color: 'black',
               fontSize: 20
             }
           }}
           InputLabelProps = {{
             style: {
               fontWeight: 500,
-              color: 'white',
+              color: 'purple',
               fontSize: 15
             }
           }}
           type='password'
           defaultValue={this.state.email}
           onChange={(e)=>{this.setState({password:e.target.value})}}
-          label='password'
+          label='Password'
         />
         {this.state.errorMessage}
 
@@ -113,8 +111,9 @@ export default class Login extends React.Component
           </Link>
 
           <div className = "login__new">
-            New User?
+            <p>New User?
             <Link to = {'/SignUp'} className = "button--link login__link">Connect</Link>
+            </p>
           </div>
         </div>
       </div>
