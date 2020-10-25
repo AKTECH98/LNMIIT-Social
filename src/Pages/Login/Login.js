@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link,Redirect } from 'react-router-dom';
+import Recaptcha from "react-recaptcha";
+
 
 import Button from '../../components/Button';
 import TextField from '@material-ui/core/TextField';
@@ -14,7 +16,8 @@ export default class Login extends React.Component
       email:'',
       password:'',
       errorMessage:'',
-      redirect:false
+      redirect:false,
+      captchaVerified:false
     };
 
   }
@@ -81,11 +84,24 @@ export default class Login extends React.Component
         />
         {this.state.errorMessage}
 
+        <Recaptcha sitekey="6LcpMdsZAAAAAO9iK7CQZ9wpvAEYeLZvWQ0vA1qQ"
+        onloadCallback={()=>{/*
+          TODO: This fuction defines what happens after Captcha finished loading
+          Low priority. Ignore this until most functionality is done and we are 
+          using screeen loaders
+        */}}
+
+        verifyCallback = {()=>{/*On verifiction*/this.setState({captchaVerified:true})}}
+        expiredCallback ={()=>{/*On expiration due to being idle*/this.setState({captchaVerified:false})}}
+        />
+
         <div className = "login__login">
           <div>
             <Button text="Login"
                     type = "login__button button"
-                    onClick = {()=>postRequest('login/login',
+                    onClick = {()=>{
+                      if(this.state.captchaVerified)
+                      postRequest('login/login',
                                                {
                                                  'email':this.state.email,
                                                  'password': this.state.password,
@@ -100,7 +116,13 @@ export default class Login extends React.Component
 
                                                  this.setState({errorMessage:res.reason})
                                                }
-                                )}
+                                              )
+                    else
+                    {
+                      this.setState({errorMessage:"Verify Captcha first"})
+                    }
+                    }
+                  }
             />
           </div>
           {
