@@ -12,24 +12,27 @@ import DescriptionIcon from '@material-ui/icons/Description';
 
 const useStyles = makeStyles({
   	root: {
-		backgroundColor: '#20222b',
+		backgroundColor: 'white',
 		height: 'fit-content',
 		textDecoration: 'none',
-		marginBottom: 20 
+		marginBottom: 10,
+		border: 0.5,
+		borderStyle: 'solid',
+		borderColor: 'grey' 
 	},
   	rootIcon: {
-    color: 'white'
+    	color: '#4574bf'
 	},
 	rootContent: {
 		display: 'flex',
+		height: 'fit-content',
 		justifyContent: 'space-between',
-		color : 'white'
 	}
 });
 
 const FeedWidgetView = (props) => (
 	<Card className = {useStyles().root}>
-		<CardContent classes = {{root : useStyles().rootContent}}>	
+		<CardContent classes = {{root : useStyles().rootContent}}>
 			<Button text="Write a Post" type = "post__button"  onClick = {props.newPost} />
 			{
 				(props.openModal)?
@@ -40,7 +43,7 @@ const FeedWidgetView = (props) => (
 				/>
 				:
 				''
-			  }
+		  	}
 			<Typography>
 				<IconButton classes = {{root : useStyles().rootIcon}}>
 					<PhotoIcon fontSize = "large"/>
@@ -79,10 +82,6 @@ export default class FeedWidget extends React.Component{
 			post,
 			openModal: false
 		}));
-
-		// Post Is Not Updating FIX THIS PLEASE
-		console.log(this.state.myPost);
-		console.log(post);
 	}
 
 	render(){

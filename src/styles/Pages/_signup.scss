@@ -1,11 +1,10 @@
 .signup {
     display: flex;
     flex-direction: column;
-    border-color: $purple;
 }
 
 .signup__byline {
-    color: $off-white;
+    color: $light-blue;
     font-size: $m-size;
     font-style: italic;
 }

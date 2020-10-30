@@ -1,9 +1,10 @@
 import React from 'react';
-import { Link,Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '../../components/Button';
 import Header from '../../components/Header';
+
 import {postRequest} from '../../components/CallApi'
 
 export default class SignUp extends React.Component
@@ -37,14 +38,14 @@ export default class SignUp extends React.Component
           InputProps = {{
             style: {
               fontWeight: 300,
-              color: 'white',
+              color: 'black',
               fontSize: 20
             }
           }}
           InputLabelProps = {{
             style: {
               fontWeight: 500,
-              color: 'white',
+              color: 'purple',
               fontSize: 15
             }
           }}
@@ -64,14 +65,14 @@ export default class SignUp extends React.Component
             InputProps = {{
               style: {
                 fontWeight: 300,
-                color: 'white',
+                color: 'black',
                 fontSize: 20
               }
             }}
             InputLabelProps = {{
               style: {
                 fontWeight: 500,
-                color: 'white',
+                color: 'purple',
                 fontSize: 15
               }
             }}
@@ -89,14 +90,14 @@ export default class SignUp extends React.Component
             InputProps = {{
               style: {
                 fontWeight: 300,
-                color: 'white',
+                color: 'black',
                 fontSize: 20
               }
             }}
             InputLabelProps = {{
               style: {
                 fontWeight: 500,
-                color: 'white',
+                color: 'purple',
                 fontSize: 15
               }
             }}
@@ -114,14 +115,14 @@ export default class SignUp extends React.Component
             InputProps = {{
               style: {
                 fontWeight: 300,
-                color: 'white',
+                color: 'black',
                 fontSize: 20
               }
             }}
             InputLabelProps = {{
               style: {
                 fontWeight: 500,
-                color: 'white',
+                color: 'purple',
                 fontSize: 15
               }
             }}
@@ -140,14 +141,14 @@ export default class SignUp extends React.Component
           InputProps = {{
             style: {
               fontWeight: 300,
-              color: 'white',
+              color: 'black',
               fontSize: 20
             }
           }}
           InputLabelProps = {{
             style: {
               fontWeight: 500,
-              color: 'white',
+              color: 'purple',
               fontSize: 15
             }
           }}
@@ -165,14 +166,14 @@ export default class SignUp extends React.Component
           InputProps = {{
             style: {
               fontWeight: 300,
-              color: 'white',
+              color: 'black',
               fontSize: 20
             }
           }}
           InputLabelProps = {{
             style: {
               fontWeight: 500,
-              color: 'white',
+              color: 'purple',
               fontSize: 15
             }
           }}
