@@ -1,52 +1,56 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
-import Button from './Button';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardContent, CardHeader } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 const useStyles = makeStyles({
   root: {
-    backgroundColor: '#20222b',
+    backgroundColor: 'white',
     height: 'fit-content'
   },
   rootHeader: {
-    borderBottom: '0.3rem solid #333745',
+    borderBottom: '0.3rem solid grey',
     height: 'fit-content'
   },
   subRootA: {
-    backgroundColor: '#20222b',
+    backgroundColor: 'white',
     minWidth: 500,
     minHeight: 200,
     maxHeight: 200
   },
   subRootB:{
-    backgroundColor: '#20222b',
+    backgroundColor: 'white',
     minHeight: 200,
     maxHeight: 200
   },
   subHeader: {
-    borderBottom: '0.1rem solid #333745'
+    borderBottom: '0.1rem solid grey'
   },
   title: {
     fontSize: 30,
-    color: 'white',
-    fontWeight: 300
+    color: '#4574bf',
+    fontWeight: 700,
+    fontFamily: 'cursive'
   },
   subTitle: {
     fontSize: 20,
-    color: 'white',
-    fontWeight: 300
+    color: '#4574bf',
+    fontWeight: 500
   },
   content: {
     display: 'flex',
-    justifyContent: 'space-around'
+    justifyContent: 'space-between'
   },
   subContent: {
-    color: 'white',
+    color: '#4574bf',
     fontSize: 15
-  }
+  },
+  rootIcon: {
+    color: 'blue'
+	}
 });
 
 export default function Personal(props){
@@ -64,9 +68,9 @@ export default function Personal(props){
         }
       }
       action = {
-        <Link to='editProfile'>
-        <Button text="EDIT" type = "button__edit" />
-        </Link>
+        <IconButton classes = {{root: classes.rootIcon}}>
+          <MoreVertIcon />
+        </IconButton>
       }
       title= {props.personal==null?'Default Name': props.personal.first_name + ' ' + props.personal.middle_name + ' ' + props.personal.last_name}
     />

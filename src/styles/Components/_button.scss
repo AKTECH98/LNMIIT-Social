@@ -32,11 +32,11 @@
 .button__edit {
     text-align: center;
     background: none;
-    color:$off-white;
-    border-color: $off-white;
+    color:$light-blue;
     padding: $xs-size;
     font-size: 1.25rem;
     font-weight: 700;
+    border-radius: 50%;
 }
 
 .button--link { // -- is used as a naming convention for Modifier in BEM

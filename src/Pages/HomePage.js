@@ -3,10 +3,10 @@ import {Redirect } from 'react-router-dom';
 
 
 import Header from '../components/Header';
-import ProjectWidget from '../components/ProjectWidget';
-import HackWidget from '../components/HackWidget';
 import FeedWidget from '../components/FeedWidget';
 import PostView from '../components/PostView';
+import WidgetHack from '../components/WidgetHack';
+import WidgetProject from '../components/WidgetProject';
 
 export default class HomePage extends React.Component{
   render() {
@@ -22,8 +22,8 @@ export default class HomePage extends React.Component{
             <PostView />
           </div>
           <div>
-            <ProjectWidget />
-            <HackWidget />
+            <WidgetProject />
+            <WidgetHack />
           </div>
         </div>
       </div>

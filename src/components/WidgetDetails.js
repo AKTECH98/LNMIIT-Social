@@ -9,15 +9,17 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: '#20222b',
-    color: 'white',
+    backgroundColor: 'white',
+    color: '#4574bf',
     width: 250,
     height: 250
   },
   title: {
+    color: '#4574bf',
     fontSize : 20
   },
   subheader: {
+    color: '#4574bf',
     color: 'gray',
     fontSize : 15
   },
@@ -25,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 15
   },
   rootIcon: {
-    color: 'white'
+    color: 'blue'
 	},
 }));
 

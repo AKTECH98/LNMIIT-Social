@@ -3,8 +3,6 @@ import React from 'react';
 import Button from '../../components/Button';
 import Header from '../../components/Header';
 import ProjectModal from '../../components/ProjectModal';
-import WorkView from '../../components/WorkView';
-import {postRequest} from '../../components/CallApi'
 
 import { Card, CardActions, CardContent, Typography} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -14,13 +12,16 @@ const useStyles = makeStyles({
   header: {
     display: 'flex',
     justifyContent: 'space-around',
-    backgroundColor: '#20222b',
-    marginBottom: '0.25rem',
+    backgroundColor: '#f5aa0a',
+    marginBottom: '1rem',
     height: 'fit-content',
-    padding: '0 0.3rem 0 0.3rem'
+    padding: '0 0.3rem 0 0.3rem',
+    border: 1,
+    borderStyle: 'solid',
+    borderColor: 'grey'
   },
   title: {
-    fontSize: 14,
+    fontSize: 15,
     color: 'white',
     fontWeight: '500',
   }
@@ -34,7 +35,7 @@ const PageHeader = (props) => (
       </Typography>
     </CardContent>
     <CardActions>
-      <Button text = "+Add"  onClick = {props.newHack} type = "project__button"/>
+      <Button text = "+Add"  onClick = {props.newHack} type = "widget__button hack__add"/>
     </CardActions>
   </Card>
 )
@@ -144,12 +145,9 @@ export default class HackthonPage extends React.Component {
     return(
       <div>
         <Header logout = {true}/>
-        <div className = "project__list">
+        <div className = "widget__list">
         <PageHeader newHack = {this.AddDetail} />
-        <WorkView
-          works={this.state.hacks}
-          ShowDetails={this.ShowDetails}
-        />
+        Under Construction
         {
           (this.state.openModal)?
           <ProjectModal
