@@ -1,6 +1,5 @@
 import React from 'react';
 import Modal from 'react-modal';
-import {Link, Redirect} from 'react-router-dom';
 import TextField from '../components/TextField';
 import Button from '../components/Button';
 import DatePicker from '../components/DatePicker'

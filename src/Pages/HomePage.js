@@ -22,7 +22,7 @@ export default class HomePage extends React.Component{
             <PostView />
           </div>
           <div>
-            <WidgetProject />
+            <WidgetProject link = "/Projects" />
             <WidgetHack />
           </div>
         </div>

@@ -35,7 +35,7 @@ const Header = (props) => (
       </Typography>
     </CardContent>
     <CardActions>
-      <Link to = {'/Projects'}>
+      <Link to = {props.link}>
       <Button text = "View All" type = "widget__button"/>
       </Link>
     </CardActions>
@@ -43,13 +43,22 @@ const Header = (props) => (
 )
 
 export default class WidgetProject extends React.Component {
+  
+  constructor(props) {
+    super(props);
+ 
+    this.state = {
+      link: props.link,
+    };
+  }
+  
   /*
     Modify WidgetView
   */
   render() {
     return (
       <div className = "widget__list">
-        <Header />
+        <Header link = {this.state.link} />
         <WidgetView />
       </div>
     );

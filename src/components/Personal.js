@@ -56,7 +56,7 @@ const useStyles = makeStyles({
 export default function Personal(props){
 
   const classes = useStyles();
-
+  
   return(
   <Card className = {classes.root}>
     <CardHeader 
@@ -67,11 +67,15 @@ export default function Personal(props){
           subheader: classes.subHeader
         }
       }
+
       action = {
         <IconButton classes = {{root: classes.rootIcon}}>
-          <MoreVertIcon />
+        {
+          (props.veiw)?"":<MoreVertIcon />
+        }
         </IconButton>
-      }
+      }  
+      
       title= {props.personal==null?'Default Name': props.personal.first_name + ' ' + props.personal.middle_name + ' ' + props.personal.last_name}
     />
     <CardContent classes = {{root:classes.content}}>
