@@ -48,7 +48,8 @@
     "react-modal": "^3.11.2",
     "react-recaptcha": "^2.3.10",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "^3.4.4"
+    "react-scripts": "^3.4.4",
+    "url-parameter-parser": "^1.0.2"
   },
   "eslintConfig": {
     "extends": "react-app"
