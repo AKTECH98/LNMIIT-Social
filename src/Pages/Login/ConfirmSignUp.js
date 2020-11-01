@@ -27,7 +27,7 @@ export default class ConfirmSignUp extends React.Component
           (res)=>{
             if(res.message=="SUCCESS")
             {
-              <Redirect to='/login'/>
+              window.alert("Email Verified Successfully")
             }
             }
         )
