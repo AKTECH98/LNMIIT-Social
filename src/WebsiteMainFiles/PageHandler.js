@@ -41,7 +41,6 @@ export default class PageHandler extends React.Component{
           <Route path="/MyProjects" component ={MyProjects}/>
           <Route path="/Projects" component = {ProjectsPage}/>
           <Route path="/Hacks" component = {HackathonPage}/>
-
         </Switch>
       </Router>
     );
