@@ -12,7 +12,7 @@ export default class HomePage extends React.Component{
   render() {
     return(
       <div>
-        <Header logout = {true}/>
+        <Header logout = {false}/>
         <div className = "home__view">
           <div className = "home__photo">
             Photo
