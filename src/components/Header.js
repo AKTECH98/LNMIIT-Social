@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
+import Search from './Search'
 import Button from './Button'
 
 export default function Header(props){
@@ -13,7 +14,7 @@ export default function Header(props){
       </div>
       <div className = "sub__header">
         <div>
-          SEARCH
+          <Search/>
         </div>
       {
         (!props.logout)? // If fasle show the logout and other buttons in
