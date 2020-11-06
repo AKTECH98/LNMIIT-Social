@@ -4,7 +4,7 @@ import Button from './Button';
 import PostModal from './PostModal';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Card, CardContent, Typography } from '@material-ui/core';
+import { Card, CardContent, Typography} from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import PhotoIcon from '@material-ui/icons/Photo';
 import VideocamIcon from '@material-ui/icons/Videocam';
