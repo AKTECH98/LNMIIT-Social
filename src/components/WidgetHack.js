@@ -1,12 +1,13 @@
 import React from 'react';
 
 import Button from './Button';
-import WidgetView from './WidgetView';
 
 import { Card, CardActions, CardContent, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Link } from 'react-router-dom';
+import {postRequest} from './CallApi'
+import WidgetView from './WidgetView';
 
 const useStyles = makeStyles({
   header: {
@@ -44,11 +45,38 @@ const Header = (props) => (
 
 export default class WidgetHack extends React.Component {
 
+  constructor(props)
+  {
+    super(props)
+    this.state = {
+      hackTitles: []
+    };
+
+    postRequest('hack/fetchhackstitle',
+      {
+        'email':window.localStorage.getItem('email'),
+        'password': window.localStorage.getItem('password'),
+      },
+      (res)=>{
+        if(res.message=="SUCCESS")
+        {
+          let titles = []
+          res.return_value.forEach((item,index)=>{
+          if(index<4)
+            titles.push(item);
+          })
+          this.setState({hackTitles: titles})
+          console.log(this.state.hackTitles)
+        }
+      }
+    )
+  }
+
   render() {
     return (
       <div className = "widget__list">
         <Header />
-        <WidgetView/>
+        <WidgetView titles = {this.state.hackTitles}/>
       </div>
     );
   }

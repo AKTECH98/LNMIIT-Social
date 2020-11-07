@@ -8,7 +8,7 @@ export default class PostView extends React.Component{
   {
     super(props)
     this.state = {
-      posts:[{email:'default@lnmiit.ac.in', content:'Dummy Post for debugging', date_of_post:'Default Date'}]
+      posts:[{user_name:'default name', content:'Dummy Post for debugging', date_of_post:'Default Date'}]
     }
   }
 

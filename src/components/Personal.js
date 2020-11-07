@@ -11,9 +11,15 @@ import Grow from '@material-ui/core/Grow';
 import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
+import MenuList from '@material-ui/core/MenuList'
+
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
+  menuroot: {
+    color: 'black',
+    fontSize: 12
+  },
   root: {
     backgroundColor: 'white',
     height: 'fit-content'
@@ -74,6 +80,8 @@ export default function Personal(props){
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
+
+
     setOpen(false);
   };
 
@@ -127,7 +135,11 @@ export default function Personal(props){
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                  <MenuItem onClick={handleClose}>Edit</MenuItem>
+                  <Link to={'EditProfile'} className = "linklink">
+                  <MenuItem onClick = {handleClose} className = {classes.menuroot}>
+                    Edit
+                  </MenuItem>
+                  </Link>
                 </MenuList>
               </ClickAwayListener>
             </Paper>

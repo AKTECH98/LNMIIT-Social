@@ -34,8 +34,8 @@ export default function Header(props){
         :
         <div>
           {
-            //(window.localStorage.getItem('email')==null)?
-            //<Redirect to ='/login'/>:''
+            (window.localStorage.getItem('email')==null)?
+            <Redirect to ='/login'/>:''
           }
           <Link to='/Home'>
             <Button text='Home' type = 'button__header'/>
