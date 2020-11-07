@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link,Redirect } from 'react-router-dom';
+import Recaptcha from "react-recaptcha";
+
 
 import Button from '../../components/Button';
 import TextField from '@material-ui/core/TextField';
@@ -14,12 +16,11 @@ export default class Login extends React.Component
       email:'',
       password:'',
       errorMessage:'',
-      redirect:false
+      redirect:false,
+      captchaVerified:false
     };
 
   }
-
-
 
   render()
   {
@@ -41,14 +42,14 @@ export default class Login extends React.Component
           InputProps = {{
             style: {
               fontWeight: 300,
-              color: 'white',
+              color: 'black',
               fontSize: 20
             }
           }}
           InputLabelProps = {{
             style: {
               fontWeight: 500,
-              color: 'white',
+              color: 'purple',
               fontSize: 15
             }
           }}
@@ -65,29 +66,42 @@ export default class Login extends React.Component
           InputProps = {{
             style: {
               fontWeight: 300,
-              color: 'white',
+              color: 'black',
               fontSize: 20
             }
           }}
           InputLabelProps = {{
             style: {
               fontWeight: 500,
-              color: 'white',
+              color: 'purple',
               fontSize: 15
             }
           }}
           type='password'
           defaultValue={this.state.email}
           onChange={(e)=>{this.setState({password:e.target.value})}}
-          label='password'
+          label='Password'
         />
         {this.state.errorMessage}
+
+        <Recaptcha sitekey="6LcpMdsZAAAAAO9iK7CQZ9wpvAEYeLZvWQ0vA1qQ"
+        onloadCallback={()=>{/*
+          TODO: This fuction defines what happens after Captcha finished loading
+          Low priority. Ignore this until most functionality is done and we are 
+          using screeen loaders
+        */}}
+
+        verifyCallback = {()=>{/*On verifiction*/this.setState({captchaVerified:true})}}
+        expiredCallback ={()=>{/*On expiration due to being idle*/this.setState({captchaVerified:false})}}
+        />
 
         <div className = "login__login">
           <div>
             <Button text="Login"
                     type = "login__button button"
-                    onClick = {()=>postRequest('login/login',
+                    onClick = {()=>{
+                      if(this.state.captchaVerified)
+                      postRequest('login/login',
                                                {
                                                  'email':this.state.email,
                                                  'password': this.state.password,
@@ -102,7 +116,13 @@ export default class Login extends React.Component
 
                                                  this.setState({errorMessage:res.reason})
                                                }
-                                )}
+                                              )
+                    else
+                    {
+                      this.setState({errorMessage:"Verify Captcha first"})
+                    }
+                    }
+                  }
             />
           </div>
           {
@@ -113,8 +133,9 @@ export default class Login extends React.Component
           </Link>
 
           <div className = "login__new">
-            New User?
+            <p>New User?
             <Link to = {'/SignUp'} className = "button--link login__link">Connect</Link>
+            </p>
           </div>
         </div>
       </div>

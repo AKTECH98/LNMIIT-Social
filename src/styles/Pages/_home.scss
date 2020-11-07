@@ -1,9 +1,10 @@
 .post__button{
-    color: white;
-    background-color: $off-black;
+    color: $light-blue;
     border: none;
     font-size: $l-size;
     text-decoration: underline;
+    background-color: white;
+    height: fit-content;
     margin-top: $s-size;
 }
 
@@ -13,7 +14,6 @@
 }
 
 .home__feed {
-    background-color: $pink-red;
     margin-left: $m-size;
     margin-right: $m-size;
 }

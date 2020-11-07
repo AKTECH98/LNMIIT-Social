@@ -22,9 +22,21 @@ const useStyles = makeStyles({
 	},
 	rootIcon: {
 		color: 'white'
+  	root: {
+		backgroundColor: 'white',
+		height: 'fit-content',
+		textDecoration: 'none',
+		marginBottom: 10,
+		border: 0.5,
+		borderStyle: 'solid',
+		borderColor: 'grey' 
+	},
+  	rootIcon: {
+    	color: '#4574bf'
 	},
 	rootContent: {
 		display: 'flex',
+		height: 'fit-content',
 		justifyContent: 'space-between',
 		color: 'white'
 	}
@@ -44,7 +56,19 @@ const FeedWidgetView = (props) => (
 					:
 					''
 			}
-
+	<Card className = {useStyles().root}>
+		<CardContent classes = {{root : useStyles().rootContent}}>
+			<Button text="Write a Post" type = "post__button"  onClick = {props.newPost} />
+			{
+				(props.openModal)?
+				<PostModal
+					openModal = {props.openModal}
+					discardPost = {props.discardPost}
+					addPost = {props.addPost}
+				/>
+				:
+				''
+		  	}
 			<Typography>
 				<Dropzone
 					onDrop={props.onDrop}
@@ -109,10 +133,6 @@ export default class FeedWidget extends React.Component {
 			post,
 			openModal: false
 		}));
-
-		// Post Is Not Updating FIX THIS PLEASE
-		console.log(this.state.myPost);
-		console.log(post);
 	}
 	imageChange = e => {
 		e.preventDefaule();

@@ -1,55 +1,67 @@
 import React from 'react';
 
-import Button from './Button';
-import HackModal from './HackModal';
-import WidgetView from './WidgetView';
+import Button from '../../components/Button';
+import Header from '../../components/Header';
+import ProjectModal from '../../components/ProjectModal';
 
-import { Card, CardActions, CardContent, Typography } from '@material-ui/core';
+import { Card, CardActions, CardContent, Typography} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+
 
 const useStyles = makeStyles({
   header: {
     display: 'flex',
     justifyContent: 'space-around',
-    backgroundColor: '#20222b',
-    marginBottom: '0.25rem',
+    backgroundColor: '#f5aa0a',
+    marginBottom: '1rem',
     height: 'fit-content',
-    padding: '0 0.3rem 0 0.3rem'
+    padding: '0 0.3rem 0 0.3rem',
+    border: 1,
+    borderStyle: 'solid',
+    borderColor: 'grey'
   },
   title: {
-    fontSize: 14,
+    fontSize: 15,
     color: 'white',
     fontWeight: '500',
   }
 });
 
-const Header = (props) => (
+const PageHeader = (props) => (
   <Card className = {useStyles().header}>
     <CardContent>
       <Typography className = {useStyles().title}>
-        Hacks
+        Hackthons
       </Typography>
     </CardContent>
     <CardActions>
-      <Button text = "+Add"  onClick = {props.newHack} type = "project__button"/>
+      <Button text = "+Add"  onClick = {props.newHack} type = "widget__button hack__add"/>
     </CardActions>
   </Card>
 )
 
-export default class HackWidget extends React.Component {
-  state = {
-    hacks: [],
-    openModal: false,
-    addDetail: false,
-    showDetail: false,
-    editDetail: false,
-    hack: {
-      index: -1,
-      title: null,
-      description: null,
-      member: 0
-    }
-  };
+export default class HackthonPage extends React.Component {
+  constructor(props)
+  {
+    super(props)
+    this.state = {
+      hacks: [],
+      openModal: false,
+      addDetail: false,
+      showDetail: false,
+      editDetail: false,
+      hack: {
+        index: -1,
+        title: null,
+        description: null,
+        startDate: null,
+        endDate: null,
+        requirements: null,
+        mentor:null,
+        member: 0
+      }
+    };
+  }
 
   AddDetail = () => {
     this.setState(() => ({
@@ -60,12 +72,16 @@ export default class HackWidget extends React.Component {
 
   ShowDetails = (index) => {
     let pro = this.state.hacks[index];
-    
+
     this.setState(() => ({
       hack: {
         index: index,
         title: pro.title,
         description: pro.description,
+        startDate: pro.startDate,
+        endDate: pro.endDate,
+        requirements: pro.requirements,
+        mentor: pro.mentor,
         member: pro.member
       },
       showDetail: true,
@@ -85,10 +101,10 @@ export default class HackWidget extends React.Component {
 
     if(!edit){
       this.setState((prevSate) => ({
-        hacks: prevSate.hacks.concat(hack), 
+        hacks: prevSate.hacks.concat(hack),
         addDetail: false,
         editDetail: false,
-        openModal: false 
+        openModal: false
       }));
     }
     else{
@@ -125,33 +141,32 @@ export default class HackWidget extends React.Component {
     }));
   };
 
-  render() {
-    return (
-      <div className = "project__list">
-        
-        <Header newHack = {this.AddDetail} />
-        <WidgetView
-          projects={this.state.hacks}
-          ShowDetails={this.ShowDetails}
-        />
+  render(){
+    return(
+      <div>
+        <Header logout = {true}/>
+        <div className = "widget__list">
+        <PageHeader newHack = {this.AddDetail} />
+        Under Construction
         {
-          (this.state.openModal)? 
-          <HackModal
+          (this.state.openModal)?
+          <ProjectModal
             openModal = {this.state.openModal}
             addDetail = {this.state.addDetail}
             showDetail = {this.state.showDetail}
             editDetail = {this.state.editDetail}
-            hack = {this.state.hack}
+            project = {this.state.hack}
             SubmitDetails = {this.SubmitDetails}
             DiscardDetails = {this.DiscardDetails}
             EditDetails = {this.EditDetails}
-            DeleteHack = {this.DeleteHack}
-            EditHack = {this.EditHack}
+            DeleteProject = {this.DeleteHack}
+            EditProject = {this.EditHack}
           />
           :
           ''
         }
+        </div>
       </div>
-    );
+    )
   }
 }
