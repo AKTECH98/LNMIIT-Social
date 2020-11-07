@@ -35,7 +35,7 @@ const Header = (props) => (
       </Typography>
     </CardContent>
     <CardActions>
-      <Link to = {props.link}>
+      <Link to = {'/MyProjects'}>
       <Button text = "View All" type = "widget__button"/>
       </Link>
     </CardActions>

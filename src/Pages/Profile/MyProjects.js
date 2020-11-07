@@ -164,8 +164,8 @@ export default class ProjectsPage extends React.Component {
     let projects=this.state.projects;
     projects.splice(projectIndex,1);
     this.setState(() => ({
-      openModal: false,
-      showDetail: false,
+      //openModal: false,
+      //showDetail: false,
       projects
     }));
   };
@@ -179,6 +179,8 @@ export default class ProjectsPage extends React.Component {
         <WorkView
           works={this.state.projects}
           ShowDetails={this.ShowDetails}
+          Delete = {this.DeleteProject}
+          Edit = {this.EditDetails}
         />
         {
           (this.state.openModal)?

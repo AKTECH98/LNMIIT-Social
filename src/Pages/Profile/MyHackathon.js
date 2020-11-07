@@ -2,11 +2,12 @@ import React from 'react';
 
 import Button from '../../components/Button';
 import Header from '../../components/Header';
-import ProjectModal from '../../components/ProjectModal';
+import HackModal from '../../components/HackModal';
+import WorkView from '../../components/WorkView';
+import {postRequest} from '../../components/CallApi'
 
 import { Card, CardActions, CardContent, Typography} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
 
 const useStyles = makeStyles({
   header: {
@@ -31,7 +32,7 @@ const PageHeader = (props) => (
   <Card className = {useStyles().header}>
     <CardContent>
       <Typography className = {useStyles().title}>
-        Hackthons
+        My Hackathons
       </Typography>
     </CardContent>
     <CardActions>
@@ -40,7 +41,7 @@ const PageHeader = (props) => (
   </Card>
 )
 
-export default class HackthonPage extends React.Component {
+export default class HacksPage extends React.Component {
   constructor(props)
   {
     super(props)
@@ -61,7 +62,34 @@ export default class HackthonPage extends React.Component {
         member: 0
       }
     };
+
+    postRequest('hack/fetchhacks',
+                {
+                  'email':window.localStorage.getItem('email'),
+                  'password': window.localStorage.getItem('password'),
+                },
+                (res)=>{
+                  if(res.message=="SUCCESS")
+                  {
+                    let default_hacks = []
+                    res.return_value.forEach((item)=>{
+                      default_hacks.push({
+                        title : item.title,
+                        description: item.description,
+                        startDate: item.startDate,
+                        endDate: item.endDate,
+                        requirements: item.skills_required,
+                        member: item.members,
+                        mentor: item.mentor
+                      })
+                    })
+                    console.log(default_hacks)
+                    this.setState({hacks: default_hacks})
+                  }
+                }
+  )
   }
+
 
   AddDetail = () => {
     this.setState(() => ({
@@ -135,8 +163,8 @@ export default class HackthonPage extends React.Component {
     let hacks=this.state.hacks;
     hacks.splice(hackIndex,1);
     this.setState(() => ({
-      openModal: false,
-      showDetail: false,
+      //openModal: false,
+      //showDetail: false,
       hacks
     }));
   };
@@ -147,20 +175,25 @@ export default class HackthonPage extends React.Component {
         <Header logout = {true}/>
         <div className = "widget__list">
         <PageHeader newHack = {this.AddDetail} />
-        Under Construction
+        <WorkView
+          works={this.state.hacks}
+          ShowDetails={this.ShowDetails}
+          Delete = {this.DeleteHack}
+          Edit = {this.EditDetails}
+        />
         {
           (this.state.openModal)?
-          <ProjectModal
+          <HackModal
             openModal = {this.state.openModal}
             addDetail = {this.state.addDetail}
             showDetail = {this.state.showDetail}
             editDetail = {this.state.editDetail}
-            project = {this.state.hack}
+            hack = {this.state.hack}
             SubmitDetails = {this.SubmitDetails}
             DiscardDetails = {this.DiscardDetails}
             EditDetails = {this.EditDetails}
-            DeleteProject = {this.DeleteHack}
-            EditProject = {this.EditHack}
+            DeleteHack = {this.DeleteHack}
+            EditHack = {this.EditHack}
           />
           :
           ''

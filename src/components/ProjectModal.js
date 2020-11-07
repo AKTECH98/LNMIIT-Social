@@ -1,7 +1,8 @@
 import React from 'react';
 import Modal from 'react-modal';
-import TextField from '../components/TextField';
-import Button from '../components/Button';
+
+import TextField from './TextField';
+import Button from './Button';
 import DatePicker from '../components/DatePicker'
 import {postRequest} from './CallApi'
 
@@ -267,45 +268,44 @@ export default class ProjectModal extends React.Component {
 
     if(!this.state.title || !this.state.description || !this.state.member || !this.state.mentor || !this.state.requirements || !this.state.startDate || !this.state.endDate){
       this.setState(() => ({error : true}));
-      console.log(this.state)
     }
     else {
       let project = this.state
       this.props.SubmitDetails(project,this.props.editDetail,this.props.project.index);
-      console.log(this.state)
+
       function formatDate(date) {
-                var d = new Date(date),
-                    month = '' + (d.getMonth() + 1),
-                    day = '' + d.getDate(),
-                    year = d.getFullYear();
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
 
-                if (month.length < 2)
-                    month = '0' + month;
-                if (day.length < 2)
-                    day = '0' + day;
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
 
-                return [year, month, day].join('-');
-            }
+        return [year, month, day].join('-');
+      }
+
       postRequest('project/createproject',
-                                {
-                                  'email':window.localStorage.getItem('email'),
-                                  'password': window.localStorage.getItem('password'),
-                                  'title': this.state.title,
-                                  'description': this.state.description,
-                                  'startDate': formatDate(this.state.startDate),
-                                  'endDate':formatDate(this.state.endDate),
-                                  'skillsRequired':this.state.requirements,
-                                  'mentor':this.state.mentor,
-                                  'members':this.state.member
-                                },
-                                (res)=>{
-                                  if(res.message=="SUCCESS")
-                                  {
-                                    console.log('SUCCESS')
-                                  }
-
-                                }
-                 )
+                  {
+                    'email':window.localStorage.getItem('email'),
+                    'password': window.localStorage.getItem('password'),
+                    'title': project.title,
+                    'description': project.description,
+                    'startDate': formatDate(project.startDate),
+                    'endDate':formatDate(project.endDate),
+                    'skillsRequired': project.requirements,
+                    'mentor': project.mentor,
+                    'members': project.member
+                  },
+                  (res)=>{
+                    if(res.message=="SUCCESS")
+                    {
+                      console.log('SUCCESS')
+                    }
+                  }
+      )
     }
   }
 

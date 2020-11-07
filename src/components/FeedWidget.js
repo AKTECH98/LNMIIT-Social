@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 
 import Button from './Button';
 import PostModal from './PostModal';
@@ -22,6 +22,8 @@ const useStyles = makeStyles({
 	},
 	rootIcon: {
 		color: 'white'
+	},
+	/*
   	root: {
 		backgroundColor: 'white',
 		height: 'fit-content',
@@ -33,7 +35,7 @@ const useStyles = makeStyles({
 	},
   	rootIcon: {
     	color: '#4574bf'
-	},
+	},*/
 	rootContent: {
 		display: 'flex',
 		height: 'fit-content',
@@ -56,23 +58,9 @@ const FeedWidgetView = (props) => (
 					:
 					''
 			}
-	<Card className = {useStyles().root}>
-		<CardContent classes = {{root : useStyles().rootContent}}>
-			<Button text="Write a Post" type = "post__button"  onClick = {props.newPost} />
-			{
-				(props.openModal)?
-				<PostModal
-					openModal = {props.openModal}
-					discardPost = {props.discardPost}
-					addPost = {props.addPost}
-				/>
-				:
-				''
-		  	}
-			<Typography>
 				<Dropzone
 					onDrop={props.onDrop}
-					accept="image/png, image/gif image/jpg"//whatever the file type needed
+					accept="image/jpg, image/png, image/gif"//whatever the file type needed
 
 					multiple
 				>
@@ -98,9 +86,6 @@ const FeedWidgetView = (props) => (
 						);
 					}}
 				</Dropzone>
-
-
-			</Typography>
 
 		</CardContent>
 	</Card>
@@ -173,7 +158,7 @@ export default class FeedWidget extends React.Component {
 
 
 	render() {
-		let { imagePreviewUrl } = this.state;
+		let {imagePreviewUrl} = this.state;
 		let $imagePreview = null;
 		if (imagePreviewUrl) {
 			$imagePreview = (<img src={imagePreviewUrl} />);
