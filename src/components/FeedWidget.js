@@ -45,6 +45,7 @@ const FeedWidgetView = (props) => (
 					''
 			}
 
+			{console.log("here", props.$imagePreview)}
 			<Typography>
 				<Dropzone
 					onDrop={props.onDrop}
@@ -74,8 +75,6 @@ const FeedWidgetView = (props) => (
 						);
 					}}
 				</Dropzone>
-
-
 			</Typography>
 
 		</CardContent>
@@ -135,43 +134,71 @@ export default class FeedWidget extends React.Component {
 
 
 	onDrop = (files) => {
-		// files.forEach((file) => {
-		// 	const reader = new FileReader()
 
-		// 	reader.onabort = () => console.log('file reading was aborted')
-		// 	reader.onerror = () => console.log('file reading has failed')
-		// 	reader.onload = () => {
-		// 		// Do whatever you want with the file contents
-		// 		const binaryStr = reader.result
-		// 		console.log(binaryStr)
-		// 	}
-		// 	reader.readAsArrayBuffer(file)
-		// })
-		console.log(files);
+		const reader = new FileReader()
+		let file = files[0];
+
+
+		reader.onabort = () => console.log('file reading was aborted')
+		reader.onerror = () => console.log('file reading has failed')
+		reader.onloadend = () => {
+			console.log("reader result", reader.result)
+			this.setState({
+				file: file,
+				imagePreviewUrl: reader.result
+			})
+
+			// console.log(binaryStr)
+		}
+		reader.readAsDataURL(file);
+
+		// console.log(files);
 
 	}
 
 
 	render() {
-		let { imagePreviewUrl } = this.state;
-		let $imagePreview = null;
-		if (imagePreviewUrl) {
-			$imagePreview = (<img src={imagePreviewUrl} />);
-		} else {
-			$imagePreview = (<div className="previewText">Please select an Image for Preview</div>);
-		}
-		return (
-			<div>
-				<FeedWidgetView
-					openModal={this.state.openModal}
-					newPost={this.newPost}
-					discardPost={this.discardPost}
-					addPost={this.addPost}
-					imageUpload={this.imageUpload}
-					onDrop={this.onDrop}
-				/>
 
-			</div>
-		)
+		console.log(this.state.imagePreviewUrl)
+		if (this.state.imagePreviewUrl) {
+			return (
+				<div>
+					<FeedWidgetView
+						openModal={this.state.openModal}
+						newPost={this.newPost}
+						discardPost={this.discardPost}
+						addPost={this.addPost}
+						imageUpload={this.imageUpload}
+						onDrop={this.onDrop}
+						$imagePreview={this.$imagePreviewUrl}
+					/>
+					<img src={this.state.imagePreviewUrl} />
+
+
+
+				</div>
+			)
+		} else {
+
+			return (
+				<div>
+					<FeedWidgetView
+						openModal={this.state.openModal}
+						newPost={this.newPost}
+						discardPost={this.discardPost}
+						addPost={this.addPost}
+						imageUpload={this.imageUpload}
+						onDrop={this.onDrop}
+						$imagePreview={this.$imagePreviewUrl}
+					/>
+					<div className="previewText">Please select an Image for Preview</div>
+
+
+
+				</div>
+			)
+		}
+
+
 	}
 } 
