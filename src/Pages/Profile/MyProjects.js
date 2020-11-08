@@ -59,7 +59,8 @@ export default class ProjectsPage extends React.Component {
         endDate: null,
         requirements: null,
         mentor:null,
-        member: 0
+        member: 0,
+        colab: false
       }
     };
 
@@ -80,7 +81,8 @@ export default class ProjectsPage extends React.Component {
                                       endDate: item.endDate,
                                       requirements: item.skills_required,
                                       member: item.members,
-                                      mentor: item.mentor
+                                      mentor: item.mentor,
+                                      colab: item.colab
                                     })
                                   })
                                   console.log(default_projects)
