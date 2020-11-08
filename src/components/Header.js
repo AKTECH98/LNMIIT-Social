@@ -1,16 +1,21 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
+import Search from './Search'
 import Button from './Button'
 
 export default function Header(props){
   return (
     <div className = "header">
+      <div>
       <p className = "header__title">
-        <Link to="/" className = "button--link">
         LNMIIT SOCIAL
-        </Link>
       </p>
+      </div>
+      <div className = "sub__header">
+        <div>
+          <Search/>
+        </div>
       {
         (!props.logout)? // If fasle show the logout and other buttons in
         <div>
@@ -29,9 +34,8 @@ export default function Header(props){
         :
         <div>
           {
-            (window.localStorage.getItem('email')==null)?
-            <Redirect to ='/login'/>:''
-
+            //(window.localStorage.getItem('email')==null)?
+            //<Redirect to ='/login'/>:''
           }
           <Link to='/Home'>
             <Button text='Home' type = 'button__header'/>
@@ -56,6 +60,7 @@ export default function Header(props){
         </Link>
         </div>
       }
+      </div>
     </div>
   );
 }

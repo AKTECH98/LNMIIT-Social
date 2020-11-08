@@ -4,7 +4,7 @@ import Button from './Button';
 import PostModal from './PostModal';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Card, CardContent, Typography } from '@material-ui/core';
+import { Card, CardContent, Typography} from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import PhotoIcon from '@material-ui/icons/Photo';
 import VideocamIcon from '@material-ui/icons/Videocam';
@@ -21,10 +21,23 @@ const useStyles = makeStyles({
 		marginBottom: 20
 	},
 	rootIcon: {
-		color: 'white'
+		color: 'white',
+	},
+  	root: {
+		backgroundColor: 'white',
+		height: 'fit-content',
+		textDecoration: 'none',
+		marginBottom: 10,
+		border: 0.5,
+		borderStyle: 'solid',
+		borderColor: 'grey' 
+	},
+  	rootIcon: {
+    	color: '#4574bf'
 	},
 	rootContent: {
 		display: 'flex',
+		height: 'fit-content',
 		justifyContent: 'space-between',
 		color: 'white'
 	}
@@ -108,10 +121,6 @@ export default class FeedWidget extends React.Component {
 			post,
 			openModal: false
 		}));
-
-		// Post Is Not Updating FIX THIS PLEASE
-		console.log(this.state.myPost);
-		console.log(post);
 	}
 	imageChange = e => {
 		e.preventDefaule();

@@ -1,9 +1,12 @@
 import React from 'react';
-import { Link,Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '../../components/Button';
 import Header from '../../components/Header';
+
+import Recaptcha from "react-recaptcha";
+
 import {postRequest} from '../../components/CallApi'
 
 export default class SignUp extends React.Component
@@ -14,9 +17,7 @@ export default class SignUp extends React.Component
       email:'',
       password:'',
       confirmPassword:'',
-      firstName:'',
-      middleName:'',
-      lastName:'',
+      captchaVerified:false,
       errorMessage:'',
       redirect:false
     };
@@ -37,14 +38,14 @@ export default class SignUp extends React.Component
           InputProps = {{
             style: {
               fontWeight: 300,
-              color: 'white',
+              color: 'black',
               fontSize: 20
             }
           }}
           InputLabelProps = {{
             style: {
               fontWeight: 500,
-              color: 'white',
+              color: 'purple',
               fontSize: 15
             }
           }}
@@ -53,83 +54,6 @@ export default class SignUp extends React.Component
           label='Email'
         />
 
-        <div className = "signup__details">
-          <TextField
-            variant = "filled"
-            style={{
-              marginRight: 5,
-              marginTop: 5,
-              marginBottom: 5
-            }}
-            InputProps = {{
-              style: {
-                fontWeight: 300,
-                color: 'white',
-                fontSize: 20
-              }
-            }}
-            InputLabelProps = {{
-              style: {
-                fontWeight: 500,
-                color: 'white',
-                fontSize: 15
-              }
-            }}
-            defaultValue={this.state.firstName}
-            onChange={(e)=>{this.setState({firstName:e.target.value})}}
-            label='First Name'
-          />
-          <TextField
-            variant = "filled"
-            style={{
-              marginRight: 5,
-              marginTop: 5,
-              marginBottom: 5
-            }}
-            InputProps = {{
-              style: {
-                fontWeight: 300,
-                color: 'white',
-                fontSize: 20
-              }
-            }}
-            InputLabelProps = {{
-              style: {
-                fontWeight: 500,
-                color: 'white',
-                fontSize: 15
-              }
-            }}
-            defaultValue={this.state.middleName}
-            onChange={(e)=>{this.setState({middleName:e.target.value})}}
-            label='Middle Name'
-          />
-          <TextField
-            variant = "filled"
-            style={{
-              marginLeft: 5,
-              marginTop: 5,
-              marginBottom: 5
-            }}
-            InputProps = {{
-              style: {
-                fontWeight: 300,
-                color: 'white',
-                fontSize: 20
-              }
-            }}
-            InputLabelProps = {{
-              style: {
-                fontWeight: 500,
-                color: 'white',
-                fontSize: 15
-              }
-            }}
-            onChange={(e)=>{this.setState({lastName:e.target.value})}}
-            defaultValue={this.state.lastName}
-            label='Last Name'
-          />
-        </div>
 
         <TextField
           variant = "filled"
@@ -140,14 +64,14 @@ export default class SignUp extends React.Component
           InputProps = {{
             style: {
               fontWeight: 300,
-              color: 'white',
+              color: 'black',
               fontSize: 20
             }
           }}
           InputLabelProps = {{
             style: {
               fontWeight: 500,
-              color: 'white',
+              color: 'purple',
               fontSize: 15
             }
           }}
@@ -165,14 +89,14 @@ export default class SignUp extends React.Component
           InputProps = {{
             style: {
               fontWeight: 300,
-              color: 'white',
+              color: 'black',
               fontSize: 20
             }
           }}
           InputLabelProps = {{
             style: {
               fontWeight: 500,
-              color: 'white',
+              color: 'purple',
               fontSize: 15
             }
           }}
@@ -187,6 +111,17 @@ export default class SignUp extends React.Component
         {
           this.state.redirect?<Redirect to ='/login'/>:""
         }
+
+        <Recaptcha sitekey="6LcpMdsZAAAAAO9iK7CQZ9wpvAEYeLZvWQ0vA1qQ"
+        onloadCallback={()=>{/*
+          TODO: This fuction defines what happens after Captcha finished loading
+          Low priority. Ignore this until most functionality is done and we are 
+          using screeen loaders
+        */}}
+
+        verifyCallback = {()=>{/*On verifiction*/this.setState({captchaVerified:true})}}
+        expiredCallback ={()=>{/*On expiration due to being idle*/this.setState({captchaVerified:false})}}
+        />
         <div className = "signup__connect">
         <Button text='Connect'
                 type = 'button signup__button'

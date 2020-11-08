@@ -1,11 +1,9 @@
-
 import React from 'react';
-import {Redirect } from 'react-router-dom';
 import Header from '../../components/Header';
-import ProjectWidget from '../../components/ProjectWidget';
-import HackWidget from '../../components/HackWidget';
 import Personal from '../../components/Personal';
 import {postRequest} from '../../components/CallApi';
+import WidgetProject from '../../components/WidgetProject';
+import WidgetHack from '../../components/WidgetHack';
 
 export default class ProfilePage extends React.Component {
 
@@ -36,11 +34,11 @@ export default class ProfilePage extends React.Component {
           </div>
           <div className = "profile__info">
             <div className = "profile__detail">
-              <Personal personal = {this.state.personal}/>
+              <Personal personal = {this.state.personal} veiw = "false" />
             </div>
             <div className = "profile__widget">
-              <ProjectWidget />
-              <HackWidget />
+              <WidgetProject link = "/MyProjects" />
+              <WidgetHack />
             </div>
           </div>
         </div>

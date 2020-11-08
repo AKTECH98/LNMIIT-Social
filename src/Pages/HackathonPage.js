@@ -1,12 +1,12 @@
 import React from 'react';
 
-export default class TestPage extends React.Component {
+export default class HackathonPage extends React.Component {
 
   render() {
 
     return(
       <div>
-        For Testing Developer
+        Under Construction
       </div>
     )
   }
