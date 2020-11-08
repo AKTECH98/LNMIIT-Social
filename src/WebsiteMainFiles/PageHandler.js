@@ -5,6 +5,8 @@ import { Router, Route, Switch, Redirect } from 'react-router-dom';
 import FrontPage from '../Pages/FrontPage';
 import LoginPage from '../Pages/Login/Login';
 
+
+import SearchPage from '../Pages/SearchPage';
 import ConfirmSignUp from '../Pages/Login/ConfirmSignUp';
 import ForgotPassword from '../Pages/Login/ForgotPassword';
 import TestPage from '../Pages/TestPage';
@@ -30,6 +32,7 @@ export default class PageHandler extends React.Component{
           <Route path="/Front" component={FrontPage} />
           <Route path="/SignUp" component={SignUp} />
           <Route path="/ConfirmSignUp" component={ConfirmSignUp} />
+          <Route path="/Search" component={SearchPage} /> 
           <Route path="/Login" component ={LoginPage}/>
           <Route path="/ForgotPassword" component={ForgotPassword}/>
           <Route path="/EditProfile" component={EditProfile}/>

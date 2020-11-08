@@ -1,24 +1,20 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import {postRequest} from './CallApi'
 
 export default function Header(props){
+
+  const[searchTerm,setSearchTerm]  = useState("Test");
+
   return (
       <div>
-        <TextField placeholder="Search results logged in console"/>
-        <button onClick={()=>{
-            postRequest('search/searchuser',
-                                               {
-                                                 'name': "Test"
-                                               },
-                                               (res)=>{
-                                                 console.log(res)
-                                               }
-                                              )
-        }}>
-            Search User
-        </button>
+        <TextField placeholder="Search results logged in console" onChange={(e)=>{setSearchTerm(e.target.value)}}/>
+        <Link to={"/Search?search="+searchTerm}>
+          <button>
+            Search
+          </button>
+        </Link>
       </div>
   );
 }
