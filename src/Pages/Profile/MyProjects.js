@@ -82,7 +82,8 @@ export default class ProjectsPage extends React.Component {
                                       requirements: item.skills_required,
                                       member: item.members,
                                       mentor: item.mentor,
-                                      colab: item.colab
+                                      colab: item.colab,
+                                      project_id: item.project_id
                                     })
                                   })
                                   console.log(default_projects)
@@ -164,13 +165,28 @@ export default class ProjectsPage extends React.Component {
 
   DeleteProject = (projectIndex) => {
     let projects=this.state.projects;
-    projects.splice(projectIndex,1);
-    this.setState(() => ({
-      //openModal: false,
-      //showDetail: false,
-      projects
-    }));
-  };
+    let item = projects[projectIndex];
+    postRequest('project/deleteproject',
+                              {
+                                'email':window.localStorage.getItem('email'),
+                                'password': window.localStorage.getItem('password'),
+                                'project_id': item.project_id
+                              },
+                              (res)=>{
+                                if(res.message=="SUCCESS")
+                                {
+                                  projects.splice(projectIndex,1)
+                                  this.setState(() => ({
+                                      //openModal: false,
+                                      //showDetail: false,
+                                      projects
+                                    }));
+                                }
+
+                              }
+               )
+    
+  }
 
   render(){
     return(

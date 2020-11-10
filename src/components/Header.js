@@ -40,6 +40,9 @@ export default function Header(props){
           <Link to='/Home'>
             <Button text='Home' type = 'button__header'/>
           </Link>
+          <Link to='/Notifications'>
+            <Button text='Notifications' type = 'button__header'/>
+          </Link>
           <Link to='/ProfilePage'>
             <Button text='My Profile' type = 'button__header'/>
           </Link>
