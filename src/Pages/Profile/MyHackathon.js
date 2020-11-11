@@ -82,7 +82,8 @@ export default class HacksPage extends React.Component {
                         requirements: item.skills_required,
                         member: item.members,
                         mentor: item.mentor,
-                        colab: item.colab
+                        colab: item.colab,
+                        hack_id: item.hack_id
                       })
                     })
                     console.log(default_hacks)
@@ -163,12 +164,21 @@ export default class HacksPage extends React.Component {
 
   DeleteHack = (hackIndex) => {
     let hacks=this.state.hacks;
-    hacks.splice(hackIndex,1);
-    this.setState(() => ({
-      //openModal: false,
-      //showDetail: false,
-      hacks
-    }));
+    let item = hacks[hackIndex];
+    postRequest('hack/deletehack',
+      {
+        'email':window.localStorage.getItem('email'),
+        'password': window.localStorage.getItem('password'),
+        'hack_id': item.hack_id
+      },
+      (res)=>{
+        if(res.message=="SUCCESS")
+        {
+          hacks.splice(hackIndex,1)
+          this.setState(() => ({hacks}));
+        }
+      }
+    )
   };
 
   render(){
