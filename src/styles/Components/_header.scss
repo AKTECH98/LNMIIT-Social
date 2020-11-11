@@ -23,3 +23,21 @@
     height: fit-content;
     width: 75%
 }
+
+.header__buttons{
+    display: flex;
+}
+
+.header__button{
+    display: flex;
+    flex-direction: column;
+    border-right: 0.1rem solid white;
+    padding-right: $s-size;
+}
+
+.header__button--title{
+    color: white;
+    font-size: $m-size;
+    font-family: cursive;
+    font-weight: 200;
+}
