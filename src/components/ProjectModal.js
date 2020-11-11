@@ -207,6 +207,34 @@ function Details(props){
       Change = {props.AddDescription}
     />
     <div>
+    <TextField
+      default = {props.link}
+      label = "Github Repository"
+      multiline
+      FeildStyle = {{
+        width: 350,
+        height: 'fit-content',
+        marginTop: 5,
+        marginBottom: 5
+      }}
+      inputprops = {{
+        style: {
+          fontWeight: 300,
+          color: 'black',
+          fontSize: 20
+        }
+      }}
+      LabelStyle = {{
+        style: {
+          fontWeight: 500,
+          color: 'purple',
+          fontSize: 15
+        }
+      }}
+      Change = {props.AddLink}
+    />
+    </div>
+    <div>
     <Checkbox
       checked={checked}
       onChange={handleChange}
@@ -231,7 +259,8 @@ export default class ProjectModal extends React.Component {
     requirements: null,
     member: 0,
     error: false,
-    colab: false
+    colab: false,
+    link: null
   };
 
 
@@ -246,7 +275,8 @@ export default class ProjectModal extends React.Component {
           requirements: this.props.project.requirements,
           member: this.props.project.member,
           mentor: this.props.project.mentor,
-          colab: this.props.project.colab
+          colab: this.props.project.colab,
+          link: this.props.project_link
         }))
       }
     } catch(e) {
@@ -254,13 +284,18 @@ export default class ProjectModal extends React.Component {
     }
   }
 
+  FixError = () => {
+    this.setState(() => ({error : false}));
+  }
+
   AddColab = (colab) => {
     this.setState(() => ({colab}))
   }
 
-  FixError = () => {
-    this.setState(() => ({error : false}));
-  }
+  AddProjectLink = (e) => {
+    const link = e.target.value;
+    this.setState(() => ({ link }))
+  };
 
   AddProjectTitle = (e) => {
     const title = e.target.value;
@@ -295,8 +330,10 @@ export default class ProjectModal extends React.Component {
 
   AddProjectMembers = (e) => {
     const member = e.target.value;
-
-    this.setState(() => ({ member }));
+    if(member<=0)
+      this.setState(() => ({error : true}));
+    else
+      this.setState(() => ({ member }));
   };
 
   EditDetails = () => {
@@ -305,7 +342,7 @@ export default class ProjectModal extends React.Component {
 
   SaveDetails = () => {
 
-    if(!this.state.title || !this.state.description || !this.state.member || !this.state.mentor || !this.state.requirements || !this.state.startDate || !this.state.endDate){
+    if(!this.state.title || !this.state.member){
       this.setState(() => ({error : true}));
     }
     else {
@@ -371,6 +408,7 @@ export default class ProjectModal extends React.Component {
           :
           <div>
           <Details
+            link = {this.state.link}
             title = {this.state.title}
             description = {this.state.description}
             startDate = {this.state.startDate}
@@ -380,6 +418,7 @@ export default class ProjectModal extends React.Component {
             mentor = {this.state.mentor}
             colab = {this.state.colab}
             AddTitle = {this.AddProjectTitle}
+            AddLink = {this.AddProjectLink}
             AddDescription = {this.AddProjectDescription}
             AddStartDate = {this.AddProjectStartDate}
             AddEndDate = {this.AddProjectEndDate}

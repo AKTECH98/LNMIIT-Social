@@ -14,11 +14,11 @@ export default class PostView extends React.Component{
 
   render(){
     postRequest('posts/fetchposts',
-                  {
-                    'email':window.localStorage.getItem('email'),
-                    'password':window.localStorage.getItem('password')
-                  },
-                  (res)=>{this.setState({posts:res.results})}
+      {
+        'email':window.localStorage.getItem('email'),
+        'password':window.localStorage.getItem('password')
+      },
+      (res)=>{this.setState({posts:res.results})}
     )
   return (
     <div>

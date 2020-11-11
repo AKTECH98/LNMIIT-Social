@@ -295,8 +295,10 @@ export default class HackModal extends React.Component {
 
   AddHackMembers = (e) => {
     const member = e.target.value;
-
-    this.setState(() => ({ member }));
+    if(member<0)
+      this.setState(() => ({error : true}));
+    else
+      this.setState(() => ({ member }));
   };
 
   EditDetails = () => {
@@ -305,7 +307,7 @@ export default class HackModal extends React.Component {
 
   SaveDetails = () => {
 
-    if(!this.state.title || !this.state.description || !this.state.member || !this.state.mentor || !this.state.requirements || !this.state.startDate || !this.state.endDate){
+    if(!this.state.title || !this.state.member){
       this.setState(() => ({error : true}));
     }
     else {

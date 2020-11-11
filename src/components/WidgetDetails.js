@@ -1,11 +1,15 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import clsx from "clsx";
 
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import GitHubIcon from '@material-ui/icons/GitHub';
+import ColabIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
 
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
@@ -19,7 +23,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'white',
     color: '#4574bf',
     width: 250,
-    height: 250
+    minHeight: 270,
+    height: 'fit-content'
   },
   title: {
     color: '#4574bf',
@@ -36,7 +41,9 @@ const useStyles = makeStyles((theme) => ({
   rootIcon: {
     color: 'blue'
   },
-  
+  github:{
+    marginLeft: "auto"
+  }
 }));
 
 export default function Details(props) {
@@ -127,17 +134,36 @@ export default function Details(props) {
           <em>{'Total Members: ' + props.optionText.member}</em>
         </div>}
       />
-      <CardContent classes = {
-        {
+      <CardContent classes = {{
           root: classes.content
-        }
-      }>
-          {"Mentor: " + props.optionText.mentor}
+        }}
+      >
+          Mentor : {props.optionText.mentor}
           <hr/>
-          {"Skills needed: " + props.optionText.requirements}
+          Skills : {props.optionText.requirements}
           <hr/>
           {props.optionText.description}
       </CardContent>
+      <CardActions disableSpacing>
+        {
+          (props.optionText.link)?
+          <a href = {props.optionText.link}>
+            <IconButton>
+              <GitHubIcon fontSize = "large" style = {{color:'black'}} />
+            </IconButton>
+          </a>
+          :""
+        }
+        {
+          (props.optionText.colab)?
+          <IconButton
+            className={clsx(classes.github)}
+            >
+              <ColabIcon fontSize = "large" style = {{color:'green'}} />
+            </IconButton>
+            :""
+        }
+      </CardActions>
     </Card>
   );
 }

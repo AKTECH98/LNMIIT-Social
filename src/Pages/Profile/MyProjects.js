@@ -60,7 +60,8 @@ export default class ProjectsPage extends React.Component {
         member: 0,
         mentor:null,
         colab: false,
-        project_id:0
+        project_id:0,
+        project_link:null
       }
     };
 
@@ -101,25 +102,6 @@ export default class ProjectsPage extends React.Component {
     }));
   }
 
-  ShowDetails = (index) => {
-    let pro = this.state.projects[index];
-
-    this.setState(() => ({
-      project: {
-        index: index,
-        title: pro.title,
-        description: pro.description,
-        startDate: pro.startDate,
-        endDate: pro.endDate,
-        requirements: pro.requirements,
-        mentor: pro.mentor,
-        member: pro.member
-      },
-      showDetail: true,
-      openModal: true
-    }))
-  }
-
   EditDetails = (index) => {
 
     let pro = this.state.projects[index];
@@ -134,6 +116,7 @@ export default class ProjectsPage extends React.Component {
 
   SubmitDetails = (project,edit) => {
     if(!edit){
+      console.log(project);
       this.setState((prevSate) => ({
         projects: prevSate.projects.concat(project),
         addDetail: false,

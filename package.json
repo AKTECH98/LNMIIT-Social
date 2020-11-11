@@ -37,6 +37,7 @@
     "@material-ui/pickers": "^3.2.10",
     "axios": "^0.19.2",
     "babel-polyfill": "^6.26.0",
+    "clsx": "^1.1.1",
     "date-fns": "^2.12.0",
     "font-awesome": "^4.7.0",
     "history": "^4.10.1",
