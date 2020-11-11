@@ -21,7 +21,6 @@ function Details(props){
   <div>
     <div className = "modal__details">
     <TextField
-      disabled = {!props.edit}
       default = {props.title}
       label = "Title"
       FeildStyle = {{
@@ -48,7 +47,6 @@ function Details(props){
     />
 
     <TextField
-      disabled = {!props.edit}
       default = {props.member}
       label = "Members"
       inputprops = {{
@@ -77,7 +75,6 @@ function Details(props){
     </div>
     <div className = "modal__details">
     <DatePicker
-      disabled = {!props.edit}
       value = {props.startDate}
       label = "Start Date"
       inputprops = {{
@@ -104,7 +101,6 @@ function Details(props){
       onChange = {props.AddStartDate}
     />
     <DatePicker
-      disabled = {!props.edit}
       value = {props.endDate}
       format = "dd-MM-yyyy"
       label = "End Date"
@@ -133,7 +129,6 @@ function Details(props){
     </div>
     <div className = "modal__details">
     <TextField
-      disabled = {!props.edit}
       multiline
       default = {props.requirements}
       label = "Skills"
@@ -160,7 +155,6 @@ function Details(props){
       Change = {props.AddRequirements}
     />
     <TextField
-      disabled = {!props.edit}
       default = {props.mentor}
       label = "Mentor"
       FeildStyle = {{
@@ -187,7 +181,6 @@ function Details(props){
     />
     </div>
     <TextField
-      disabled = {!props.edit}
       default = {props.description}
       label = "Description (max. 25 Words)"
       multiline
@@ -199,7 +192,7 @@ function Details(props){
       }}
       inputprops = {{
         style: {
-          fontWeight: 150,
+          fontWeight: 300,
           color: 'black',
           fontSize: 20
         }
@@ -244,7 +237,7 @@ export default class ProjectModal extends React.Component {
 
   componentDidMount() {
     try {
-      if(this.props.showDetail){
+      if(this.props.editDetail){
         this.setState(() => ({
           title : this.props.project.title,
           description: this.props.project.description,
@@ -306,6 +299,10 @@ export default class ProjectModal extends React.Component {
     this.setState(() => ({ member }));
   };
 
+  EditDetails = () => {
+    alert("Under Construction")
+  }
+
   SaveDetails = () => {
 
     if(!this.state.title || !this.state.description || !this.state.member || !this.state.mentor || !this.state.requirements || !this.state.startDate || !this.state.endDate){
@@ -313,7 +310,7 @@ export default class ProjectModal extends React.Component {
     }
     else {
       let project = this.state
-      this.props.SubmitDetails(project,this.props.editDetail,this.props.project.index);
+      this.props.SubmitDetails(project,this.props.editDetail);
 
       function formatDate(date) {
         var d = new Date(date),
@@ -330,24 +327,24 @@ export default class ProjectModal extends React.Component {
       }
 
       postRequest('project/createproject',
-                  {
-                    'email':window.localStorage.getItem('email'),
-                    'password': window.localStorage.getItem('password'),
-                    'title': project.title,
-                    'description': project.description,
-                    'startDate': formatDate(project.startDate),
-                    'endDate':formatDate(project.endDate),
-                    'skillsRequired': project.requirements,
-                    'mentor': project.mentor,
-                    'members': project.member,
-                    'colab': project.colab
-                  },
-                  (res)=>{
-                    if(res.message=="SUCCESS")
-                    {
-                      console.log('SUCCESS')
-                    }
-                  }
+        {
+          'email':window.localStorage.getItem('email'),
+          'password': window.localStorage.getItem('password'),
+          'title': project.title,
+          'description': project.description,
+          'startDate': formatDate(project.startDate),
+          'endDate':formatDate(project.endDate),
+          'skillsRequired': project.requirements,
+          'mentor': project.mentor,
+          'members': project.member,
+          'colab': project.colab
+        },
+        (res)=>{
+          if(res.message=="SUCCESS")
+          {
+            console.log('SUCCESS')
+          }
+        }
       )
     }
   }
@@ -374,7 +371,6 @@ export default class ProjectModal extends React.Component {
           :
           <div>
           <Details
-            edit = {(this.props.addDetail || this.props.editDetail) || !this.props.showDetail}
             title = {this.state.title}
             description = {this.state.description}
             startDate = {this.state.startDate}
@@ -393,10 +389,10 @@ export default class ProjectModal extends React.Component {
             AddColab = {this.AddColab}
           />
           {
-            (this.props.showDetail)?
+            (this.props.editDetail)?
             <div>
-            <Button text = "EDIT" type = "button modal__button" onClick = {() => {this.props.EditDetails()}}/>
-            <Button text = "DELETE" type = "button modal__button" onClick = {() => {this.props.DeleteProject(this.props.project.index)}} />
+            <Button text = "Save Changes" type = "button modal__button" onClick = {this.EditDetails}/>
+            <Button text = "Discard Details" type = "button modal__button" onClick = {this.props.DiscardDetails}/>
             </div>
             :
             <div>

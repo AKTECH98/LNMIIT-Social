@@ -32,7 +32,7 @@ const Header = (props) => (
   <Card className = {useStyles().header}>
     <CardContent>
       <Typography className = {useStyles().title}>
-        Hacks
+        My Hacks
       </Typography>
     </CardContent>
     <CardActions>

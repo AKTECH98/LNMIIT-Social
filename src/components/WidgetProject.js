@@ -33,7 +33,7 @@ const Header = (props) => (
   <Card className = {useStyles().header}>
     <CardContent>
       <Typography className = {useStyles().title}>
-        Projects
+        My Projects
       </Typography>
     </CardContent>
     <CardActions>

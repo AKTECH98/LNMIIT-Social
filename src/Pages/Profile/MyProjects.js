@@ -52,46 +52,45 @@ export default class ProjectsPage extends React.Component {
       showDetail: false,
       editDetail: false,
       project: {
-        index: -1,
         title: null,
         description: null,
         startDate: null,
         endDate: null,
         requirements: null,
-        mentor:null,
         member: 0,
-        colab: false
+        mentor:null,
+        colab: false,
+        project_id:0
       }
     };
 
     postRequest('project/fetchprojects',
-                              {
-                                'email':window.localStorage.getItem('email'),
-                                'password': window.localStorage.getItem('password'),
-                              },
-                              (res)=>{
-                                if(res.message=="SUCCESS")
-                                {
-                                  let default_projects = []
-                                  res.return_value.forEach((item)=>{
-                                    default_projects.push({
-                                      title : item.title,
-                                      description: item.description,
-                                      startDate: item.startDate,
-                                      endDate: item.endDate,
-                                      requirements: item.skills_required,
-                                      member: item.members,
-                                      mentor: item.mentor,
-                                      colab: item.colab,
-                                      project_id: item.project_id
-                                    })
-                                  })
-                                  console.log(default_projects)
-                                  this.setState({projects: default_projects})
-                                }
-
-                              }
-               )
+      {
+        'email':window.localStorage.getItem('email'),
+        'password': window.localStorage.getItem('password'),
+      },
+      (res)=>{
+        if(res.message=="SUCCESS")
+        {
+          let default_projects = []
+          res.return_value.forEach((item)=>{
+            default_projects.push({
+              title : item.title,
+              description: item.description,
+              startDate: item.startDate,
+              endDate: item.endDate,
+              requirements: item.skills_required,
+              member: item.members,
+              mentor: item.mentor,
+              colab: item.colab,
+              project_id: item.project_id
+            })
+          })
+          console.log(default_projects)
+          this.setState({projects: default_projects})
+        }
+      }
+    )
   }
 
 
@@ -121,16 +120,19 @@ export default class ProjectsPage extends React.Component {
     }))
   }
 
-  EditDetails = () => {
+  EditDetails = (index) => {
+
+    let pro = this.state.projects[index];
+
     this.setState(() => ({
+      project: pro,
       showDetail: false,
       editDetail: true,
       openModal: true
     }))
   }
 
-  SubmitDetails = (project,edit,index) => {
-
+  SubmitDetails = (project,edit) => {
     if(!edit){
       this.setState((prevSate) => ({
         projects: prevSate.projects.concat(project),
@@ -146,7 +148,7 @@ export default class ProjectsPage extends React.Component {
         openModal: false
       }));
 
-      this.state.projects[index] = project;
+      //this.state.projects[index] = project;
     }
   };
 
@@ -166,26 +168,21 @@ export default class ProjectsPage extends React.Component {
   DeleteProject = (projectIndex) => {
     let projects=this.state.projects;
     let item = projects[projectIndex];
-    postRequest('project/deleteproject',
-                              {
-                                'email':window.localStorage.getItem('email'),
-                                'password': window.localStorage.getItem('password'),
-                                'project_id': item.project_id
-                              },
-                              (res)=>{
-                                if(res.message=="SUCCESS")
-                                {
-                                  projects.splice(projectIndex,1)
-                                  this.setState(() => ({
-                                      //openModal: false,
-                                      //showDetail: false,
-                                      projects
-                                    }));
-                                }
-
-                              }
-               )
     
+    postRequest('project/deleteproject',
+      {
+        'email':window.localStorage.getItem('email'),
+        'password': window.localStorage.getItem('password'),
+        'project_id': item.project_id
+      },
+      (res)=>{
+        if(res.message=="SUCCESS")
+        {
+          projects.splice(projectIndex,1)
+          this.setState(() => ({projects}));
+        }
+      }
+    )
   }
 
   render(){
@@ -210,8 +207,6 @@ export default class ProjectsPage extends React.Component {
             project = {this.state.project}
             SubmitDetails = {this.SubmitDetails}
             DiscardDetails = {this.DiscardDetails}
-            EditDetails = {this.EditDetails}
-            DeleteProject = {this.DeleteProject}
             EditProject = {this.EditProject}
           />
           :

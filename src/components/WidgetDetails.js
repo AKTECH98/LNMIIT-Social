@@ -57,7 +57,7 @@ export default function Details(props) {
   };
 
   const Edit = (event) => {
-    props.EditWork();
+    props.EditWork(props.index);
     handleClose(event);
   }
 

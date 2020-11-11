@@ -32,7 +32,7 @@ const PageHeader = (props) => (
   <Card className = {useStyles().header}>
     <CardContent>
       <Typography className = {useStyles().title}>
-        My Hackathons
+        My Hacks
       </Typography>
     </CardContent>
     <CardActions>
@@ -52,45 +52,45 @@ export default class HacksPage extends React.Component {
       showDetail: false,
       editDetail: false,
       hack: {
-        index: -1,
         title: null,
         description: null,
         startDate: null,
         endDate: null,
         requirements: null,
-        mentor:null,
         member: 0,
-        colab: false
+        mentor:null,
+        colab: false,
+        hack_id:0
       }
     };
 
     postRequest('hack/fetchhacks',
-                {
-                  'email':window.localStorage.getItem('email'),
-                  'password': window.localStorage.getItem('password'),
-                },
-                (res)=>{
-                  if(res.message=="SUCCESS")
-                  {
-                    let default_hacks = []
-                    res.return_value.forEach((item)=>{
-                      default_hacks.push({
-                        title : item.title,
-                        description: item.description,
-                        startDate: item.startDate,
-                        endDate: item.endDate,
-                        requirements: item.skills_required,
-                        member: item.members,
-                        mentor: item.mentor,
-                        colab: item.colab,
-                        hack_id: item.hack_id
-                      })
-                    })
-                    console.log(default_hacks)
-                    this.setState({hacks: default_hacks})
-                  }
-                }
-  )
+      {
+        'email':window.localStorage.getItem('email'),
+        'password': window.localStorage.getItem('password'),
+      },
+      (res)=>{
+        if(res.message=="SUCCESS")
+        {
+          let default_hacks = []
+          res.return_value.forEach((item)=>{
+            default_hacks.push({
+              title : item.title,
+              description: item.description,
+              startDate: item.startDate,
+              endDate: item.endDate,
+              requirements: item.skills_required,
+              member: item.members,
+              mentor: item.mentor,
+              colab: item.colab,
+              hack_id: item.hack_id
+            })
+          })
+          console.log(default_hacks)
+          this.setState({hacks: default_hacks})
+        }
+      }
+    )
   }
 
 
@@ -120,16 +120,19 @@ export default class HacksPage extends React.Component {
     }))
   }
 
-  EditDetails = () => {
+  EditDetails = (index) => {
+
+    let pro = this.state.hacks[index];
+
     this.setState(() => ({
+      hack: pro,
       showDetail: false,
       editDetail: true,
       openModal: true
     }))
   }
 
-  SubmitDetails = (hack,edit,index) => {
-
+  SubmitDetails = (hack,edit) => {
     if(!edit){
       this.setState((prevSate) => ({
         hacks: prevSate.hacks.concat(hack),
@@ -145,7 +148,7 @@ export default class HacksPage extends React.Component {
         openModal: false
       }));
 
-      this.state.hacks[index] = hack;
+      //this.state.hacks[index] = hack;
     }
   };
 
@@ -165,6 +168,7 @@ export default class HacksPage extends React.Component {
   DeleteHack = (hackIndex) => {
     let hacks=this.state.hacks;
     let item = hacks[hackIndex];
+    
     postRequest('hack/deletehack',
       {
         'email':window.localStorage.getItem('email'),
@@ -179,7 +183,7 @@ export default class HacksPage extends React.Component {
         }
       }
     )
-  };
+  }
 
   render(){
     return(
@@ -203,8 +207,6 @@ export default class HacksPage extends React.Component {
             hack = {this.state.hack}
             SubmitDetails = {this.SubmitDetails}
             DiscardDetails = {this.DiscardDetails}
-            EditDetails = {this.EditDetails}
-            DeleteHack = {this.DeleteHack}
             EditHack = {this.EditHack}
           />
           :
