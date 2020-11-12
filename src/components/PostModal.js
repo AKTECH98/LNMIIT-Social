@@ -2,7 +2,6 @@ import React from "react";
 import Modal from "react-modal";
 import { Redirect } from "react-router-dom";
 import Button from "./Button";
-import TextField from "./TextField";
 import { postRequest } from "./CallApi";
 
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -25,7 +24,6 @@ export default class PostModal extends React.Component {
   state = {
     post: "",
     error: false,
-    content: "",
   };
 
   Post = (e) => {
