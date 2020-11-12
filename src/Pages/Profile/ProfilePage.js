@@ -34,10 +34,10 @@ export default class ProfilePage extends React.Component {
           </div>
           <div className = "profile__info">
             <div className = "profile__detail">
-              <Personal personal = {this.state.personal} veiw = "false" />
+              <Personal personal = {this.state.personal} />
             </div>
             <div className = "profile__widget">
-              <WidgetProject link = "/MyProjects" />
+              <WidgetProject />
               <WidgetHack />
             </div>
           </div>

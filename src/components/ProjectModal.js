@@ -1,32 +1,45 @@
 import React from 'react';
 import Modal from 'react-modal';
-import TextField from '../components/TextField';
-import Button from '../components/Button';
+
+import TextField from './TextField';
+import Button from './Button';
 import DatePicker from '../components/DatePicker'
 import {postRequest} from './CallApi'
 
-const Details = (props) => (
+import Checkbox from '@material-ui/core/Checkbox';
+
+function Details(props){
+
+  const [checked, setChecked] = React.useState(props.colab);
+
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
+    props.AddColab(event.target.checked);
+  };
+
+  return(
   <div>
+    <div className = "modal__details">
     <TextField
-      disabled = {!props.edit}
       default = {props.title}
       label = "Title"
       FeildStyle = {{
         width: 275,
         marginTop: 5,
-        marginBottom: 5
+        marginBottom: 5,
+        marginRight: 5
       }}
       inputprops = {{
         style: {
           fontWeight: 300,
-          color: 'white',
+          color: 'black',
           fontSize: 20
         }
       }}
       LabelStyle = {{
         style: {
           fontWeight: 500,
-          color: 'white',
+          color: 'purple',
           fontSize: 15
         }
       }}
@@ -34,161 +47,206 @@ const Details = (props) => (
     />
 
     <TextField
-      disabled = {!props.edit}
       default = {props.member}
       label = "Members"
       inputprops = {{
         style: {
           fontWeight: 300,
-          color: 'white',
+          color: 'black',
           fontSize: 20
         },
         type: 'Number'
       }}
       FeildStyle = {{
-        width: 275,
+        width: 75,
         marginTop: 5,
-        marginBottom: 5
+        marginBottom: 5,
+        marginLeft: 5,
       }}
       LabelStyle = {{
         style: {
           fontWeight: 500,
-          color: 'white',
+          color: 'purple',
           fontSize: 15
         }
       }}
       Change = {props.AddMembers}
     />
+    </div>
+    <div className = "modal__details">
     <DatePicker
-      disabled = {!props.edit}
       value = {props.startDate}
       label = "Start Date"
       inputprops = {{
         style: {
           fontWeight: 300,
-          color: 'white',
+          color: 'black',
           fontSize: 20
         },
       }}
       format = "dd-MM-yyyy"
       FeildStyle = {{
-        width: 275,
+        width: 175,
         marginTop: 5,
-        marginBottom: 5
+        marginBottom: 5,
+        marginRight: 5
       }}
       LabelStyle = {{
         style: {
           fontWeight: 500,
-          color: 'white',
+          color: 'purple',
           fontSize: 15
         }
       }}
       onChange = {props.AddStartDate}
     />
     <DatePicker
-      disabled = {!props.edit}
       value = {props.endDate}
       format = "dd-MM-yyyy"
       label = "End Date"
       inputprops = {{
         style: {
           fontWeight: 300,
-          color: 'white',
+          color: 'black',
           fontSize: 20
         },
       }}
       FeildStyle = {{
-        width: 275,
+        width: 175,
         marginTop: 5,
-        marginBottom: 5
+        marginBottom: 5,
+        marginLeft: 5
       }}
       LabelStyle = {{
         style: {
           fontWeight: 500,
-          color: 'white',
+          color: 'purple',
           fontSize: 15
         }
       }}
       onChange = {props.AddEndDate}
     />
+    </div>
+    <div className = "modal__details">
     <TextField
-      disabled = {!props.edit}
+      multiline
       default = {props.requirements}
-      label = "Requirements (or skills??)"
+      label = "Skills"
       inputprops = {{
         style: {
           fontWeight: 300,
-          color: 'white',
+          color: 'black',
           fontSize: 20
         },
       }}
       FeildStyle = {{
-        width: 275,
+        width: 162,
         marginTop: 5,
-        marginBottom: 5
+        marginBottom: 5,
+        marginRight: 5
       }}
       LabelStyle = {{
         style: {
           fontWeight: 500,
-          color: 'white',
+          color: 'purple',
           fontSize: 15
         }
       }}
       Change = {props.AddRequirements}
     />
     <TextField
-      disabled = {!props.edit}
       default = {props.mentor}
       label = "Mentor"
       FeildStyle = {{
-        width: 275,
+        width: 187,
         marginTop: 5,
-        marginBottom: 5
+        marginBottom: 5,
+        marginLeft: 5
       }}
       inputprops = {{
         style: {
           fontWeight: 300,
-          color: 'white',
+          color: 'black',
           fontSize: 20
         }
       }}
       LabelStyle = {{
         style: {
           fontWeight: 500,
-          color: 'white',
+          color: 'purple',
           fontSize: 15
         }
       }}
       Change = {props.AddMentor}
     />
+    </div>
     <TextField
-      disabled = {!props.edit}
       default = {props.description}
-      label = "Description"
+      label = "Description (max. 25 Words)"
       multiline
       FeildStyle = {{
-        width: 275,
+        width: 350,
+        height: 'fit-content',
         marginTop: 5,
         marginBottom: 5
       }}
       inputprops = {{
         style: {
           fontWeight: 300,
-          color: 'white',
+          color: 'black',
           fontSize: 20
         }
       }}
       LabelStyle = {{
         style: {
           fontWeight: 500,
-          color: 'white',
+          color: 'purple',
           fontSize: 15
         }
       }}
       Change = {props.AddDescription}
     />
+    <div>
+    <TextField
+      default = {props.link}
+      label = "Github Repository"
+      multiline
+      FeildStyle = {{
+        width: 350,
+        height: 'fit-content',
+        marginTop: 5,
+        marginBottom: 5
+      }}
+      inputprops = {{
+        style: {
+          fontWeight: 300,
+          color: 'black',
+          fontSize: 20
+        }
+      }}
+      LabelStyle = {{
+        style: {
+          fontWeight: 500,
+          color: 'purple',
+          fontSize: 15
+        }
+      }}
+      Change = {props.AddLink}
+    />
+    </div>
+    <div>
+    <Checkbox
+      checked={checked}
+      onChange={handleChange}
+      size = "medium"
+      color = "primary"
+      label = "Hello"
+    />
+      Invite Colaborators
+    </div>
   </div>
-)
+  )
+}
 
 export default class ProjectModal extends React.Component {
 
@@ -200,13 +258,15 @@ export default class ProjectModal extends React.Component {
     mentor: null,
     requirements: null,
     member: 0,
-    error: false
+    error: false,
+    colab: false,
+    link: null
   };
 
 
   componentDidMount() {
     try {
-      if(this.props.showDetail){
+      if(this.props.editDetail){
         this.setState(() => ({
           title : this.props.project.title,
           description: this.props.project.description,
@@ -214,7 +274,9 @@ export default class ProjectModal extends React.Component {
           endDate: this.props.project.endDate,
           requirements: this.props.project.requirements,
           member: this.props.project.member,
-          mentor: this.props.project.mentor
+          mentor: this.props.project.mentor,
+          colab: this.props.project.colab,
+          link: this.props.project_link
         }))
       }
     } catch(e) {
@@ -225,6 +287,15 @@ export default class ProjectModal extends React.Component {
   FixError = () => {
     this.setState(() => ({error : false}));
   }
+
+  AddColab = (colab) => {
+    this.setState(() => ({colab}))
+  }
+
+  AddProjectLink = (e) => {
+    const link = e.target.value;
+    this.setState(() => ({ link }))
+  };
 
   AddProjectTitle = (e) => {
     const title = e.target.value;
@@ -259,53 +330,59 @@ export default class ProjectModal extends React.Component {
 
   AddProjectMembers = (e) => {
     const member = e.target.value;
-
-    this.setState(() => ({ member }));
+    if(member<=0)
+      this.setState(() => ({error : true}));
+    else
+      this.setState(() => ({ member }));
   };
+
+  EditDetails = () => {
+    alert("Under Construction")
+  }
 
   SaveDetails = () => {
 
-    if(!this.state.title || !this.state.description || !this.state.member || !this.state.mentor || !this.state.requirements || !this.state.startDate || !this.state.endDate){
+    if(!this.state.title || !this.state.member){
       this.setState(() => ({error : true}));
-      console.log(this.state)
     }
     else {
       let project = this.state
-      this.props.SubmitDetails(project,this.props.editDetail,this.props.project.index);
-      console.log(this.state)
+      this.props.SubmitDetails(project,this.props.editDetail);
+
       function formatDate(date) {
-                var d = new Date(date),
-                    month = '' + (d.getMonth() + 1),
-                    day = '' + d.getDate(),
-                    year = d.getFullYear();
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
 
-                if (month.length < 2)
-                    month = '0' + month;
-                if (day.length < 2)
-                    day = '0' + day;
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
 
-                return [year, month, day].join('-');
-            }
+        return [year, month, day].join('-');
+      }
+
       postRequest('project/createproject',
-                                {
-                                  'email':window.localStorage.getItem('email'),
-                                  'password': window.localStorage.getItem('password'),
-                                  'title': this.state.title,
-                                  'description': this.state.description,
-                                  'startDate': formatDate(this.state.startDate),
-                                  'endDate':formatDate(this.state.endDate),
-                                  'skillsRequired':this.state.requirements,
-                                  'mentor':this.state.mentor,
-                                  'members':this.state.member
-                                },
-                                (res)=>{
-                                  if(res.message=="SUCCESS")
-                                  {
-                                    console.log('SUCCESS')
-                                  }
-
-                                }
-                 )
+        {
+          'email':window.localStorage.getItem('email'),
+          'password': window.localStorage.getItem('password'),
+          'title': project.title,
+          'description': project.description,
+          'startDate': formatDate(project.startDate),
+          'endDate':formatDate(project.endDate),
+          'skillsRequired': project.requirements,
+          'mentor': project.mentor,
+          'members': project.member,
+          'colab': project.colab
+        },
+        (res)=>{
+          if(res.message=="SUCCESS")
+          {
+            console.log('SUCCESS')
+          }
+        }
+      )
     }
   }
 
@@ -331,7 +408,7 @@ export default class ProjectModal extends React.Component {
           :
           <div>
           <Details
-            edit = {(this.props.addDetail || this.props.editDetail) || !this.props.showDetail}
+            link = {this.state.link}
             title = {this.state.title}
             description = {this.state.description}
             startDate = {this.state.startDate}
@@ -339,23 +416,26 @@ export default class ProjectModal extends React.Component {
             requirements = {this.state.requirements}
             member = {this.state.member}
             mentor = {this.state.mentor}
+            colab = {this.state.colab}
             AddTitle = {this.AddProjectTitle}
+            AddLink = {this.AddProjectLink}
             AddDescription = {this.AddProjectDescription}
             AddStartDate = {this.AddProjectStartDate}
             AddEndDate = {this.AddProjectEndDate}
             AddRequirements = {this.AddProjectRequirements}
             AddMentor = {this.AddProjectMentor}
             AddMembers = {this.AddProjectMembers}
+            AddColab = {this.AddColab}
           />
           {
-            (this.props.showDetail)?
+            (this.props.editDetail)?
             <div>
-            <Button text = "EDIT" type = "button modal__button" onClick = {() => {this.props.EditDetails()}}/>
-            <Button text = "DELETE" type = "button modal__button" onClick = {() => {this.props.DeleteProject(this.props.project.index)}} />
+            <Button text = "Save Changes" type = "button modal__button" onClick = {this.EditDetails}/>
+            <Button text = "Discard Details" type = "button modal__button" onClick = {this.props.DiscardDetails}/>
             </div>
             :
             <div>
-              <Button text = "Save Details" type = "button modal__button" onClick = {this.SaveDetails}/>
+              <Button text = "Add Project" type = "button modal__button" onClick = {this.SaveDetails}/>
               <Button text = "Discard Details" type = "button modal__button" onClick = {this.props.DiscardDetails}/>
             </div>
           }

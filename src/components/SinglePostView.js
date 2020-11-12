@@ -53,12 +53,7 @@ export default function SinglePostView(props){
           {props.item.initials}
         </Avatar>
       }
-      action={
-				<IconButton classes = {{root:classes.rootIcon}}>
-          <MoreVertIcon />
-        </IconButton>
-      }
-      title={"Posted By: " + props.item.email}
+      title={props.item.user_name}
       subheader={"Date On: " + props.item.date_of_post}
     />
     <CardContent classes = {{root: classes.content}}>

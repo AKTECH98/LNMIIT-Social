@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 
 import Button from './Button';
 import PostModal from './PostModal';
@@ -21,8 +21,11 @@ const useStyles = makeStyles({
 		marginBottom: 20
 	},
 	rootIcon: {
+
 		color: 'white',
 	},
+
+
   	root: {
 		backgroundColor: 'white',
 		height: 'fit-content',
@@ -34,7 +37,7 @@ const useStyles = makeStyles({
 	},
   	rootIcon: {
     	color: '#4574bf'
-	},
+	},*/
 	rootContent: {
 		display: 'flex',
 		height: 'fit-content',
@@ -58,11 +61,11 @@ const FeedWidgetView = (props) => (
 					''
 			}
 
-			{console.log("here", props.$imagePreview)}
 			<Typography>
+
 				<Dropzone
 					onDrop={props.onDrop}
-					accept="image/png, image/gif image/jpg"//whatever the file type needed
+					accept="image/jpg, image/png, image/gif"//whatever the file type needed
 
 					multiple
 				>
@@ -88,7 +91,9 @@ const FeedWidgetView = (props) => (
 						);
 					}}
 				</Dropzone>
+
 			</Typography>
+
 
 		</CardContent>
 	</Card>
@@ -168,7 +173,6 @@ export default class FeedWidget extends React.Component {
 
 	render() {
 
-		console.log(this.state.imagePreviewUrl)
 		if (this.state.imagePreviewUrl) {
 			return (
 				<div>
@@ -187,6 +191,12 @@ export default class FeedWidget extends React.Component {
 
 				</div>
 			)
+
+		let {imagePreviewUrl} = this.state;
+		let $imagePreview = null;
+		if (imagePreviewUrl) {
+			$imagePreview = (<img src={imagePreviewUrl} />);
+
 		} else {
 
 			return (

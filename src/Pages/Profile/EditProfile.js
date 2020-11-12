@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link,Redirect } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 
 import TextField from '@material-ui/core/TextField';
 import Header from '../../components/Header';
@@ -72,39 +72,14 @@ export default class EditProfilePage extends React.Component {
               InputProps = {{
                 style: {
                   fontWeight: 300,
-                  color: 'white',
+                  color: 'black',
                   fontSize: 20
-                }}
-              }
-              InputLabelProps = {{
-                style: {
-                  fontWeight: 500,
-                  color: 'white',
-                  fontSize: 15
                 }
               }}
-            />
-            <TextField
-              label='Middle Name'
-              value={this.state.middleName}
-              onChange={(e)=>this.setState({middleName:e.target.value})}
-              variant = "filled"
-              style={{
-                width: 400,
-                marginTop: 5,
-                marginBottom: 5
-              }}
-              InputProps = {{
-                style: {
-                  fontWeight: 300,
-                  color: 'white',
-                  fontSize: 20
-                }}
-              }
               InputLabelProps = {{
                 style: {
                   fontWeight: 500,
-                  color: 'white',
+                  color: 'purple',
                   fontSize: 15
                 }
               }}
@@ -122,14 +97,14 @@ export default class EditProfilePage extends React.Component {
               InputProps = {{
                 style: {
                   fontWeight: 300,
-                  color: 'white',
+                  color: 'black',
                   fontSize: 20
-                }}
-              }
+                }
+              }}
               InputLabelProps = {{
                 style: {
                   fontWeight: 500,
-                  color: 'white',
+                  color: 'purple',
                   fontSize: 15
                 }
               }}
@@ -147,14 +122,14 @@ export default class EditProfilePage extends React.Component {
               InputProps = {{
                 style: {
                   fontWeight: 300,
-                  color: 'white',
+                  color: 'black',
                   fontSize: 20
-                }}
-              }
+                }
+              }}
               InputLabelProps = {{
                 style: {
                   fontWeight: 500,
-                  color: 'white',
+                  color: 'purple',
                   fontSize: 15
                 }
               }}
@@ -173,14 +148,14 @@ export default class EditProfilePage extends React.Component {
               InputProps = {{
                 style: {
                   fontWeight: 300,
-                  color: 'white',
+                  color: 'black',
                   fontSize: 20
-                }}
-              }
+                }
+              }}
               InputLabelProps = {{
                 style: {
                   fontWeight: 500,
-                  color: 'white',
+                  color: 'purple',
                   fontSize: 15
                 }
               }}

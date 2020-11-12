@@ -16,19 +16,20 @@ export default class ForgotPassword extends React.Component
             variant = "filled"
             style={{
               width: 400,
+              marginTop: 5,
               marginBottom: 5
             }}
             InputProps = {{
               style: {
                 fontWeight: 300,
-                color: 'white',
+                color: 'black',
                 fontSize: 20
               }
             }}
             InputLabelProps = {{
               style: {
                 fontWeight: 500,
-                color: 'white',
+                color: 'purple',
                 fontSize: 15
               }
             }}
@@ -39,20 +40,20 @@ export default class ForgotPassword extends React.Component
           <TextField
             variant = "filled"
             style={{
-              marginTop: 3,
+              marginTop: 5,
               marginBottom: 5
             }}
             InputProps = {{
               style: {
                 fontWeight: 300,
-                color: 'white',
+                color: 'black',
                 fontSize: 20
               }
             }}
             InputLabelProps = {{
               style: {
                 fontWeight: 500,
-                color: 'white',
+                color: 'purple',
                 fontSize: 15
               }
             }}
@@ -64,19 +65,20 @@ export default class ForgotPassword extends React.Component
           <TextField
             variant = "filled"
             style={{
-              marginTop: 3,
+              marginTop: 5,
+              marginBottom: 5
             }}
             InputProps = {{
               style: {
                 fontWeight: 300,
-                color: 'white',
+                color: 'black',
                 fontSize: 20
               }
             }}
             InputLabelProps = {{
               style: {
                 fontWeight: 500,
-                color: 'white',
+                color: 'purple',
                 fontSize: 15
               }
             }}

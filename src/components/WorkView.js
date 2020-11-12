@@ -9,6 +9,9 @@ const WorkView = (props) => (
         <div key = {index}>
         <WidgetDetails
           optionText = {work}
+          index = {index}
+          DeleteWork = {props.Delete}
+          EditWork = {props.Edit}
         />
         </div>
       ))

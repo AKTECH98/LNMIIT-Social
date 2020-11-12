@@ -8,6 +8,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { Link } from 'react-router-dom';
 
+import {postRequest} from './CallApi'
+
 const useStyles = makeStyles({
   header: {
     display: 'flex',
@@ -31,11 +33,11 @@ const Header = (props) => (
   <Card className = {useStyles().header}>
     <CardContent>
       <Typography className = {useStyles().title}>
-        Projects
+        My Projects
       </Typography>
     </CardContent>
     <CardActions>
-      <Link to = {props.link}>
+      <Link to = {'/MyProjects'}>
       <Button text = "View All" type = "widget__button"/>
       </Link>
     </CardActions>
@@ -43,23 +45,38 @@ const Header = (props) => (
 )
 
 export default class WidgetProject extends React.Component {
-  
-  constructor(props) {
-    super(props);
- 
+  constructor(props)
+  {
+    super(props)
     this.state = {
-      link: props.link,
+      projectTitles: []
     };
+
+    postRequest('project/fetchprojectstitle',
+      {
+        'email':window.localStorage.getItem('email'),
+        'password': window.localStorage.getItem('password'),
+      },
+      (res)=>{
+        if(res.message=="SUCCESS")
+        {
+          let titles = []
+          res.return_value.forEach((item,index)=>{
+          if(index<4)
+            titles.push(item);
+          })
+          this.setState({projectTitles: titles})
+          console.log(this.state.projectTitles)
+        }
+      }
+    )
   }
-  
-  /*
-    Modify WidgetView
-  */
+
   render() {
     return (
       <div className = "widget__list">
-        <Header link = {this.state.link} />
-        <WidgetView />
+        <Header />
+        <WidgetView titles = {this.state.projectTitles}/>
       </div>
     );
   }
