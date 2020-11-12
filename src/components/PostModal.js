@@ -100,7 +100,7 @@ export default class PostModal extends React.Component {
           }}
           config={{
             ckfinder: {
-              uploadUrl: "#",
+              uploadUrl: "#", //Image Url Here example : '/uploads/postImg',
             },
           }}
           onChange={this.handleEditorState}
