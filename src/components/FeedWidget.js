@@ -11,9 +11,8 @@ import VideocamIcon from '@material-ui/icons/Videocam';
 import DescriptionIcon from '@material-ui/icons/Description';
 import Dropzone from 'react-dropzone'
 
-
-
 const useStyles = makeStyles({
+  
 	root: {
 		backgroundColor: '#20222b',
 		height: 'fit-content',
@@ -23,10 +22,9 @@ const useStyles = makeStyles({
 	rootIcon: {
 
 		color: 'white',
-	},
-
-
-  	root: {
+  },
+  /*
+  root: {
 		backgroundColor: 'white',
 		height: 'fit-content',
 		textDecoration: 'none',
@@ -35,7 +33,7 @@ const useStyles = makeStyles({
 		borderStyle: 'solid',
 		borderColor: 'grey' 
 	},
-  	rootIcon: {
+  rootIcon: {
     	color: '#4574bf'
 	},*/
 	rootContent: {
@@ -52,49 +50,42 @@ const FeedWidgetView = (props) => (
 			<Button text="Write a Post" type="post__button" onClick={props.newPost} />
 			{
 				(props.openModal) ?
-					<PostModal
-						openModal={props.openModal}
-						discardPost={props.discardPost}
-						addPost={props.addPost}
-					/>
-					:
-					''
+        <PostModal
+          openModal={props.openModal}
+          discardPost={props.discardPost}
+          addPost={props.addPost}
+        />
+        :
+        ''
 			}
+      <Dropzone
+        onDrop={props.onDrop}
+        accept="image/jpg, image/png, image/gif"//whatever the file type needed
 
-			<Typography>
-
-				<Dropzone
-					onDrop={props.onDrop}
-					accept="image/jpg, image/png, image/gif"//whatever the file type needed
-
-					multiple
-				>
-					{({
-						getRootProps,
-						getInputProps,
-					}) => {
-
-						return (
-							<div {...getRootProps()}>
-								<input {...getInputProps()} />
-
-								<IconButton classes={{ root: useStyles().rootIcon }} onClick={props.imageUpload}>
-									<PhotoIcon fontSize="large" />
-								</IconButton>
-								<IconButton classes={{ root: useStyles().rootIcon }}>
-									<VideocamIcon fontSize="large" />
-								</IconButton>
-								<IconButton classes={{ root: useStyles().rootIcon }}>
-									<DescriptionIcon fontSize="large" />
-								</IconButton>
-							</div>
-						);
-					}}
-				</Dropzone>
-
-			</Typography>
-
-
+        multiple
+      >
+        {
+          ({
+          getRootProps,
+          getInputProps,
+          }) => {
+            return (
+              <div {...getRootProps()}>
+                <input {...getInputProps()} />
+                <IconButton classes={{ root: useStyles().rootIcon }} onClick={props.imageUpload}>
+                  <PhotoIcon fontSize="large" />
+                </IconButton>
+                <IconButton classes={{ root: useStyles().rootIcon }}>
+                  <VideocamIcon fontSize="large" />
+                </IconButton>
+                <IconButton classes={{ root: useStyles().rootIcon }}>
+                  <DescriptionIcon fontSize="large" />
+                </IconButton>
+              </div>
+            );
+          }
+        }
+      </Dropzone>
 		</CardContent>
 	</Card>
 )
@@ -126,7 +117,8 @@ export default class FeedWidget extends React.Component {
 			post,
 			openModal: false
 		}));
-	}
+  }
+  
 	imageChange = e => {
 		e.preventDefaule();
 		let reader = new FileReader();
@@ -138,20 +130,15 @@ export default class FeedWidget extends React.Component {
 			});
 		}
 		reader.readAsDataURL(file);
-	}
+  }
+  
 	imageUpload = () => {
-		this.setState(() => ({
-			openImageUploadModal: true,
-
-		}));
+		this.setState(() => ({openImageUploadModal: true,}));
 	}
-
 
 	onDrop = (files) => {
-
 		const reader = new FileReader()
 		let file = files[0];
-
 
 		reader.onabort = () => console.log('file reading was aborted')
 		reader.onerror = () => console.log('file reading has failed')
@@ -161,19 +148,14 @@ export default class FeedWidget extends React.Component {
 				file: file,
 				imagePreviewUrl: reader.result
 			})
-
 			// console.log(binaryStr)
 		}
 		reader.readAsDataURL(file);
-
 		// console.log(files);
-
 	}
 
-
 	render() {
-
-		if (this.state.imagePreviewUrl) {
+    if (this.state.imagePreviewUrl) {
 			return (
 				<div>
 					<FeedWidgetView
@@ -186,19 +168,16 @@ export default class FeedWidget extends React.Component {
 						$imagePreview={this.$imagePreviewUrl}
 					/>
 					<img src={this.state.imagePreviewUrl} />
-
-
-
-				</div>
+        </div>
 			)
 
-		let {imagePreviewUrl} = this.state;
-		let $imagePreview = null;
-		if (imagePreviewUrl) {
-			$imagePreview = (<img src={imagePreviewUrl} />);
+		  let {imagePreviewUrl} = this.state;
+		  let $imagePreview = null;
+		  if (imagePreviewUrl) {
+			  $imagePreview = (<img src={imagePreviewUrl} />);
+      }
 
-		} else {
-
+    }else {
 			return (
 				<div>
 					<FeedWidgetView
@@ -211,13 +190,8 @@ export default class FeedWidget extends React.Component {
 						$imagePreview={this.$imagePreviewUrl}
 					/>
 					<div className="previewText">Please select an Image for Preview</div>
-
-
-
 				</div>
 			)
 		}
-
-
 	}
-} 
+}

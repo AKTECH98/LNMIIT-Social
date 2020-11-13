@@ -44,7 +44,7 @@ export default function Header(props){
               <IconButton classes = {{root: classes.root}}>
                 <div className = "header__button">
                   <div>
-                    <LoginIcon style = {{fontSize:30,color:'white'}}/>
+                    <LoginIcon style = {{fontSize:20,color:'white'}}/>
                   </div>
                   <div className = "header__button--title">Login</div>
                 </div>
@@ -54,7 +54,7 @@ export default function Header(props){
               <IconButton classes = {{root: classes.root}}>
                 <div className = "header__button">
                   <div>
-                    <ConnectIcon style = {{fontSize:30,color:'white'}}/>
+                    <ConnectIcon style = {{fontSize:20,color:'white'}}/>
                   </div>
                     <div className = "header__button--title">Connect</div>
                 </div>
@@ -64,15 +64,15 @@ export default function Header(props){
           :
           <div className = "header__buttons">
             {
-              (window.localStorage.getItem('email')==null)?
-              <Redirect to ='/login'/>:''
+             // (window.localStorage.getItem('email')==null)?
+              //<Redirect to ='/login'/>:''
             }
           
             <Link to='/Home' className = "linklink">
               <IconButton classes = {{root: classes.root}}>
                 <div className = "header__button">
                   <div>
-                    <HomeIcon style = {{fontSize:30,color:'white'}}/>
+                    <HomeIcon style = {{fontSize:20,color:'white'}}/>
                   </div>
                   <div className = "header__button--title">Home</div>
                 </div>
@@ -82,7 +82,7 @@ export default function Header(props){
               <IconButton classes = {{root: classes.root}}>
                 <div className = "header__button">
                   <div>
-                    <NotificationIcon style = {{fontSize:30,color:'white'}}/>
+                    <NotificationIcon style = {{fontSize:20,color:'white'}}/>
                   </div>
                   <div className = "header__button--title">Notify</div>
                 </div>
@@ -92,7 +92,7 @@ export default function Header(props){
               <IconButton classes = {{root: classes.root}}>
                 <div className = "header__button">
                   <div>
-                    <ProfileIcon style = {{fontSize:30,color:'white'}}/>
+                    <ProfileIcon style = {{fontSize:20,color:'white'}}/>
                   </div>
                   <div className = "header__button--title">My Profile</div>
                 </div>
@@ -102,7 +102,7 @@ export default function Header(props){
               <IconButton classes = {{root: classes.root}}>
                 <div className = "header__button">
                   <div>
-                    <ProjectIcon style = {{fontSize:30,color:'white'}}/>
+                    <ProjectIcon style = {{fontSize:20,color:'white'}}/>
                   </div>
                   <div className = "header__button--title">Projects</div>
                 </div>  
@@ -112,7 +112,7 @@ export default function Header(props){
               <IconButton classes = {{root: classes.root}}>
                 <div className = "header__button">
                   <div>
-                    <HackIcon style = {{fontSize:30,color:'white'}}/>
+                    <HackIcon style = {{fontSize:20,color:'white'}}/>
                   </div>
                   <div className = "header__button--title">Hacks</div>
                 </div>
@@ -128,7 +128,7 @@ export default function Header(props){
               >
                 <div className = "header__button">
                   <div>
-                    <LogoutIcon style = {{fontSize:30,color:'white'}}/>
+                    <LogoutIcon style = {{fontSize:20,color:'white'}}/>
                   </div>
                   <div className = "header__button--title">Logout</div>
                 </div>
