@@ -2,7 +2,9 @@ import React from "react";
 import Modal from "react-modal";
 import { Redirect } from "react-router-dom";
 import Button from "./Button";
+
 import { postRequest } from "./CallApi";
+import {backendServerUrl} from '../WebsiteMainFiles/config.js';
 
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 
@@ -100,7 +102,7 @@ export default class PostModal extends React.Component {
           }}
           config={{
             ckfinder: {
-              uploadUrl: "#", //Image Url Here example : '/uploads/postImg',
+              uploadUrl: backendServerUrl+"files/imageupload", //Image Url Here example : '/uploads/postImg',
             },
           }}
           onChange={this.handleEditorState}
