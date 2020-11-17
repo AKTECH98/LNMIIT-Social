@@ -54,7 +54,8 @@ function SearchPannel(props){
       {
           props.results.map((e)=>{
             return (
-               <Link to={"profilepage?email="+e.email}><div>
+              <Link to={"ProfilePage?email="+e.email}>
+              <div>
                 <Card className = {classes.subRoot}>
                   <CardHeader
                     classes = {
@@ -73,7 +74,8 @@ function SearchPannel(props){
                     {e.desc}
                   </CardContent>
                 </Card>
-              </div></Link>
+              </div>
+              </Link>
             )
           })
           

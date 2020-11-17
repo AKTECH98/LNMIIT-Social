@@ -115,14 +115,14 @@ export default function Personal(props){
       }
 
       action={
-        props.edit?<div>
+        props.view?"":<div>
         <IconButton
           ref={anchorRef}
           aria-controls={open ? 'menu-list-grow' : undefined}
           aria-haspopup="true"
           onClick={handleToggle}
           classes = {{root: classes.rootIcon}}
-          disabled = {props.veiw}
+          disabled = {props.view}
         >
           <MoreVertIcon />
         </IconButton>
@@ -146,7 +146,7 @@ export default function Personal(props){
             </Grow>
           )}
         </Popper>
-        </div>:undefined
+        </div>
       }  
       
       title= {props.personal==null?'Default Name': props.personal.first_name + ' ' + props.personal.middle_name + ' ' + props.personal.last_name}

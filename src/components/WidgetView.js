@@ -7,7 +7,7 @@ const WidgetView = (props) => (
   {
     props.titles.map((title,index) => (
       <div key = {index}>
-        <WidgetItem title = {title}/>
+        <WidgetItem title = {title} />
       </div>
     ))
   }

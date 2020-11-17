@@ -35,9 +35,12 @@ const PageHeader = (props) => (
         My Projects
       </Typography>
     </CardContent>
-    <CardActions>
-      <Button text = "+Add"  onClick = {props.newProject} type = "widget__button project__add"/>
-    </CardActions>
+    {
+      (props.view)?"":
+      <CardActions>
+        <Button text = "+Add"  onClick = {props.newProject} type = "widget__button project__add"/>
+      </CardActions>
+    }
   </Card>
 )
 
@@ -65,10 +68,14 @@ export default class ProjectsPage extends React.Component {
       }
     };
 
+    const url = window.location.href;
+    const parser = require('url-parameter-parser');
+    const res = parser(url);
+    const user = res.email;
+
     postRequest('project/fetchprojects',
       {
-        'email':window.localStorage.getItem('email'),
-        'password': window.localStorage.getItem('password'),
+        'email': user,
       },
       (res)=>{
         if(res.message=="SUCCESS")
@@ -169,16 +176,23 @@ export default class ProjectsPage extends React.Component {
   }
 
   render(){
+
+    const url = window.location.href;
+    const parser = require('url-parameter-parser');
+    const res = parser(url);
+    const user = res.email;
+
     return(
       <div>
         <Header logout = {true}/>
         <div className = "widget__list">
-        <PageHeader newProject = {this.AddDetail} />
+        <PageHeader newProject = {this.AddDetail} view = {user!=window.localStorage.getItem('email')}/>
         <WorkView
           works={this.state.projects}
           ShowDetails={this.ShowDetails}
           Delete = {this.DeleteProject}
           Edit = {this.EditDetails}
+          view = {user!=window.localStorage.getItem('email')}
         />
         {
           (this.state.openModal)?

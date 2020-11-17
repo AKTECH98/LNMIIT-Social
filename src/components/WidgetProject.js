@@ -29,7 +29,8 @@ const useStyles = makeStyles({
   }
 });
 
-const Header = (props) => (
+function Header(props){
+  return(
   <Card className = {useStyles().header}>
     <CardContent>
       <Typography className = {useStyles().title}>
@@ -37,12 +38,13 @@ const Header = (props) => (
       </Typography>
     </CardContent>
     <CardActions>
-      <Link to = {'/MyProjects'}>
+      <Link to = {"MyProjects?email="+props.user}>
       <Button text = "View All" type = "widget__button"/>
       </Link>
     </CardActions>
   </Card>
-)
+  )
+}
 
 export default class WidgetProject extends React.Component {
   constructor(props)
@@ -54,8 +56,7 @@ export default class WidgetProject extends React.Component {
 
     postRequest('project/fetchprojectstitle',
       {
-        'email':window.localStorage.getItem('email'),
-        'password': window.localStorage.getItem('password'),
+        'email': this.props.user
       },
       (res)=>{
         if(res.message=="SUCCESS")
@@ -75,8 +76,8 @@ export default class WidgetProject extends React.Component {
   render() {
     return (
       <div className = "widget__list">
-        <Header />
-        <WidgetView titles = {this.state.projectTitles}/>
+        <Header user = {this.props.user}/>
+        <WidgetView titles = {this.state.projectTitles} />
       </div>
     );
   }

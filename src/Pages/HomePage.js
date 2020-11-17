@@ -1,7 +1,6 @@
 import React from 'react';
 import {Redirect } from 'react-router-dom';
 
-
 import Header from '../components/Header';
 import FeedWidget from '../components/FeedWidget';
 import PostView from '../components/PostView';
@@ -10,8 +9,12 @@ import WidgetProject from '../components/WidgetProject';
 
 export default class HomePage extends React.Component{
   render() {
+
+    const user = window.localStorage.getItem('email');
+
     return(
       <div>
+        <Redirect to={"Home?email="+user}/>
         <Header logout = {true}/>
         <div className = "home__view">
           <div className = "home__photo">
@@ -22,8 +25,8 @@ export default class HomePage extends React.Component{
             <PostView />
           </div>
           <div>
-            <WidgetProject />
-            <WidgetHack />
+            <WidgetProject user = {user}/>
+            <WidgetHack user = {user}/>
           </div>
         </div>
       </div>

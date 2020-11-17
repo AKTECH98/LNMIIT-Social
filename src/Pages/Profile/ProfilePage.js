@@ -5,8 +5,8 @@ import {postRequest} from '../../components/CallApi';
 import WidgetProject from '../../components/WidgetProject';
 import WidgetHack from '../../components/WidgetHack';
 import {Redirect} from 'react-router-dom';
-export default class ProfilePage extends React.Component {
 
+export default class ProfilePage extends React.Component {
   constructor(props)
   {
     super(props)
@@ -27,12 +27,13 @@ export default class ProfilePage extends React.Component {
         {
           (user==undefined)?
           <Redirect to={"ProfilePage?email="+window.localStorage.getItem('email')}/>
-          : postRequest('profile/getprofiledetails',
-                {
-                  'email':user,
-               },
-              (res)=>{this.setState({personal:res.response})}
-    )
+          : 
+          postRequest('profile/getprofiledetails',
+            {
+              'email':user,
+            },
+            (res)=>{this.setState({personal:res.response})}
+          )
         }
         <Header logout={true}/>
         <div className = "profile__page">
@@ -41,15 +42,12 @@ export default class ProfilePage extends React.Component {
           </div>
           <div className = "profile__info">
             <div className = "profile__detail">
-              <Personal personal = {this.state.personal} edit={user==window.localStorage.getItem('email')}/>
+              <Personal personal = {this.state.personal} view={user!=window.localStorage.getItem('email')}/>
             </div>
-          {
-            (user==window.localStorage.getItem('email'))?
-                <div className = "profile__widget">
-                    <WidgetProject />
-                    <WidgetHack />
-                </div>:""
-          }
+              <div className = "profile__widget">
+                <WidgetProject user = {(user==undefined)?window.localStorage.getItem('email'):user}/>
+                <WidgetHack user = {(user==undefined)?window.localStorage.getItem('email'):user}/>
+              </div>
           </div>
         </div>
       </div>
