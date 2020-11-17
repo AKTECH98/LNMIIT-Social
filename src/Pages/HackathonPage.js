@@ -3,7 +3,7 @@ import React from 'react';
 
 import Header from '../components/Header';
 import WorkView from '../components/WorkView';
-
+import {postRequest} from '../components/CallApi';
 
 import { Card, CardActions, CardContent, Typography} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -42,8 +42,8 @@ export default class HackathonPage extends React.Component {
   {
     super(props)
     this.state = {
-      projects: [],
-      project: {
+      hacks: [],
+      hack: {
         index: -1,
         title: null,
         description: null,
@@ -54,15 +54,47 @@ export default class HackathonPage extends React.Component {
         member: 0
       }
     };
+    const url = window.location.href;
+    const parser = require('url-parameter-parser');
+    const res = parser(url);
+    const user = res.email;
+
+    postRequest('hack/fetchallhacks',
+      {
+        'email': window.localStorage.getItem('email'),
+        'password': window.localStorage.getItem('password'),
+      },
+      (res)=>{
+        if(res.message=="SUCCESS")
+        {
+          let default_hacks = []
+          res.return_value.forEach((item)=>{
+            default_hacks.push({
+              title : item.title,
+              description: item.description,
+              startDate: item.startDate,
+              endDate: item.endDate,
+              requirements: item.skills_required,
+              member: item.members,
+              mentor: item.mentor,
+              colab: item.colab,
+              hack_id: item.hack_id
+            })
+          })
+          console.log(default_hacks)
+          this.setState({hacks: default_hacks})
+        }
+      }
+    )
   }
 
 
 
   ShowDetails = (index) => {
-    let pro = this.state.projects[index];
+    let pro = this.state.hacks[index];
 
     this.setState(() => ({
-      project: {
+      hack: {
         index: index,
         title: pro.title,
         description: pro.description,
@@ -84,7 +116,7 @@ export default class HackathonPage extends React.Component {
         <div className = "widget__list">
         <PageHeader />
           <WorkView
-            works={this.state.projects}
+            works={this.state.hacks}
             ShowDetails={this.ShowDetails}
           />
         </div>

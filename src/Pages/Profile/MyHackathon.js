@@ -38,7 +38,7 @@ const PageHeader = (props) => (
     {
       (props.view)?"":
       <CardActions>
-        <Button text = "+Add"  onClick = {props.newProject} type = "widget__button project__add"/>
+        <Button text = "+Add"  onClick = {props.newHack} type = "widget__button project__add"/>
       </CardActions>
     }
   </Card>
