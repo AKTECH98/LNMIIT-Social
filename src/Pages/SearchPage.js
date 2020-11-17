@@ -1,61 +1,118 @@
 import React,{useState} from 'react';
-import { Link,Redirect } from 'react-router-dom';
-import Recaptcha from "react-recaptcha";
+import {Link} from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
 
+import Header from '../components/Header';
+import { Card, CardContent, CardHeader, Avatar } from '@material-ui/core';
 
-import Button from '../components/Button';
-import TextField from '@material-ui/core/TextField';
-import {postRequest} from '../components/CallApi'
+import {postRequest} from '../components/CallApi';
 
-export default function SearchPage(props)
-{
+const useStyles = makeStyles({
+  root: {
+    backgroundColor: '#f5aa0a',
+    minWidth: '50%',
+    height: 'fit-content',
+  },
+  subRoot: {
+    backgroundColor: '#f5f5f5',
+    marginBottom: 5
+  },
+  pageTitle: {
+    fontSize: 30,
+    fontFamily: 'cursive'
+  },
+  title: {
+    fontSize : 18,
+    fontFamily: 'cursive'
+  },
+  subheader: {
+    color: 'gray',
+    fontSize : 12,
+    fontFamily: 'cursive',
+    borderBottom: '0.1rem solid grey'
+  },
+  content: {
+    fontSize: 15
+  },
+});
 
-  	const url = window.location.href;
-    const parser = require('url-parameter-parser');
-    const res = parser(url);
-    const search_term = (res.search==undefined)?"":res.search
-    const [results,set_results] = useState([])
-    return(
-      <div>
-      <table>
-      <tr>
-      <th>First name</th>
-      <th>Middle name</th>
-      <th>Last name</th>
-      <th>Email Id</th>
-      
-      </tr>
-      {
-        results.map((e,i)=>
-          <tr>
-            <td>
-              {e.first_name}
-            </td>
-            <td>
-              {e.middle_name}
-            </td>
-            <td>
-              {e.last_name}
-            </td>
-            <td>
-              {e.email}
-            </td>
-            
-          </tr>
-        )
-      }</table>
-    	{
-          postRequest('search/searchuser',
+function SearchPannel(props){
+
+  const classes = useStyles();
+
+  return(
+    <Card className = {classes.root}>
+      <CardHeader
+        classes = {
           {
-            'name':search_term                 
-          },
-          (res)=>{
-              set_results(res.users)
-            }
-        )
+            title : classes.pageTitle
+          }
+        }
+        title = "Search Result.  TODO: Remove duplicates from backend"
+      />
+      <CardContent>
+      {
+          props.results.map((e)=>{
+            return (
+              <Link to={"ProfilePage?email="+e.email}>
+              <div>
+                <Card className = {classes.subRoot}>
+                  <CardHeader
+                    classes = {
+                    {
+                      title : classes.title,
+                      subheader : classes.subheader
+                    }}
+                    avatar={
+                      <Avatar>
+                      </Avatar>
+                    }
+                    title = {e.first_name + " " + e.middle_name + " " + e.last_name}
+                    subheader = "Position"
+                  />
+                  <CardContent classes = {{root: classes.content}}>
+                    {e.desc}
+                  </CardContent>
+                </Card>
+              </div>
+              </Link>
+            )
+          })
+          
       }
        
-      </div>
+      </CardContent>
+    </Card>
+  )
+}
 
-    );
+export default class SearchPage extends React.Component {
+  constructor(props){
+    super(props)
+    {
+      this.state={
+        results:[]
+      }
+    }
+  }
+  render(){
+  const url = window.location.href;
+  const parser = require('url-parameter-parser');
+  const res = parser(url);
+  const search_term = (res.search==undefined)?"":res.search     
+    postRequest('search/searchuser',
+                {
+                  'name':search_term,
+               },
+              (res)=>{this.setState({results:res.users})})
+    return (
+      <div>
+        <Header logout = {true} />
+        <div className = "notify">
+        <div></div>
+        <SearchPannel results={this.state.results}/>
+        </div>
+      </div>
+    )
+  }
 }

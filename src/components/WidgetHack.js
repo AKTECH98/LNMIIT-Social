@@ -36,7 +36,7 @@ const Header = (props) => (
       </Typography>
     </CardContent>
     <CardActions>
-      <Link to = {'/MyHacks'}>
+      <Link to = {"MyHacks?email="+props.user}>
         <Button text = "View All" type = "widget__button"/>
       </Link>
     </CardActions>
@@ -52,10 +52,14 @@ export default class WidgetHack extends React.Component {
       hackTitles: []
     };
 
+    const url = window.location.href;
+    const parser = require('url-parameter-parser');
+    const res = parser(url);
+    const user = res.email;
+
     postRequest('hack/fetchhackstitle',
       {
-        'email':window.localStorage.getItem('email'),
-        'password': window.localStorage.getItem('password'),
+        'email':user
       },
       (res)=>{
         if(res.message=="SUCCESS")
@@ -73,9 +77,15 @@ export default class WidgetHack extends React.Component {
   }
 
   render() {
+
+    const url = window.location.href;
+    const parser = require('url-parameter-parser');
+    const res = parser(url);
+    const user = res.email;
+
     return (
       <div className = "widget__list">
-        <Header />
+        <Header user = {user}/>
         <WidgetView titles = {this.state.hackTitles}/>
       </div>
     );

@@ -12,6 +12,7 @@ const WorkView = (props) => (
           index = {index}
           DeleteWork = {props.Delete}
           EditWork = {props.Edit}
+          view = {props.view}
         />
         </div>
       ))
