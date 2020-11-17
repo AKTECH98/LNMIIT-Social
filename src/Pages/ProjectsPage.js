@@ -62,7 +62,8 @@ export default class ProjectsPage extends React.Component {
 
     postRequest('project/fetchallprojects',
       {
-        'email': user,
+        'email': window.localStorage.getItem('email'),
+        'password': window.localStorage.getItem('password'),
       },
       (res)=>{
         if(res.message=="SUCCESS")
