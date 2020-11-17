@@ -115,7 +115,7 @@ export default function Personal(props){
       }
 
       action={
-        <div>
+        props.edit?<div>
         <IconButton
           ref={anchorRef}
           aria-controls={open ? 'menu-list-grow' : undefined}
@@ -146,7 +146,7 @@ export default function Personal(props){
             </Grow>
           )}
         </Popper>
-        </div>
+        </div>:undefined
       }  
       
       title= {props.personal==null?'Default Name': props.personal.first_name + ' ' + props.personal.middle_name + ' ' + props.personal.last_name}

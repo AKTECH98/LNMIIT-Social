@@ -1,13 +1,11 @@
-import React from 'react';
-
+import React,{useState} from 'react';
+import {Link} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Header from '../components/Header';
 import { Card, CardContent, CardHeader, Avatar } from '@material-ui/core';
 
-const url = window.location.href;
-const parser = require('url-parameter-parser');
-const res = parser(url);const search_term = (res.search==undefined)?"":res.search
+import {postRequest} from '../components/CallApi';
 
 const useStyles = makeStyles({
   root: {
@@ -50,46 +48,67 @@ function SearchPannel(props){
             title : classes.pageTitle
           }
         }
-        title = "Search Result"
+        title = "Search Result.  TODO: Remove duplicates from backend"
       />
       <CardContent>
-        <div>
-          <Card className = {classes.subRoot}>
-            <CardHeader
-              classes = {
-              {
-                title : classes.title,
-                subheader : classes.subheader
-              }}
-              avatar={
-                <Avatar>
-                </Avatar>
-              }
-              title = "Default Name"
-              subheader = "Position"
-            />
-            <CardContent classes = {{root: classes.content}}>
-              Description of The Profile
-            </CardContent>
-          </Card>
-        </div>
+      {
+          props.results.map((e)=>{
+            return (
+               <Link to={"profilepage?email="+e.email}><div>
+                <Card className = {classes.subRoot}>
+                  <CardHeader
+                    classes = {
+                    {
+                      title : classes.title,
+                      subheader : classes.subheader
+                    }}
+                    avatar={
+                      <Avatar>
+                      </Avatar>
+                    }
+                    title = {e.first_name + " " + e.middle_name + " " + e.last_name}
+                    subheader = "Position"
+                  />
+                  <CardContent classes = {{root: classes.content}}>
+                    {e.desc}
+                  </CardContent>
+                </Card>
+              </div></Link>
+            )
+          })
+          
+      }
+       
       </CardContent>
     </Card>
   )
 }
 
 export default class SearchPage extends React.Component {
-
+  constructor(props){
+    super(props)
+    {
+      this.state={
+        results:[]
+      }
+    }
+  }
   render(){
+  const url = window.location.href;
+  const parser = require('url-parameter-parser');
+  const res = parser(url);
+  const search_term = (res.search==undefined)?"":res.search     
+    postRequest('search/searchuser',
+                {
+                  'name':search_term,
+               },
+              (res)=>{this.setState({results:res.users})})
     return (
       <div>
         <Header logout = {true} />
         <div className = "notify">
-        <div>
-        </div>
-        <SearchPannel />
-        <div>
-        </div>
+        <div></div>
+        <SearchPannel results={this.state.results}/>
         </div>
       </div>
     )
