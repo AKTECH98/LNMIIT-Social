@@ -89,29 +89,6 @@ export default class ProjectsPage extends React.Component {
     )
   }
 
-
-
-  ShowDetails = (index) => {
-    let pro = this.state.projects[index];
-
-    this.setState(() => ({
-      project: {
-        index: index,
-        title: pro.title,
-        description: pro.description,
-        startDate: pro.startDate,
-        endDate: pro.endDate,
-        requirements: pro.requirements,
-        mentor: pro.mentor,
-        member: pro.member
-      },
-      showDetail: true,
-      openModal: true
-    }))
-  }
-
-
-
   render() {
     return(
       <div>
@@ -121,6 +98,7 @@ export default class ProjectsPage extends React.Component {
           <WorkView
             works={this.state.projects}
             ShowDetails={this.ShowDetails}
+            view = {true}
           />
         </div>
       </div>
