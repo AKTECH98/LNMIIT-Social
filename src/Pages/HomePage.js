@@ -1,32 +1,29 @@
-import React from 'react';
-import {Redirect } from 'react-router-dom';
+import React from "react";
+import { Redirect } from "react-router-dom";
 
-import Header from '../components/Header';
-import FeedWidget from '../components/FeedWidget';
-import PostView from '../components/PostView';
-import WidgetHack from '../components/WidgetHack';
-import WidgetProject from '../components/WidgetProject';
+import Header from "../components/Header";
+import FeedWidget from "../components/FeedWidget";
+import PostView from "../components/PostView";
+import WidgetHack from "../components/WidgetHack";
+import WidgetProject from "../components/WidgetProject";
 
-export default class HomePage extends React.Component{
+export default class HomePage extends React.Component {
   render() {
+    const user = window.localStorage.getItem("email");
 
-    const user = window.localStorage.getItem('email');
-
-    return(
+    return (
       <div>
-        <Redirect to={"Home?email="+user}/>
-        <Header logout = {true}/>
-        <div className = "home__view">
-          <div className = "home__photo">
-            Photo
-          </div>
-          <div className = "home__feed">
+        <Redirect to={"Home?email=" + user} />
+        <Header logout={true} />
+        <div className="home__view">
+          <div className="home__photo">Photo</div>
+          <div className="home__feed">
             <FeedWidget />
             <PostView />
           </div>
           <div>
-            <WidgetProject user = {user}/>
-            <WidgetHack user = {user}/>
+            <WidgetProject user={user} />
+            <WidgetHack user={user} />
           </div>
         </div>
       </div>

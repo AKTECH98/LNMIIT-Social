@@ -4,11 +4,12 @@ import { Redirect } from "react-router-dom";
 import Button from "./Button";
 
 import { postRequest } from "./CallApi";
-import {backendServerUrl} from '../WebsiteMainFiles/config.js';
+import { backendServerUrl } from "../WebsiteMainFiles/config.js";
 
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import axios from "axios";
 
 const modalStyles = {
   content: {
@@ -21,6 +22,49 @@ const modalStyles = {
     color: "black",
   },
 };
+
+class UploadAdapter {
+  constructor(loader) {
+    this.loader = loader;
+  }
+
+  async upload() {
+    return this.loader.file.then((file) => {
+      const data = new FormData();
+      data.append("upload", file);
+      const genericError = `Couldn't upload file: ${file.name}.`;
+
+      return axios({
+        data,
+        method: "POST",
+        url: backendServerUrl + "files/imageupload",
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        onUploadProgress: (progressEvent) => {
+          this.loader.uploadTotal = progressEvent.total;
+          this.loader.uploaded = progressEvent.loaded;
+          const uploadPercentage = parseInt(
+            Math.round((progressEvent.loaded / progressEvent.total) * 100)
+          );
+        },
+      })
+        .then(({ data }) => ({ default: data.url }))
+        .catch(({ error }) => Promise.reject(error?.message ?? genericError));
+    });
+  }
+
+  abort() {
+    return Promise.reject();
+  }
+}
+
+// CKEditor FileRepository
+function uploadAdapterPlugin(editor) {
+  editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
+    return new UploadAdapter(loader);
+  };
+}
 
 export default class PostModal extends React.Component {
   state = {
@@ -101,10 +145,12 @@ export default class PostModal extends React.Component {
             console.log("Editor is ready to use!", editor);
           }}
           config={{
-            ckfinder: {
-              uploadUrl: backendServerUrl+"files/imageupload", //Image Url Here example : '/uploads/postImg',
-            },
+            extraPlugins: [uploadAdapterPlugin],
           }}
+          // onInit={(editor) => {
+          //   editor.ui.view.editable.element.style.height = "200px";
+          //   uploadAdapterPlugin(editor);
+          // }}
           onChange={this.handleEditorState}
           onBlur={(event, editor) => {
             console.log("Blur.", editor);
