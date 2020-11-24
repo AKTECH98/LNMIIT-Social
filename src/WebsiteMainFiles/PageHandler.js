@@ -8,7 +8,7 @@ import LoginPage from '../Pages/Login/Login';
 
 import SearchPage from '../Pages/SearchPage';
 import NotificationsPage from '../Pages/Notifications';
-import ConfirmSignUp from '../Pages/Login/ConfirmSignUp';
+import ConfirmOTP from '../Pages/Login/ConfirmOTP';
 import ForgotPassword from '../Pages/Login/ForgotPassword';
 import TestPage from '../Pages/TestPage';
 import SignUp from '../Pages/Login/SignUp';
@@ -32,7 +32,7 @@ export default class PageHandler extends React.Component{
           <Redirect from="/" exact={true} to="/Front" />
           <Route path="/Front" component={FrontPage} />
           <Route path="/SignUp" component={SignUp} />
-          <Route path="/ConfirmSignUp" component={ConfirmSignUp} />
+          <Route path="/ConfirmOTP" component={ConfirmOTP} />
           <Route path="/Search" component={SearchPage} /> 
           <Route path="/Notifications" component={NotificationsPage} /> 
           <Route path="/Login" component ={LoginPage}/>
