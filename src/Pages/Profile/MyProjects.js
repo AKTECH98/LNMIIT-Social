@@ -91,6 +91,7 @@ export default class ProjectsPage extends React.Component {
               member: item.members,
               mentor: item.mentor,
               colab: item.colab,
+              project_link: item.link,
               project_id: item.project_id
             })
           })

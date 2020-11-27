@@ -37,18 +37,18 @@ export default class ProfilePage extends React.Component {
         }
         <Header logout={true}/>
         <div className = "profile__page">
-          <div className = "profile__image">
-          IMAGE
-          </div>
+          <div></div>
           <div className = "profile__info">
+            IMAGE
             <div className = "profile__detail">
               <Personal personal = {this.state.personal} view={user!=window.localStorage.getItem('email')}/>
-            </div>
               <div className = "profile__widget">
                 <WidgetProject user = {(user==undefined)?window.localStorage.getItem('email'):user}/>
                 <WidgetHack user = {(user==undefined)?window.localStorage.getItem('email'):user}/>
               </div>
+            </div>
           </div>
+          <div></div>
         </div>
       </div>
     )

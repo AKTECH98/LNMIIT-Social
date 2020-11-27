@@ -22,7 +22,7 @@ function Details(props){
     <div className = "modal__details">
     <TextField
       default = {props.title}
-      label = "Title"
+      label = "Title*"
       FeildStyle = {{
         width: 275,
         marginTop: 5,
@@ -48,7 +48,7 @@ function Details(props){
 
     <TextField
       default = {props.member}
-      label = "Members"
+      label = "Members*"
       inputprops = {{
         style: {
           fontWeight: 300,
@@ -182,7 +182,7 @@ function Details(props){
     </div>
     <TextField
       default = {props.description}
-      label = "Description (max. 25 Words)"
+      label = "Description* (max. 25 Words)"
       multiline
       FeildStyle = {{
         width: 350,
@@ -201,7 +201,7 @@ function Details(props){
         style: {
           fontWeight: 500,
           color: 'purple',
-          fontSize: 15
+          fontSize: 15,
         }
       }}
       Change = {props.AddDescription}
@@ -229,7 +229,7 @@ export default class HackModal extends React.Component {
     endDate: null,
     mentor: null,
     requirements: null,
-    member: 0,
+    member: 1,
     error: false,
     colab: false
   };
@@ -264,12 +264,24 @@ export default class HackModal extends React.Component {
 
   AddHackTitle = (e) => {
     const title = e.target.value;
-    this.setState(() => ({ title }))
+
+    if(this.state.error==true)
+    {
+      this.setState(() => ({error: false, title}))
+    }
+    else
+      this.setState(() => ({ title }))
   };
 
   AddHackDescription = (e) => {
     const description = e.target.value;
-    this.setState(() => ({ description }))
+
+    if(this.state.error==true)
+    {
+      this.setState(() => ({error: false, description}))
+    }
+    else
+      this.setState(() => ({ description }))
   };
 
   AddHackStartDate = (date) => {
@@ -287,7 +299,6 @@ export default class HackModal extends React.Component {
     this.setState(() => ({ requirements }))
   };
 
-
   AddHackMentor = (e) => {
     const mentor = e.target.value;
     this.setState(() => ({ mentor }))
@@ -295,10 +306,17 @@ export default class HackModal extends React.Component {
 
   AddHackMembers = (e) => {
     const member = e.target.value;
-    if(member<0)
-      this.setState(() => ({error : true}));
+    if(member<=0)
+      e.target.value = 1;
     else
-      this.setState(() => ({ member }));
+    {
+      if(this.state.error==true)
+      {
+        this.setState(() => ({ error: false, member }));
+      }
+      else 
+        this.setState(() => ({member}));
+    }
   };
 
   EditDetails = () => {
@@ -307,7 +325,7 @@ export default class HackModal extends React.Component {
 
   SaveDetails = () => {
 
-    if(!this.state.title || !this.state.member){
+    if(!this.state.title || !this.state.member || !this.state.description){
       this.setState(() => ({error : true}));
     }
     else {
@@ -364,46 +382,42 @@ export default class HackModal extends React.Component {
         Hack Details
         <Button text = "X" type = "close__button" onClick = {this.props.DiscardDetails} />
         </h3>
+        <div>
+        <Details
+          title = {this.state.title}
+          description = {this.state.description}
+          startDate = {this.state.startDate}
+          endDate = {this.state.endDate}
+          requirements = {this.state.requirements}
+          member = {this.state.member}
+          mentor = {this.state.mentor}
+          colab = {this.state.colab}
+          AddTitle = {this.AddHackTitle}
+          AddDescription = {this.AddHackDescription}
+          AddStartDate = {this.AddHackStartDate}
+          AddEndDate = {this.AddHackEndDate}
+          AddRequirements = {this.AddHackRequirements}
+          AddMentor = {this.AddHackMentor}
+          AddMembers = {this.AddHackMembers}
+          AddColab = {this.AddColab}
+        />
         {
-          (this.state.error)?
+          (this.props.editDetail)?
           <div>
-          <p className = "modal__body">Please Enter All Valid Details</p>
-          <Button text = "Continue" type = "button continue__button" onClick = {this.FixError} />
+          <Button text = "Save Changes" type = "button modal__button" onClick = {this.EditDetails}/>
+          <Button text = "Discard Details" type = "button modal__button" onClick = {this.props.DiscardDetails}/>
           </div>
           :
           <div>
-          <Details
-            title = {this.state.title}
-            description = {this.state.description}
-            startDate = {this.state.startDate}
-            endDate = {this.state.endDate}
-            requirements = {this.state.requirements}
-            member = {this.state.member}
-            mentor = {this.state.mentor}
-            colab = {this.state.colab}
-            AddTitle = {this.AddHackTitle}
-            AddDescription = {this.AddHackDescription}
-            AddStartDate = {this.AddHackStartDate}
-            AddEndDate = {this.AddHackEndDate}
-            AddRequirements = {this.AddHackRequirements}
-            AddMentor = {this.AddHackMentor}
-            AddMembers = {this.AddHackMembers}
-            AddColab = {this.AddColab}
-          />
-          {
-            (this.props.editDetail)?
-            <div>
-            <Button text = "Save Changes" type = "button modal__button" onClick = {this.EditDetails}/>
+            { (this.state.error)?
+              <p className = "modal__body">Please Enter all Details Marked *</p>
+              :""
+            }
+            <Button text = "Add Hack" type = "button modal__button" onClick = {this.SaveDetails}/>
             <Button text = "Discard Details" type = "button modal__button" onClick = {this.props.DiscardDetails}/>
-            </div>
-            :
-            <div>
-              <Button text = "Add Hack" type = "button modal__button" onClick = {this.SaveDetails}/>
-              <Button text = "Discard Details" type = "button modal__button" onClick = {this.props.DiscardDetails}/>
-            </div>
-          }
           </div>
         }
+        </div>
       </Modal>
     )
   }

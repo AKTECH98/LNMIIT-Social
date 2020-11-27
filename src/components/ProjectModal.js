@@ -22,7 +22,7 @@ function Details(props){
     <div className = "modal__details">
     <TextField
       default = {props.title}
-      label = "Title"
+      label = "Title*"
       FeildStyle = {{
         width: 275,
         marginTop: 5,
@@ -48,7 +48,7 @@ function Details(props){
 
     <TextField
       default = {props.member}
-      label = "Members"
+      label = "Members*"
       inputprops = {{
         style: {
           fontWeight: 300,
@@ -182,7 +182,7 @@ function Details(props){
     </div>
     <TextField
       default = {props.description}
-      label = "Description (max. 25 Words)"
+      label = "Description* (max. 25 Words)"
       multiline
       FeildStyle = {{
         width: 350,
@@ -201,7 +201,7 @@ function Details(props){
         style: {
           fontWeight: 500,
           color: 'purple',
-          fontSize: 15
+          fontSize: 15,
         }
       }}
       Change = {props.AddDescription}
@@ -257,7 +257,7 @@ export default class ProjectModal extends React.Component {
     endDate: null,
     mentor: null,
     requirements: null,
-    member: 0,
+    member: 1,
     error: false,
     colab: false,
     link: null
@@ -284,27 +284,38 @@ export default class ProjectModal extends React.Component {
     }
   }
 
-  FixError = () => {
-    this.setState(() => ({error : false}));
-  }
-
   AddColab = (colab) => {
     this.setState(() => ({colab}))
   }
-
   AddProjectLink = (e) => {
     const link = e.target.value;
     this.setState(() => ({ link }))
   };
 
+  FixError = () => {
+    this.setState(() => ({error : false}));
+  }
+
   AddProjectTitle = (e) => {
     const title = e.target.value;
-    this.setState(() => ({ title }))
+
+    if(this.state.error==true)
+    {
+      this.setState(() => ({error: false, title}))
+    }
+    else
+      this.setState(() => ({ title }))
   };
 
   AddProjectDescription = (e) => {
     const description = e.target.value;
-    this.setState(() => ({ description }))
+
+    if(this.state.error==true)
+    {
+      this.setState(() => ({error: false, description}))
+    }
+    else
+      this.setState(() => ({ description }))
   };
 
   AddProjectStartDate = (date) => {
@@ -322,7 +333,6 @@ export default class ProjectModal extends React.Component {
     this.setState(() => ({ requirements }))
   };
 
-
   AddProjectMentor = (e) => {
     const mentor = e.target.value;
     this.setState(() => ({ mentor }))
@@ -331,9 +341,16 @@ export default class ProjectModal extends React.Component {
   AddProjectMembers = (e) => {
     const member = e.target.value;
     if(member<=0)
-      this.setState(() => ({error : true}));
+      e.target.value = 1;
     else
-      this.setState(() => ({ member }));
+    {
+      if(this.state.error==true)
+      {
+        this.setState(() => ({ error: false, member }));
+      }
+      else 
+        this.setState(() => ({member}));
+    }
   };
 
   EditDetails = () => {
@@ -342,7 +359,7 @@ export default class ProjectModal extends React.Component {
 
   SaveDetails = () => {
 
-    if(!this.state.title || !this.state.member){
+    if(!this.state.title || !this.state.member || !this.state.description){
       this.setState(() => ({error : true}));
     }
     else {
@@ -374,7 +391,8 @@ export default class ProjectModal extends React.Component {
           'skillsRequired': project.requirements,
           'mentor': project.mentor,
           'members': project.member,
-          'colab': project.colab
+          'colab': project.colab,
+          'link' : project.link
         },
         (res)=>{
           if(res.message=="SUCCESS")
@@ -399,48 +417,44 @@ export default class ProjectModal extends React.Component {
         Project Details
         <Button text = "X" type = "close__button" onClick = {this.props.DiscardDetails} />
         </h3>
+        <div>
+        <Details
+          title = {this.state.title}
+          link = {this.state.link}
+          description = {this.state.description}
+          startDate = {this.state.startDate}
+          endDate = {this.state.endDate}
+          requirements = {this.state.requirements}
+          member = {this.state.member}
+          mentor = {this.state.mentor}
+          colab = {this.state.colab}
+          AddTitle = {this.AddProjectTitle}
+          AddDescription = {this.AddProjectDescription}
+          AddStartDate = {this.AddProjectStartDate}
+          AddEndDate = {this.AddProjectEndDate}
+          AddRequirements = {this.AddProjectRequirements}
+          AddMentor = {this.AddProjectMentor}
+          AddMembers = {this.AddProjectMembers}
+          AddColab = {this.AddColab}
+          AddLink = {this.AddProjectLink}
+        />
         {
-          (this.state.error)?
+          (this.props.editDetail)?
           <div>
-          <p className = "modal__body">Please Enter All Valid Details</p>
-          <Button text = "Continue" type = "button continue__button" onClick = {this.FixError} />
+          <Button text = "Save Changes" type = "button modal__button" onClick = {this.EditDetails}/>
+          <Button text = "Discard Details" type = "button modal__button" onClick = {this.props.DiscardDetails}/>
           </div>
           :
           <div>
-          <Details
-            link = {this.state.link}
-            title = {this.state.title}
-            description = {this.state.description}
-            startDate = {this.state.startDate}
-            endDate = {this.state.endDate}
-            requirements = {this.state.requirements}
-            member = {this.state.member}
-            mentor = {this.state.mentor}
-            colab = {this.state.colab}
-            AddTitle = {this.AddProjectTitle}
-            AddLink = {this.AddProjectLink}
-            AddDescription = {this.AddProjectDescription}
-            AddStartDate = {this.AddProjectStartDate}
-            AddEndDate = {this.AddProjectEndDate}
-            AddRequirements = {this.AddProjectRequirements}
-            AddMentor = {this.AddProjectMentor}
-            AddMembers = {this.AddProjectMembers}
-            AddColab = {this.AddColab}
-          />
-          {
-            (this.props.editDetail)?
-            <div>
-            <Button text = "Save Changes" type = "button modal__button" onClick = {this.EditDetails}/>
+            { (this.state.error)?
+              <p className = "modal__body">Please Enter all Details Marked *</p>
+              :""
+            }
+            <Button text = "Add Project" type = "button modal__button" onClick = {this.SaveDetails}/>
             <Button text = "Discard Details" type = "button modal__button" onClick = {this.props.DiscardDetails}/>
-            </div>
-            :
-            <div>
-              <Button text = "Add Project" type = "button modal__button" onClick = {this.SaveDetails}/>
-              <Button text = "Discard Details" type = "button modal__button" onClick = {this.props.DiscardDetails}/>
-            </div>
-          }
           </div>
         }
+        </div>
       </Modal>
     )
   }
