@@ -99,6 +99,7 @@ export default class ProjectsPage extends React.Component {
             works={this.state.projects}
             ShowDetails={this.ShowDetails}
             view = {true}
+            type = "PROJECTS"
           />
         </div>
       </div>
