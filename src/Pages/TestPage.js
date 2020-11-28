@@ -1,7 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
-import Button from '../components/Button';
 import {postRequest} from '../components/CallApi';
 import Details from '../components/WidgetDetails';
 
@@ -12,6 +10,7 @@ export default class TestPage extends React.Component {
     super(props)
     this.state = {
       projects: [],
+      sections: [1,2],
     };
 
     const url = window.location.href;
@@ -42,10 +41,34 @@ export default class TestPage extends React.Component {
               project_id: item.project_id
             })
           })
-          console.log(default_projects)
+          //console.log(default_projects)
           this.setState({projects: default_projects})
         }
       }
+    )
+  }
+
+  display(section,index) {
+
+    const total_sections = 2;
+    const prev = (section==1)?total_sections:section-1;
+    const next = (section==total_sections)?1:section+1;
+
+    return(
+      <section key = {index} id={'section'+section}>
+        <a href={'#section'+prev} className="arrow__btn">‹</a>
+        {
+          this.state.projects.slice((section-1)*4,(section*4)).map((project,index) => (
+              <div className="item" key = {index}>
+              <Details
+                optionText = {project}
+                index = {index}
+              />
+              </div>
+          ))
+        }
+        <a href={"#section"+next} className="arrow__btn">›</a>
+      </section>
     )
   }
 
@@ -57,55 +80,23 @@ export default class TestPage extends React.Component {
     const query = res.email;
 
     const user_email = query.split('#')[0];
+    const project1 = this.state.projects.slice(0,4);
+    const project2 = this.state.projects.slice(5);
+
+    //console.log(this.state.sections);
 
     return(
       <div>
         <h1>TRY</h1>
         <div className="wrapper">
-          <section id="section1">
-            <a href="#section3" className="arrow__btn">‹</a>
-            {
-              this.state.projects.map((project,index) => (
-                  <div className="item" key = {index}>
-                  <Details
-                    optionText = {project}
-                    index = {index}
-                  />
-                  </div>
-              ))
-            }
-            <a href="#section2" className="arrow__btn">›</a>
-          </section>
-          <section id="section2">
-            <a href="#section1" className="arrow__btn">‹</a>
-            {
-              this.state.projects.map((project,index) => (
-                  <div className="item" key = {index}>
-                  <Details
-                    optionText = {project}
-                    index = {index}
-                  />
-                  </div>
-              ))
-            }
-            <a href="#section3" className="arrow__btn">›</a>
-          </section>
-          <section id="section3">
-            <a href="#section2" className="arrow__btn">‹</a>
-            {
-              this.state.projects.map((project,index) => (
-                  <div className="item" key = {index}>
-                  <Details
-                    optionText = {project}
-                    index = {index}
-                  />
-                  </div>
-              ))
-            }
-            <a href="#section1" className="arrow__btn">›</a>
-          </section>
+        {
+          this.state.sections.map((section,index)=>(
+            this.display(section,index)
+          ))
+        }
         </div>
       </div>
     )
   }
 }
+

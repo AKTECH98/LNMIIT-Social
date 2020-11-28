@@ -17,7 +17,8 @@ const useStyles = makeStyles({
     border: 0.5,
     borderColor: 'grey',
     borderStyle: 'solid',
-    marginBottom: '0.25rem',
+    marginBottom: '2rem',
+    marginTop: '3rem',
     height: 'fit-content',
     padding: '0 0.3rem 0 0.3rem'
   },
@@ -49,28 +50,39 @@ export default class WidgetHack extends React.Component {
   {
     super(props)
     this.state = {
-      hackTitles: []
+      hacks: []
     };
 
     const url = window.location.href;
     const parser = require('url-parameter-parser');
     const res = parser(url);
-    const user = res.email;
+    const query = res.email;
+    const user_email = query.split('#')[0];
 
-    postRequest('hack/fetchhackstitle',
+    postRequest('hack/fetchhacks',
       {
-        'email':user
+        'email': user_email,
       },
       (res)=>{
         if(res.message=="SUCCESS")
         {
-          let titles = []
-          res.return_value.forEach((item,index)=>{
-          if(index<4)
-            titles.push(item);
+          let default_hacks = []
+          res.return_value.forEach((item)=>{
+            default_hacks.push({
+              title : item.title,
+              description: item.description,
+              startDate: item.startDate,
+              endDate: item.endDate,
+              requirements: item.skills_required,
+              member: item.members,
+              mentor: item.mentor,
+              colab: item.colab,
+              hack_id: item.hack_id
+            })
           })
-          this.setState({hackTitles: titles})
-          console.log(this.state.hackTitles)
+          //console.log(default_hacks)
+          this.setState({hacks: default_hacks})
+          //console.log(this.state.hacks)
         }
       }
     )
@@ -86,7 +98,7 @@ export default class WidgetHack extends React.Component {
     return (
       <div className = "widget__list">
         <Header user = {user}/>
-        <WidgetView titles = {this.state.hackTitles}/>
+        <WidgetView type = "hack" work = {this.state.hacks} />
       </div>
     );
   }

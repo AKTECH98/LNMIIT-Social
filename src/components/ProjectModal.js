@@ -263,7 +263,6 @@ export default class ProjectModal extends React.Component {
     link: null
   };
 
-
   componentDidMount() {
     try {
       if(this.props.editDetail){

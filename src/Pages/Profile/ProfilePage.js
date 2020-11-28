@@ -20,17 +20,17 @@ export default class ProfilePage extends React.Component {
     const url = window.location.href;
     const parser = require('url-parameter-parser');
     const res = parser(url);
-    const user = res.email
+    const query = res.email
 
     return(
       <div>
         {
-          (user==undefined)?
-          <Redirect to={"ProfilePage?email="+window.localStorage.getItem('email')}/>
+          (query==undefined)?
+          <Redirect to={"ProfilePage?email="+window.localStorage.getItem('email')+"#section1"}/>
           : 
           postRequest('profile/getprofiledetails',
             {
-              'email':user,
+              'email':query.split('#')[0],
             },
             (res)=>{this.setState({personal:res.response})}
           )
@@ -41,10 +41,10 @@ export default class ProfilePage extends React.Component {
           <div className = "profile__info">
             IMAGE
             <div className = "profile__detail">
-              <Personal personal = {this.state.personal} view={user!=window.localStorage.getItem('email')}/>
+              <Personal personal = {this.state.personal} view={query.split('#')[0]!=window.localStorage.getItem('email')}/>
               <div className = "profile__widget">
-                <WidgetProject user = {(user==undefined)?window.localStorage.getItem('email'):user}/>
-                <WidgetHack user = {(user==undefined)?window.localStorage.getItem('email'):user}/>
+                <WidgetProject user = {(query.split('#')[0]==undefined)?window.localStorage.getItem('email'):query.split('#')[0]}/>
+                <WidgetHack user = {(query.split('#')[0]==undefined)?window.localStorage.getItem('email'):query.split('#')[0]}/>
               </div>
             </div>
           </div>

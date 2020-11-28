@@ -55,35 +55,32 @@ const FeedWidgetView = (props) => (
       ) : (
         ""
       )}
+      <Dropzone
+        onDrop={props.onDrop}
+        accept="image/jpg, image/png, image/gif" //whatever the file type needed
+        multiple
+      >
+        {({ getRootProps, getInputProps }) => {
+          return (
+            <div {...getRootProps()}>
+              <input {...getInputProps()} />
 
-      <Typography>
-        <Dropzone
-          onDrop={props.onDrop}
-          accept="image/jpg, image/png, image/gif" //whatever the file type needed
-          multiple
-        >
-          {({ getRootProps, getInputProps }) => {
-            return (
-              <div {...getRootProps()}>
-                <input {...getInputProps()} />
-
-                <IconButton
-                  classes={{ root: useStyles().rootIcon }}
-                  onClick={props.imageUpload}
-                >
-                  <PhotoIcon fontSize="large" />
-                </IconButton>
-                <IconButton classes={{ root: useStyles().rootIcon }}>
-                  <VideocamIcon fontSize="large" />
-                </IconButton>
-                <IconButton classes={{ root: useStyles().rootIcon }}>
-                  <DescriptionIcon fontSize="large" />
-                </IconButton>
-              </div>
-            );
-          }}
-        </Dropzone>
-      </Typography>
+              <IconButton
+                classes={{ root: useStyles().rootIcon }}
+                onClick={props.imageUpload}
+              >
+                <PhotoIcon fontSize="large" />
+              </IconButton>
+              <IconButton classes={{ root: useStyles().rootIcon }}>
+                <VideocamIcon fontSize="large" />
+              </IconButton>
+              <IconButton classes={{ root: useStyles().rootIcon }}>
+                <DescriptionIcon fontSize="large" />
+              </IconButton>
+            </div>
+          );
+        }}
+      </Dropzone>
     </CardContent>
   </Card>
 );

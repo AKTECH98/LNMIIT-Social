@@ -22,8 +22,6 @@ export default class HomePage extends React.Component {
             <PostView />
           </div>
           <div>
-            <WidgetProject user={user} />
-            <WidgetHack user={user} />
           </div>
         </div>
       </div>
