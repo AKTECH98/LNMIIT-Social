@@ -51,7 +51,8 @@ export default class WidgetProject extends React.Component {
   {
     super(props)
     this.state = {
-      projects: []
+      projects: [],
+      sections: []
     };
 
     const url = window.location.href;
@@ -67,9 +68,9 @@ export default class WidgetProject extends React.Component {
       (res)=>{
         if(res.message=="SUCCESS")
         {
-          let default_projects = []
+          let projects = []
           res.return_value.forEach((item)=>{
-            default_projects.push({
+            projects.push({
               title : item.title,
               description: item.description,
               startDate: item.startDate,
@@ -82,9 +83,15 @@ export default class WidgetProject extends React.Component {
               project_id: item.project_id
             })
           })
+
+          let sections = []
+          const len = projects.length;
+          for(var i=0;i<len/4;i++)
+            sections.push(i+1);
+
           //console.log(default_projects)
-          this.setState({projects: default_projects})
-          //console.log(this.state.projects)
+          this.setState({projects,sections})
+          //console.log(this.state.sections)
         }
       }
     )
@@ -94,7 +101,7 @@ export default class WidgetProject extends React.Component {
     return (
       <div className = "widget__list">
         <Header user = {this.props.user}/>
-        <WidgetView type = "project" work = {this.state.projects} />
+        <WidgetView type = "project" work = {this.state.projects} sections = {this.state.sections} />
       </div>
     );
   }

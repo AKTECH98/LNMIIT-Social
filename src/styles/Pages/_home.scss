@@ -1,11 +1,11 @@
 .post__button{
-    color: white;
     border: none;
     font-size: $l-size;
-    text-decoration: underline;
-    background-color: $off-black;
+    text-decoration: none;
     height: fit-content;
     margin-top: $s-size;
+    background-color: white;
+    color: $light-blue;
 }
 
 .home__view {

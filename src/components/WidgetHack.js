@@ -1,26 +1,26 @@
 import React from 'react';
 
 import Button from './Button';
+import WidgetView from './WidgetView';
 
-import { Card, CardActions, CardContent, Typography } from '@material-ui/core';
+import { Card, CardActions, CardContent, Typography} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Link } from 'react-router-dom';
+
 import {postRequest} from './CallApi'
-import WidgetView from './WidgetView';
 
 const useStyles = makeStyles({
   header: {
     display: 'flex',
     justifyContent: 'space-around',
     backgroundColor: 'white',
-    border: 0.5,
-    borderColor: 'grey',
-    borderStyle: 'solid',
     marginBottom: '2rem',
-    marginTop: '3rem',
     height: 'fit-content',
-    padding: '0 0.3rem 0 0.3rem'
+    padding: '0 0.3rem 0 0.3rem',
+    border: 0.5,
+    borderStyle: 'solid',
+    borderColor: 'grey'
   },
   title: {
     fontSize: 14,
@@ -29,7 +29,8 @@ const useStyles = makeStyles({
   }
 });
 
-const Header = (props) => (
+function Header(props){
+  return(
   <Card className = {useStyles().header}>
     <CardContent>
       <Typography className = {useStyles().title}>
@@ -38,19 +39,20 @@ const Header = (props) => (
     </CardContent>
     <CardActions>
       <Link to = {"MyHacks?email="+props.user}>
-        <Button text = "View All" type = "widget__button"/>
+      <Button text = "View All" type = "widget__button"/>
       </Link>
     </CardActions>
   </Card>
-)
+  )
+}
 
 export default class WidgetHack extends React.Component {
-
   constructor(props)
   {
     super(props)
     this.state = {
-      hacks: []
+      hacks: [],
+      sections: []
     };
 
     const url = window.location.href;
@@ -66,9 +68,9 @@ export default class WidgetHack extends React.Component {
       (res)=>{
         if(res.message=="SUCCESS")
         {
-          let default_hacks = []
+          let hacks = []
           res.return_value.forEach((item)=>{
-            default_hacks.push({
+            hacks.push({
               title : item.title,
               description: item.description,
               startDate: item.startDate,
@@ -77,28 +79,29 @@ export default class WidgetHack extends React.Component {
               member: item.members,
               mentor: item.mentor,
               colab: item.colab,
+              hack_link: item.link,
               hack_id: item.hack_id
             })
           })
+
+          let sections = []
+          const len = hacks.length;
+          for(var i=0;i<len/4;i++)
+            sections.push(i+1);
+
           //console.log(default_hacks)
-          this.setState({hacks: default_hacks})
-          //console.log(this.state.hacks)
+          this.setState({hacks,sections})
+          //console.log(this.state.sections)
         }
       }
     )
   }
 
   render() {
-
-    const url = window.location.href;
-    const parser = require('url-parameter-parser');
-    const res = parser(url);
-    const user = res.email;
-
     return (
       <div className = "widget__list">
-        <Header user = {user}/>
-        <WidgetView type = "hack" work = {this.state.hacks} />
+        <Header user = {this.props.user}/>
+        <WidgetView type = "hack" work = {this.state.hacks} sections = {this.state.sections} />
       </div>
     );
   }

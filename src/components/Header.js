@@ -88,7 +88,7 @@ export default function Header(props){
                 </div>
               </IconButton>
             </Link>
-            <Link to='/ProfilePage' className = "linklink">
+            <Link to={'/ProfilePage?email='+window.localStorage.getItem('email')} className = "linklink">
               <IconButton classes = {{root: classes.root}}>
                 <div className = "header__button">
                   <div>

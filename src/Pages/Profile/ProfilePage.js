@@ -37,7 +37,6 @@ export default class ProfilePage extends React.Component {
         }
         <Header logout={true}/>
         <div className = "profile__page">
-          <div></div>
           <div className = "profile__info">
             IMAGE
             <div className = "profile__detail">
@@ -48,7 +47,6 @@ export default class ProfilePage extends React.Component {
               </div>
             </div>
           </div>
-          <div></div>
         </div>
       </div>
     )
