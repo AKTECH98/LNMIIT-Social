@@ -182,7 +182,7 @@ function Details(props){
     </div>
     <TextField
       default = {props.description}
-      label = "Description* (max. 25 Words)"
+      label = "Description* (max. 20 Words)"
       multiline
       FeildStyle = {{
         width: 350,
@@ -251,6 +251,7 @@ function Details(props){
 export default class ProjectModal extends React.Component {
 
   state = {
+    project_id:0,
     title: null,
     description: null,
     startDate: null,
@@ -260,13 +261,14 @@ export default class ProjectModal extends React.Component {
     member: 1,
     error: false,
     colab: false,
-    link: null
+    project_link: null
   };
 
   componentDidMount() {
     try {
       if(this.props.editDetail){
         this.setState(() => ({
+          project_id: this.props.project.project_id,
           title : this.props.project.title,
           description: this.props.project.description,
           startDate: this.props.project.startDate,
@@ -275,8 +277,9 @@ export default class ProjectModal extends React.Component {
           member: this.props.project.member,
           mentor: this.props.project.mentor,
           colab: this.props.project.colab,
-          link: this.props.project_link
+          project_link: this.props.project_link
         }))
+        console.log(this.props.project_link + "Hi there");
       }
     } catch(e) {
       console.log(e);
@@ -287,8 +290,8 @@ export default class ProjectModal extends React.Component {
     this.setState(() => ({colab}))
   }
   AddProjectLink = (e) => {
-    const link = e.target.value;
-    this.setState(() => ({ link }))
+    const project_link = e.target.value;
+    this.setState(() => ({ project_link }))
   };
 
   FixError = () => {
@@ -353,7 +356,50 @@ export default class ProjectModal extends React.Component {
   };
 
   EditDetails = () => {
-    alert("Under Construction")
+    if(!this.state.title || !this.state.member || !this.state.description){
+      this.setState(() => ({error : true}));
+    }
+    else {
+      let project = this.state
+      this.props.EditProject(project);
+
+      function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
+
+        return [year, month, day].join('-');
+      }
+
+      postRequest('project/editproject',
+        {
+          'email':window.localStorage.getItem('email'),
+          'password': window.localStorage.getItem('password'),
+          'project_id': project.project_id,
+          'title': project.title,
+          'description': project.description,
+          'startDate': formatDate(project.startDate),
+          'endDate':formatDate(project.endDate),
+          'skillsRequired': project.requirements,
+          'mentor': project.mentor,
+          'members': project.member,
+          'colab': project.colab,
+          'link' : project.project_link
+        },
+        (res)=>{
+          if(res.message=="SUCCESS")
+          {
+            console.log('SUCCESS')
+          }
+        }
+      )
+    }
   }
 
   SaveDetails = () => {
@@ -363,7 +409,7 @@ export default class ProjectModal extends React.Component {
     }
     else {
       let project = this.state
-      this.props.SubmitDetails(project,this.props.editDetail);
+      this.props.SubmitDetails(project);
 
       function formatDate(date) {
         var d = new Date(date),
@@ -391,7 +437,7 @@ export default class ProjectModal extends React.Component {
           'mentor': project.mentor,
           'members': project.member,
           'colab': project.colab,
-          'link' : project.link
+          'link' : project.project_link
         },
         (res)=>{
           if(res.message=="SUCCESS")
@@ -419,7 +465,7 @@ export default class ProjectModal extends React.Component {
         <div>
         <Details
           title = {this.state.title}
-          link = {this.state.link}
+          link = {this.state.project_link}
           description = {this.state.description}
           startDate = {this.state.startDate}
           endDate = {this.state.endDate}

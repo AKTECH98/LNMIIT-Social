@@ -16,6 +16,7 @@ const useStyles = makeStyles({
     justifyContent: 'space-around',
     backgroundColor: 'white',
     marginBottom: '2rem',
+    marginTop: '10px',
     height: 'fit-content',
     padding: '0 0.3rem 0 0.3rem',
     border: 0.5,

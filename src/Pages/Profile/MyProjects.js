@@ -73,7 +73,7 @@ export default class ProjectsPage extends React.Component {
     const res = parser(url);
     const user = res.email;
 
-    postRequest('project/fetchprojects',
+    postRequest('project/fetchprojectsofuser',
       {
         'email': user,
       },
@@ -113,7 +113,7 @@ export default class ProjectsPage extends React.Component {
   EditDetails = (index) => {
 
     let pro = this.state.projects[index];
-
+    
     this.setState(() => ({
       project: pro,
       showDetail: false,
@@ -122,25 +122,13 @@ export default class ProjectsPage extends React.Component {
     }))
   }
 
-  SubmitDetails = (project,edit) => {
-    if(!edit){
-      console.log(project);
-      this.setState((prevSate) => ({
-        projects: prevSate.projects.concat(project),
-        addDetail: false,
-        editDetail: false,
-        openModal: false
-      }));
-    }
-    else{
-      this.setState(() => ({
-        addDetail: false,
-        editDetail: false,
-        openModal: false
-      }));
-
-      //this.state.projects[index] = project;
-    }
+  SubmitDetails = (project) => {
+    this.setState((prevState) => ({
+      projects: prevState.projects.concat(project),
+      addDetail: false,
+      editDetail: false,
+      openModal: false
+    }));
   };
 
   DiscardDetails = () => {
@@ -152,8 +140,13 @@ export default class ProjectsPage extends React.Component {
     }))
   }
 
-  EditProject = (index) => {
-    console.log(index)
+  EditProject = (project) => {
+    this.setState(()=>({
+      editDetails: false,
+      openModal: false
+    }))
+
+    window.location.reload()
   }
 
   DeleteProject = (projectIndex) => {

@@ -61,7 +61,7 @@ export default class WidgetProject extends React.Component {
     const query = res.email;
     const user_email = query.split('#')[0];
 
-    postRequest('project/fetchprojects',
+    postRequest('project/fetchprojectsofuser',
       {
         'email': user_email,
       },

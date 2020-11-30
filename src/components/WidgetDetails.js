@@ -23,7 +23,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'white',
     color: '#4574bf',
     width: 230,
-    height: 'fit-content'
+    height: 'fit-content',
+    border: '#4574bf',
+    borderStyle: 'solid',
+    borderRadius: '10px'
   },
   header: {backgroundColor: '#101010'},
   title: {
@@ -32,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
     height: 'fit-content'
   },
   subheader: {
-    color: '#4574bf',
     color: 'gray',
     fontSize : 12
   },
@@ -145,7 +147,8 @@ export default function Details(props) {
         }
       />
       <CardContent classes = {{root: classes.content}}>
-        {props.optionText.description}
+        Description :<hr/><br/>
+        {(props.optionText.description==undefined)?'None':props.optionText.description}
       </CardContent>
       <CardActions classes = {{root:classes.action}}>
         {

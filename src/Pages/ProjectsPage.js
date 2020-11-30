@@ -51,7 +51,8 @@ export default class ProjectsPage extends React.Component {
         endDate: null,
         requirements: null,
         mentor:null,
-        member: 0
+        member: 0,
+        project_link:null
       }
     };
 
@@ -60,7 +61,7 @@ export default class ProjectsPage extends React.Component {
     const res = parser(url);
     const user = res.email;
 
-    postRequest('project/fetchallprojects',
+    postRequest('project/fetchpublicprojects',
       {
         'email': window.localStorage.getItem('email'),
         'password': window.localStorage.getItem('password'),
@@ -79,6 +80,7 @@ export default class ProjectsPage extends React.Component {
               member: item.members,
               mentor: item.mentor,
               colab: item.colab,
+              project_link: item.link,
               project_id: item.project_id
             })
           })
