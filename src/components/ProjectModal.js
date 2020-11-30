@@ -277,9 +277,9 @@ export default class ProjectModal extends React.Component {
           member: this.props.project.member,
           mentor: this.props.project.mentor,
           colab: this.props.project.colab,
-          project_link: this.props.project_link
+          project_link: this.props.project.project_link
         }))
-        console.log(this.props.project_link + "Hi there");
+        //console.log(this.props.project_link + "Hi there");
       }
     } catch(e) {
       console.log(e);
@@ -361,7 +361,6 @@ export default class ProjectModal extends React.Component {
     }
     else {
       let project = this.state
-      this.props.EditProject(project);
 
       function formatDate(date) {
         var d = new Date(date),
@@ -395,7 +394,7 @@ export default class ProjectModal extends React.Component {
         (res)=>{
           if(res.message=="SUCCESS")
           {
-            console.log('SUCCESS')
+            window.location.reload()
           }
         }
       )
@@ -409,7 +408,6 @@ export default class ProjectModal extends React.Component {
     }
     else {
       let project = this.state
-      this.props.SubmitDetails(project);
 
       function formatDate(date) {
         var d = new Date(date),
@@ -442,7 +440,7 @@ export default class ProjectModal extends React.Component {
         (res)=>{
           if(res.message=="SUCCESS")
           {
-            console.log('SUCCESS')
+            window.location.reload()
           }
         }
       )

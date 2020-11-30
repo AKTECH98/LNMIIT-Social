@@ -122,15 +122,6 @@ export default class ProjectsPage extends React.Component {
     }))
   }
 
-  SubmitDetails = (project) => {
-    this.setState((prevState) => ({
-      projects: prevState.projects.concat(project),
-      addDetail: false,
-      editDetail: false,
-      openModal: false
-    }));
-  };
-
   DiscardDetails = () => {
     this.setState(() => ({
       addDetail:false,
@@ -138,15 +129,6 @@ export default class ProjectsPage extends React.Component {
       showDetail: false,
       openModal: false
     }))
-  }
-
-  EditProject = (project) => {
-    this.setState(()=>({
-      editDetails: false,
-      openModal: false
-    }))
-
-    window.location.reload()
   }
 
   DeleteProject = (projectIndex) => {
@@ -162,8 +144,7 @@ export default class ProjectsPage extends React.Component {
       (res)=>{
         if(res.message=="SUCCESS")
         {
-          projects.splice(projectIndex,1)
-          this.setState(() => ({projects}));
+          window.location.reload()
         }
       }
     )
