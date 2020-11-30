@@ -26,7 +26,7 @@ export default class ProfilePage extends React.Component {
       <div>
         {
           (query==undefined)?
-          <Redirect to={"ProfilePage?email="+window.localStorage.getItem('email')+"#section1"}/>
+          <Redirect to={"ProfilePage?email="+window.localStorage.getItem('email')}/>
           : 
           postRequest('profile/getprofiledetails',
             {

@@ -39,7 +39,6 @@ export default class PageHandler extends React.Component{
           <Route path="/ForgotPassword" component={ForgotPassword}/>
           <Route path="/EditProfile" component={EditProfile}/>
           <Route path="/ProfilePage" component={ProfilePage}/>
-          <Route path="/ProfileVeiw" component={ProfileView}/>
           <Route path="/TestPage" component ={TestPage}/>
           <Route path="/Home" component ={HomePage}/>
           <Route path="/MyHacks" component ={MyHackathon}/>

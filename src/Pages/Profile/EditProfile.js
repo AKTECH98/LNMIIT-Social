@@ -177,7 +177,7 @@ export default class EditProfilePage extends React.Component {
           </div>
         </div>
 
-      <Link to = {"/ProfilePage"} >
+      <Link to = {"ProfilePage?email="+window.localStorage.getItem('email')} >
           <Button
             text = "Submit Changes"
             type = "button editProfile__button"
