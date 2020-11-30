@@ -12,24 +12,9 @@ const WorkView = (props) => (
           index = {index}
           DeleteWork = {props.Delete}
           EditWork = {props.Edit}
+          Request = {props.Request}
           view = {props.view}
         />
-        {
-          (props.type=="PROJECTS")?
-          <button onClick={()=>{
-            postRequest('project/joinproject',
-              {
-                'email': window.localStorage.getItem('email'),
-                'password': window.localStorage.getItem('password'),
-                'project_id': work.project_id,
-              },
-              (res)=>{
-                //TODO
-              }
-            )
-          }}>join</button>
-          :""
-        }
         </div>
       ))
     }

@@ -162,7 +162,7 @@ export default function Details(props) {
         }
         {
           (props.optionText.colab)?
-            <IconButton>
+            <IconButton onClick = {props.Request}>
               <ColabIcon fontSize = "large" style = {{color:'green'}} />
             </IconButton>
             :""

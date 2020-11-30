@@ -3,6 +3,7 @@ import React from 'react';
 import Button from '../../components/Button';
 import Header from '../../components/Header';
 import ProjectModal from '../../components/ProjectModal';
+import InviteModal from '../../components/InviteModal';
 import WorkView from '../../components/WorkView';
 import {postRequest} from '../../components/CallApi'
 
@@ -54,6 +55,7 @@ export default class ProjectsPage extends React.Component {
       addDetail: false,
       showDetail: false,
       editDetail: false,
+      request: false,
       project: {
         title: null,
         description: null,
@@ -103,6 +105,13 @@ export default class ProjectsPage extends React.Component {
   }
 
 
+  RequestUser = () =>{
+    //console.log("Hello There")
+    this.setState(()=>({
+      request: true
+    }))
+  }
+
   AddDetail = () => {
     this.setState(() => ({
       openModal: true,
@@ -127,7 +136,8 @@ export default class ProjectsPage extends React.Component {
       addDetail:false,
       editDetail: false,
       showDetail: false,
-      openModal: false
+      openModal: false,
+      request: false
     }))
   }
 
@@ -168,6 +178,7 @@ export default class ProjectsPage extends React.Component {
           Delete = {this.DeleteProject}
           Edit = {this.EditDetails}
           view = {user!=window.localStorage.getItem('email')}
+          Request = {this.RequestUser}
         />
         {
           (this.state.openModal)?
@@ -180,6 +191,15 @@ export default class ProjectsPage extends React.Component {
             SubmitDetails = {this.SubmitDetails}
             DiscardDetails = {this.DiscardDetails}
             EditProject = {this.EditProject}
+          />
+          :
+          ''
+        }
+        {
+          (this.state.request)?
+          <InviteModal
+            request = {this.state.request}
+            DiscardDetails = {this.DiscardDetails}
           />
           :
           ''
