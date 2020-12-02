@@ -1,0 +1,46 @@
+@media screen and (max-width: 768px) {
+  .header__title {
+    padding-right: 10px;
+    width: 80%;
+    padding-left: 15px;
+  }
+  .sub__header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    margin: 0;
+  }
+  .home__widget {
+    display: none;
+  }
+  .home__photo {
+    display: none;
+  }
+  .home__view {
+    grid-template-columns: 100%;
+    margin-top: 20vw;
+  }
+  .header__hide {
+    display: none;
+  }
+  .header__show {
+    display: block;
+    padding-right: 15px;
+  }
+  .header__buttons {
+    padding-top: 100px;
+  }
+  .header__button {
+    flex-direction: row;
+    border-right: none;
+    padding-top: 10px;
+  }
+  .header__button--title {
+    padding-left: 10px;
+  }
+  .search {
+    width: 100%;
+    color: white;
+  }
+}

@@ -1,43 +1,74 @@
 .header {
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: $m-size;
-    padding: 0 $xs-size 0 $xs-size;
-    align-items: center;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: $m-size;
+  padding: 0 $xs-size 0 $xs-size;
+  align-items: center;
 }
 
 .header__title {
-    color: $pink-red;
-    font-size: $xl-size;
-    margin: none;
-    padding: none;
+  color: $pink-red;
+  font-size: $xl-size;
+  margin: none;
+  padding: none;
+  padding-right: 5px;
+  width: 40%;
 }
 
 .sub__header {
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: $black-blue;
-    height: fit-content;
-    width: 75%
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $black-blue;
+  height: fit-content;
+  width: 100vw;
 }
 
-.header__buttons{
-    display: flex;
+.header__buttons {
+  display: flex;
 }
 
-.header__button{
-    display: flex;
-    flex-direction: column;
-    border-right: 0.1rem solid white;
-    padding-right: $s-size;
+.header__button {
+  display: flex;
+  flex-direction: column;
+  border-right: 0.1rem solid white;
+  padding-right: $s-size;
 }
 
-.header__button--title{
-    color: white;
-    font-size: $m-size;
-    font-family: cursive;
-    font-weight: 200;
+.header__button--title {
+  color: white;
+  font-size: $m-size;
+  font-family: cursive;
+  font-weight: 200;
+}
+
+.search {
+  width: 30%;
+}
+
+.header__show {
+  display: none;
+}
+.header__hide {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.hamburger__menu {
+  z-index: 100;
+}
+
+.mobile__menu {
+  position: absolute;
+  left: 0;
+  padding: 10px;
+  color: black;
+  width: 100vw;
+  height: 100vh;
+  background-color: #009999;
+  top: 0;
+  z-index: 10;
+  transition: 0.5s;
 }
