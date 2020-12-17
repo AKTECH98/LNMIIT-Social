@@ -1,6 +1,6 @@
 .wrapper {
     display: grid;
-    grid-template-columns: repeat(3, 100%);
+    grid-template-columns: repeat(100, 100%);
     overflow: hidden;
     scroll-behavior: smooth;
 }
@@ -54,7 +54,6 @@
     right: 0;
     background: linear-gradient(90deg, rgba(0, 0, 0, 0) 50%, $light-blue 100%);
 }
-/*
 .wrapper section a{
     position: absolute;
     color: $light-blue;
@@ -65,6 +64,3 @@
     text-align: center;
     z-index: 1;
 }
-
-
-*/

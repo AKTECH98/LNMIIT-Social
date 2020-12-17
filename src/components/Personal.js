@@ -22,36 +22,43 @@ const useStyles = makeStyles({
   },
   root: {
     backgroundColor: 'white',
-    height: 'fit-content'
+    height: 'fit-content',
+    minWidth: 850
   },
   rootHeader: {
-    borderBottom: '0.3rem solid grey',
     height: 'fit-content'
+  },
+  subHeader: {
+    fontSize: 15,
+    fontColor: 'black'
   },
   subRootA: {
     backgroundColor: 'white',
-    minWidth: 500,
-    minHeight: 200,
-    maxHeight: 200
+    minWidth: 400,
+    Height: 'fit-content',
+    marginRight: 10
   },
   subRootB:{
     backgroundColor: 'white',
-    minHeight: 200,
-    maxHeight: 200
+    Height: 'fit-content',
+    minWidth: 200,
+    marginLeft: 10
   },
-  subHeader: {
-    borderBottom: '0.1rem solid grey'
+  subInfo: {
+    borderBottom: '0.1rem solid grey',
+    fontSize: 12,
+    fontColor: 'black'
   },
   title: {
-    fontSize: 30,
+    fontSize: 40,
     color: '#4574bf',
     fontWeight: 700,
     fontFamily: 'cursive'
   },
   subTitle: {
-    fontSize: 20,
+    fontSize: 25,
     color: '#4574bf',
-    fontWeight: 500
+    fontWeight: 400
   },
   content: {
     display: 'flex',
@@ -59,11 +66,12 @@ const useStyles = makeStyles({
   },
   subContent: {
     color: '#4574bf',
-    fontSize: 15
+    fontSize: 15,
+    marginBottom: 5
   },
   rootIcon: {
     color: 'blue'
-	}
+  }
 });
 
 export default function Personal(props){
@@ -80,7 +88,6 @@ export default function Personal(props){
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
-
 
     setOpen(false);
   };
@@ -110,7 +117,7 @@ export default function Personal(props){
         {
           root: classes.rootHeader,
           title : classes.title,
-          subheader: classes.subHeader
+          subheader: classes.subInfo
         }
       }
 
@@ -150,6 +157,7 @@ export default function Personal(props){
       }  
       
       title= {props.personal==null?'Default Name': props.personal.first_name + ' ' + props.personal.middle_name + ' ' + props.personal.last_name}
+      subheader = "Competitive Coder/Designer/Machine Learning"
     />
     <CardContent classes = {{root:classes.content}}>
 
@@ -157,9 +165,11 @@ export default function Personal(props){
         <CardHeader
           classes = {{
             root: classes.subHeader,
-            title: classes.subTitle
+            title: classes.subTitle,
+            subheader: classes.subInfo
           }}
           title= "About"
+          subheader = "1st/2nd/3rd/4th Year/Alumni (Y16 Batch)"
         />
         <CardContent classes = {{root:classes.subContent}}>
           {props.personal==null?'Default Description':props.personal.profile_description}
@@ -170,16 +180,33 @@ export default function Personal(props){
         <CardHeader
           classes = {{
             root: classes.subHeader,
-            title: classes.subTitle
+            title: classes.subTitle,
+            subheader: classes.subInfo
           }}
-          title= "Contact Info."
+          title= "Contact Info. & Links"
+          subheader = "."
         />
         <CardContent classes = {{root:classes.subContent}}>
           <Typography variant = "h5">
-            Phone No. : {props.personal==null?'Default Phone':props.personal.phone}
+            Phone No.  : {props.personal==null?'Default Phone':props.personal.phone}
           </Typography>
           <Typography variant = "h5">
-            Email-ID : {props.personal==null?'Default Email':props.personal.email}
+            Email-ID   : {props.personal==null?'Default Email':props.personal.email}
+          </Typography>
+          <Typography variant = "h5">
+            Linkdin    : none
+          </Typography>
+          <Typography variant = "h5">
+            Github     : none
+          </Typography>
+          <Typography variant = "h5">
+            Codechef   : none
+          </Typography>
+          <Typography variant = "h5">
+            Codeforces : none
+          </Typography>
+          <Typography variant = "h5">
+            Other      : none
           </Typography>
         </CardContent>
       </Card>

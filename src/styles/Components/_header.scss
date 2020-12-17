@@ -1,7 +1,7 @@
 .header {
   color: white;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   margin-bottom: $m-size;
   padding: 0 $xs-size 0 $xs-size;
   align-items: center;
@@ -26,23 +26,26 @@
   width: 100vw;
 }
 
-.header__buttons {
-  display: flex;
-}
 
-.header__button {
+
+.header__button{
   display: flex;
   flex-direction: column;
-  border-right: 0.1rem solid white;
   padding-right: $s-size;
+  color: white;
 }
 
-.header__button--title {
+.header__button--title{
   color: white;
   font-size: $m-size;
   font-family: cursive;
   font-weight: 200;
 }
+
+.active{
+  background-color: $dark-blue;
+}
+
 
 .search {
   width: 30%;

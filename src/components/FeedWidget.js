@@ -4,7 +4,7 @@ import Button from "./Button";
 import PostModal from "./PostModal";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { Card, CardContent, Typography } from "@material-ui/core";
+import { Card, CardContent } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
@@ -94,7 +94,7 @@ export default class FeedWidget extends React.Component {
     reader.onabort = () => console.log("file reading was aborted");
     reader.onerror = () => console.log("file reading has failed");
     reader.onloadend = () => {
-      console.log("reader result", reader.result);
+      //console.log("reader result", reader.result);
       this.setState({
         file: file,
         imagePreviewUrl: reader.result,

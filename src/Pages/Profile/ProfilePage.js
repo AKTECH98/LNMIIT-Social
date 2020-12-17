@@ -38,14 +38,16 @@ export default class ProfilePage extends React.Component {
         <Header logout={true}/>
         <div className = "profile__page">
           <div className = "profile__info">
-            IMAGE
-            <div className = "profile__detail">
-              <Personal personal = {this.state.personal} view={query.split('#')[0]!=window.localStorage.getItem('email')}/>
-              <div className = "profile__widget">
-                <WidgetProject user = {(query.split('#')[0]==undefined)?window.localStorage.getItem('email'):query.split('#')[0]}/>
-                <WidgetHack user = {(query.split('#')[0]==undefined)?window.localStorage.getItem('email'):query.split('#')[0]}/>
-              </div>
+            <div className = "profile__image">
+              IMAGE
             </div>
+            <div className = "profile__detail">
+              <Personal personal = {this.state.personal} view={query.split('#')[0]!=window.localStorage.getItem('email')}/>   
+            </div>
+          </div>
+          <div className = "profile__widget">
+            <WidgetProject user = {(query.split('#')[0]==undefined)?window.localStorage.getItem('email'):query.split('#')[0]}/>
+            <WidgetHack user = {(query.split('#')[0]==undefined)?window.localStorage.getItem('email'):query.split('#')[0]}/>
           </div>
         </div>
       </div>

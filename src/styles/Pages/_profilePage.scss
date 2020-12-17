@@ -1,9 +1,18 @@
 .profile__page {
-    margin-top: $l-size;
+    background-color: none;
 }
-
-
 
 .profile__widget {
     margin: $xl-size 0;
+}
+
+.profile__image {
+    border: red solid 0.3rem;
+    width: 25%;
+    margin-right: $xxl-size;
+}
+
+.profile__info {
+    display: flex;
+    justify-content: space-between;
 }

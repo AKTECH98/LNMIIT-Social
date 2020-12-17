@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {postRequest} from '../components/CallApi';
-import Details from '../components/WidgetDetails';
+import WidgetDetails from '../components/WidgetDetails';
 
 export default class WidgetView extends React.Component {
 
@@ -22,9 +22,10 @@ export default class WidgetView extends React.Component {
         {
           this.props.work.slice((section-1)*4,(section*4)).map((project,index) => (
             <div className="item" key = {index}>
-            <Details
+            <WidgetDetails
               optionText = {project}
               index = {index}
+              view = "false"
             />
             </div>
           ))
@@ -48,4 +49,3 @@ export default class WidgetView extends React.Component {
     )
   }
 }
-

@@ -26,7 +26,8 @@ const useStyles = makeStyles((theme) => ({
     height: 'fit-content',
     border: '#4574bf',
     borderStyle: 'solid',
-    borderRadius: '10px'
+    borderRadius: '10px',
+    padding: '5px',
   },
   header: {backgroundColor: '#101010'},
   title: {
@@ -147,7 +148,7 @@ export default function Details(props) {
         }
       />
       <CardContent classes = {{root: classes.content}}>
-        Description :<hr/><br/>
+        Description :<hr/>
         {(props.optionText.description==undefined)?'None':props.optionText.description}
       </CardContent>
       <CardActions classes = {{root:classes.action}}>
