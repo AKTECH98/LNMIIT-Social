@@ -15,13 +15,18 @@ export default class HomePage extends React.Component {
       <div>
         <Redirect to={"Home?email=" + user} />
         <Header logout={true} />
-        <div className="home__view">
-          <div className="home__photo">Photo</div>
-          <div className="home__feed">
+        <div className='home__view'>
+          <div className='home__photo'>Photo</div>
+          <div className='home__feed'>
             <FeedWidget />
             <PostView />
           </div>
+
+          <div className='  home__widget'>
+            <WidgetProject user={user} />
+            <WidgetHack user={user} />
           <div>
+
           </div>
         </div>
       </div>

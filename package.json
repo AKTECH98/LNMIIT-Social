@@ -51,6 +51,7 @@
     "react-dropzone": "^11.2.3",
     "react-google-recaptcha": "^2.1.0",
     "react-google-recaptcha-v3": "^1.6.1",
+    "react-hamburger-menu": "^1.2.1",
     "react-html-parser": "^2.0.2",
     "react-image-crop": "^8.6.1",
     "react-modal": "^3.11.2",
