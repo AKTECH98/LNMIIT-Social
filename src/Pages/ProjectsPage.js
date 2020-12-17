@@ -51,7 +51,8 @@ export default class ProjectsPage extends React.Component {
         endDate: null,
         requirements: null,
         mentor:null,
-        member: 0
+        member: 0,
+        project_link:null
       }
     };
 
@@ -60,7 +61,7 @@ export default class ProjectsPage extends React.Component {
     const res = parser(url);
     const user = res.email;
 
-    postRequest('project/fetchallprojects',
+    postRequest('project/fetchpublicprojects',
       {
         'email': window.localStorage.getItem('email'),
         'password': window.localStorage.getItem('password'),
@@ -79,6 +80,7 @@ export default class ProjectsPage extends React.Component {
               member: item.members,
               mentor: item.mentor,
               colab: item.colab,
+              project_link: item.link,
               project_id: item.project_id
             })
           })
@@ -89,29 +91,6 @@ export default class ProjectsPage extends React.Component {
     )
   }
 
-
-
-  ShowDetails = (index) => {
-    let pro = this.state.projects[index];
-
-    this.setState(() => ({
-      project: {
-        index: index,
-        title: pro.title,
-        description: pro.description,
-        startDate: pro.startDate,
-        endDate: pro.endDate,
-        requirements: pro.requirements,
-        mentor: pro.mentor,
-        member: pro.member
-      },
-      showDetail: true,
-      openModal: true
-    }))
-  }
-
-
-
   render() {
     return(
       <div>
@@ -121,6 +100,8 @@ export default class ProjectsPage extends React.Component {
           <WorkView
             works={this.state.projects}
             ShowDetails={this.ShowDetails}
+            view = {true}
+            type = "PROJECTS"
           />
         </div>
       </div>

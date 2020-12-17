@@ -5,47 +5,30 @@ import PostModal from "./PostModal";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { Card, CardContent, Typography } from "@material-ui/core";
-import IconButton from "@material-ui/core/IconButton";
-import PhotoIcon from "@material-ui/icons/Photo";
-import VideocamIcon from "@material-ui/icons/Videocam";
-import DescriptionIcon from "@material-ui/icons/Description";
-import Dropzone from "react-dropzone";
 
 const useStyles = makeStyles({
   root: {
-    backgroundColor: "#20222b",
+    backgroundColor: "white",
     height: "fit-content",
     textDecoration: "none",
     marginBottom: 20,
+    borderRadius: '10px',
+    border: 'grey',
+    borderStyle: 'dotted'
   },
-  rootIcon: {
-    color: "white",
-  },
-
-  /* root: {
-		backgroundColor: 'white',
-		height: 'fit-content',
-		textDecoration: 'none',
-		marginBottom: 10,
-		border: 0.5,
-		borderStyle: 'solid',
-		borderColor: 'grey' 
-	},
-  	rootIcon: {
-    	color: '#4574bf'
-	},*/
   rootContent: {
     display: "flex",
     height: "fit-content",
     justifyContent: "space-between",
-    color: "white",
   },
 });
 
 const FeedWidgetView = (props) => (
   <Card className={useStyles().root}>
     <CardContent classes={{ root: useStyles().rootContent }}>
-      <Button text="Write a Post" type="post__button" onClick={props.newPost} />
+      <div/>
+      <Button text="+ Write a Post" type="post__button" onClick={props.newPost} />
+      <div/>
       {props.openModal ? (
         <PostModal
           openModal={props.openModal}
@@ -55,35 +38,6 @@ const FeedWidgetView = (props) => (
       ) : (
         ""
       )}
-
-      <Typography>
-        <Dropzone
-          onDrop={props.onDrop}
-          accept="image/jpg, image/png, image/gif" //whatever the file type needed
-          multiple
-        >
-          {({ getRootProps, getInputProps }) => {
-            return (
-              <div {...getRootProps()}>
-                <input {...getInputProps()} />
-
-                <IconButton
-                  classes={{ root: useStyles().rootIcon }}
-                  onClick={props.imageUpload}
-                >
-                  <PhotoIcon fontSize="large" />
-                </IconButton>
-                <IconButton classes={{ root: useStyles().rootIcon }}>
-                  <VideocamIcon fontSize="large" />
-                </IconButton>
-                <IconButton classes={{ root: useStyles().rootIcon }}>
-                  <DescriptionIcon fontSize="large" />
-                </IconButton>
-              </div>
-            );
-          }}
-        </Dropzone>
-      </Typography>
     </CardContent>
   </Card>
 );

@@ -7,7 +7,7 @@ import Button from '../../components/Button';
 import TextField from '@material-ui/core/TextField';
 import {postRequest} from '../../components/CallApi'
 
-export default class ConfirmSignUp extends React.Component
+export default class ConfirmOTP extends React.Component
 {
   render()
   {
@@ -20,7 +20,7 @@ export default class ConfirmSignUp extends React.Component
       <div>
       Negative cases not yet handled
         {
-          postRequest('login/confirmsignup',
+          postRequest('login/confirmotp',
           {
             'otp':res.otp,                                 
           },

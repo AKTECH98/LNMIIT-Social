@@ -2,16 +2,8 @@
     margin-top: $l-size;
 }
 
-.profile__info {
-    display: grid;
-    grid-template-columns: 80% 20%;
-    margin-top: $m-size;
-}
 
-.profile__detail {
-    margin: $xs-size;
-}
 
 .profile__widget {
-    margin: $xs-size;
+    margin: $xl-size 0;
 }

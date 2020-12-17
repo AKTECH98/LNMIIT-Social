@@ -5,7 +5,10 @@ html {
 body {
     font-family: cursive;
     font-size: $m-size;
-    background-color: $off-white;
+}
+
+img:hover{
+    transform: scale(1.1);
 }
 
 button {

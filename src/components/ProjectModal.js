@@ -22,7 +22,7 @@ function Details(props){
     <div className = "modal__details">
     <TextField
       default = {props.title}
-      label = "Title"
+      label = "Title*"
       FeildStyle = {{
         width: 275,
         marginTop: 5,
@@ -48,7 +48,7 @@ function Details(props){
 
     <TextField
       default = {props.member}
-      label = "Members"
+      label = "Members*"
       inputprops = {{
         style: {
           fontWeight: 300,
@@ -182,7 +182,7 @@ function Details(props){
     </div>
     <TextField
       default = {props.description}
-      label = "Description (max. 25 Words)"
+      label = "Description* (max. 20 Words)"
       multiline
       FeildStyle = {{
         width: 350,
@@ -201,7 +201,7 @@ function Details(props){
         style: {
           fontWeight: 500,
           color: 'purple',
-          fontSize: 15
+          fontSize: 15,
         }
       }}
       Change = {props.AddDescription}
@@ -251,23 +251,24 @@ function Details(props){
 export default class ProjectModal extends React.Component {
 
   state = {
+    project_id:0,
     title: null,
     description: null,
     startDate: null,
     endDate: null,
     mentor: null,
     requirements: null,
-    member: 0,
+    member: 1,
     error: false,
     colab: false,
-    link: null
+    project_link: null
   };
-
 
   componentDidMount() {
     try {
       if(this.props.editDetail){
         this.setState(() => ({
+          project_id: this.props.project.project_id,
           title : this.props.project.title,
           description: this.props.project.description,
           startDate: this.props.project.startDate,
@@ -276,35 +277,47 @@ export default class ProjectModal extends React.Component {
           member: this.props.project.member,
           mentor: this.props.project.mentor,
           colab: this.props.project.colab,
-          link: this.props.project_link
+          project_link: this.props.project.project_link
         }))
+        //console.log(this.props.project_link + "Hi there");
       }
     } catch(e) {
       console.log(e);
     }
   }
 
+  AddColab = (colab) => {
+    this.setState(() => ({colab}))
+  }
+  AddProjectLink = (e) => {
+    const project_link = e.target.value;
+    this.setState(() => ({ project_link }))
+  };
+
   FixError = () => {
     this.setState(() => ({error : false}));
   }
 
-  AddColab = (colab) => {
-    this.setState(() => ({colab}))
-  }
-
-  AddProjectLink = (e) => {
-    const link = e.target.value;
-    this.setState(() => ({ link }))
-  };
-
   AddProjectTitle = (e) => {
     const title = e.target.value;
-    this.setState(() => ({ title }))
+
+    if(this.state.error==true)
+    {
+      this.setState(() => ({error: false, title}))
+    }
+    else
+      this.setState(() => ({ title }))
   };
 
   AddProjectDescription = (e) => {
     const description = e.target.value;
-    this.setState(() => ({ description }))
+
+    if(this.state.error==true)
+    {
+      this.setState(() => ({error: false, description}))
+    }
+    else
+      this.setState(() => ({ description }))
   };
 
   AddProjectStartDate = (date) => {
@@ -322,7 +335,6 @@ export default class ProjectModal extends React.Component {
     this.setState(() => ({ requirements }))
   };
 
-
   AddProjectMentor = (e) => {
     const mentor = e.target.value;
     this.setState(() => ({ mentor }))
@@ -331,23 +343,71 @@ export default class ProjectModal extends React.Component {
   AddProjectMembers = (e) => {
     const member = e.target.value;
     if(member<=0)
-      this.setState(() => ({error : true}));
+      e.target.value = 1;
     else
-      this.setState(() => ({ member }));
+    {
+      if(this.state.error==true)
+      {
+        this.setState(() => ({ error: false, member }));
+      }
+      else 
+        this.setState(() => ({member}));
+    }
   };
 
   EditDetails = () => {
-    alert("Under Construction")
-  }
-
-  SaveDetails = () => {
-
-    if(!this.state.title || !this.state.member){
+    if(!this.state.title || !this.state.member || !this.state.description){
       this.setState(() => ({error : true}));
     }
     else {
       let project = this.state
-      this.props.SubmitDetails(project,this.props.editDetail);
+
+      function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
+
+        return [year, month, day].join('-');
+      }
+
+      postRequest('project/editproject',
+        {
+          'email':window.localStorage.getItem('email'),
+          'password': window.localStorage.getItem('password'),
+          'project_id': project.project_id,
+          'title': project.title,
+          'description': project.description,
+          'startDate': formatDate(project.startDate),
+          'endDate':formatDate(project.endDate),
+          'skillsRequired': project.requirements,
+          'mentor': project.mentor,
+          'members': project.member,
+          'colab': project.colab,
+          'link' : project.project_link
+        },
+        (res)=>{
+          if(res.message=="SUCCESS")
+          {
+            window.location.reload()
+          }
+        }
+      )
+    }
+  }
+
+  SaveDetails = () => {
+
+    if(!this.state.title || !this.state.member || !this.state.description){
+      this.setState(() => ({error : true}));
+    }
+    else {
+      let project = this.state
 
       function formatDate(date) {
         var d = new Date(date),
@@ -374,12 +434,13 @@ export default class ProjectModal extends React.Component {
           'skillsRequired': project.requirements,
           'mentor': project.mentor,
           'members': project.member,
-          'colab': project.colab
+          'colab': project.colab,
+          'link' : project.project_link
         },
         (res)=>{
           if(res.message=="SUCCESS")
           {
-            console.log('SUCCESS')
+            window.location.reload()
           }
         }
       )
@@ -399,48 +460,44 @@ export default class ProjectModal extends React.Component {
         Project Details
         <Button text = "X" type = "close__button" onClick = {this.props.DiscardDetails} />
         </h3>
+        <div>
+        <Details
+          title = {this.state.title}
+          link = {this.state.project_link}
+          description = {this.state.description}
+          startDate = {this.state.startDate}
+          endDate = {this.state.endDate}
+          requirements = {this.state.requirements}
+          member = {this.state.member}
+          mentor = {this.state.mentor}
+          colab = {this.state.colab}
+          AddTitle = {this.AddProjectTitle}
+          AddDescription = {this.AddProjectDescription}
+          AddStartDate = {this.AddProjectStartDate}
+          AddEndDate = {this.AddProjectEndDate}
+          AddRequirements = {this.AddProjectRequirements}
+          AddMentor = {this.AddProjectMentor}
+          AddMembers = {this.AddProjectMembers}
+          AddColab = {this.AddColab}
+          AddLink = {this.AddProjectLink}
+        />
         {
-          (this.state.error)?
+          (this.props.editDetail)?
           <div>
-          <p className = "modal__body">Please Enter All Valid Details</p>
-          <Button text = "Continue" type = "button continue__button" onClick = {this.FixError} />
+          <Button text = "Save Changes" type = "button modal__button" onClick = {this.EditDetails}/>
+          <Button text = "Discard Details" type = "button modal__button" onClick = {this.props.DiscardDetails}/>
           </div>
           :
           <div>
-          <Details
-            link = {this.state.link}
-            title = {this.state.title}
-            description = {this.state.description}
-            startDate = {this.state.startDate}
-            endDate = {this.state.endDate}
-            requirements = {this.state.requirements}
-            member = {this.state.member}
-            mentor = {this.state.mentor}
-            colab = {this.state.colab}
-            AddTitle = {this.AddProjectTitle}
-            AddLink = {this.AddProjectLink}
-            AddDescription = {this.AddProjectDescription}
-            AddStartDate = {this.AddProjectStartDate}
-            AddEndDate = {this.AddProjectEndDate}
-            AddRequirements = {this.AddProjectRequirements}
-            AddMentor = {this.AddProjectMentor}
-            AddMembers = {this.AddProjectMembers}
-            AddColab = {this.AddColab}
-          />
-          {
-            (this.props.editDetail)?
-            <div>
-            <Button text = "Save Changes" type = "button modal__button" onClick = {this.EditDetails}/>
+            { (this.state.error)?
+              <p className = "modal__body">Please Enter all Details Marked *</p>
+              :""
+            }
+            <Button text = "Add Project" type = "button modal__button" onClick = {this.SaveDetails}/>
             <Button text = "Discard Details" type = "button modal__button" onClick = {this.props.DiscardDetails}/>
-            </div>
-            :
-            <div>
-              <Button text = "Add Project" type = "button modal__button" onClick = {this.SaveDetails}/>
-              <Button text = "Discard Details" type = "button modal__button" onClick = {this.props.DiscardDetails}/>
-            </div>
-          }
           </div>
         }
+        </div>
       </Modal>
     )
   }

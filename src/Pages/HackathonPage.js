@@ -88,27 +88,6 @@ export default class HackathonPage extends React.Component {
     )
   }
 
-
-
-  ShowDetails = (index) => {
-    let pro = this.state.hacks[index];
-
-    this.setState(() => ({
-      hack: {
-        index: index,
-        title: pro.title,
-        description: pro.description,
-        startDate: pro.startDate,
-        endDate: pro.endDate,
-        requirements: pro.requirements,
-        mentor: pro.mentor,
-        member: pro.member
-      },
-    }))
-  }
-
-
-
   render() {
     return(
       <div>
@@ -118,6 +97,7 @@ export default class HackathonPage extends React.Component {
           <WorkView
             works={this.state.hacks}
             ShowDetails={this.ShowDetails}
+            view = {true}
           />
         </div>
       </div>

@@ -23,26 +23,26 @@ export default class EditProfilePage extends React.Component {
       gender:'',
       dateOfBirth:null
     }
-    postRequest('profile/getprofiledetails',
-                               {
-                                 'email':window.localStorage.getItem('email'),
-                                 'password':window.localStorage.getItem('password')
-                               },
-                               (res)=>{
-                                      this.setState({firstName:res.response.first_name})
-                                      this.setState({middleName:res.response.middle_name})
-                                      this.setState({lastName:res.response.last_name})
-                                      this.setState({phone:res.response.phone})
-                                      this.setState({description:res.response.profile_description})
-                                      this.setState({gender:res.response.gender})
-                                      this.setState({dateOfBirth:(res.response.date_of_birth==null)?null:new Date(Date.parse(res.response.date_of_birth,'yyyy-mm-dd'))})
 
-                                }
-                )
+    postRequest('profile/getprofiledetails',
+      {
+        'email':window.localStorage.getItem('email'),
+        'password':window.localStorage.getItem('password')
+      },
+      (res)=>{
+            this.setState({firstName:res.response.first_name})
+            this.setState({middleName:res.response.middle_name})
+            this.setState({lastName:res.response.last_name})
+            this.setState({phone:res.response.phone})
+            this.setState({description:res.response.profile_description})
+            this.setState({gender:res.response.gender})
+            this.setState({dateOfBirth:(res.response.date_of_birth==null)?null:new Date(Date.parse(res.response.date_of_birth,'yyyy-mm-dd'))})
+
+      }
+    )
   }
 
   render(){
-
     return(
       <div>
         <Header logout={true}/>
@@ -177,7 +177,7 @@ export default class EditProfilePage extends React.Component {
           </div>
         </div>
 
-      <Link to = {"/ProfilePage"} >
+      <Link to = {"ProfilePage?email="+window.localStorage.getItem('email')} >
           <Button
             text = "Submit Changes"
             type = "button editProfile__button"
@@ -198,27 +198,27 @@ export default class EditProfilePage extends React.Component {
 
             }
 
-              postRequest('profile/editprofiledetails',
-                                       {
-                                         'email':window.localStorage.getItem('email'),
-                                         'password':window.localStorage.getItem('password'),
-                                         'first_name':this.state.firstName,
-                                         'middle_name':this.state.middleName,
-                                         'last_name':this.state.lastName,
-                                         'phone':this.state.phone,
-                                         'description':this.state.description,
-                                         'gender':this.state.gender,
-                                         'date_of_birth':date_to_post,
-                                       },
-                                       (res)=>{
-                                         if(res.message=="SUCCESS")
-                                         {
-                                           console.log('SUCCESS')
-                                         }
+            postRequest('profile/editprofiledetails',
+              {
+                'email':window.localStorage.getItem('email'),
+                'password':window.localStorage.getItem('password'),
+                'first_name':this.state.firstName,
+                'middle_name':this.state.middleName,
+                'last_name':this.state.lastName,
+                'phone':this.state.phone,
+                'description':this.state.description,
+                'gender':this.state.gender,
+                'date_of_birth':date_to_post,
+              },
+              (res)=>{
+                if(res.message=="SUCCESS")
+                {
+                  console.log('SUCCESS')
+                }
 
-                                         this.setState({errorMessage:res.reason})
-                                       }
-                        )}}
+                this.setState({errorMessage:res.reason})
+              }
+            )}}
           />
           <Button text = "Discard Changes" type = "button editProfile__button" />
         </Link>

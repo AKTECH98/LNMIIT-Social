@@ -1,11 +1,27 @@
 .button {
     background: $purple;
     border: none;
-    border-radius: $m-size;
+    border-radius: 10px;
     border-bottom: 0.3rem solid darken($purple, 10%);
     color: white;
     font-weight: 500;
     padding: $xs-size;
+}
+
+.request__button {
+    background: none;
+    border: $light-blue solid;
+    color: black;
+    font-size: $lm-size;
+    margin: 0 $l-size;
+    font-weight: 500;
+    padding: $xs-size;
+}
+
+.request__button:hover {
+    background-color: $light-blue;
+    color: white;
+    transform: scale(1.1);
 }
 
 .close__button {

@@ -21,9 +21,12 @@ export default class HomePage extends React.Component {
             <FeedWidget />
             <PostView />
           </div>
+
           <div className='  home__widget'>
             <WidgetProject user={user} />
             <WidgetHack user={user} />
+          <div>
+
           </div>
         </div>
       </div>

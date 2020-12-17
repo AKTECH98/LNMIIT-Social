@@ -235,23 +235,17 @@ export default function Header(props) {
                     </div>
                     <div className='header__button--title'>Connect</div>
                   </div>
-                </IconButton>
-              </Link>
-            </div>
-          ) : (
-            <div className='header__buttons'>
-              {
-                // (window.localStorage.getItem('email')==null)?
-                //<Redirect to ='/login'/>:''
-              }
 
-              <Link to='/Home' className='linklink'>
-                <IconButton classes={{ root: classes.root }}>
-                  <div className='header__button'>
-                    <div>
-                      <HomeIcon style={{ fontSize: 20, color: "white" }} />
-                    </div>
-                    <div className='header__button--title'>Home</div>
+                  <div className = "header__button--title">Notify</div>
+                </div>
+              </IconButton>
+            </Link>
+            <Link to={'/ProfilePage?email='+window.localStorage.getItem('email')} className = "linklink">
+              <IconButton classes = {{root: classes.root}}>
+                <div className = "header__button">
+                  <div>
+                    <ProfileIcon style = {{fontSize:20,color:'white'}}/>
+
                   </div>
                 </IconButton>
               </Link>

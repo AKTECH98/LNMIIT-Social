@@ -22,27 +22,33 @@ const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: 'white',
     color: '#4574bf',
-    width: 250,
-    minHeight: 270,
-    height: 'fit-content'
+    width: 230,
+    height: 'fit-content',
+    border: '#4574bf',
+    borderStyle: 'solid',
+    borderRadius: '10px'
   },
+  header: {backgroundColor: '#101010'},
   title: {
     color: '#4574bf',
-    fontSize : 20
+    fontSize : 20,
+    height: 'fit-content'
   },
   subheader: {
-    color: '#4574bf',
     color: 'gray',
-    fontSize : 15
+    fontSize : 12
   },
   content: {
-    fontSize: 15
+    fontSize: 15,
+    minHeight: 125,
+    maxHeight: 125
+  },
+  action: {
+    minHeight: 20,
+    maxHeight: 20
   },
   rootIcon: {
     color: 'blue'
-  },
-  github:{
-    marginLeft: "auto"
   }
 }));
 
@@ -95,6 +101,7 @@ export default function Details(props) {
     <Card className={classes.root}>
       <CardHeader classes={
         {
+          root : classes.header,
           title : classes.title,
           subheader : classes.subheader
         }
@@ -130,24 +137,23 @@ export default function Details(props) {
           </div>
         }
         title={props.optionText.title}
-        subheader={<div>
-          <em>{'Total Members: ' + props.optionText.member}</em>
-        </div>}
+        subheader = {
+          <div>
+          {'Author: Author Name'}<br/>
+          {(props.optionText.mentor!=undefined)?"Mentor : " + props.optionText.mentor:"Mentor : None"}<br/>
+          {'Members : '+ props.optionText.member}<br/>
+          {(props.optionText.requirements!=undefined)?'Skills : '+props.optionText.requirements:"Skills : None"}
+          </div>
+        }
       />
-      <CardContent classes = {{
-          root: classes.content
-        }}
-      >
-          Mentor : {props.optionText.mentor}
-          <hr/>
-          Skills : {props.optionText.requirements}
-          <hr/>
-          {props.optionText.description}
+      <CardContent classes = {{root: classes.content}}>
+        Description :<hr/><br/>
+        {(props.optionText.description==undefined)?'None':props.optionText.description}
       </CardContent>
-      <CardActions disableSpacing>
+      <CardActions classes = {{root:classes.action}}>
         {
-          (props.optionText.link)?
-          <a href = {props.optionText.link}>
+          (props.optionText.project_link)?
+          <a href = {props.optionText.project_link}>
             <IconButton>
               <GitHubIcon fontSize = "large" style = {{color:'black'}} />
             </IconButton>
@@ -156,9 +162,7 @@ export default function Details(props) {
         }
         {
           (props.optionText.colab)?
-          <IconButton
-            className={clsx(classes.github)}
-            >
+            <IconButton onClick = {props.Request}>
               <ColabIcon fontSize = "large" style = {{color:'green'}} />
             </IconButton>
             :""

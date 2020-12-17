@@ -2,6 +2,7 @@ import React from 'react';
 
 import Button from '../../components/Button';
 import Header from '../../components/Header';
+import InviteModal from '../../components/InviteModal';
 import HackModal from '../../components/HackModal';
 import WorkView from '../../components/WorkView';
 import {postRequest} from '../../components/CallApi'
@@ -54,6 +55,7 @@ export default class HacksPage extends React.Component {
       addDetail: false,
       showDetail: false,
       editDetail: false,
+      request: false,
       hack: {
         title: null,
         description: null,
@@ -93,13 +95,19 @@ export default class HacksPage extends React.Component {
               hack_id: item.hack_id
             })
           })
-          console.log(default_hacks)
+          //console.log(default_hacks)
           this.setState({hacks: default_hacks})
         }
       }
     )
   }
 
+  RequestUser = () =>{
+    //console.log("Hello There")
+    this.setState(()=>({
+      request: true
+    }))
+  }
 
   AddDetail = () => {
     this.setState(() => ({
@@ -164,7 +172,8 @@ export default class HacksPage extends React.Component {
       addDetail:false,
       editDetail: false,
       showDetail: false,
-      openModal: false
+      openModal: false,
+      request: false
     }))
   }
 
@@ -207,9 +216,10 @@ export default class HacksPage extends React.Component {
         <WorkView
           works={this.state.hacks}
           ShowDetails={this.ShowDetails}
-          Delete = {this.DeleteHack}
+          Delete = {this.DeleteProject}
           Edit = {this.EditDetails}
           view = {user!=window.localStorage.getItem('email')}
+          Request = {this.RequestUser}
         />
         {
           (this.state.openModal)?
@@ -222,6 +232,15 @@ export default class HacksPage extends React.Component {
             SubmitDetails = {this.SubmitDetails}
             DiscardDetails = {this.DiscardDetails}
             EditHack = {this.EditHack}
+          />
+          :
+          ''
+        }
+        {
+          (this.state.request)?
+          <InviteModal
+            request = {this.state.request}
+            DiscardDetails = {this.DiscardDetails}
           />
           :
           ''

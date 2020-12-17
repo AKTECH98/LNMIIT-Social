@@ -6,7 +6,18 @@
     align-items: center;
     display: flex;
     justify-content: center;
-    transition: opacity 200ms ease-in-out;
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s;
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)}
+    to {-webkit-transform: scale(1)}
+}
+
+@keyframes animatezoom {
+    from {-webkit-transform: scale(0)}
+    to {-webkit-transform: scale(1)}
 }
 
 .ReactModalPortal .ReactModal__Overlay--after-open {
@@ -29,7 +40,7 @@
 .modal__body {
     font-size: $m-size;
     font-weight: 300;
-    margin: 0 0 $lm-size 0;
+    color: red;
     word-break: break-all;
 }
 

@@ -3,6 +3,7 @@ import React from 'react';
 import Button from '../../components/Button';
 import Header from '../../components/Header';
 import ProjectModal from '../../components/ProjectModal';
+import InviteModal from '../../components/InviteModal';
 import WorkView from '../../components/WorkView';
 import {postRequest} from '../../components/CallApi'
 
@@ -54,6 +55,7 @@ export default class ProjectsPage extends React.Component {
       addDetail: false,
       showDetail: false,
       editDetail: false,
+      request: false,
       project: {
         title: null,
         description: null,
@@ -73,7 +75,7 @@ export default class ProjectsPage extends React.Component {
     const res = parser(url);
     const user = res.email;
 
-    postRequest('project/fetchprojects',
+    postRequest('project/fetchprojectsofuser',
       {
         'email': user,
       },
@@ -91,6 +93,7 @@ export default class ProjectsPage extends React.Component {
               member: item.members,
               mentor: item.mentor,
               colab: item.colab,
+              project_link: item.link,
               project_id: item.project_id
             })
           })
@@ -102,6 +105,13 @@ export default class ProjectsPage extends React.Component {
   }
 
 
+  RequestUser = () =>{
+    //console.log("Hello There")
+    this.setState(()=>({
+      request: true
+    }))
+  }
+
   AddDetail = () => {
     this.setState(() => ({
       openModal: true,
@@ -112,7 +122,7 @@ export default class ProjectsPage extends React.Component {
   EditDetails = (index) => {
 
     let pro = this.state.projects[index];
-
+    
     this.setState(() => ({
       project: pro,
       showDetail: false,
@@ -121,38 +131,14 @@ export default class ProjectsPage extends React.Component {
     }))
   }
 
-  SubmitDetails = (project,edit) => {
-    if(!edit){
-      console.log(project);
-      this.setState((prevSate) => ({
-        projects: prevSate.projects.concat(project),
-        addDetail: false,
-        editDetail: false,
-        openModal: false
-      }));
-    }
-    else{
-      this.setState(() => ({
-        addDetail: false,
-        editDetail: false,
-        openModal: false
-      }));
-
-      //this.state.projects[index] = project;
-    }
-  };
-
   DiscardDetails = () => {
     this.setState(() => ({
       addDetail:false,
       editDetail: false,
       showDetail: false,
-      openModal: false
+      openModal: false,
+      request: false
     }))
-  }
-
-  EditProject = (index) => {
-    console.log(index)
   }
 
   DeleteProject = (projectIndex) => {
@@ -168,8 +154,7 @@ export default class ProjectsPage extends React.Component {
       (res)=>{
         if(res.message=="SUCCESS")
         {
-          projects.splice(projectIndex,1)
-          this.setState(() => ({projects}));
+          window.location.reload()
         }
       }
     )
@@ -193,6 +178,7 @@ export default class ProjectsPage extends React.Component {
           Delete = {this.DeleteProject}
           Edit = {this.EditDetails}
           view = {user!=window.localStorage.getItem('email')}
+          Request = {this.RequestUser}
         />
         {
           (this.state.openModal)?
@@ -205,6 +191,15 @@ export default class ProjectsPage extends React.Component {
             SubmitDetails = {this.SubmitDetails}
             DiscardDetails = {this.DiscardDetails}
             EditProject = {this.EditProject}
+          />
+          :
+          ''
+        }
+        {
+          (this.state.request)?
+          <InviteModal
+            request = {this.state.request}
+            DiscardDetails = {this.DiscardDetails}
           />
           :
           ''

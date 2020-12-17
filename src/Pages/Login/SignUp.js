@@ -113,12 +113,6 @@ export default class SignUp extends React.Component
         }
 
         <Recaptcha sitekey="6LcpMdsZAAAAAO9iK7CQZ9wpvAEYeLZvWQ0vA1qQ"
-        onloadCallback={()=>{/*
-          TODO: This fuction defines what happens after Captcha finished loading
-          Low priority. Ignore this until most functionality is done and we are 
-          using screeen loaders
-        */}}
-
         verifyCallback = {()=>{/*On verifiction*/this.setState({captchaVerified:true})}}
         expiredCallback ={()=>{/*On expiration due to being idle*/this.setState({captchaVerified:false})}}
         />

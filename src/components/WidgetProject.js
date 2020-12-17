@@ -15,7 +15,7 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'space-around',
     backgroundColor: 'white',
-    marginBottom: '0.25rem',
+    marginBottom: '2rem',
     height: 'fit-content',
     padding: '0 0.3rem 0 0.3rem',
     border: 0.5,
@@ -51,23 +51,47 @@ export default class WidgetProject extends React.Component {
   {
     super(props)
     this.state = {
-      projectTitles: []
+      projects: [],
+      sections: []
     };
 
-    postRequest('project/fetchprojectstitle',
+    const url = window.location.href;
+    const parser = require('url-parameter-parser');
+    const res = parser(url);
+    const query = res.email;
+    const user_email = query.split('#')[0];
+
+    postRequest('project/fetchprojectsofuser',
       {
-        'email': this.props.user
+        'email': user_email,
       },
       (res)=>{
         if(res.message=="SUCCESS")
         {
-          let titles = []
-          res.return_value.forEach((item,index)=>{
-          if(index<4)
-            titles.push(item);
+          let projects = []
+          res.return_value.forEach((item)=>{
+            projects.push({
+              title : item.title,
+              description: item.description,
+              startDate: item.startDate,
+              endDate: item.endDate,
+              requirements: item.skills_required,
+              member: item.members,
+              mentor: item.mentor,
+              colab: item.colab,
+              project_link: item.link,
+              project_id: item.project_id
+            })
           })
-          this.setState({projectTitles: titles})
-          console.log(this.state.projectTitles)
+
+          let sections = []
+          const len = projects.length;
+          for(var i=0;i<len/4;i++)
+            sections.push(i+1);
+
+          //console.log(default_projects)
+          this.setState({projects,sections})
+          //console.log(this.state.sections)
         }
       }
     )
@@ -77,7 +101,7 @@ export default class WidgetProject extends React.Component {
     return (
       <div className = "widget__list">
         <Header user = {this.props.user}/>
-        <WidgetView titles = {this.state.projectTitles} />
+        <WidgetView type = "project" work = {this.state.projects} sections = {this.state.sections} />
       </div>
     );
   }

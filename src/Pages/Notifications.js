@@ -4,7 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import {postRequest} from '../components/CallApi'
 import Header from '../components/Header';
-import { Card, CardContent, CardHeader, Avatar } from '@material-ui/core';
+import Button from '../components/Button';
+import { Card, CardContent, CardHeader, Avatar ,CardActions} from '@material-ui/core';
 
 const url = window.location.href;
 const parser = require('url-parameter-parser');
@@ -37,12 +38,17 @@ const useStyles = makeStyles({
   content: {
     fontSize: 15
   },
+  action: {
+    borderTopStyle: 'solid',
+    borderTopColor: '#4574bf',
+    display: 'flex',
+    justifyContent: 'space-between'
+  }
 });
 
 function NotificationPannel(props){
 
   const classes = useStyles();
-
   return(
     <Card className = {classes.root}>
       <CardHeader
@@ -56,26 +62,49 @@ function NotificationPannel(props){
       <CardContent>
       { 
         props.Notifications.map((notify,index)=>
-          <div key = {index}>
-            <Card className = {classes.subRoot}>
-              <CardHeader
-                classes = {
-                {
-                  title : classes.title,
-                  subheader : classes.subheader
-                }}
-                avatar={
-                  <Avatar>
-                  </Avatar>
-                }
-                title = "Project Added/Hack Added"
-                subheader = "Date When It was Posted"
-              />
-              <CardContent classes = {{root: classes.content}}>
-                {notify}{/*Description of The Project*/}
-              </CardContent>
-            </Card>
-          </div>
+            <div key = {index}>
+              {//I have passed it as an prop but make it a type taken from notifications itself
+                (props.request==true)?
+                <Card className = {classes.subRootRequest}>
+                <CardHeader
+                  classes = {
+                  {
+                    title : classes.title,
+                    subheader : classes.subheader
+                  }}
+                  title = "Colaboration Request"
+                  subheader = "Date when the Request is Generated"
+                  />
+                  <CardContent classes = {{root: classes.content}}>
+                    You have recieved a request from this user to collaborate of your Project Title/
+                    This user wants to join your team for this hackathon
+                  </CardContent>
+                  <CardActions classes = {{root: classes.action}}>
+                    <Button text = "Accept" type = "request__button"/>
+                    <Button text = "Reject" type = "request__button"/>
+                  </CardActions>
+                </Card>
+                :
+                <Card className = {classes.subRoot}>
+                  <CardHeader
+                    classes = {
+                    {
+                      title : classes.title,
+                      subheader : classes.subheader
+                    }}
+                    avatar={
+                      <Avatar>
+                      </Avatar>
+                    }
+                    title = "Project Added/Hack Added"
+                    subheader = "Date When It was Posted"
+                  />
+                  <CardContent classes = {{root: classes.content}}>
+                    {notify}{/*Description of The Project*/}
+                  </CardContent>
+                </Card>
+              }
+            </div>
         )
       }
       </CardContent>
@@ -113,7 +142,7 @@ export default class NotificationsPage extends React.Component {
         <div className = "notify">
         <div>
         </div>
-        <NotificationPannel Notifications = {this.state.notifications}/>
+        <NotificationPannel Notifications = {this.state.notifications} request = {true} />
         <div>
         </div>
         </div>
