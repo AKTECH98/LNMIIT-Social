@@ -11,6 +11,8 @@ import ReactHtmlParser from "react-html-parser";
 import { postRequest } from "./CallApi";
 import imageStyles from "./css/SinglePostView.module.css";
 
+import CommentBox from "./CommentBox.js";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "white",
@@ -74,6 +76,7 @@ export default function SinglePostView(props) {
       >
         {parsedPost}
       </CardContent>
+      <CommentBox />
     </Card>
   );
 }
