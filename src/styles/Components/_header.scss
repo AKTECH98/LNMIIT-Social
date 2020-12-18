@@ -26,26 +26,23 @@
   width: 100vw;
 }
 
-
-
-.header__button{
+.header__button {
   display: flex;
   flex-direction: column;
   padding-right: $s-size;
   color: white;
 }
 
-.header__button--title{
+.header__button--title {
   color: white;
   font-size: $m-size;
   font-family: cursive;
   font-weight: 200;
 }
 
-.active{
+.active {
   background-color: $dark-blue;
 }
-
 
 .search {
   width: 30%;
@@ -74,4 +71,12 @@
   top: 0;
   z-index: 10;
   transition: 0.5s;
+}
+
+.search {
+  padding: 5px;
+}
+
+.search__button {
+  margin-left: 50px;
 }

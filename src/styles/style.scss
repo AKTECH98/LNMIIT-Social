@@ -2,7 +2,6 @@
 @import "./base/base";
 @import "./base/container";
 
-
 @import "./Components/header";
 @import "./Components/button";
 @import "./Components/singlefileupload";
@@ -11,6 +10,7 @@
 @import "./Components/projectmodal";
 @import "./Components/optionlist";
 @import "./Components/widgetTableView";
+@import "./Components/commentbox";
 
 @import "./Pages/login";
 @import "./Pages/forgotpassword";
@@ -22,4 +22,3 @@
 @import "./Pages/home";
 @import "./Pages/notification";
 @import "./Pages/responsive";
-
