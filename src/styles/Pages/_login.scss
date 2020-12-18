@@ -20,7 +20,7 @@
 }
 
 .login__byline {
-    color: $off-white;
+    color: $orange-yellow;
     font-size: $m-size;
     font-style: italic;
 }
@@ -36,7 +36,8 @@
     margin-top: $m-size;
     text-align: center;
     text-decoration: none;
-    width: 40%;
+    padding: $xs-size;
+    width: 115px;
 }
 
 .login__forgot {

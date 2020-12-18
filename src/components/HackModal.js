@@ -410,7 +410,7 @@ export default class HackModal extends React.Component {
           :
           <div>
             { (this.state.error)?
-              <p className = "modal__body">Please Enter all Details Marked *</p>
+              <p className = "error">Please Enter all Details Marked *</p>
               :""
             }
             <Button text = "Add Hack" type = "button modal__button" onClick = {this.SaveDetails}/>

@@ -236,7 +236,7 @@ export default function Header(props) {
               <Redirect to ='/login'/>:''
             }
           
-            <Link to='/Home' className = "linklink" onClick = {()=>{console.log(Hello)}}>
+            <Link to='/Home' className = "linklink">
               <IconButton classes = {{root: classes.root}}>
                 <div className = "header__button">
                   <div>
