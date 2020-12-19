@@ -6,6 +6,7 @@ import ProjectModal from '../../components/ProjectModal';
 import InviteModal from '../../components/InviteModal';
 import WorkView from '../../components/WorkView';
 import {postRequest} from '../../components/CallApi'
+import ViewProjectRequestsModal from '../../components/ViewProjectRequestsModal'
 
 import { Card, CardActions, CardContent, Typography} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -52,10 +53,12 @@ export default class ProjectsPage extends React.Component {
     this.state = {
       projects: [],
       openModal: false,
+      openRequestsModal: false,
       addDetail: false,
       showDetail: false,
       editDetail: false,
       request: false,
+      request_project_id:null,
       project: {
         title: null,
         description: null,
@@ -94,7 +97,8 @@ export default class ProjectsPage extends React.Component {
               mentor: item.mentor,
               colab: item.colab,
               project_link: item.link,
-              project_id: item.project_id
+              project_id: item.project_id,
+              admin: item.admin
             })
           })
           console.log(default_projects)
@@ -104,11 +108,12 @@ export default class ProjectsPage extends React.Component {
     )
   }
 
-
-  RequestUser = () =>{
-    //console.log("Hello There")
+ 
+  RequestUser = (index) => {
+    let pro = this.state.projects[index];
     this.setState(()=>({
-      request: true
+      request: true,
+      request_project_id: pro.project_id
     }))
   }
 
@@ -130,6 +135,15 @@ export default class ProjectsPage extends React.Component {
       openModal: true
     }))
   }
+
+  ViewJoinRequests = (index) => {
+    let pro = this.state.projects[index];
+    this.setState(() => ({
+      request_project_id: pro.project_id,
+      openRequestsModal: true
+    }))
+  }
+
 
   DiscardDetails = () => {
     this.setState(() => ({
@@ -177,6 +191,7 @@ export default class ProjectsPage extends React.Component {
           ShowDetails={this.ShowDetails}
           Delete = {this.DeleteProject}
           Edit = {this.EditDetails}
+          ViewJoinRequests = {this.ViewJoinRequests}
           view = {user!=window.localStorage.getItem('email')}
           Request = {this.RequestUser}
         />
@@ -199,7 +214,17 @@ export default class ProjectsPage extends React.Component {
           (this.state.request)?
           <InviteModal
             request = {this.state.request}
+            project_id = {this.state.request_project_id}
             DiscardDetails = {this.DiscardDetails}
+          />
+          :
+          ''
+        }
+        { this.state.openRequestsModal?
+          <ViewProjectRequestsModal
+            isOpen = {this.state.openRequestsModal}
+            project_id = {this.state.request_project_id}
+            close = {()=>{this.setState({openRequestsModal:false,request_project_id:null})}}
           />
           :
           ''

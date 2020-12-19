@@ -75,6 +75,11 @@ export default function Details(props) {
     handleClose(event);
   }
 
+  const ViewJoinRequests = (event) => {
+    props.ViewJoinRequestsWork(props.index);
+    handleClose(event);
+  }
+
   const Delete = (event) => {
     props.DeleteWork(props.index);
     handleClose(event);
@@ -129,6 +134,7 @@ export default function Details(props) {
                   <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                     <MenuItem onClick={Edit}>Edit</MenuItem>
                     <MenuItem onClick={Delete}>Delete</MenuItem>
+                    <MenuItem onClick={ViewJoinRequests}>View Requests</MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
@@ -163,7 +169,7 @@ export default function Details(props) {
         }
         {
           (props.optionText.colab)?
-            <IconButton onClick = {props.Request}>
+            <IconButton onClick = {()=>props.Request(props.index)}>
               <ColabIcon fontSize = "large" style = {{color:'green'}} />
             </IconButton>
             :""
