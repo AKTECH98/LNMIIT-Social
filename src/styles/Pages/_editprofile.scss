@@ -1,10 +1,41 @@
-.editProfile {
-    display: flex;
-    justify-content: space-evenly;
-}
-
 .editProfile__changes {
     text-align: center;
+}
+
+.editProfile {
+    display: flex;
+    justify-content: space-around;
+}
+
+.profile__detail {
+    font-size: $xl-size;
+}
+
+.personal {
+    display: flex;
+    flex-direction: column;
+    margin: $xxl-size;
+    width: fit-content;
+}
+
+.profile__contact {
+    margin: $xxl-size;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+
+.contact__details {
+    display: flex;
+}
+
+.profile__links {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile__coding {
+    display:flex;
 }
 
 .editProfile__button {
@@ -14,18 +45,4 @@
     width: 12.5%; 
     font-size: $ms-size;
     font-weight: 500;
-}
-
-.profile__detail {
-    font-size: $xl-size;
-}
-
-.profilePicture {
-    display: flex;
-    flex-direction: column;
-}
-
-.personal {
-    display: flex;
-    flex-direction: column;
 }

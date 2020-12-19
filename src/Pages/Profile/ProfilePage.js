@@ -11,7 +11,9 @@ export default class ProfilePage extends React.Component {
   {
     super(props)
     this.state={
-      personal:null
+      personal:null,
+      year: "4th Year",
+      batch: "Y17 Batch"
     }
   }
 
@@ -42,7 +44,7 @@ export default class ProfilePage extends React.Component {
               IMAGE
             </div>
             <div className = "profile__detail">
-              <Personal personal = {this.state.personal} view={query.split('#')[0]!=window.localStorage.getItem('email')}/>   
+              <Personal year = {this.state.year} batch = {this.state.batch} personal = {this.state.personal} view={query.split('#')[0]!=window.localStorage.getItem('email')}/>   
             </div>
           </div>
           <div className = "profile__widget">

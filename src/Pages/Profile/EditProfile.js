@@ -1,27 +1,29 @@
 import React from 'react';
 import { Link} from 'react-router-dom';
 
+import EmailField from '../../components/TextField';
 import TextField from '@material-ui/core/TextField';
 import Header from '../../components/Header';
-import Dropdown from '../../components/Dropdown';
+
 import PhotoSelector from '../../components/PhotoSelector';
-import DatePicker from '../../components/DatePicker';
 import Button from '../../components/Button';
 import {postRequest} from '../../components/CallApi'
 
-export default class EditProfilePage extends React.Component {
+export default class EditPage extends React.Component {
   constructor(props){
     super(props);
-    let temp = null
     this.state={
       photo:null,
       firstName:'',
-      middleName:'',
       lastName:'',
       phone:'',
-      description:'',
-      gender:'',
-      dateOfBirth:null
+      altEmail: '',
+      about:'',
+      headline: '',
+      linkedin: '',
+      github: '',
+      codeforces: '',
+      codechef: ''
     }
 
     postRequest('profile/getprofiledetails',
@@ -30,14 +32,18 @@ export default class EditProfilePage extends React.Component {
         'password':window.localStorage.getItem('password')
       },
       (res)=>{
-            this.setState({firstName:res.response.first_name})
-            this.setState({middleName:res.response.middle_name})
-            this.setState({lastName:res.response.last_name})
-            this.setState({phone:res.response.phone})
-            this.setState({description:res.response.profile_description})
-            this.setState({gender:res.response.gender})
-            this.setState({dateOfBirth:(res.response.date_of_birth==null)?null:new Date(Date.parse(res.response.date_of_birth,'yyyy-mm-dd'))})
-
+            this.setState({
+              firstName:res.response.first_name,
+              lastName:res.response.last_name,
+              altEmail: res.response.email,
+              phone:res.response.phone,
+              about:res.response.profile_description,
+              headline: res.response.headline,
+              linkedin: res.response.linkedin,
+              github: res.response.github,
+              codeforces: res.response.codeforces,
+              codechef: res.response.codechef
+            })
       }
     )
   }
@@ -59,65 +65,64 @@ export default class EditProfilePage extends React.Component {
           </div>
           <div className = "personal">
             <h1 className = "profile__detail">Personal Details</h1>
+            <div className = "profile__name">
+              <TextField
+                label='First Name*'
+                value={this.state.firstName}
+                onChange={(e)=>this.setState({firstName:e.target.value})}
+                variant = "filled"
+                style={{
+                  width: 175,
+                  margin: 5,
+                }}
+                InputProps = {{
+                  style: {
+                    fontWeight: 300,
+                    color: 'black',
+                    fontSize: 20
+                  }
+                }}
+                InputLabelProps = {{
+                  style: {
+                    fontWeight: 500,
+                    color: 'purple',
+                    fontSize: 15
+                  }
+                }}
+              />
+              <TextField
+                label='Last Name*'
+                value={this.state.lastName}
+                onChange={(e)=>this.setState({lastName:e.target.value})}
+                variant = "filled"
+                style={{
+                  width: 175,
+                  margin: 5,
+                }}
+                InputProps = {{
+                  style: {
+                    fontWeight: 300,
+                    color: 'black',
+                    fontSize: 20
+                  }
+                }}
+                InputLabelProps = {{
+                  style: {
+                    fontWeight: 500,
+                    color: 'purple',
+                    fontSize: 15
+                  }
+                }}
+              />
+            </div>
             <TextField
-              label='First Name*'
-              value={this.state.firstName}
-              onChange={(e)=>this.setState({firstName:e.target.value})}
+              label='Headline*'
+              value={this.state.headline}
+              onChange={(e)=>this.setState({headline:e.target.value})}
               variant = "filled"
               style={{
-                width: 400,
-                marginTop: 5,
-                marginBottom: 5
-              }}
-              InputProps = {{
-                style: {
-                  fontWeight: 300,
-                  color: 'black',
-                  fontSize: 20
-                }
-              }}
-              InputLabelProps = {{
-                style: {
-                  fontWeight: 500,
-                  color: 'purple',
-                  fontSize: 15
-                }
-              }}
-            />
-            <TextField
-              label='Last Name*'
-              value={this.state.lastName}
-              onChange={(e)=>this.setState({lastName:e.target.value})}
-              variant = "filled"
-              style={{
-                width: 400,
-                marginTop: 5,
-                marginBottom: 5
-              }}
-              InputProps = {{
-                style: {
-                  fontWeight: 300,
-                  color: 'black',
-                  fontSize: 20
-                }
-              }}
-              InputLabelProps = {{
-                style: {
-                  fontWeight: 500,
-                  color: 'purple',
-                  fontSize: 15
-                }
-              }}
-            />
-            <TextField
-              label='Phone Number'
-              value={this.state.phone}
-              onChange={(e)=>this.setState({phone:e.target.value})}
-              variant = "filled"
-              style={{
-                width: 400,
-                marginTop: 5,
-                marginBottom: 5
+                width: 360,
+                margin: 5,
               }}
               InputProps = {{
                 style: {
@@ -136,14 +141,16 @@ export default class EditProfilePage extends React.Component {
             />
             <TextField
               label='About YourSelf'
-              value={this.state.description}
-              onChange={(e)=>this.setState({description:e.target.value})}
+              value={this.state.about}
+              onChange={(e)=>this.setState({about:e.target.value})}
               multiline
               variant = "filled"
               style={{
-                width: 400,
-                marginTop: 5,
-                marginBottom: 5
+                width: 360,
+                marginLeft: 5,
+                marginRight: 5,
+                marginTop: 30
+                
               }}
               InputProps = {{
                 style: {
@@ -160,20 +167,162 @@ export default class EditProfilePage extends React.Component {
                 }
               }}
             />
-            <DatePicker
-              value={this.state.dateOfBirth}
-              label="Date Of Birth"
-              format="yyyy-MM-dd"
-              onChange={(date)=>{
-                this.setState({dateOfBirth:date})}
-              }
-            />
-            <Dropdown
-              value ={this.state.gender}
-              label = 'Gender'
-              menuItems = {['Male','Female']}
-              returnValue = {(value)=>{this.setState({gender:value})}}
-            />
+          </div>
+          <div className = "profile__contact">
+            <h1 className = "profile__detail">Profile Contacts</h1>
+            <div className = "contact__details">
+              <TextField
+                label='Phone Number'
+                value={this.state.phone}
+                onChange={(e)=>this.setState({phone:e.target.value})}
+                variant = "filled"
+                style={{
+                  width: 250,
+                  margin: 5,
+                }}
+                InputProps = {{
+                  style: {
+                    fontWeight: 300,
+                    color: 'black',
+                    fontSize: 20
+                  }
+                }}
+                InputLabelProps = {{
+                  style: {
+                    fontWeight: 500,
+                    color: 'purple',
+                    fontSize: 15
+                  }
+                }}
+              />
+              <TextField
+                label='Phone Number'
+                value={this.state.altEmail}
+                onChange={(e)=>this.setState({altEmail:e.target.value})}
+                variant = "filled"
+                style={{
+                  width: 250,
+                  margin: 5,
+                }}
+                InputProps = {{
+                  style: {
+                    fontWeight: 300,
+                    color: 'black',
+                    fontSize: 20
+                  }
+                }}
+                InputLabelProps = {{
+                  style: {
+                    fontWeight: 500,
+                    color: 'purple',
+                    fontSize: 15
+                  }
+                }}
+              />
+            </div>
+            <div className = "profile__links">
+              <h2 className = "profile__detail">Links</h2>
+              <div className = "profile__profess">
+                <TextField
+                  label='Github'
+                  value={this.state.github}
+                  onChange={(e)=>this.setState({github:e.target.value})}
+                  variant = "filled"
+                  style={{
+                    width: 250,
+                    margin: 5,
+                  }}
+                  InputProps = {{
+                    style: {
+                      fontWeight: 300,
+                      color: 'black',
+                      fontSize: 20
+                    }
+                  }}
+                  InputLabelProps = {{
+                    style: {
+                      fontWeight: 500,
+                      color: 'purple',
+                      fontSize: 15
+                    }
+                  }}
+                />
+                <TextField
+                  label='Linkedin'
+                  value={this.state.linkedin}
+                  onChange={(e)=>this.setState({linkedin:e.target.value})}
+                  variant = "filled"
+                  style={{
+                    width: 250,
+                    margin: 5,
+                  }}
+                  InputProps = {{
+                    style: {
+                      fontWeight: 300,
+                      color: 'black',
+                      fontSize: 20
+                    }
+                  }}
+                  InputLabelProps = {{
+                    style: {
+                      fontWeight: 500,
+                      color: 'purple',
+                      fontSize: 15
+                    }
+                  }}
+                />
+              </div>
+              <div className = "profile__coding">
+                <TextField
+                  label='Codeforces'
+                  value={this.state.codeforces}
+                  onChange={(e)=>this.setState({codeforces:e.target.value})}
+                  variant = "filled"
+                  style={{
+                    width: 250,
+                    margin: 5,
+                  }}
+                  InputProps = {{
+                    style: {
+                      fontWeight: 300,
+                      color: 'black',
+                      fontSize: 20
+                    }
+                  }}
+                  InputLabelProps = {{
+                    style: {
+                      fontWeight: 500,
+                      color: 'purple',
+                      fontSize: 15
+                    }
+                  }}
+                />
+                <TextField
+                  label='CodeChef'
+                  value={this.state.codechef}
+                  onChange={(e)=>this.setState({codechef:e.target.value})}
+                  variant = "filled"
+                  style={{
+                    width: 250,
+                    margin: 5,
+                  }}
+                  InputProps = {{
+                    style: {
+                      fontWeight: 300,
+                      color: 'black',
+                      fontSize: 20
+                    }
+                  }}
+                  InputLabelProps = {{
+                    style: {
+                      fontWeight: 500,
+                      color: 'purple',
+                      fontSize: 15
+                    }
+                  }}
+                />
+              </div>
+            </div>
           </div>
         </div>
 
@@ -182,33 +331,21 @@ export default class EditProfilePage extends React.Component {
             text = "Submit Changes"
             type = "button editProfile__button"
             onClick = {()=>{
-              let date_to_post=null
-              if (this.state.dateOfBirth!=null){
-
-                var d = new Date(this.state.dateOfBirth),
-                month = '' + (d.getMonth() + 1),
-                day = '' + d.getDate(),
-                year = d.getFullYear();
-
-                if (month.length < 2)
-                    month = '0' + month;
-                if (day.length < 2)
-                    day = '0' + day;
-              date_to_post =[year, month, day].join('-')
-
-            }
 
             postRequest('profile/editprofiledetails',
               {
                 'email':window.localStorage.getItem('email'),
                 'password':window.localStorage.getItem('password'),
                 'first_name':this.state.firstName,
-                'middle_name':this.state.middleName,
                 'last_name':this.state.lastName,
                 'phone':this.state.phone,
-                'description':this.state.description,
-                'gender':this.state.gender,
-                'date_of_birth':date_to_post,
+                'about':this.state.about,
+                'headline':this.state.headline,
+                'altEmail':this.state.altEmail,
+                'github':this.state.github,
+                'linkedin':this.state.linkedin,
+                'codeforces':this.state.codeforces,
+                'codechef':this.state.codechef
               },
               (res)=>{
                 if(res.message=="SUCCESS")

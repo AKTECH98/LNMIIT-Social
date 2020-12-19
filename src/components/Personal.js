@@ -103,8 +103,8 @@ export default function Personal(props){
         </div>
       }  
       
-      title= {props.personal==null?'Default Name': props.personal.first_name + ' ' + props.personal.middle_name + ' ' + props.personal.last_name}
-      subheader = "Competitive Coder/Designer/Machine Learning"
+      title= {props.personal==null?'Default Name': props.personal.first_name + ' ' + props.personal.last_name}
+      subheader = {props.personal==null?'': props.personal.headline}
     />
     <CardContent classes = {{root:classes.content}}>
 
@@ -116,7 +116,7 @@ export default function Personal(props){
             subheader: classes.subInfo
           }}
           title= "About"
-          subheader = "1st/2nd/3rd/4th Year/Alumni (Y16 Batch)"
+          subheader = {props.personal==null?'': props.year+"  ("+props.batch+")"}
         />
         <CardContent classes = {{root:classes.subContent}}>
           {props.personal==null?'Default Description':props.personal.profile_description}
@@ -135,25 +135,22 @@ export default function Personal(props){
         />
         <CardContent classes = {{root:classes.subContent}}>
           <Typography variant = "h5">
-            Phone No.  : {props.personal==null?'Default Phone':props.personal.phone}
+            Phone No.  : {props.personal==null?'Not Provided':props.personal.phone}
           </Typography>
           <Typography variant = "h5">
-            Email-ID   : {props.personal==null?'Default Email':props.personal.email}
+            Email-ID   : {props.personal==null?'Not Provided':props.personal.email}
           </Typography>
           <Typography variant = "h5">
-            Linkdin    : none
+            Linkedin    : {props.personal==null?'Not Provided':props.personal.linkedin}
           </Typography>
           <Typography variant = "h5">
-            Github     : none
+            Github     : {props.personal==null?'Not Provided':props.personal.github}
           </Typography>
           <Typography variant = "h5">
-            Codechef   : none
+            Codechef   : {props.personal==null?'Not Provided':props.personal.codeforces}
           </Typography>
           <Typography variant = "h5">
-            Codeforces : none
-          </Typography>
-          <Typography variant = "h5">
-            Other      : none
+            Codeforces : {props.personal==null?'Not Provided':props.personal.codechef}
           </Typography>
         </CardContent>
       </Card>
