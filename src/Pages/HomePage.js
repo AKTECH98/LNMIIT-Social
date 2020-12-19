@@ -21,10 +21,6 @@ export default class HomePage extends React.Component {
             <FeedWidget />
             <PostView />
           </div>
-          <div className='mob__hide'>
-            <WidgetHack />
-            <WidgetProject />
-          </div>
         </div>
       </div>
     );

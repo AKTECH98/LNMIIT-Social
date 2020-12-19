@@ -128,14 +128,14 @@ export default class PostModal extends React.Component {
         ariaHideApp={false}
         style={modalStyles}
       >
-        <div>
+        <h3 className = "modal__header">
           Post Feed
           <Button
             text="X"
             type="close__button"
             onClick={this.props.discardPost}
           />
-        </div>
+        </h3>
 
         <CKEditor
           editor={ClassicEditor}

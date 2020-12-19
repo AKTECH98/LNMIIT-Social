@@ -9,12 +9,17 @@ import { Card, CardContent } from "@material-ui/core";
 const useStyles = makeStyles({
   root: {
     backgroundColor: "white",
-    height: "fit-content",
     textDecoration: "none",
     marginBottom: 20,
     borderRadius: '10px',
     border: 'grey',
-    borderStyle: 'dotted'
+    borderStyle: 'dotted',
+    "&:hover":{
+      transition: 10,
+      borderColor: 'black',
+      borderStyle: 'solid',
+      
+    }
   },
   rootContent: {
     display: "flex",
@@ -29,15 +34,15 @@ const FeedWidgetView = (props) => (
       <div/>
       <Button text="+ Write a Post" type="post__button" onClick={props.newPost} />
       <div/>
-      {props.openModal ? (
+      {
+        (props.openModal)?
         <PostModal
           openModal={props.openModal}
           discardPost={props.discardPost}
           addPost={props.addPost}
         />
-      ) : (
-        ""
-      )}
+        :""
+      }
     </CardContent>
   </Card>
 );

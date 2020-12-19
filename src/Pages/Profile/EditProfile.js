@@ -60,7 +60,7 @@ export default class EditProfilePage extends React.Component {
           <div className = "personal">
             <h1 className = "profile__detail">Personal Details</h1>
             <TextField
-              label='First Name'
+              label='First Name*'
               value={this.state.firstName}
               onChange={(e)=>this.setState({firstName:e.target.value})}
               variant = "filled"
@@ -85,7 +85,7 @@ export default class EditProfilePage extends React.Component {
               }}
             />
             <TextField
-              label='Last Name'
+              label='Last Name*'
               value={this.state.lastName}
               onChange={(e)=>this.setState({lastName:e.target.value})}
               variant = "filled"
@@ -135,7 +135,7 @@ export default class EditProfilePage extends React.Component {
               }}
             />
             <TextField
-              label='Profile Description'
+              label='About YourSelf'
               value={this.state.description}
               onChange={(e)=>this.setState({description:e.target.value})}
               multiline
