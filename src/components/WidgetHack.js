@@ -87,7 +87,7 @@ export default class WidgetHack extends React.Component {
 
           let sections = []
           const len = hacks.length;
-          for(var i=0;i<len/4;i++)
+          for(var i=0;i<len;i++)
             sections.push(i+1);
 
           //console.log(default_hacks)

@@ -86,7 +86,7 @@ export default class WidgetProject extends React.Component {
 
           let sections = []
           const len = projects.length;
-          for(var i=0;i<len/4;i++)
+          for(var i=0;i<len;i++)
             sections.push(i+1);
 
           //console.log(default_projects)
@@ -101,7 +101,10 @@ export default class WidgetProject extends React.Component {
     return (
       <div className = "widget__list">
         <Header user = {this.props.user}/>
-        <WidgetView type = "project" work = {this.state.projects} sections = {this.state.sections} />
+        {
+          (this.state.projects.length==0)? "No Projects to Show":
+          <WidgetView type = "project" work = {this.state.projects} sections = {this.state.sections} />
+        }
       </div>
     );
   }

@@ -1,7 +1,6 @@
 import React from 'react';
 
-import {postRequest} from '../components/CallApi';
-import WidgetDetails from '../components/WidgetDetails';
+import HeaderDetails from '../components/DetailsHeader';
 
 export default class WidgetView extends React.Component {
 
@@ -20,12 +19,11 @@ export default class WidgetView extends React.Component {
       <section key = {index} id={this.props.type+section}>
         <a href={'#'+this.props.type+prev} className="arrow__btn">‹</a>
         {
-          this.props.work.slice((section-1)*4,(section*4)).map((project,index) => (
+          this.props.work.slice(section-1,section).map((project,index) => (
             <div className="item" key = {index}>
-            <WidgetDetails
+            <HeaderDetails
               optionText = {project}
               index = {index}
-              view = "false"
             />
             </div>
           ))

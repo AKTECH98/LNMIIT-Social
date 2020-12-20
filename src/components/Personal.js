@@ -8,10 +8,6 @@ import EditTwoToneIcon from '@material-ui/icons/EditTwoTone';
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme)=>({
-  menuroot: {
-    color: 'black',
-    fontSize: 12
-  },
   root: {
     backgroundColor: 'white',
     height: 'fit-content',
@@ -19,15 +15,6 @@ const useStyles = makeStyles((theme)=>({
   },
   rootHeader: {
     height: 'fit-content'
-  },
-  subHeader: {
-    fontSize: 15,
-    fontColor: 'black'
-  },
-  subRootA: {
-    backgroundColor: 'white',
-    Height: 'fit-content',
-    minWidth: 425
   },
   subInfo: {
     borderBottom: '0.1rem solid grey',
@@ -43,6 +30,7 @@ const useStyles = makeStyles((theme)=>({
   content: {
     color: '#4574bf',
     fontSize: 15,
+    height: 50
   },
   rootIcon: {
     color: 'blue'
@@ -81,18 +69,19 @@ export default function Personal(props){
       }
 
       avatar={
-        <Avatar alt="Remy Sharp" src="https://material-ui.com/static/images/cards/contemplative-reptile.jpg" className={classes.avatar}/>
+        <Avatar alt="Profile Picture" src="https://material-ui.com/static/images/cards/contemplative-reptile.jpg" className={classes.avatar}/>
       }
       action={
         (props.view)?
         ""
         :
-        <div>
+        <div className = "tooltip">
           <Link to={'EditProfile'} className = "linklink">
             <IconButton disabled = {props.view}>
               <EditTwoToneIcon style = {{ fontSize: 25, color: "blue" }} />
             </IconButton>
           </Link>
+          <span className = "tooltiptext edit">EDIT</span>
         </div>
       }  
       

@@ -39,21 +39,9 @@ const useStyles = makeStyles((theme) => ({
     color: 'gray',
     fontSize : 12
   },
-  content: {
-    fontSize: 15,
-    minHeight: 125,
-    maxHeight: 125
-  },
-  action: {
-    minHeight: 20,
-    maxHeight: 20
-  },
-  rootIcon: {
-    color: 'blue'
-  }
 }));
 
-export default function Details(props) {
+export default function HeaderDetails(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
@@ -110,43 +98,7 @@ export default function Details(props) {
           root : classes.header,
           title : classes.title,
           subheader : classes.subheader
-        }
-      }
-        action={
-          (props.view)?"":<div>
-          <IconButton
-            ref={anchorRef}
-            aria-controls={open ? 'menu-list-grow' : undefined}
-            aria-haspopup="true"
-            onClick={handleToggle}
-            classes = {{root: classes.rootIcon}}
-          >
-            <MoreVertIcon />
-            <span className="badge--new">3</span>
-          </IconButton>
-          <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
-            {({ TransitionProps, placement }) => (
-              <Grow
-                {...TransitionProps}
-                style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-              >
-              <Paper>
-                <ClickAwayListener onClickAway={handleClose}>
-                  <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                    <MenuItem onClick={Edit}>Edit</MenuItem>
-                    <MenuItem onClick={Delete}>Delete</MenuItem>
-                    <MenuItem onClick={ViewJoinRequests}>
-                      View Requests
-                    </MenuItem>
-                    <span className="badge--request">3</span>
-                  </MenuList>
-                </ClickAwayListener>
-              </Paper>
-              </Grow>
-            )}
-          </Popper>
-          </div>
-        }
+        }}
         title={props.optionText.title}
         subheader = {
           <div>
@@ -157,36 +109,6 @@ export default function Details(props) {
           </div>
         }
       />
-      <CardContent classes = {{root: classes.content}}>
-        Description :<hr/>
-        {(props.optionText.description==undefined)?'None':props.optionText.description}
-      </CardContent>
-      <CardActions classes = {{root:classes.action}}>
-        {
-          (props.optionText.project_link)?
-          <div className = "tooltip">
-            <a href = {props.optionText.project_link}>
-              <IconButton>
-                <GitHubIcon fontSize = "large" style = {{color:'black'}} />
-              </IconButton>
-            </a>
-            <span className = "tooltiptext github">Github Repository</span>
-          </div>
-          :" "
-        }
-        {
-          (props.optionText.colab)?
-          <div className = "tooltip">
-            <a href = {props.optionText.project_link}>
-              <IconButton onClick = {()=>props.Request(props.index)}>
-                <ColabIcon fontSize = "large" style = {{color:'green'}} />
-              </IconButton>
-            </a>
-            <span className = "tooltiptext colab">Send Colab Request</span>
-          </div>
-          :" "
-        }
-      </CardActions>
     </Card>
   );
 }

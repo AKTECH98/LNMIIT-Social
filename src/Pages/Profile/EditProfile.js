@@ -196,7 +196,7 @@ export default class EditPage extends React.Component {
                 }}
               />
               <TextField
-                label='Phone Number'
+                label='E-Mail'
                 value={this.state.altEmail}
                 onChange={(e)=>this.setState({altEmail:e.target.value})}
                 variant = "filled"

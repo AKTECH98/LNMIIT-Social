@@ -72,12 +72,13 @@ export default function Contact(props){
         (props.view)?
         ""
         :
-        <div>
+        <div className = "tooltip">
           <Link to={'EditProfile'} className = "linklink">
             <IconButton disabled = {props.view}>
               <EditTwoToneIcon style = {{ fontSize: 25, color: "blue" }} />
             </IconButton>
           </Link>
+          <span className = "tooltiptext edit">EDIT</span>
         </div>
       }
 

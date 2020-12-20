@@ -14,8 +14,6 @@ import ProjectIcon from "@material-ui/icons/Code";
 import LogoutIcon from "@material-ui/icons/ArrowForwardIos";
 import LoginIcon from "@material-ui/icons/ArrowBackIos";
 import ConnectIcon from "@material-ui/icons/VpnKey";
-import zIndex from "@material-ui/core/styles/zIndex";
-import { LinearScale } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -123,6 +121,7 @@ export default function Header(props) {
                           <div className='header__button'>
                             <div>
                               <NotificationIcon style={{ fontSize: 20, color: "white" }}/>
+                              <span className = "badge--notify">10</span>
                             </div>
                             <div className='header__button--title'>Notify</div>
                           </div>
@@ -251,6 +250,7 @@ export default function Header(props) {
                 <div className = "header__button">
                   <div>
                     <NotificationIcon style = {{fontSize:20,color:'white'}}/>
+                    <span className = "badge--notify">10</span>
                   </div>
                   <div className = "header__button--title">Notify</div>
                 </div>

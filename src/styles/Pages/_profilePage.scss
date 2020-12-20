@@ -21,6 +21,15 @@
     margin: $xxl-size;
 }
 
+.profile__attribute {
+    display: grid;
+    grid-template-columns: 800px 400px;
+}
+
+.profile__skills {
+    margin: $xxl-size;
+}
+
 .profile__widget {
-    margin: $xl-size 0;
+    margin: $xxl-size;
 }

@@ -1,3 +1,9 @@
+.Widget__View{
+    display: grid;
+    grid-gap: 89px;
+    grid-template-columns: 230px 230px 230px 230px;
+}
+
 .wrapper {
     display: grid;
     grid-template-columns: repeat(100, 100%);
@@ -6,19 +12,14 @@
 }
 
 .wrapper section {
-    width: 98%;
+    
     position: relative;
     display: grid;
-    grid-template-columns: repeat(4,25%);
+    grid-template-columns: repeat(1,100%);
 }
 .wrapper section .item {
     transition: 250ms all;
-    margin-left: 20px;
-}
-
-.wrapper section .item:hover {
-    margin: 20px;
-    transform: scale(1.1);
+    margin-left: 50px;
 }
 
 .wrapper section .arrow__btn {
@@ -26,7 +27,7 @@
     color: $light-blue;
     text-decoration: none;
     font-size: 6rem;
-    height: 37.5%;
+    height: 100%;
     padding: 0px 10px;
     text-align: center;
     z-index: 1;
@@ -54,12 +55,13 @@
     right: 0;
     background: linear-gradient(90deg, rgba(0, 0, 0, 0) 50%, $light-blue 100%);
 }
+
 .wrapper section a{
     position: absolute;
     color: $light-blue;
     text-decoration: none;
     font-size: 6rem;
-    height: 37.5%;
+    height: fit-content;
     padding: 0px 10px;
     text-align: center;
     z-index: 1;
