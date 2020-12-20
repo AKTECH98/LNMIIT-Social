@@ -12,8 +12,9 @@ const WorkView = (props) => (
           index = {index}
           DeleteWork = {props.Delete}
           EditWork = {props.Edit}
+          ViewJoinRequestsWork = {props.ViewJoinRequests}
           Request = {props.Request}
-          view = {props.view}
+          view = {!work.admin || props.view}
         />
         </div>
       ))
