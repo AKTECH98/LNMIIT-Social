@@ -2,17 +2,25 @@
     background-color: none;
 }
 
-.profile__widget {
-    margin: $xl-size 0;
+.profile {
+    display: grid;
+    grid-template-columns: 800px 400px;
 }
 
 .profile__image {
     border: red solid 0.3rem;
-    width: 25%;
-    margin-right: $xxl-size;
+    margin: $xxl-size;
+    height: 300px;
 }
 
-.profile__info {
-    display: flex;
-    justify-content: space-between;
+.profile__detail {
+    margin: $xxl-size 0;
+}
+
+.profile__contact {
+    margin: $xxl-size;
+}
+
+.profile__widget {
+    margin: $xl-size 0;
 }

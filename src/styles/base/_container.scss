@@ -13,6 +13,10 @@
     transform: translate(-50%, -50%);
 }
 
+a:hover .linklink{
+    text-decoration: underline;
+}
+
 .linklink{
     text-decoration: none;
 }
