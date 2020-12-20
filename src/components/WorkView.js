@@ -4,7 +4,7 @@ import {postRequest} from '../components/CallApi'
 
 const WorkView = (props) => (
   <div className = "Widget__View">
-    {
+    { 
       props.works.map((work,index) => (
         <div key = {index}>
         <WidgetDetails
@@ -14,7 +14,7 @@ const WorkView = (props) => (
           EditWork = {props.Edit}
           ViewJoinRequestsWork = {props.ViewJoinRequests}
           Request = {props.Request}
-          view = {!work.admin || props.view}
+          view = {(work.admin==undefined)?props.view:(!work.admin || props.view)}
         />
         </div>
       ))

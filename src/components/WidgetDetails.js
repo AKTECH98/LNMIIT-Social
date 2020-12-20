@@ -113,7 +113,7 @@ export default function Details(props) {
         }
       }
         action={
-          (props.view)?"":<div>
+          (props.view)?console.log(props.view):<div>
           <IconButton
             ref={anchorRef}
             aria-controls={open ? 'menu-list-grow' : undefined}

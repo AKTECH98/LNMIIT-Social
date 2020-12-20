@@ -6,6 +6,25 @@
       align-items: center;
     }
 
+    .Widget__View{
+      display: grid;
+      grid-gap: 228px;
+      grid-template-columns: 246px 246px;
+      grid-template-rows: repeat(100,150px);
+  }
+
+    .badge--notify {
+      position: absolute;
+      top: 15px;
+      right: 85px;
+      font-size: $s-size;
+      padding: 2px 4px;
+      border-radius: 50%;
+      opacity: 1;
+      background: $pink-red;
+      color: white;
+  }
+
     .header__title {
       padding-right: 10px;
       width: 80%;
