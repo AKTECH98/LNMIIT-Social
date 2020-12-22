@@ -52,8 +52,7 @@ export default class WidgetHack extends React.Component {
   {
     super(props)
     this.state = {
-      hacks: [],
-      sections: []
+      hacks: []
     };
 
     const url = window.location.href;
@@ -84,14 +83,8 @@ export default class WidgetHack extends React.Component {
               hack_id: item.hack_id
             })
           })
-
-          let sections = []
-          const len = hacks.length;
-          for(var i=0;i<len/4;i++)
-            sections.push(i+1);
-
           //console.log(default_hacks)
-          this.setState({hacks,sections})
+          this.setState({hacks})
           //console.log(this.state.sections)
         }
       }
@@ -102,7 +95,7 @@ export default class WidgetHack extends React.Component {
     return (
       <div className = "widget__list">
         <Header user = {this.props.user}/>
-        <WidgetView type = "hack" work = {this.state.hacks} sections = {this.state.sections} />
+        <WidgetView work = {this.state.hacks} />
       </div>
     );
   }

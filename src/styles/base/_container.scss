@@ -16,3 +16,165 @@
 .linklink{
     text-decoration: none;
 }
+
+.error {
+    font-size: $m-size;
+    font-weight: 1000;
+    color: red;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: fit-content;
+    font-size: $s-size;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: $s-size;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.tooltip .edit {
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 100%;
+    margin-left: -50px;
+}
+
+.tooltip .edit::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;
+}
+
+.tooltip .github {
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -35px;
+}
+
+.tooltip .github::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+.tooltip .colab {
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -35px;
+}
+
+.tooltip .colab::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+.badge--request {
+    position: absolute;
+    top: 58px;
+    right: 5px;
+    font-size: $s-size;
+    padding: 2px 4px;
+    border-radius: 50%;
+    opacity: 0.75;
+    background: $black-blue;
+    color: white;
+}
+
+.badge--new {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    font-size: $ms-size;
+    padding: 4px 8px;
+    border-radius: 50%;
+    opacity: 0.75;
+    background: $black-blue;
+    color: white;
+}
+
+.badge--notify {
+    position: absolute;
+    top: 5px;
+    right: 22px;
+    font-size: $s-size;
+    padding: 2px 4px;
+    border-radius: 50%;
+    opacity: 1;
+    background: $pink-red;
+    color: white;
+}
+
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    top: 30px;
+    font-size: 17px;
+    opacity: 0.85;
+  }
+  
+#snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  }
+  
+  @-webkit-keyframes fadein {
+    from {top: 0; opacity: 0;} 
+    to {top: 30px; opacity: 0.75;}
+  }
+  
+  @keyframes fadein {
+    from {top: 0; opacity: 0;}
+    to {top: 30px; opacity: 0.75;}
+  }
+  
+  @-webkit-keyframes fadeout {
+    from {top: 30px; opacity: 1;} 
+    to {top: 0; opacity: 0.75;}
+  }
+  
+  @keyframes fadeout {
+    from {top: 30px; opacity: 1;}
+    to {top: 0; opacity: 0;}
+  }

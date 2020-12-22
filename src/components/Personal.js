@@ -1,48 +1,27 @@
 import React from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { Card, CardContent, CardHeader } from "@material-ui/core";
-import { Typography } from "@material-ui/core";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  Avatar,
+} from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import Grow from "@material-ui/core/Grow";
-import Paper from "@material-ui/core/Paper";
-import Popper from "@material-ui/core/Popper";
-import MenuItem from "@material-ui/core/MenuItem";
-import MenuList from "@material-ui/core/MenuList";
+import EditTwoToneIcon from "@material-ui/icons/EditTwoTone";
+import Button from "./Button";
 
 import { Link } from "react-router-dom";
 
-const useStyles = makeStyles({
-  menuroot: {
-    color: "black",
-    fontSize: 12,
-  },
+const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "white",
     height: "fit-content",
-    minWidth: 850,
+    minWidth: 425,
   },
   rootHeader: {
     height: "fit-content",
-  },
-  subHeader: {
-    fontSize: 15,
-    fontColor: "black",
-  },
-  subRootA: {
-    backgroundColor: "white",
-    minWidth: 400,
-    Height: "fit-content",
-    marginRight: 10,
-  },
-  subRootB: {
-    backgroundColor: "white",
-    Height: "fit-content",
-    minWidth: 200,
-    marginLeft: 10,
   },
   subInfo: {
     borderBottom: "0.1rem solid grey",
@@ -55,195 +34,93 @@ const useStyles = makeStyles({
     fontWeight: 700,
     fontFamily: "cursive",
   },
-  subTitle: {
-    fontSize: 25,
-    color: "#4574bf",
-    fontWeight: 400,
-  },
   content: {
-    display: "flex",
-    justifyContent: "space-between",
-  },
-  subContent: {
     color: "#4574bf",
     fontSize: 15,
-    marginBottom: 5,
+    height: "fit-content",
+  },
+  contenDistinguish: {
+    textAlign: "center",
+    backgroundColor: "#009999",
+    fontSize: 15,
+    color: "white",
+    height: "fit-content",
+    paddingTop: 25,
+    opacity: 0.9,
   },
   rootIcon: {
     color: "blue",
   },
-  "@media (max-width: 768px)": {
-    root: {
-      minWidth: "70vw",
-    },
-    content: {
-      flexDirection: "column",
-      width: "90vw",
-      padding: "5px",
-    },
-    subRootB: {
-      marginLeft: 0,
-      marginTop: 10,
-      minWidth: "10vw",
-    },
-    subRootA: {
-      minWidth: "10vw",
-    },
+  media: {
+    height: 250,
   },
-});
+  avatar: {
+    margin: "-100px auto 0",
+    width: 125,
+    height: 125,
+    boxShadow: "0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23)",
+    position: "relative",
+    zIndex: 5,
+  },
+  "@media (max-width: 768px)": {
+    root: { minWidth: "70vw" },
+    content: { flexDirection: "column", width: "90vw", padding: "6px" },
+    subRootB: { marginLeft: 0, marginTop: 10, minWidth: "10vw" },
+    subRootA: { minWidth: "10vw" },
+  },
+}));
 
 export default function Personal(props) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const anchorRef = React.useRef(null);
-
-  const handleToggle = () => {
-    setOpen((prevOpen) => !prevOpen);
-  };
-
-  const handleClose = (event) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target)) {
-      return;
-    }
-
-    setOpen(false);
-  };
-
-  function handleListKeyDown(event) {
-    if (event.key === "Tab") {
-      event.preventDefault();
-      setOpen(false);
-    }
-  }
-
-  // return focus to the button when we transitioned from !open -> open
-  const prevOpen = React.useRef(open);
-
-  React.useEffect(() => {
-    if (prevOpen.current === true && open === false) {
-      anchorRef.current.focus();
-    }
-
-    prevOpen.current = open;
-  }, [open]);
 
   return (
     <Card className={classes.root}>
+      <CardMedia
+        className={classes.media}
+        image='https://material-ui.com/static/images/cards/contemplative-reptile.jpg'
+        title='Profile Picture'
+      />
       <CardHeader
         classes={{
           root: classes.rootHeader,
           title: classes.title,
           subheader: classes.subInfo,
         }}
+        avatar={
+          <Avatar
+            alt='Profile Picture'
+            src='https://material-ui.com/static/images/cards/contemplative-reptile.jpg'
+            className={classes.avatar}
+          />
+        }
         action={
           props.view ? (
             ""
           ) : (
-            <div>
-              <IconButton
-                ref={anchorRef}
-                aria-controls={open ? "menu-list-grow" : undefined}
-                aria-haspopup='true'
-                onClick={handleToggle}
-                classes={{ root: classes.rootIcon }}
-                disabled={props.view}
-              >
-                <MoreVertIcon />
-              </IconButton>
-              <Popper
-                open={open}
-                anchorEl={anchorRef.current}
-                role={undefined}
-                transition
-                disablePortal
-              >
-                {({ TransitionProps, placement }) => (
-                  <Grow
-                    {...TransitionProps}
-                    style={{
-                      transformOrigin:
-                        placement === "bottom" ? "center top" : "center bottom",
-                    }}
-                  >
-                    <Paper>
-                      <ClickAwayListener onClickAway={handleClose}>
-                        <MenuList
-                          autoFocusItem={open}
-                          id='menu-list-grow'
-                          onKeyDown={handleListKeyDown}
-                        >
-                          <Link to={"EditProfile"} className='linklink'>
-                            <MenuItem
-                              onClick={handleClose}
-                              className={classes.menuroot}
-                            >
-                              Edit
-                            </MenuItem>
-                          </Link>
-                        </MenuList>
-                      </ClickAwayListener>
-                    </Paper>
-                  </Grow>
-                )}
-              </Popper>
+            <div className='tooltip'>
+              <Link to={"EditProfile"} className='linklink'>
+                <IconButton disabled={props.view}>
+                  <EditTwoToneIcon style={{ fontSize: 25, color: "blue" }} />
+                </IconButton>
+              </Link>
+              <span className='tooltiptext edit'>EDIT</span>
             </div>
           )
         }
         title={
           props.personal == null
             ? "Default Name"
-            : props.personal.first_name +
-              " " +
-              props.personal.middle_name +
-              " " +
-              props.personal.last_name
+            : props.personal.first_name + " " + props.personal.last_name
         }
-        subheader='Competitive Coder/Designer/Machine Learning'
+        subheader={props.personal == null ? "" : props.personal.headline}
       />
       <CardContent classes={{ root: classes.content }}>
-        <Card className={classes.subRootA}>
-          <CardHeader
-            classes={{
-              root: classes.subHeader,
-              title: classes.subTitle,
-              subheader: classes.subInfo,
-            }}
-            title='About'
-            subheader='1st/2nd/3rd/4th Year/Alumni (Y16 Batch)'
-          />
-          <CardContent classes={{ root: classes.subContent }}>
-            {props.personal == null
-              ? "Default Description"
-              : props.personal.profile_description}
-          </CardContent>
-        </Card>
-
-        <Card className={classes.subRootB}>
-          <CardHeader
-            classes={{
-              root: classes.subHeader,
-              title: classes.subTitle,
-              subheader: classes.subInfo,
-            }}
-            title='Contact Info. & Links'
-            subheader='.'
-          />
-          <CardContent classes={{ root: classes.subContent }}>
-            <Typography variant='h5'>
-              Phone No. :{" "}
-              {props.personal == null ? "Default Phone" : props.personal.phone}
-            </Typography>
-            <Typography variant='h5'>
-              Email-ID :{" "}
-              {props.personal == null ? "Default Email" : props.personal.email}
-            </Typography>
-            <Typography variant='h5'>Linkdin : none</Typography>
-            <Typography variant='h5'>Github : none</Typography>
-            <Typography variant='h5'>Codechef : none</Typography>
-            <Typography variant='h5'>Codeforces : none</Typography>
-            <Typography variant='h5'>Other : none</Typography>
-          </CardContent>
-        </Card>
+        {props.personal == null
+          ? "Default Description"
+          : props.personal.profile_description}
+      </CardContent>
+      <CardContent classes={{ root: classes.contenDistinguish }}>
+        {props.personal == null ? "" : props.year + "  (" + props.batch + ")"}
       </CardContent>
     </Card>
   );

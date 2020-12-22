@@ -23,7 +23,7 @@
   align-items: center;
   background-color: $black-blue;
   height: fit-content;
-  width: 100vw;
+  width: 100%;
 }
 
 .header__button {
@@ -38,10 +38,6 @@
   font-size: $m-size;
   font-family: cursive;
   font-weight: 200;
-}
-
-.active {
-  background-color: $dark-blue;
 }
 
 .search {

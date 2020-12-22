@@ -18,7 +18,8 @@ const useStyles = makeStyles({
     padding: '0 0.3rem 0 0.3rem',
     border: 1,
     borderStyle: 'solid',
-    borderColor: 'grey'
+    borderColor: 'grey',
+    width: '100%'
   },
   title: {
     fontSize: 15,

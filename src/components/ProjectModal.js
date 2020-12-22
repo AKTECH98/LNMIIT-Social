@@ -490,7 +490,7 @@ export default class ProjectModal extends React.Component {
           :
           <div>
             { (this.state.error)?
-              <p className = "modal__body">Please Enter all Details Marked *</p>
+              <p className = "error">Please Enter all Details Marked *</p>
               :""
             }
             <Button text = "Add Project" type = "button modal__button" onClick = {this.SaveDetails}/>
