@@ -1,7 +1,5 @@
 import React from 'react';
-import { Link} from 'react-router-dom';
 
-import EmailField from '../../components/TextField';
 import TextField from '@material-ui/core/TextField';
 import Header from '../../components/Header';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import HeaderDetails from '../components/DetailsHeader';
+import HeaderDetails from './DetailsHeader';
 
 export default class WidgetView extends React.Component {
 
@@ -9,18 +9,40 @@ export default class WidgetView extends React.Component {
     super(props);
   }
 
-  display(section,index) {
+  componentDidMount(){
+    
+    if(this.props.work.length!=0)
+    {
+      var slideIndex = 0;
+      showSlide();
 
-    const total_sections = this.props.sections.length;
-    const prev = (section==1)?total_sections:section-1;
-    const next = (section==total_sections)?1:section+1;
+      function showSlide() {
+        var i;
+       // const type = this.props.type
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("dot");
+        for (i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";  
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) {slideIndex = 1}    
+        for (i = 0; i < dots.length; i++) {
+          dots[i].className = dots[i].className.replace(" active__dot", "");
+        }
+        slides[slideIndex-1].style.display = "block";  
+        dots[slideIndex-1].className += " active__dot";
+        setTimeout(showSlide, 2000); // Change image every 2 seconds
+      }
+    }
+  }
 
+  render(){
     return(
-      <section key = {index} id={this.props.type+section}>
-        <a href={'#'+this.props.type+prev} className="arrow__btn">‹</a>
+      <div>
+        <div className="slideshow-container">
         {
-          this.props.work.slice(section-1,section).map((project,index) => (
-            <div className="item" key = {index}>
+          this.props.work.map((project,index) => (
+            <div className="item mySlides fade" key = {index}>
             <HeaderDetails
               optionText = {project}
               index = {index}
@@ -28,18 +50,13 @@ export default class WidgetView extends React.Component {
             </div>
           ))
         }
-        <a href={"#"+this.props.type+next} className="arrow__btn">›</a>
-      </section>
-    )
-  }
-
-  render(){
-    return(
-      <div>
-        <div className="wrapper">
-        { 
-          this.props.sections.map((section,index)=>(
-            this.display(section,index)
+        </div>
+        <br/>
+        
+        <div className = "slideshow--dot">
+        {
+          this.props.work.map((project,index) => (
+            <span className="dot" key = {index}></span>  
           ))
         }
         </div>

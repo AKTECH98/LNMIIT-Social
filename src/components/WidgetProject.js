@@ -51,8 +51,7 @@ export default class WidgetProject extends React.Component {
   {
     super(props)
     this.state = {
-      projects: [],
-      sections: []
+      projects: []
     };
 
     const url = window.location.href;
@@ -83,14 +82,8 @@ export default class WidgetProject extends React.Component {
               project_id: item.project_id
             })
           })
-
-          let sections = []
-          const len = projects.length;
-          for(var i=0;i<len;i++)
-            sections.push(i+1);
-
           //console.log(default_projects)
-          this.setState({projects,sections})
+          this.setState({projects})
           //console.log(this.state.sections)
         }
       }
@@ -103,7 +96,7 @@ export default class WidgetProject extends React.Component {
         <Header user = {this.props.user}/>
         {
           (this.state.projects.length==0)? "No Projects to Show":
-          <WidgetView type = "project" work = {this.state.projects} sections = {this.state.sections} />
+          <WidgetView work = {this.state.projects} />
         }
       </div>
     );
