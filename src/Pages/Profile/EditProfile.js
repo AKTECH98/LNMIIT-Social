@@ -23,7 +23,9 @@ export default class EditPage extends React.Component {
       linkedin: '',
       github: '',
       codeforces: '',
-      codechef: ''
+      codechef: '',
+      error: false,
+      errorMessage: "Enter All Fields Marked *"
     }
 
     postRequest('profile/getprofiledetails',
@@ -140,7 +142,7 @@ export default class EditPage extends React.Component {
               }}
             />
             <TextField
-              label='About YourSelf'
+              label='About YourSelf*'
               value={this.state.about}
               onChange={(e)=>this.setState({about:e.target.value})}
               multiline
@@ -172,7 +174,7 @@ export default class EditPage extends React.Component {
             <h1 className = "profile__detail">Profile Contacts</h1>
             <div className = "contact__details">
               <TextField
-                label='Phone Number'
+                label='Phone Number*'
                 value={this.state.phone}
                 onChange={(e)=>this.setState({phone:e.target.value})}
                 variant = "filled"
@@ -196,7 +198,7 @@ export default class EditPage extends React.Component {
                 }}
               />
               <TextField
-                label='E-Mail'
+                label='E-Mail*'
                 value={this.state.altEmail}
                 onChange={(e)=>this.setState({altEmail:e.target.value})}
                 variant = "filled"
@@ -248,7 +250,7 @@ export default class EditPage extends React.Component {
                   }}
                 />
                 <TextField
-                  label='Linkedin'
+                  label='Linkedin*'
                   value={this.state.linkedin}
                   onChange={(e)=>this.setState({linkedin:e.target.value})}
                   variant = "filled"
@@ -326,39 +328,52 @@ export default class EditPage extends React.Component {
           </div>
         </div>
 
-      <Link to = {"ProfilePage?email="+window.localStorage.getItem('email')} >
-          <Button
-            text = "Submit Changes"
-            type = "button editProfile__button"
-            onClick = {()=>{
+        <Button
+          text = "Submit Changes"
+          type = "button editProfile__button"
+          onClick = {()=>{
+            if(!this.state.firstName || !this.state.lastName || !this.state.phone)
+              this.setState({error:true})
+            else if(!this.state.about || !this.state.headline || !this.state.altEmail || !this.state.linkedin)
+              this.setState({error:true})
+            else
+            {
+              this.setState({error:false})
 
-            postRequest('profile/editprofiledetails',
-              {
-                'email':window.localStorage.getItem('email'),
-                'password':window.localStorage.getItem('password'),
-                'first_name':this.state.firstName,
-                'last_name':this.state.lastName,
-                'phone':this.state.phone,
-                'about':this.state.about,
-                'headline':this.state.headline,
-                'altEmail':this.state.altEmail,
-                'github':this.state.github,
-                'linkedin':this.state.linkedin,
-                'codeforces':this.state.codeforces,
-                'codechef':this.state.codechef
-              },
-              (res)=>{
-                if(res.message=="SUCCESS")
+              postRequest('profile/editprofiledetails',
                 {
-                  console.log('SUCCESS')
-                }
+                  'email':window.localStorage.getItem('email'),
+                  'password':window.localStorage.getItem('password'),
+                  'first_name':this.state.firstName,
+                  'last_name':this.state.lastName,
+                  'phone':this.state.phone,
+                  'about':this.state.about,
+                  'headline':this.state.headline,
+                  'altEmail':this.state.altEmail,
+                  'github':this.state.github,
+                  'linkedin':this.state.linkedin,
+                  'codeforces':this.state.codeforces,
+                  'codechef':this.state.codechef
+                },
+                (res)=>{
+                  if(res.message=="SUCCESS")
+                  {
+                    var x = document.getElementById("snackbar");
+                    x.className = "show";
+                    setTimeout(function(){ x.className = x.className.replace("show", ""); },1000);
+                  }
 
-                this.setState({errorMessage:res.reason})
-              }
-            )}}
-          />
-          <Button text = "Discard Changes" type = "button editProfile__button" />
-        </Link>
+                  this.setState({errorMessage:res.reason})
+                }
+              )
+            }
+          }}
+        />
+        { (this.state.error)?
+          <p className = "error">{this.state.errorMessage}</p>
+          :""
+        }
+        <div id="snackbar">SAVED</div>
         </div>
       </div>
     )

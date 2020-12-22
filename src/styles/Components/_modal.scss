@@ -48,3 +48,17 @@
     font-weight: 600;
     width: fit-content;
 }
+
+.modal__requests {
+    display: flex;
+    border: red solid 0.3rem;
+}
+
+.modal__requests .modal__requests--user {
+    margin-right: $xxl-size;
+}
+
+.modal__requests .modal__requests--buttons {
+    border: black solid 0.3rem;
+    height: fit-content;
+}

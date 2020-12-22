@@ -14,11 +14,11 @@
 }
 
 .profile__detail {
-    margin: $xxl-size 0;
+    margin: 0 0;
 }
 
 .profile__contact {
-    margin: $xxl-size;
+    margin: 0 $xxl-size;
 }
 
 .profile__attribute {
@@ -27,7 +27,7 @@
 }
 
 .profile__skills {
-    margin: $xxl-size;
+    margin: $xxl-size 0;
 }
 
 .profile__widget {

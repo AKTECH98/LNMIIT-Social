@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../../components/Header';
 import Personal from '../../components/Personal';
+import Skills from '../../components/Skills';
 import Contact from '../../components/Contact';
 import {postRequest} from '../../components/CallApi';
 import WidgetProject from '../../components/WidgetProject';
@@ -48,7 +49,9 @@ export default class ProfilePage extends React.Component {
           </div>
         </div>
         <div className = "profile__attribute">
-          <div className = "profile__skills"></div>
+          <div className = "profile__skills">
+            <Skills/>
+          </div>
           <div className = "profile__widget">
             <WidgetProject user = {(query.split('#')[0]==undefined)?window.localStorage.getItem('email'):query.split('#')[0]}/>
             <WidgetHack user = {(query.split('#')[0]==undefined)?window.localStorage.getItem('email'):query.split('#')[0]}/>

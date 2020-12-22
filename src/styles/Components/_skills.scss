@@ -1,0 +1,44 @@
+.skill--chip {
+    display: inline-block;
+    padding: 0 25px;
+    height: 50px;
+    font-size: 16px;
+    line-height: 50px;
+    border-radius: 25px;
+    margin: $s-size;
+    background-color: #f1f1f1;
+  }
+  
+  .button--close {
+    visibility: hidden;
+    padding-left: 10px;
+    color: #888;
+    font-weight: bold;
+    float: right;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .button--close:hover {
+    color: #000;
+  }
+
+  .skill--chip:hover .button--close{
+    visibility: visible;
+  }
+  
+  .skill__bar[type=text] {
+    width: 110px;
+    //box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    padding: 10px 5px 10px 10px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+  }
+  
+  .skill__bar[type=text]:focus {
+    width: 100%;
+  }
