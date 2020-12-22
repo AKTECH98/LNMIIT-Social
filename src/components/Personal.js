@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardContent, CardHeader, CardMedia, Avatar} from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import EditTwoToneIcon from '@material-ui/icons/EditTwoTone';
+import Button from './Button';
 
 import { Link } from 'react-router-dom';
 
@@ -30,7 +31,16 @@ const useStyles = makeStyles((theme)=>({
   content: {
     color: '#4574bf',
     fontSize: 15,
-    height: 50
+    height: 'fit-content'
+  },
+  contenDistinguish: {
+    textAlign: 'center',
+    backgroundColor: '#009999',
+    fontSize: 15,
+    color: 'white',
+    height: 'fit-content',
+    paddingTop: 25,
+    opacity: 0.9,
   },
   rootIcon: {
     color: 'blue'
@@ -51,7 +61,7 @@ const useStyles = makeStyles((theme)=>({
 export default function Personal(props){
 
   const classes = useStyles();
-  
+
   return(
   <Card className = {classes.root}>
     <CardMedia
@@ -90,6 +100,8 @@ export default function Personal(props){
     />
     <CardContent classes = {{root:classes.content}}>
       {props.personal==null?'Default Description':props.personal.profile_description}
+    </CardContent>
+    <CardContent classes = {{root:classes.contenDistinguish}}>
       {props.personal==null?'': props.year+"  ("+props.batch+")"}
     </CardContent>
   </Card>

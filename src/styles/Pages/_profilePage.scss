@@ -7,12 +7,6 @@
     grid-template-columns: 800px 400px;
 }
 
-.profile__image {
-    border: red solid 0.3rem;
-    margin: $xxl-size;
-    height: 300px;
-}
-
 .profile__detail {
     margin: 0 0;
 }
@@ -33,3 +27,5 @@
 .profile__widget {
     margin: $xxl-size;
 }
+
+#more {display: none;}
