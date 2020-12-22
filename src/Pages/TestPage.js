@@ -139,16 +139,7 @@ export default class TestPage extends React.Component {
   render(){
     return (
       <div>
-        <h2>Autocomplete</h2>
-
-        <p>Start typing:</p>
-        
-        <form autoComplete="off" onSubmit = {(e)=>e.preventDefault}>
-          <div className="autocomplete">
-            <input id="myInput" type="text" name="myCountry" placeholder="Country"/>
-          </div>
-          <input type="submit"/>
-        </form>
+        Developer Testing
       </div>
     )
   }
