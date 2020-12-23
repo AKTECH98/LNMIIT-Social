@@ -10,12 +10,12 @@ export default class CommentBox extends React.Component {
       comments: [
         {
           id: 1,
-          author: "landiggity",
-          body: "This is my first comment on this forum so don't be a dick",
+          author: "hello",
+          body: "This is my first comment on this forum.",
         },
         {
           id: 2,
-          author: "scarlett-jo",
+          author: "olleh",
           body:
             "That's a mighty fine comment you've got there my good looking fellow...",
         },
@@ -70,12 +70,7 @@ export default class CommentBox extends React.Component {
   render() {
     const comments = this._getComments();
     let commentNodes;
-    let buttonText = "Show Comments";
-
-    if (this.state.showComments) {
-      buttonText = "Hide Comments";
-      commentNodes = <div className='comment-list'>{comments}</div>;
-    }
+    let buttonText = this._getCommentsTitle(comments.length);
 
     return (
       <div className='comment-box'>
@@ -85,19 +80,16 @@ export default class CommentBox extends React.Component {
             border: "1px solid black",
             width: "15%",
             margin: "0",
-            marginTop: "10px",
+            display: "flex",
           }}
           onClick={() => this._toggleLike()}
         >
           {this.state.liked === false ? <div>Like</div> : <div>unLike</div>}
-        </div>
-        <button id='comment-reveal' onClick={this._handleClick.bind(this)}>
-          {buttonText}
-        </button>
 
-        <h4 className='comment-count'>
-          {this._getCommentsTitle(comments.length)}
-        </h4>
+          <button id='comment-reveal' onClick={this._handleClick.bind(this)}>
+            {buttonText}
+          </button>
+        </div>
 
         <div className='comments'> {commentNodes}</div>
         {this.state.showComments ? (
@@ -121,22 +113,15 @@ class CommentForm extends React.Component {
     return (
       <form className='comment-form' onSubmit={this._handleSubmit.bind(this)}>
         <div className='comment-form-fields'>
-          <input
-            placeholder='Name'
-            required
-            ref={(input) => (this._author = input)}
-          ></input>
-          <br />
           <textarea
-            placeholder='Comment'
-            rows='4'
+            placeholder='Write a Comment ...'
+            rows='1'
             required
             ref={(textarea) => (this._body = textarea)}
           ></textarea>
-        </div>
-
-        <div className='comment-form-actions'>
-          <button type='submit'>Post Comment</button>
+          <button className='comment-submit' type='submit'>
+            Post
+          </button>
         </div>
       </form>
     );
