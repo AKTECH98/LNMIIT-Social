@@ -7,13 +7,15 @@ import PostView from "../components/PostView";
 import WidgetHack from "../components/WidgetHack";
 import WidgetProject from "../components/WidgetProject";
 
+import LoginContext from '../contexts/LoginContext';
+
 export default class HomePage extends React.Component {
   render() {
-    const user = window.localStorage.getItem("email");
-
     return (
+      <LoginContext.Consumer>
+      {(loginData)=>{return (
       <div>
-        <Redirect to={"Home?email=" + user} />
+        <Redirect to={"Home?email=" + loginData.email} />
         <Header logout={true} />
         <div className='home__view'>
           <div className='home__photo'>Photo</div>
@@ -22,7 +24,8 @@ export default class HomePage extends React.Component {
             <PostView />
           </div>
         </div>
-      </div>
+      </div>)}}
+    </LoginContext.Consumer>
     );
   }
 }

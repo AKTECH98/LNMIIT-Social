@@ -3,6 +3,8 @@ import React from "react";
 import { postRequest } from "./CallApi";
 import SinglePostView from "./SinglePostView";
 
+import LoginContext from '../contexts/LoginContext';
+
 export default class PostView extends React.Component {
   constructor(props) {
     super(props);
@@ -18,18 +20,23 @@ export default class PostView extends React.Component {
   }
 
   render() {
-    postRequest(
-      "posts/fetchposts",
-      {
-        email: window.localStorage.getItem("email"),
-        password: window.localStorage.getItem("password"),
-      },
-      (res) => {
-        this.setState({ posts: res.results });
-      }
-    );
+    
     return (
+      <LoginContext.Consumer>
+      {(loginData)=>{return (
       <div>
+      {
+        postRequest(
+          "posts/fetchposts",
+          {
+            email: loginData.email,
+            password: loginData.password,
+          },
+          (res) => {
+            this.setState({ posts: res.results });
+          }
+        )
+      }
         {this.state.posts == undefined
           ? ""
           : this.state.posts.map((item, index) => (
@@ -37,7 +44,9 @@ export default class PostView extends React.Component {
                 <SinglePostView item={item} />
               </div>
             ))}
-      </div>
+      
+      </div>)}}
+    </LoginContext.Consumer>
     );
   }
 }

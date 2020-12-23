@@ -8,6 +8,7 @@ import WorkView from '../../components/WorkView';
 import {postRequest} from '../../components/CallApi'
 import ViewProjectRequestsModal from '../../components/ViewProjectRequestsModal'
 
+import LoginContext from '../../contexts/LoginContext';
 import { Card, CardActions, CardContent, Typography} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -155,14 +156,14 @@ export default class ProjectsPage extends React.Component {
     }))
   }
 
-  DeleteProject = (projectIndex) => {
+  DeleteProject = (projectIndex,loginData) => {
     let projects=this.state.projects;
     let item = projects[projectIndex];
     
     postRequest('project/deleteproject',
       {
-        'email':window.localStorage.getItem('email'),
-        'password': window.localStorage.getItem('password'),
+        'email':loginData.email,
+        'password': loginData.password,
         'project_id': item.project_id
       },
       (res)=>{
@@ -181,18 +182,19 @@ export default class ProjectsPage extends React.Component {
     const res = parser(url);
     const user = res.email;
 
-    return(
+    return(<LoginContext.Consumer>
+      {(loginData)=>{return (
       <div>
         <Header logout = {true}/>
         <div className = "widget__list">
-        <PageHeader newProject = {this.AddDetail} view = {user!=window.localStorage.getItem('email')}/>
+        <PageHeader newProject = {this.AddDetail} view = {user!=loginData.email}/>
         <WorkView
           works={this.state.projects}
           ShowDetails={this.ShowDetails}
-          Delete = {this.DeleteProject}
+          Delete = {(e)=>this.DeleteProject(e,loginData)}
           Edit = {this.EditDetails}
           ViewJoinRequests = {this.ViewJoinRequests}
-          view = {user!=window.localStorage.getItem('email')}
+          view = {user!=loginData.email}
           Request = {this.RequestUser}
         />
         {
@@ -230,7 +232,8 @@ export default class ProjectsPage extends React.Component {
           ''
         }
         </div>
-      </div>
+      </div>)}}
+    </LoginContext.Consumer>
     )
   }
 }

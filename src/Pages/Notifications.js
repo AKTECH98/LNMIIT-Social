@@ -7,6 +7,8 @@ import Header from '../components/Header';
 import Button from '../components/Button';
 import { Card, CardContent, CardHeader, Avatar ,CardActions} from '@material-ui/core';
 
+import LoginContext from '../contexts/LoginContext';
+
 const url = window.location.href;
 const parser = require('url-parameter-parser');
 const res = parser(url);const search_term = (res.search==undefined)?"":res.search
@@ -121,23 +123,28 @@ export default class NotificationsPage extends React.Component {
       notifications: []
     }
 
-    postRequest('profile/getnotifications',
-      {
-        'email':window.localStorage.getItem('email'),
-        'password': window.localStorage.getItem('password'),
-      },
-      (res)=>{
-        if(res.message=="SUCCESS")
-        {
-          this.setState({notifications: res.notifications})
-        }
-      }
-    )
   }
 
   render(){
     return (
+    <LoginContext.Consumer>
+      {(loginData)=>{return (
       <div>
+      {
+        postRequest('profile/getnotifications',
+            {
+              'email':loginData.email,
+              'password': loginData.password,
+            },
+            (res)=>{
+              if(res.message=="SUCCESS")
+              {
+                this.setState({notifications: res.notifications})
+              }
+            }
+          )
+        }
+      }
         <Header logout = {true} />
         <div className = "notify">
         <div>
@@ -146,7 +153,8 @@ export default class NotificationsPage extends React.Component {
         <div>
         </div>
         </div>
-      </div>
+      </div> )}}
+    </LoginContext.Consumer>
     )
   }
 }

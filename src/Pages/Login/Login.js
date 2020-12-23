@@ -4,6 +4,7 @@ import { Link,Redirect } from 'react-router-dom';
 import Button from '../../components/Button';
 import TextField from '@material-ui/core/TextField';
 import {postRequest} from '../../components/CallApi'
+import LoginContext from '../../contexts/LoginContext';
 
 export default class Login extends React.Component
 {
@@ -32,36 +33,13 @@ export default class Login extends React.Component
     })
   }
 
-  handleLogin = (event) => {
-
-    event.preventDefault()
-
-    if(this.state.email && this.state.password)
-      postRequest('login/login',
-        {
-          'email':this.state.email,
-          'password': this.state.password,
-        },
-        (res)=>{
-          if(res.message=="SUCCESS")
-          {
-            window.localStorage.setItem('email',this.state.email)
-            window.localStorage.setItem('password',this.state.password)
-            this.setState({redirect:true})
-          }
-
-          this.setState({errorMessage:res.reason})
-        }
-      )
-    else
-    {
-      this.setState({errorMessage:"Enter All Details"})
-    }
-  }
 
   render()
   {
     return(
+      <LoginContext.Consumer>
+      {(loginData)=>{return (
+
       <div className = "center login">
         <div className = "login__header">
           <p className = "login__title">LNMIIT SOCIAL</p>
@@ -130,8 +108,34 @@ export default class Login extends React.Component
               <div>
                 <Button text="Login"
                         type = "login__button button"
-                        onClick = {this.handleLogin}
-                />
+                        onClick = {(event) => {
+
+                          event.preventDefault()
+
+                          if(this.state.email && this.state.password)
+                            postRequest('login/login',
+                              {
+                                'email':this.state.email,
+                                'password': this.state.password,
+                              },
+                              (res)=>{
+                                if(res.message=="SUCCESS")
+                                {
+
+                                  loginData.setEmail(this.state.email)
+                                  loginData.setPassword(this.state.password)
+                                  this.setState({redirect:true})
+                                }
+
+                                this.setState({errorMessage:res.reason})
+                              }
+                            )
+                          else
+                          {
+                            this.setState({errorMessage:"Enter All Details"})
+                          }
+                        }}
+                  />
               </div>
               {
                 this.state.redirect?<Redirect to='/home'/>:""
@@ -148,7 +152,7 @@ export default class Login extends React.Component
             </div>
           </div>
         </form>
-      </div>
-    );
+      </div>)}}
+    </LoginContext.Consumer>);
   }
 }

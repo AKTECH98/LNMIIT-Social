@@ -8,6 +8,8 @@ import {postRequest} from './CallApi'
 
 import Checkbox from '@material-ui/core/Checkbox';
 
+import LoginContext from '../contexts/LoginContext';
+
 function Details(props){
 
   const [checked, setChecked] = React.useState(props.colab);
@@ -355,7 +357,7 @@ export default class ProjectModal extends React.Component {
     }
   };
 
-  EditDetails = () => {
+  EditDetails = (loginData) => {
     if(!this.state.title || !this.state.member || !this.state.description){
       this.setState(() => ({error : true}));
     }
@@ -378,8 +380,8 @@ export default class ProjectModal extends React.Component {
 
       postRequest('project/editproject',
         {
-          'email':window.localStorage.getItem('email'),
-          'password': window.localStorage.getItem('password'),
+          'email':loginData.email,
+          'password':loginData.password,
           'project_id': project.project_id,
           'title': project.title,
           'description': project.description,
@@ -401,7 +403,7 @@ export default class ProjectModal extends React.Component {
     }
   }
 
-  SaveDetails = () => {
+  SaveDetails = (loginData) => {
 
     if(!this.state.title || !this.state.member || !this.state.description){
       this.setState(() => ({error : true}));
@@ -425,8 +427,8 @@ export default class ProjectModal extends React.Component {
 
       postRequest('project/createproject',
         {
-          'email':window.localStorage.getItem('email'),
-          'password': window.localStorage.getItem('password'),
+          'email':loginData.email,
+          'password': loginData.password,
           'title': project.title,
           'description': project.description,
           'startDate': formatDate(project.startDate),
@@ -449,6 +451,8 @@ export default class ProjectModal extends React.Component {
 
   render() {
     return (
+    <LoginContext.Consumer>
+      {(loginData)=>{return (
       <Modal
         isOpen={!!this.props.openModal}
         onRequestClose={this.props.DiscardDetails}
@@ -484,7 +488,7 @@ export default class ProjectModal extends React.Component {
         {
           (this.props.editDetail)?
           <div>
-          <Button text = "Save Changes" type = "button modal__button" onClick = {this.EditDetails}/>
+          <Button text = "Save Changes" type = "button modal__button" onClick = {()=>this.EditDetails(loginData)}/>
           <Button text = "Discard Details" type = "button modal__button" onClick = {this.props.DiscardDetails}/>
           </div>
           :
@@ -493,12 +497,13 @@ export default class ProjectModal extends React.Component {
               <p className = "error">Please Enter all Details Marked *</p>
               :""
             }
-            <Button text = "Add Project" type = "button modal__button" onClick = {this.SaveDetails}/>
+            <Button text = "Add Project" type = "button modal__button" onClick = {()=>this.SaveDetails(loginData)}/>
             <Button text = "Discard Details" type = "button modal__button" onClick = {this.props.DiscardDetails}/>
           </div>
         }
         </div>
-      </Modal>
+      </Modal>)}}
+    </LoginContext.Consumer>
     )
   }
 };

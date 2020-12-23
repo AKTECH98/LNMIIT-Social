@@ -14,6 +14,7 @@ import ProjectIcon from "@material-ui/icons/Code";
 import LogoutIcon from "@material-ui/icons/ArrowForwardIos";
 import LoginIcon from "@material-ui/icons/ArrowBackIos";
 import ConnectIcon from "@material-ui/icons/VpnKey";
+import LoginContext from '../contexts/LoginContext'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,6 +31,8 @@ export default function Header(props) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
+    <LoginContext.Consumer>
+    {(loginData)=>{return (
     <div className='header'>
       <p className='header__title'>LNMIIT SOCIAL</p>
 
@@ -55,7 +58,7 @@ export default function Header(props) {
                 (!props.logout)?
                 <div>
                   {
-                    (window.localStorage.getItem("email") != null) ?
+                    (loginData.email != null) ?
                     <Redirect to='/home' />:""
                   }
                   <ul>
@@ -97,7 +100,7 @@ export default function Header(props) {
                 : 
                 <div className='header__buttons'>
                   {
-                    (window.localStorage.getItem('email')==null)?
+                    (loginData.email==null)?
                     <Redirect to ='/login'/>:''
                   }
                   <ul>
@@ -169,8 +172,8 @@ export default function Header(props) {
                       <Link to='/login' className='linklink'>
                         <IconButton
                           onClick={() => {
-                            window.localStorage.removeItem("email");
-                            window.localStorage.removeItem("password");
+                            loginData.setEmail(null);
+                            loginData.setPassword(null);
                           }}
                           classes={{ root: classes.root }}
                         >
@@ -205,7 +208,7 @@ export default function Header(props) {
               (!props.logout)?
               <div>
               {
-              //(window.localStorage.getItem('email')!=null)?
+              //loginData.email!=null)?
                 //<Redirect to ='/home'/>:''
               }
               <Link to='/Login' className = "linklink">
@@ -232,7 +235,7 @@ export default function Header(props) {
             :
             <div className = "header__buttons">
               {
-                (window.localStorage.getItem('email')==null)?
+                (loginData.email==null)?
                 <Redirect to ='/login'/>:''
               }
             
@@ -257,7 +260,7 @@ export default function Header(props) {
                   </div>
                 </IconButton>
               </Link>
-              <Link to={'/ProfilePage?email='+window.localStorage.getItem('email')} className = "linklink">
+              <Link to={'/ProfilePage?email='+loginData.email} className = "linklink">
                 <IconButton classes = {{root: classes.root}}>
                   <div className = "header__button">
                     <div>
@@ -290,8 +293,8 @@ export default function Header(props) {
               <Link to='/login' className = "linklink">
                 <IconButton
                   onClick = {()=>{
-                    window.localStorage.removeItem('email')
-                    window.localStorage.removeItem('password')
+                    loginData.setEmail(null)
+                    loginData.setPassword(null)
                   }}
                   classes = {{root: classes.root}}
                 >
@@ -308,6 +311,7 @@ export default function Header(props) {
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>)}}
+    </LoginContext.Consumer>
+  )
 }
