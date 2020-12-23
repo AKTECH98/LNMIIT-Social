@@ -2,6 +2,7 @@ $dark-grey: #404040;
 $nc-blue: #009999;
 $nc-bl-dark: #009999;
 $red: #fc3f00;
+$default: #c9c9c9;
 
 button {
   border: none;
@@ -22,10 +23,10 @@ button {
 }
 .comment-box {
   color: #fff;
-  background-color: #909090;
+  background-color: $default;
 
-  padding: 0.2rem 1rem 2rem;
-  margin-top: 30px;
+  padding: 1rem;
+  margin-top: 50px;
 }
 .comments {
   max-height: 60vh;
@@ -34,11 +35,12 @@ button {
 .comment-form {
   background-color: #fff;
   border-radius: 0.25rem;
-  margin-bottom: 2rem;
-  padding: 1rem;
+  padding: 0.6rem;
+  margin-top: 2rem;
 }
 .comment-form-fields {
   margin-bottom: 0.25rem;
+  display: flex;
   input,
   textarea {
     border: none;
@@ -57,14 +59,19 @@ button {
   }
 }
 
+.comment-submit {
+  width: 50px;
+  margin-left: 10px;
+}
+
 .comment-count {
   color: $dark-grey;
 }
 #comment-reveal {
-  float: right;
   background-color: $nc-blue;
   color: #fff;
-  margin-top: 20px;
+  margin-left: 55vw;
+  width: 300px;
 }
 .comment {
   border-top: 0.125rem solid $dark-grey;
