@@ -2,7 +2,7 @@ import React from "react";
 import Modal from "react-modal";
 import { Redirect } from "react-router-dom";
 import Button from "./Button";
-import LoginContext from '../contexts/LoginContext';
+
 import { postRequest } from "./CallApi";
 import { backendServerUrl } from "../WebsiteMainFiles/config.js";
 
@@ -77,7 +77,7 @@ export default class PostModal extends React.Component {
     this.setState(() => ({ post }));
   };
 
-  PostPost = (loginData) => {
+  PostPost = () => {
     if (this.state.post) {
       let myPost = this.state.post;
       this.props.addPost(myPost);
@@ -91,8 +91,8 @@ export default class PostModal extends React.Component {
       postRequest(
         "posts/submitpost",
         {
-          email: loginData.email,
-          password: loginData.password,
+          email: window.localStorage.getItem("email"),
+          password: window.localStorage.getItem("password"),
           content: this.state.post,
           dateOfPost: [year, month, day].join("-"),
         },
@@ -120,8 +120,6 @@ export default class PostModal extends React.Component {
 
   render() {
     return (
-       <LoginContext.Consumer>
-      {(loginData)=>{return (
       <Modal
         isOpen={!!this.props.openModal}
         onRequestClose={this.props.discardPost}
@@ -194,10 +192,9 @@ export default class PostModal extends React.Component {
         <Button
           text="Post"
           type="button modal__button"
-          onClick={()=>this.PostPost(loginData)}
+          onClick={this.PostPost}
         />
-      </Modal>)}}
-    </LoginContext.Consumer>
+      </Modal>
     );
   }
 }

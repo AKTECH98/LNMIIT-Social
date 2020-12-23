@@ -6,7 +6,6 @@ import Header from '../../components/Header';
 import PhotoSelector from '../../components/PhotoSelector';
 import Button from '../../components/Button';
 import {postRequest} from '../../components/CallApi'
-import LoginContext from '../../contexts/LoginContext';
 
 export default class EditPage extends React.Component {
   constructor(props){
@@ -27,34 +26,31 @@ export default class EditPage extends React.Component {
       errorMessage: "Enter All Fields Marked *"
     }
 
-    
+    postRequest('profile/getprofiledetails',
+      {
+        'email':window.localStorage.getItem('email'),
+        'password':window.localStorage.getItem('password')
+      },
+      (res)=>{
+            this.setState({
+              firstName:res.response.first_name,
+              lastName:res.response.last_name,
+              altEmail: res.response.email,
+              phone:res.response.phone,
+              about:res.response.profile_description,
+              headline: res.response.headline,
+              linkedin: res.response.linkedin,
+              github: res.response.github,
+              codeforces: res.response.codeforces,
+              codechef: res.response.codechef
+            })
+      }
+    )
   }
 
   render(){
     return(
-    <LoginContext.Consumer>
-      {(loginData)=>{return (
       <div>
-      {postRequest('profile/getprofiledetails',
-          {
-            'email':localStorage.email,
-            'password':localStorage.password
-          },
-          (res)=>{
-                this.setState({
-                  firstName:res.response.first_name,
-                  lastName:res.response.last_name,
-                  altEmail: res.response.email,
-                  phone:res.response.phone,
-                  about:res.response.profile_description,
-                  headline: res.response.headline,
-                  linkedin: res.response.linkedin,
-                  github: res.response.github,
-                  codeforces: res.response.codeforces,
-                  codechef: res.response.codechef
-                })
-          }
-        )}
         <Header logout={true}/>
         <div className = "editProfile__changes">
         <div className = "editProfile">
@@ -344,8 +340,8 @@ export default class EditPage extends React.Component {
 
               postRequest('profile/editprofiledetails',
                 {
-                  'email':loginData.email,
-                  'password':loginData.password,
+                  'email':window.localStorage.getItem('email'),
+                  'password':window.localStorage.getItem('password'),
                   'first_name':this.state.firstName,
                   'last_name':this.state.lastName,
                   'phone':this.state.phone,
@@ -377,8 +373,7 @@ export default class EditPage extends React.Component {
         }
         <div id="snackbar">SAVED</div>
         </div>
-      </div>)}}
-    </LoginContext.Consumer>
+      </div>
     )
   }
 }

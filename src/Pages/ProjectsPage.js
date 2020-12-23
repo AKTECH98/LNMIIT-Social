@@ -8,8 +8,6 @@ import {postRequest} from '../components/CallApi'
 import { Card, CardActions, CardContent, Typography} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import LoginContext from '../contexts/LoginContext';
-
 const useStyles = makeStyles({
   header: {
     display: 'flex',
@@ -64,44 +62,39 @@ export default class ProjectsPage extends React.Component {
     const res = parser(url);
     const user = res.email;
 
-    
+    postRequest('project/fetchpublicprojects',
+      {
+        'email': window.localStorage.getItem('email'),
+        'password': window.localStorage.getItem('password'),
+      },
+      (res)=>{
+        if(res.message=="SUCCESS")
+        {
+          let default_projects = []
+          res.return_value.forEach((item)=>{
+            default_projects.push({
+              title : item.title,
+              description: item.description,
+              startDate: item.startDate,
+              endDate: item.endDate,
+              requirements: item.skills_required,
+              member: item.members,
+              mentor: item.mentor,
+              colab: item.colab,
+              project_link: item.link,
+              project_id: item.project_id
+            })
+          })
+          console.log(default_projects)
+          this.setState({projects: default_projects})
+        }
+      }
+    )
   }
 
   render() {
     return(
-      <LoginContext.Consumer>
-      {(loginData)=>{return (
       <div>
-      {
-        postRequest('project/fetchpublicprojects',
-          {
-            'email':loginData.email,
-            'password': loginData.password,
-          },
-          (res)=>{
-            if(res.message=="SUCCESS")
-            {
-              let default_projects = []
-              res.return_value.forEach((item)=>{
-                default_projects.push({
-                  title : item.title,
-                  description: item.description,
-                  startDate: item.startDate,
-                  endDate: item.endDate,
-                  requirements: item.skills_required,
-                  member: item.members,
-                  mentor: item.mentor,
-                  colab: item.colab,
-                  project_link: item.link,
-                  project_id: item.project_id
-                })
-              })
-              console.log(default_projects)
-              this.setState({projects: default_projects})
-            }
-          }
-        )
-      }
         <Header logout = {true}/>
         <div className = "widget__list">
         <PageHeader />
@@ -112,8 +105,7 @@ export default class ProjectsPage extends React.Component {
             type = "PROJECTS"
           />
         </div>
-      </div>)}}
-    </LoginContext.Consumer>
+      </div>
     )
   }
 }

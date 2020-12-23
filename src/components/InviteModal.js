@@ -2,14 +2,10 @@ import React from 'react';
 import Modal from 'react-modal';
 import Button from './Button';
 import {postRequest} from './CallApi'
-import LoginContext from '../contexts/LoginContext';
-
 
 export default class InviteModal extends React.Component {
   render() {
     return (
-      <LoginContext.Consumer>
-      {(loginData)=>{return (
       <Modal
         isOpen={!!this.props.request}
         onRequestClose={this.props.DiscardDetails}
@@ -25,8 +21,8 @@ export default class InviteModal extends React.Component {
               {()=>{
                 postRequest('project/requesttojoin',
                     {
-                      'email':loginData.email,
-                      'password': loginData.password,
+                      'email':window.localStorage.getItem('email'),
+                      'password': window.localStorage.getItem('password'),
                       'project_id': this.props.project_id
                     },
                     (res)=>{
@@ -48,8 +44,6 @@ export default class InviteModal extends React.Component {
             <Button onClick={this.props.DiscardDetails} text = "Don't Send" type = "button modal__button"/>
         </div>
       </Modal>
-      )}}
-    </LoginContext.Consumer>
     )
   }
 };

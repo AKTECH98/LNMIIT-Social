@@ -8,8 +8,6 @@ import WidgetProject from '../../components/WidgetProject';
 import WidgetHack from '../../components/WidgetHack';
 import {Redirect} from 'react-router-dom';
 
-import LoginContext from '../../contexts/LoginContext';
-
 export default class ProfilePage extends React.Component {
   constructor(props)
   {
@@ -29,12 +27,10 @@ export default class ProfilePage extends React.Component {
     const query = res.email
 
     return(
-      <LoginContext.Consumer>
-      {(loginData)=>{return (
       <div className = "profile__page">
         {
           (query==undefined)?
-          <Redirect to={"ProfilePage?email="+loginData.email}/>
+          <Redirect to={"ProfilePage?email="+window.localStorage.getItem('email')}/>
           : 
           postRequest('profile/getprofiledetails',
             {
@@ -47,7 +43,7 @@ export default class ProfilePage extends React.Component {
         <div className = "profile">
           <div className = "profile-1">
             <div className = "profile__detail">
-              <Personal year = {this.state.year} batch = {this.state.batch} personal = {this.state.personal} view={query.split('#')[0]!=loginData.email}/>   
+              <Personal year = {this.state.year} batch = {this.state.batch} personal = {this.state.personal} view={query.split('#')[0]!=window.localStorage.getItem('email')}/>   
             </div>
             <div className = "profile__skills">
               <Skills/>
@@ -55,16 +51,15 @@ export default class ProfilePage extends React.Component {
           </div>
           <div className = "profile-2">
             <div className = "profile__contact">
-              <Contact personal = {this.state.personal} view={query.split('#')[0]!=loginData.email}/>   
+              <Contact personal = {this.state.personal} view={query.split('#')[0]!=window.localStorage.getItem('email')}/>   
             </div>
             <div className = "profile__widget">
-              <WidgetProject user = {(query.split('#')[0]==undefined)?loginData.email:query.split('#')[0]}/>
-              <WidgetHack user = {(query.split('#')[0]==undefined)?loginData.email:query.split('#')[0]}/>
+              <WidgetProject user = {(query.split('#')[0]==undefined)?window.localStorage.getItem('email'):query.split('#')[0]}/>
+              <WidgetHack user = {(query.split('#')[0]==undefined)?window.localStorage.getItem('email'):query.split('#')[0]}/>
             </div>
           </div>
         </div>
-      </div>)}}
-    </LoginContext.Consumer>
+      </div>
     )
   }
 }

@@ -12,8 +12,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-import LoginContext from '../contexts/LoginContext';
-
 const useStyles = makeStyles({
   table: {
     width: 'fitContent',
@@ -71,11 +69,11 @@ export default class ViewProjectRequestsModal extends React.Component {
     }
   }
   
-  ConfirmRequest = (email_id,loginData) => {
+  ConfirmRequest = (email_id) => {
     postRequest('project/invitetojoin',
       {
-        'email':loginData.email,
-        'password': loginData.password,
+        'email':window.localStorage.getItem('email'),
+        'password': window.localStorage.getItem('password'),
         'project_id': this.props.project_id,
         'user': email_id
       },
@@ -92,8 +90,7 @@ export default class ViewProjectRequestsModal extends React.Component {
 
   render() {
     
-    return (<LoginContext.Consumer>
-      {(loginData)=>{return (
+    return (
       <Modal
         isOpen={this.props.isOpen}
         onRequestClose={this.props.close}
@@ -104,8 +101,8 @@ export default class ViewProjectRequestsModal extends React.Component {
       {
         postRequest('project/getinterestedmembers',
           {
-            'email':loginData.email,
-            'password': loginData.password,
+            'email':window.localStorage.getItem('email'),
+            'password': window.localStorage.getItem('password'),
             'project_id': this.props.project_id
           },
           (res)=>{
@@ -119,13 +116,11 @@ export default class ViewProjectRequestsModal extends React.Component {
         <h3 className = "modal__header">Pending Requests</h3>
         <Requests 
           users = {this.state.users}
-          confirmRequest = {(e)=>{this.ConfirmRequest(e,loginData)}}
+          confirmRequest = {this.ConfirmRequest}
         />
         <Button text = "Close" type = "button modal__button" onClick={this.props.close}/>
         <div id="snackbar">Request Accepted</div>
       </Modal>
-      )}}
-    </LoginContext.Consumer>
     )
   }
 };

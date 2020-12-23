@@ -33,6 +33,8 @@ export default class ForgotPassword extends React.Component
         (res)=>{
           if(res.message=="SUCCESS")
           {
+            window.localStorage.setItem('email',this.state.email)
+            window.localStorage.setItem('password',this.state.password)
             this.setState({redirect:true})
           }
 
