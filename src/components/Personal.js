@@ -67,6 +67,7 @@ const useStyles = makeStyles((theme) => ({
     content: { flexDirection: "column", width: "90vw", padding: "6px" },
     subRootB: { marginLeft: 0, marginTop: 10, minWidth: "10vw" },
     subRootA: { minWidth: "10vw" },
+    title: { fontSize: "30px" },
   },
 }));
 
@@ -103,7 +104,7 @@ export default function Personal(props) {
                   <EditTwoToneIcon style={{ fontSize: 25, color: "blue" }} />
                 </IconButton>
               </Link>
-              <span className='tooltiptext edit'>EDIT</span>
+              <span className='tooltiptext edit'></span>
             </div>
           )
         }

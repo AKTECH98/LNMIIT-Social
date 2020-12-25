@@ -9,14 +9,20 @@ export default function Header(props) {
   return (
     <div>
       <TextField
-        placeholder='Search results logged in console'
+        placeholder='Search'
+        className='search__input'
         onChange={(e) => {
           setSearchTerm(e.target.value);
         }}
+        onKeyPress={(e) => {
+          if (e.key === "Enter") {
+            window.open(`/Search?search=${searchTerm}`, "_self");
+          }
+        }}
       />
-      <Link to={"/Search?search=" + searchTerm} className='search__button'>
+      {/* <Link to={"/Search?search=" + searchTerm} className='search__button'>
         <button>Search</button>
-      </Link>
+      </Link> */}
     </div>
   );
 }
