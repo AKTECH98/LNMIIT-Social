@@ -8,12 +8,13 @@
 }
 
 .header__title {
-  color: $pink-red;
+  color: white;
   font-size: $xl-size;
   margin: none;
   padding: none;
   padding-right: 5px;
-  width: 40%;
+  width: 20%;
+  padding-left: 20px;
 }
 
 .sub__header {
@@ -46,6 +47,14 @@
 
 .search {
   width: 30%;
+  padding: 5px;
+  margin-top: 20px;
+}
+.search__input {
+  padding: 5px;
+  color: white;
+  background-color: white;
+  min-width: 200px !important;
 }
 
 .header__show {
@@ -71,12 +80,4 @@
   top: 0;
   z-index: 10;
   transition: 0.5s;
-}
-
-.search {
-  padding: 5px;
-}
-
-.search__button {
-  margin-left: 50px;
 }
