@@ -45,9 +45,9 @@ const useStyles = makeStyles((theme) => ({
 export default function SinglePostView(props) {
   const classes = useStyles();
   const content = props.item.content;
-  console.log(content, "content");
+//  console.log(content, "content");
   var indexOfLocalhost = content.indexOf("localhost");
-  console.log(indexOfLocalhost);
+  //console.log(indexOfLocalhost);
   var post = "";
 
   if (indexOfLocalhost === -1) {
@@ -57,7 +57,7 @@ export default function SinglePostView(props) {
   }
 
   const parsedPost = ReactHtmlParser(post);
-  console.log("parsedPost", parsedPost);
+ // console.log("parsedPost", parsedPost);
 
   return (
     <Card className={classes.root}>

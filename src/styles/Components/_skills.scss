@@ -27,7 +27,7 @@
     visibility: visible;
   }
   
-  .skill__bar[type=text] {
+  .profile__skills .skill__bar[type=text] {
     width: 110px;
     //box-sizing: border-box;
     border: 2px solid #ccc;
@@ -39,6 +39,6 @@
     transition: width 0.4s ease-in-out;
   }
   
-  .skill__bar[type=text]:focus {
+  .profile__skills .skill__bar[type=text]:focus {
     width: 100%;
   }

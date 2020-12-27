@@ -3,9 +3,6 @@ import {createBrowserHistory} from 'history';
 import { Router, Route, Switch, Redirect } from 'react-router-dom';
 
 import FrontPage from '../Pages/FrontPage';
-import LoginPage from '../Pages/Login/Login';
-
-
 import SearchPage from '../Pages/SearchPage';
 import NotificationsPage from '../Pages/Notifications';
 import ConfirmOTP from '../Pages/Login/ConfirmOTP';
@@ -17,7 +14,6 @@ import ProfilePage from '../Pages/Profile/ProfilePage';
 import HomePage from '../Pages/HomePage';
 import MyHackathon from '../Pages/Profile/MyHackathon'
 import MyProjects from '../Pages/Profile/MyProjects'
-import ProfileView from '../Pages/ProfileView';
 import ProjectsPage from '../Pages/ProjectsPage';
 import HackathonPage from '../Pages/HackathonPage';
 
@@ -35,7 +31,6 @@ export default class PageHandler extends React.Component{
           <Route path="/ConfirmOTP" component={ConfirmOTP} />
           <Route path="/Search" component={SearchPage} /> 
           <Route path="/Notifications" component={NotificationsPage} /> 
-          <Route path="/Login" component ={LoginPage}/>
           <Route path="/ForgotPassword" component={ForgotPassword}/>
           <Route path="/EditProfile" component={EditProfile}/>
           <Route path="/ProfilePage" component={ProfilePage}/>

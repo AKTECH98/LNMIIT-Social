@@ -1,0 +1,43 @@
+.front__page {
+    display: grid;
+    grid-template-columns: 67% 33%;
+}
+
+.description {
+    margin-right: $m-size;
+}
+
+.footer {
+    float: bottom;
+    display: grid;
+    grid-template-columns: 30% 35% 35%;
+    background-color: black;
+    padding: $m-size;
+    color: grey;
+    margin-top: 35px;
+    margin-left: $xs-size;
+}
+
+.footer--1 {
+    text-align: center;
+}
+
+.footer--2 {
+    padding: 0 $s-size;
+    margin: 0 $s-size;
+    border-left: 0.5px $off-white solid;
+    border-right: 0.5px $off-white solid;
+}
+
+.footer--2 li a{
+    text-decoration: none;
+    color: grey
+}
+
+.footer--2 li:hover a{
+    text-decoration: underline;
+}
+
+.footer--3 {
+    text-align: center;
+}

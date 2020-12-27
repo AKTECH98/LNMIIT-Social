@@ -161,7 +161,7 @@ export default class SignUp extends React.Component
 
             {(this.state.errorMessage)?<p className = "error">*{this.state.errorMessage}*</p>:""}
             
-            {this.state.redirect?<Redirect to ='/login'/>:""}
+            {this.state.redirect?<Redirect to ='/Front'/>:""}
 
             <div className = "signup__connect">
             <Button text='Connect'

@@ -62,7 +62,7 @@ export default class Login extends React.Component
   render()
   {
     return(
-      <div className = "center login">
+      <div className = "login">
         <div className = "login__header">
           <p className = "login__title">LNMIIT SOCIAL</p>
           <p className = "login__subtitle">Welcome Back</p>

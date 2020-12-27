@@ -1,11 +1,11 @@
 import React from 'react';
- 
-export default class TestPage extends React.Component {
-  render() {
-    return (
-      <div>
-        Developer
-      </div>
-    );
-  }
+import Header from '../components/Header';
+
+export default function TestPage() {
+
+  return (
+    <div className = "try">
+      <Header logout = {true}/>
+    </div>
+  );
 }
