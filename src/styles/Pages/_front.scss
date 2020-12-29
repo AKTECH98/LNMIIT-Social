@@ -8,9 +8,8 @@
 }
 
 .footer {
-    float: bottom;
-    display: grid;
-    grid-template-columns: 30% 35% 35%;
+    display: flex;
+    justify-content: space-evenly;
     background-color: black;
     padding: $m-size;
     color: grey;
@@ -18,26 +17,27 @@
     margin-left: $xs-size;
 }
 
-.footer--1 {
+.avatar {
+    vertical-align: middle;
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+}
+
+.developer {
+    padding-top: $xs-size;
+    display: flex;
+    flex-direction: column;
+    margin: 0 $m-size;
+}
+
+.dev__name{
     text-align: center;
-}
-
-.footer--2 {
-    padding: 0 $s-size;
-    margin: 0 $s-size;
-    border-left: 0.5px $off-white solid;
-    border-right: 0.5px $off-white solid;
-}
-
-.footer--2 li a{
     text-decoration: none;
-    color: grey
+    color: gray;
+    font-size: $lm-size;
 }
 
-.footer--2 li:hover a{
+.developer:hover .dev__name{
     text-decoration: underline;
-}
-
-.footer--3 {
-    text-align: center;
 }
