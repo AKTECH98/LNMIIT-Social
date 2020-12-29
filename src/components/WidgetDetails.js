@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Details(props) {
+export default function WidgetDetails(props){
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
@@ -75,6 +75,10 @@ export default function Details(props) {
     handleClose(event);
   }
 
+  const GetBadgeNumber = () => {
+    return props.GetBadgeNumber(props.index);
+  }
+
   const ViewJoinRequests = (event) => {
     props.ViewJoinRequestsWork(props.index);
     handleClose(event);
@@ -93,9 +97,13 @@ export default function Details(props) {
     }
   }
 
+  const [badges,setBadges] = React.useState(0)
   // return focus to the button when we transitioned from !open -> open
   const prevOpen = React.useRef(open);
   React.useEffect(() => {
+    console.log(GetBadgeNumber())
+    setBadges(GetBadgeNumber())
+    console.log(badges)
     if (prevOpen.current === true && open === false) {
       anchorRef.current.focus();
     }
@@ -122,7 +130,7 @@ export default function Details(props) {
             classes = {{root: classes.rootIcon}}
           >
             <MoreVertIcon />
-            <span className="badge--new">3</span>
+            <span className="badge--new">{badges}</span>
           </IconButton>
           <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
             {({ TransitionProps, placement }) => (
@@ -138,7 +146,7 @@ export default function Details(props) {
                     <MenuItem onClick={ViewJoinRequests}>
                       View Requests
                     </MenuItem>
-                    <span className="badge--request">3</span>
+                    <span className="badge--request">{badges}</span>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>

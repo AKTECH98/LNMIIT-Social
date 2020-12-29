@@ -400,7 +400,6 @@ export default class ProjectModal extends React.Component {
       )
     }
   }
-
   SaveDetails = () => {
 
     if(!this.state.title || !this.state.member || !this.state.description){

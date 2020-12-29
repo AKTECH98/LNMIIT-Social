@@ -123,8 +123,11 @@ export default class NotificationsPage extends React.Component {
     super(props)
     this.state = {
       notifications: []
-    }
+    } 
+  }
 
+  componentDidMount()
+  {
     postRequest('profile/getnotifications',
       {
         'email':window.localStorage.getItem('email'),

@@ -19,6 +19,19 @@ export default class ProfilePage extends React.Component {
     }
   }
 
+  componentDidMount()
+  {
+    const url = window.location.href;
+    const parser = require('url-parameter-parser');
+    const res = parser(url);
+    const query = res.email
+    postRequest('profile/getprofiledetails',
+            {
+              'email':query.split('#')[0],
+            },
+            (res)=>{this.setState({personal:res.response})}
+          )
+  }
   render(){
 
     const url = window.location.href;
@@ -31,13 +44,7 @@ export default class ProfilePage extends React.Component {
         {
           (query==undefined)?
           <Redirect to={"ProfilePage?email="+window.localStorage.getItem('email')}/>
-          : 
-          postRequest('profile/getprofiledetails',
-            {
-              'email':query.split('#')[0],
-            },
-            (res)=>{this.setState({personal:res.response})}
-          )
+          : ""
         }
         <Header logout={true}/>
         <div className = "profile">

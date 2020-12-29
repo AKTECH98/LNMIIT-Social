@@ -16,8 +16,8 @@ export default class PostView extends React.Component {
       ],
     };
   }
-
-  render() {
+  componentDidMount()
+  {
     postRequest(
       "posts/fetchposts",
       {
@@ -27,7 +27,10 @@ export default class PostView extends React.Component {
       (res) => {
         this.setState({ posts: res.results });
       }
-    );
+    )
+  }
+  render() {
+    
     return (
       <div>
         {this.state.posts == undefined

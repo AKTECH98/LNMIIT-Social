@@ -56,7 +56,9 @@ export default class ProjectsPage extends React.Component {
         project_link:null
       }
     };
-
+  }
+  componentDidMount()
+  {
     const url = window.location.href;
     const parser = require('url-parameter-parser');
     const res = parser(url);

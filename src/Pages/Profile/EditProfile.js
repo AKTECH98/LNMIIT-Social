@@ -26,7 +26,10 @@ export default class EditPage extends React.Component {
       errorMessage: "Enter All Fields Marked *"
     }
 
-    postRequest('profile/getprofiledetails',
+   
+  }
+  componentDidMount(){
+     postRequest('profile/getprofiledetails',
       {
         'email':window.localStorage.getItem('email'),
         'password':window.localStorage.getItem('password')
@@ -47,7 +50,6 @@ export default class EditPage extends React.Component {
       }
     )
   }
-
   render(){
     return(
       <div>

@@ -69,16 +69,21 @@ export default class ProjectsPage extends React.Component {
         mentor:null,
         colab: false,
         project_id:0,
-        project_link:null
+        project_link:null,
+        badges:0
       }
     };
 
-    const url = window.location.href;
-    const parser = require('url-parameter-parser');
-    const res = parser(url);
-    const user = res.email;
 
-    postRequest('project/fetchprojectsofuser',
+  }
+
+  componentDidMount()
+  {
+        const url = window.location.href;
+      const parser = require('url-parameter-parser');
+      const res = parser(url);
+      const user = res.email;
+      postRequest('project/fetchprojectsofuser',
       {
         'email': user,
       },
@@ -86,29 +91,44 @@ export default class ProjectsPage extends React.Component {
         if(res.message=="SUCCESS")
         {
           let default_projects = []
+
           res.return_value.forEach((item)=>{
-            default_projects.push({
-              title : item.title,
-              description: item.description,
-              startDate: item.startDate,
-              endDate: item.endDate,
-              requirements: item.skills_required,
-              member: item.members,
-              mentor: item.mentor,
-              colab: item.colab,
-              project_link: item.link,
-              project_id: item.project_id,
-              admin: item.admin
-            })
+            postRequest('project/getinterestedmembers',
+              {
+                'email':window.localStorage.getItem('email'),
+                'password': window.localStorage.getItem('password'),
+                'project_id': item.project_id
+              },
+              (res)=>{
+                if(res.message=="SUCCESS")
+                {
+                  default_projects.push({
+                    title : item.title,
+                    description: item.description,
+                    startDate: item.startDate,
+                    endDate: item.endDate,
+                    requirements: item.skills_required,
+                    member: item.members,
+                    mentor: item.mentor,
+                    colab: item.colab,
+                    project_link: item.link,
+                    project_id: item.project_id,
+                    admin: item.admin,
+                    badges:res.users.length
+                  })
+                  console.log(default_projects)
+                  this.setState({projects: default_projects})
+                }
+              }
+            )
+            
           })
-          console.log(default_projects)
-          this.setState({projects: default_projects})
+          
         }
       }
     )
-  }
 
- 
+  } 
   RequestUser = (index) => {
     let pro = this.state.projects[index];
     this.setState(()=>({
@@ -136,6 +156,10 @@ export default class ProjectsPage extends React.Component {
     }))
   }
 
+  GetBadgeNumber =(index)=>{
+    return this.state.projects[index].badges;
+           
+  }
   ViewJoinRequests = (index) => {
     let pro = this.state.projects[index];
     this.setState(() => ({
@@ -194,6 +218,7 @@ export default class ProjectsPage extends React.Component {
           ViewJoinRequests = {this.ViewJoinRequests}
           view = {user!=window.localStorage.getItem('email')}
           Request = {this.RequestUser}
+          GetBadgeNumber ={this.GetBadgeNumber}
         />
         {
           (this.state.openModal)?

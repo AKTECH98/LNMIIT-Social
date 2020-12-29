@@ -87,7 +87,22 @@ export default class ViewProjectRequestsModal extends React.Component {
       }
     )
   }  
-
+  componentDidMount(){
+    postRequest('project/getinterestedmembers',
+          {
+            'email':window.localStorage.getItem('email'),
+            'password': window.localStorage.getItem('password'),
+            'project_id': this.props.project_id
+          },
+          (res)=>{
+            if(res.message=="SUCCESS")
+            {
+              console.log(res)
+              this.setState({users:res.users})
+            }
+          }
+        )       
+  }
   render() {
     
     return (
@@ -98,21 +113,6 @@ export default class ViewProjectRequestsModal extends React.Component {
         className = "modal"
         ariaHideApp={false}
       >
-      {
-        postRequest('project/getinterestedmembers',
-          {
-            'email':window.localStorage.getItem('email'),
-            'password': window.localStorage.getItem('password'),
-            'project_id': this.props.project_id
-          },
-          (res)=>{
-            if(res.message=="SUCCESS")
-            {
-              this.setState({users:res.users})
-            }
-          }
-        )          
-      }
         <h3 className = "modal__header">Pending Requests</h3>
         <Requests 
           users = {this.state.users}

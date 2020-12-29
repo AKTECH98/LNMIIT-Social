@@ -9,17 +9,18 @@ import {postRequest} from '../../components/CallApi'
 
 export default class ConfirmOTP extends React.Component
 {
-  render()
+  constructor(props)
   {
-  	const url = window.location.href;
-    const parser = require('url-parameter-parser');
-    const res = parser(url);
-
-      console.log(res)
-    return(
-      <div>
-      Negative cases not yet handled
-        {
+    super(props)
+    this.state={
+      otpValid: false
+    }
+  }
+   componentDidMount(){
+      {
+          const url = window.location.href;
+          const parser = require('url-parameter-parser');
+          const res = parser(url);
           postRequest('login/confirmotp',
           {
             'otp':res.otp,                                 
@@ -27,11 +28,18 @@ export default class ConfirmOTP extends React.Component
           (res)=>{
             if(res.message=="SUCCESS")
             {
-              window.alert("Email Verified Successfully")
+              this.setState({otpValid:true})
             }
             }
         )
         }
+    }
+  render()
+  {    
+    return(
+      <div>
+      <h1>{this.state.otpValid?"OTP was verified succesfully":"OTP is invalid or has expired"}</h1>
+      <Link to="/"><button>Click here to go back to site</button></Link>
       </div>
 
     );
