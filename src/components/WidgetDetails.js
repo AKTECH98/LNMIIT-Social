@@ -101,9 +101,9 @@ export default function WidgetDetails(props){
   // return focus to the button when we transitioned from !open -> open
   const prevOpen = React.useRef(open);
   React.useEffect(() => {
-    console.log(GetBadgeNumber())
+    //console.log(GetBadgeNumber())
     setBadges(GetBadgeNumber())
-    console.log(badges)
+    //console.log(badges)
     if (prevOpen.current === true && open === false) {
       anchorRef.current.focus();
     }
@@ -130,7 +130,10 @@ export default function WidgetDetails(props){
             classes = {{root: classes.rootIcon}}
           >
             <MoreVertIcon />
-            <span className="badge--new">{badges}</span>
+            {
+              (badges==0)?
+              '':<span className="badge--new">{badges}</span>
+            }
           </IconButton>
           <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
             {({ TransitionProps, placement }) => (
@@ -146,7 +149,10 @@ export default function WidgetDetails(props){
                     <MenuItem onClick={ViewJoinRequests}>
                       View Requests
                     </MenuItem>
-                    <span className="badge--request">{badges}</span>
+                    {
+                      (badges==0)?
+                      '':<span className="badge--new">{badges}</span>
+                    }
                   </MenuList>
                 </ClickAwayListener>
               </Paper>

@@ -1,0 +1,57 @@
+.try {
+    overflow: hidden;
+    background-color: black;
+    color: white;
+    border: none;
+}
+
+.try--left {
+    float: left;
+    width: 50%;
+}
+
+.try--logo {
+    float: left;
+    margin-right: $xxl-size;
+    padding: $ms-size;
+    font-size: 3.1rem;
+}
+
+.try--search {
+    float: left;
+    margin-left: $xxl-size;
+}
+
+.try--buttons {
+    float: right;
+    display: flex;
+    padding: 0;
+}
+
+.try--header__button {
+    margin: 0 $xs-size;
+    text-align: center;
+    padding: $xs-size $ms-size;
+    color: white;
+}
+
+.try--header__button--title {
+    color: white;
+    font-size: $m-size;
+    font-family: cursive;
+    font-weight: 200;
+}
+
+.try--header__button:hover {
+    background-color: white;
+    border-bottom: black solid;
+}
+
+.try--header__button:hover .try--icon {
+    color: black;
+}
+
+.try--header__button:hover .try--header__button--title {
+    color: black;
+    font-weight: 200;
+}

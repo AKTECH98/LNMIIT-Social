@@ -1,7 +1,7 @@
 .search {
     height: fit-content;
-    margin: $s-size 0;
-    margin: 0 $s-size;
+    float: left;
+    margin: $s-size $xxl-size;
   }
 
 .search .search__bar[type=text] {
