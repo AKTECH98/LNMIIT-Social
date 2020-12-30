@@ -79,7 +79,7 @@ export default class ProjectsPage extends React.Component {
 
   componentDidMount()
   {
-        const url = window.location.href;
+      const url = window.location.href;
       const parser = require('url-parameter-parser');
       const res = parser(url);
       const user = res.email;
@@ -91,8 +91,20 @@ export default class ProjectsPage extends React.Component {
         if(res.message=="SUCCESS")
         {
           let default_projects = []
-
           res.return_value.forEach((item)=>{
+            let pro = {
+              title : item.title,
+              description: item.description,
+              startDate: item.startDate,
+              endDate: item.endDate,
+              requirements: item.skills_required,
+              member: item.members,
+              mentor: item.mentor,
+              colab: item.colab,
+              project_link: item.link,
+              project_id: item.project_id,
+              admin: item.admin
+            }
             postRequest('project/getinterestedmembers',
               {
                 'email':window.localStorage.getItem('email'),
@@ -102,27 +114,14 @@ export default class ProjectsPage extends React.Component {
               (res)=>{
                 if(res.message=="SUCCESS")
                 {
-                  default_projects.push({
-                    title : item.title,
-                    description: item.description,
-                    startDate: item.startDate,
-                    endDate: item.endDate,
-                    requirements: item.skills_required,
-                    member: item.members,
-                    mentor: item.mentor,
-                    colab: item.colab,
-                    project_link: item.link,
-                    project_id: item.project_id,
-                    admin: item.admin,
-                    badges:res.users.length
-                  })
-                  console.log(default_projects)
-                  this.setState({projects: default_projects})
+                  pro.badges=res.users.length
                 }
               }
             )
-            
+            default_projects.push(pro)
+            this.setState({projects: default_projects})
           })
+          
           
         }
       }
