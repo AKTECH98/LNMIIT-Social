@@ -131,8 +131,7 @@ export default function WidgetDetails(props){
           >
             <MoreVertIcon />
             {
-              (badges==0)?
-              '':<span className="badge--new">{badges}</span>
+              (badges>0)?<span className="badge--new">{badges}</span>:''
             }
           </IconButton>
           <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
@@ -148,11 +147,10 @@ export default function WidgetDetails(props){
                     <MenuItem onClick={Delete}>Delete</MenuItem>
                     <MenuItem onClick={ViewJoinRequests}>
                       View Requests
+                      {
+                      (badges>0)?<span className="badge--new">{badges}</span>:''
+                      }
                     </MenuItem>
-                    {
-                      (badges==0)?
-                      '':<span className="badge--new">{badges}</span>
-                    }
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
