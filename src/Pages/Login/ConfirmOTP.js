@@ -39,13 +39,12 @@ export default class ConfirmOTP extends React.Component
   {    
     return(
       <div>
-      {/*<Header/> @Anshul TODO: choose whether you want to keep header or remove it*/}
       {
         (this.state.otpValid)?
-        <div>{/*Style for success message*/}OTP was verified succesfully</div>
-        :<div>{/*Style for failure message*/}OTP is invalid or has expired</div>
+        <div style={{color:'green'}}> OTP was verified succesfully</div>
+        : <div style={{color:'red'}}> OTP is invalid or has expired</div>
       }
-      <Link to="/"><button>Click here to go back to site</button></Link>
+      <Link to="/"><button style={{backgroundColor:'blue',color:'white'}}><h2>Click here to go back to site</h2></button></Link>
       </div>
 
     );
