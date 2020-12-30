@@ -6,6 +6,7 @@ import Recaptcha from "react-recaptcha";
 import Button from '../../components/Button';
 import TextField from '@material-ui/core/TextField';
 import {postRequest} from '../../components/CallApi'
+import Header from '../../components/Header'
 
 export default class ConfirmOTP extends React.Component
 {
@@ -38,7 +39,12 @@ export default class ConfirmOTP extends React.Component
   {    
     return(
       <div>
-      <h1>{this.state.otpValid?"OTP was verified succesfully":"OTP is invalid or has expired"}</h1>
+      <Header/> 
+      {
+        (this.state.otpValid)?
+        <div>{/*Style for success message*/}OTP was verified succesfully</div>
+        :<div>{/*Style for failure message*/}OTP is invalid or has expired</div>
+      }
       <Link to="/"><button>Click here to go back to site</button></Link>
       </div>
 
