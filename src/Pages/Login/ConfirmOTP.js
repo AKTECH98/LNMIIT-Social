@@ -39,7 +39,7 @@ export default class ConfirmOTP extends React.Component
   {    
     return(
       <div>
-      <Header/> 
+      {/*<Header/> @Anshul TODO: choose whether you want to keep header or remove it*/}
       {
         (this.state.otpValid)?
         <div>{/*Style for success message*/}OTP was verified succesfully</div>
