@@ -1,5 +1,75 @@
 import React from "react";
 
+import { postRequest } from "./CallApi";
+
+export default class CommentBox extends React.Component {
+  constructor(props) {
+    super(props);
+    console.log(props)
+    this.state = {
+      postId:props.postId,
+      comments:[]
+    };
+  }
+  componentDidMount(){
+    postRequest(
+      "posts/viewallcomments",
+      {
+        email: window.localStorage.getItem("email"),
+        password: window.localStorage.getItem("password"),
+        post_id: this.state.postId
+      },
+      (res) => {
+        if(res.message=='SUCCESS')
+        {
+          this.setState({comments:res.results})
+        }
+      }
+    )
+  }
+  render() {
+    return (
+      <div>
+        {
+          this.state.comments.map((item)=>
+            <div>
+              Author: {item.author}<br/>
+              Comment posted at: {item.date_time_of_comment}<br/>
+              Comment content content: {item.content}
+              {
+                (item.author==window.localStorage.getItem("email"))?
+                <button
+                  onClick={()=>{
+                     postRequest(
+                        "posts/deletecomment",
+                        {
+                          email: window.localStorage.getItem("email"),
+                          password: window.localStorage.getItem("password"),
+                          comment_id: item.comment_id
+                        },
+                        (res) => {
+                          if(res.message=='SUCCESS')
+                          {
+                            alert("refresh screen instead of alert")
+                          }
+                        }
+                      )
+                  }}
+                >
+                  Delete
+                </button>
+                :""
+              }
+            </div>
+          )
+        }
+      </div>
+    );
+  }
+}
+
+
+/*
 export default class CommentBox extends React.Component {
   constructor() {
     super();
@@ -127,14 +197,4 @@ class CommentForm extends React.Component {
     );
   }
 }
-
-class Comment extends React.Component {
-  render() {
-    return (
-      <div className='comment'>
-        <p className='comment-header'>{this.props.author}</p>
-        <p className='comment-body'>- {this.props.body}</p>
-      </div>
-    );
-  }
-}
+*/
