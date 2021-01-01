@@ -8,18 +8,13 @@ export default class PostView extends React.Component {
     super(props);
     this.state = {
       posts: [
-        {
-          user_name: "default name",
-          content: "Dummy Post for debugging",
-          date_of_post: "Default Date",
-        },
       ],
     };
   }
   componentDidMount()
   {
     postRequest(
-      "posts/fetchposts",
+      "posts/viewallposts",
       {
         email: window.localStorage.getItem("email"),
         password: window.localStorage.getItem("password"),

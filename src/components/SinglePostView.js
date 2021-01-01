@@ -67,8 +67,30 @@ export default function SinglePostView(props) {
           subheader: classes.subheader,
         }}
         avatar={<Avatar>{props.item.initials}</Avatar>}
-        title={props.item.user_name}
-        subheader={"Date On: " + props.item.date_of_post}
+        title=<span>{props.item.author}
+              {(props.item.author==window.localStorage.getItem("email"))? /*Show delete only if author ==user*/
+                <button 
+                  style={{float:'right'}}
+                  onClick={()=>{
+                    postRequest(
+                      "posts/deletepost",
+                      {
+                        email: window.localStorage.getItem("email"),
+                        password: window.localStorage.getItem("password"),
+                        post_id: props.item.post_id
+                      },
+                      (res) => {
+                        alert("replace this alert with screen refresh and add confirm dialogue")
+                      }
+                    )
+                  }}
+                >
+                    Delete
+                </button>
+              :""
+              }
+              </span>
+        subheader={"Posted On: " + props.item.date_time_of_post}
       />
       <CardContent
         classes={{ root: classes.content }}
