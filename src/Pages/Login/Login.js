@@ -14,7 +14,8 @@ export default class Login extends React.Component
       email:'',
       password:'',
       errorMessage:'',
-      redirect:false,
+      redirect: false,
+      btnLoad: false
     };
   }
 
@@ -36,6 +37,8 @@ export default class Login extends React.Component
 
     event.preventDefault()
 
+    this.setState({btnLoad:true});
+
     if(this.state.email && this.state.password)
       postRequest('login/login',
         {
@@ -49,13 +52,16 @@ export default class Login extends React.Component
             window.localStorage.setItem('password',this.state.password)
             this.setState({redirect:true})
           }
-
-          this.setState({errorMessage:res.reason})
+          else{
+            this.setState({errorMessage:res.reason})
+            this.setState({btnLoad:false})
+          }
         }
       )
     else
     {
       this.setState({errorMessage:"Enter All Details"})
+      this.setState({btnLoad:false})
     }
   }
 
@@ -128,9 +134,10 @@ export default class Login extends React.Component
             }
             <div className = "login__login">
               <div>
-                <Button text="Login"
+                <Button text={(this.state.btnLoad)?<i className="fa fa-spinner fa-spin"></i>:"Login"}
                         type = "login__button button"
                         onClick = {this.handleLogin}
+                        disabled = {this.state.btnLoad}
                 />
               </div>
               {

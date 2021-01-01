@@ -1,48 +1,41 @@
-.editProfile__changes {
+.edit__detail {
     text-align: center;
 }
 
-.editProfile {
-    display: flex;
-    justify-content: space-around;
+.edit__detail--top {
+    display: grid;
+    grid-template-columns: 25% 75%;
+    margin-top: $xxl-size;
 }
 
-.profile__detail {
-    font-size: $xl-size;
+.edit__detail--picture {
+    margin-right: $xxl-size;
 }
 
-.personal {
-    display: flex;
-    flex-direction: column;
-    margin: 0 $xxl-size;
-    width: fit-content;
+.edit__detail--personal {
+    margin-left: $xxl-size;
+    border: red solid;
 }
 
-.profile__contact {
+.edit__detail--bottom {
+    margin-top: $l-size;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.edit__detail--button {
+    font-size: $m-size;
     margin: $xxl-size;
-    width: fit-content;
-    display: flex;
-    flex-direction: column;
 }
 
-.contact__details {
-    display: flex;
-}
+@media screen and (max-width: 768px) {
+    .edit__detail--top {
+        display: flex;
+        flex-direction: column;
+    }
 
-.profile__links {
-    display: flex;
-    flex-direction: column;
-}
-
-.profile__coding {
-    display:flex;
-}
-
-.editProfile__button {
-    margin-top: $xl-size;
-    margin-left: $lm-size;
-    margin-right: $lm-size;
-    width: 12.5%; 
-    font-size: $ms-size;
-    font-weight: 500;
+    .edit__detail--bottom {
+        display: flex;
+        flex-direction: column;
+    }
 }

@@ -31,20 +31,23 @@ export default class ConfirmOTP extends React.Component
             {
               this.setState({otpValid:true})
             }
-            }
+          }
         )
         }
     }
   render()
   {    
     return(
-      <div>
+      <div className = "center">
       {
         (this.state.otpValid)?
-        <div style={{color:'green'}}> OTP was verified succesfully</div>
-        : <div style={{color:'red'}}> OTP is invalid or has expired</div>
+        <p className = "otp--message otp--success"> OTP Verification Succesfully </p>
+        :
+        <p className = "otp--message otp--failed"> OTP INVALID /has been EXPIRED </p>
       }
-      <Link to="/"><button style={{backgroundColor:'blue',color:'white'}}><h2>Click here to go back to site</h2></button></Link>
+      <Link to="/" className = "linklink opt--redirect">
+        Click Here To Login.....
+      </Link>
       </div>
 
     );
