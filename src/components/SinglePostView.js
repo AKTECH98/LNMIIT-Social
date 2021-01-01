@@ -1,22 +1,19 @@
 import React from "react";
 
 import { fade, withStyles, makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardContent from "@material-ui/core/CardContent";
-import Avatar from "@material-ui/core/Avatar";
-import IconButton from "@material-ui/core/IconButton";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
+
 import ReactHtmlParser from "react-html-parser";
 import { postRequest } from "./CallApi";
 import imageStyles from "./css/SinglePostView.module.css";
 import InputBase from '@material-ui/core/InputBase';
 import CommentBox from "./CommentBox.js";
 import Button from "./Button";
-
+import IconButton from '@material-ui/core/IconButton';
+import clsx from 'clsx';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DislikeIcon from '@material-ui/icons/ThumbDown';
 import LikeIcon from '@material-ui/icons/ThumbUp';
-import { CardActions } from "@material-ui/core";
+import { Card, CardHeader, CardContent, Avatar, CardActions, Collapse } from "@material-ui/core";
 
 const CommentInput = withStyles((theme) => ({
   root: {
@@ -76,6 +73,16 @@ const useStyles = makeStyles((theme) => ({
   },
   actions: {
     backgroundColor : 'white'
+  },
+  expand: {
+    transform: 'rotate(0deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)',
   }
 }));
 
@@ -115,7 +122,6 @@ class Comment extends React.Component {
         <CommentInput placeholder = "Add a comment ..." id="bootstrap-input" 
         onChange={(e)=>{this.setState({content:e.target.value})}}
         autoComplete = "off"
-        multiline
         />
         </form>
       </div>
@@ -127,6 +133,13 @@ export default function SinglePostView(props) {
   
   const classes = useStyles();
   const content = props.item.content;
+
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
 //  console.log(content, "content");
   var indexOfLocalhost = content.indexOf("localhost");
   //console.log(indexOfLocalhost);
@@ -187,6 +200,26 @@ export default function SinglePostView(props) {
         {parsedPost}
       </CardContent>
       
+      <CardActions disableSpacing>
+        100 Comments
+        <IconButton
+          className={clsx(classes.expand, {
+            [classes.expandOpen]: expanded,
+          })}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+          <ExpandMoreIcon style = {{color: 'black', fontSize: 30}}/>
+        </IconButton>
+      </CardActions>
+
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent>
+          <CommentBox postId={props.item.post_id}/>
+        </CardContent>
+      </Collapse>
+
       <CardActions classes = {{root: classes.actions}}>
         <div className = "post--like__dislike post--active">
           <LikeIcon onClick = {(event) => console.log(event.style)} style = {{fontSize: 30}}/>
@@ -198,10 +231,6 @@ export default function SinglePostView(props) {
         <div className = "post--count">100</div>
           <Comment postId={props.item.post_id}/>
       </CardActions>
-      
-      <CardContent>
-        <CommentBox postId={props.item.post_id}/>
-      </CardContent>
     </Card>
   );
 }

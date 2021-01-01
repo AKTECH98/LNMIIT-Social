@@ -1,14 +1,27 @@
 .post--delete {
     margin: $s-size;
     background-color: white;
-    color: red;
+    color: $pink-red;
     font-size: $ms-size;
-    border: 2px solid red;
+    border: 2px solid $pink-red;
     border-radius: 20px;
 }
 
 .post--delete:hover {
-    background-color: red;
+    background-color: $fire-brick;
+    color: white;
+}
+
+.comment--delete {
+    color: $pink-red;
+    font-size: $s-size;
+    background-color: white;
+    border: 2px solid $pink-red;
+    border-radius: 20px;
+}
+
+.comment--delete:hover {
+    background-color: $fire-brick;
     color: white;
 }
 
@@ -35,4 +48,11 @@
 .post--comment-button {
     margin: $xs-size $l-size;
     font-size: $ms-size;   
+}
+
+.commentBox {
+}
+
+.commentBox--post {
+    margin: 0 $s-size;
 }

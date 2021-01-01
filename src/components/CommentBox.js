@@ -1,6 +1,86 @@
 import React from "react";
 
+import { makeStyles } from '@material-ui/core/styles';
+import { CardHeader,CardContent,Card, Avatar} from "@material-ui/core";
 import { postRequest } from "./CallApi";
+
+import Button from "./Button";
+import { grey } from "@material-ui/core/colors";
+
+const useStyles = makeStyles({
+  root:{
+    borderTop: '1px grey solid',
+    backgroundColor: 'white',
+    Height: 'fit-content',
+    Width: 636
+  },
+  title: {
+    fontSize: 15,
+    color: '#4574bf',
+    fontColor: 'black'
+  },
+  subHeader: {
+    borderBottom: '0.1rem solid grey',
+    fontSize: 10,
+    fontColor: 'black'
+  },
+  content: {
+    Width: 636
+  }
+});
+
+function SingleComment(props) {
+
+  const classes = useStyles();
+
+  return (
+    <Card className = {classes.root}>
+      <CardHeader
+      classes = {{
+        title: classes.title,
+        subheader: classes.subHeader
+      }}
+      avatar = {
+        <Avatar>
+          Pending
+        </Avatar>
+      }
+      title = {props.comment.author}
+      subheader = {props.comment.date_time_of_comment}
+
+      action = {
+        (props.comment.author==window.localStorage.getItem("email"))?
+          <Button
+            text = "Delete"
+            type = "comment--delete"
+            onClick = {
+              ()=>{
+                postRequest(
+                  "posts/deletecomment",
+                  {
+                    email: window.localStorage.getItem("email"),
+                    password: window.localStorage.getItem("password"),
+                    comment_id: props.comment.comment_id
+                  },
+                  (res) => {
+                    if(res.message=='SUCCESS')
+                    {
+                      alert("refresh screen instead of alert")
+                    }
+                  }
+                )
+              }
+            }
+          />
+          :""
+        } 
+      />
+      <CardContent classes = {{root:classes.content}}>
+        {props.comment.content}
+      </CardContent>
+    </Card>
+  )
+}
 
 export default class CommentBox extends React.Component {
   constructor(props) {
@@ -29,37 +109,11 @@ export default class CommentBox extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div className = "commentBox">
         {
-          this.state.comments.map((item,index)=>
-            <div key = {index}>
-              Author: {item.author}<br/>
-              Comment posted at: {item.date_time_of_comment}<br/>
-              Comment content content: {item.content}
-              {
-                (item.author==window.localStorage.getItem("email"))?
-                <button
-                  onClick={()=>{
-                     postRequest(
-                        "posts/deletecomment",
-                        {
-                          email: window.localStorage.getItem("email"),
-                          password: window.localStorage.getItem("password"),
-                          comment_id: item.comment_id
-                        },
-                        (res) => {
-                          if(res.message=='SUCCESS')
-                          {
-                            alert("refresh screen instead of alert")
-                          }
-                        }
-                      )
-                  }}
-                >
-                  Delete
-                </button>
-                :""
-              }
+          this.state.comments.map((comment,index)=>
+            <div key = {index} className = "commentBox--post">
+              <SingleComment comment = {comment}/>
             </div>
           )
         }
