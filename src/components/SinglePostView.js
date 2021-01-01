@@ -1,6 +1,6 @@
 import React from "react";
 
-import { makeStyles } from "@material-ui/core/styles";
+import { fade, withStyles, makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
@@ -10,9 +10,48 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import ReactHtmlParser from "react-html-parser";
 import { postRequest } from "./CallApi";
 import imageStyles from "./css/SinglePostView.module.css";
-
-import TextField from '@material-ui/core/TextField';
+import InputBase from '@material-ui/core/InputBase';
 import CommentBox from "./CommentBox.js";
+import Button from "./Button";
+
+import DislikeIcon from '@material-ui/icons/ThumbDown';
+import LikeIcon from '@material-ui/icons/ThumbUp';
+import { CardActions } from "@material-ui/core";
+
+const CommentInput = withStyles((theme) => ({
+  root: {
+    'label + &': {
+      marginTop: theme.spacing(3),
+    },
+  },
+  input: {
+    position: 'relative',
+    backgroundColor: theme.palette.common.white,
+    border: '2px solid #ced4da',
+    borderRadius: 50,
+    fontSize: 15,
+    width: 300,
+    padding: '10px 12px',
+    transition: theme.transitions.create(['border-color', 'box-shadow']),
+    // Use the system font instead of the default Roboto font.
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+    '&:focus': {
+      boxShadow: `${fade(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
+      borderColor: 'blue'
+    },
+  },
+}))(InputBase);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,12 +74,9 @@ const useStyles = makeStyles((theme) => ({
   content: {
     fontSize: 15,
   },
-  avatar: {
-    backgroundColor: "purple",
-  },
-  rootIcon: {
-    color: "blue",
-  },
+  actions: {
+    backgroundColor : 'white'
+  }
 }));
 
 class Comment extends React.Component {
@@ -52,38 +88,43 @@ class Comment extends React.Component {
       postId: props.postId
     };
   }
+
   render() {
     return (
-      <div>
-        <TextField
-            defaultValue={this.state.content}
-            onChange={(e)=>{this.setState({content:e.target.value})}}
-            label='Comment'
-        />
-        <button onClick={()=>{
-          postRequest(
-            "posts/createcomment",
-            {
-              email: window.localStorage.getItem("email"),
-              password: window.localStorage.getItem("password"),
-              content: this.state.content,
-              post_id: this.state.postId
-            },
-            (res) => {
-              if(res.message=='SUCCESS')
+      <div className = "post--comment">
+        <form onSubmit = {
+          (e)=>{
+            e.preventDefault();
+            postRequest(
+              "posts/createcomment",
               {
-                alert("REfresh screen instead of alert")
+                email: window.localStorage.getItem("email"),
+                password: window.localStorage.getItem("password"),
+                content: this.state.content,
+                post_id: this.state.postId
+              },
+              (res) => {
+                if(res.message=='SUCCESS')
+                {
+                  alert("REfresh screen instead of alert")
+                }
               }
-            }
-          )
-        }}
-        >Comment</button>
+            )
+          }
+        }>
+        <CommentInput placeholder = "Add a comment ..." id="bootstrap-input" 
+        onChange={(e)=>{this.setState({content:e.target.value})}}
+        autoComplete = "off"
+        multiline
+        />
+        </form>
       </div>
     )
   }
 }
 
 export default function SinglePostView(props) {
+  
   const classes = useStyles();
   const content = props.item.content;
 //  console.log(content, "content");
@@ -107,30 +148,36 @@ export default function SinglePostView(props) {
           title: classes.title,
           subheader: classes.subheader,
         }}
-        avatar={<Avatar>{props.item.post_id}</Avatar>}
-        title=<span>{props.item.author}
-              {(props.item.author==window.localStorage.getItem("email"))? /*Show delete only if author ==user*/
-                <button 
-                  style={{float:'right'}}
-                  onClick={()=>{
-                    postRequest(
-                      "posts/deletepost",
-                      {
-                        email: window.localStorage.getItem("email"),
-                        password: window.localStorage.getItem("password"),
-                        post_id: props.item.post_id
-                      },
-                      (res) => {
-                        alert("replace this alert with screen refresh and add confirm dialogue")
-                      }
-                    )
-                  }}
-                >
-                    Delete
-                </button>
-              :""
+        avatar = {
+          <Avatar>
+            {props.item.post_id}
+          </Avatar>
+        }
+
+        action = {
+          (props.item.author==window.localStorage.getItem("email"))? /*Show delete only if author ==user*/
+            <Button 
+              text = "Delete Post"
+              type = "post--delete"
+              onClick = {()=>{
+                  postRequest(
+                    "posts/deletepost",
+                    {
+                      email: window.localStorage.getItem("email"),
+                      password: window.localStorage.getItem("password"),
+                      post_id: props.item.post_id
+                    },
+                    (res) => {
+                      alert("replace this alert with screen refresh and add confirm dialogue")
+                    }
+                  )
+                }
               }
-              </span>
+            />
+          :""
+        }
+
+        title = {props.item.author}
         subheader={"Posted On: " + props.item.date_time_of_post}
       />
       <CardContent
@@ -139,8 +186,22 @@ export default function SinglePostView(props) {
       >
         {parsedPost}
       </CardContent>
-      <Comment postId={props.item.post_id}/>
-      <CommentBox postId={props.item.post_id}/>
+      
+      <CardActions classes = {{root: classes.actions}}>
+        <div className = "post--like__dislike post--active">
+          <LikeIcon onClick = {(event) => console.log(event.style)} style = {{fontSize: 30}}/>
+        </div>
+        <div className = "post--count">100</div>
+        <div className = "post--like__dislike">
+          <DislikeIcon style = {{fontSize: 30}}/>
+        </div>
+        <div className = "post--count">100</div>
+          <Comment postId={props.item.post_id}/>
+      </CardActions>
+      
+      <CardContent>
+        <CommentBox postId={props.item.post_id}/>
+      </CardContent>
     </Card>
   );
 }

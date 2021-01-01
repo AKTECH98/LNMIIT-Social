@@ -1,0 +1,38 @@
+.post--delete {
+    margin: $s-size;
+    background-color: white;
+    color: red;
+    font-size: $ms-size;
+    border: 2px solid red;
+    border-radius: 20px;
+}
+
+.post--delete:hover {
+    background-color: red;
+    color: white;
+}
+
+.post--like__dislike {
+    display: flex;
+    color: grey;
+    margin: 0 $xxs-size;
+}
+
+.post--active {
+    color: $light-blue;
+}
+
+.post--count {
+    color: grey;
+    margin-right: $m-size;
+}
+
+.post--comment {
+    margin: 0 $xxl-size;
+    width: 100%;
+}
+
+.post--comment-button {
+    margin: $xs-size $l-size;
+    font-size: $ms-size;   
+}

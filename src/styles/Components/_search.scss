@@ -22,6 +22,7 @@
   
   .search .search__bar[type=text]:focus {
     width: 90%;
+    border: 2px solid $light-blue;
   }
 
   .autocomplete {

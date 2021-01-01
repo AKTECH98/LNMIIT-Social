@@ -31,8 +31,8 @@ export default class CommentBox extends React.Component {
     return (
       <div>
         {
-          this.state.comments.map((item)=>
-            <div>
+          this.state.comments.map((item,index)=>
+            <div key = {index}>
               Author: {item.author}<br/>
               Comment posted at: {item.date_time_of_comment}<br/>
               Comment content content: {item.content}

@@ -1,0 +1,25 @@
+.try {
+    border: red solid;
+}
+
+.try--comment-button {
+    margin: $lm-size $xxl-size;
+    color: white;
+    background-color: $light-blue;
+    font-size: $ms-size;
+}
+
+.try--comment-bar[type=comment] {
+    border: $xxs-size solid $light-blue;
+    border-radius: 10px;
+    padding: $s-size 0 $s-size $s-size;
+    font-size: 16px;
+}
+
+.try--comment-bar[type=comment]:focus {
+    border: $xxs-size solid red;
+}
+
+.try form:focus {
+    border: none;
+}
