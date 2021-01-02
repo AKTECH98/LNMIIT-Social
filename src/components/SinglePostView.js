@@ -113,7 +113,7 @@ class Comment extends React.Component {
               (res) => {
                 if(res.message=='SUCCESS')
                 {
-                  alert("REfresh screen instead of alert")
+                  location.reload()
                 }
               }
             )
@@ -201,7 +201,7 @@ export default function SinglePostView(props) {
       </CardContent>
       
       <CardActions disableSpacing>
-        100 Comments
+        {expanded? "Hide comments":"Show comments"}
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,
