@@ -145,7 +145,7 @@ export default class EditPage extends React.Component {
               }}
             />
             <TextField
-              label='About YourSelf*'
+              label='Description About Yourself'
               value={this.state.about}
               onChange={(e)=>this.setState({about:e.target.value})}
               multiline
@@ -254,7 +254,7 @@ export default class EditPage extends React.Component {
           <div className = "edit__detail--links">
             <h2>Links</h2>
             <TextField
-              label='Linkedin*'
+              label='Linkedin'
               value={this.state.linkedin}
               onChange={(e)=>this.setState({linkedin:e.target.value})}
               variant = "filled"
@@ -358,12 +358,12 @@ export default class EditPage extends React.Component {
           onClick = {()=>{
             if(!this.state.firstName || !this.state.lastName || !this.state.phone)
               this.setState({error:true})
-            else if(!this.state.about || !this.state.headline || !this.state.altEmail || !this.state.linkedin)
+            else if(!this.state.headline || !this.state.altEmail)
               this.setState({error:true})
             else
             {
               this.setState({error:false})
-
+              if(!this.state.about ||!this.state.about.trim()) {this.setState({about:""})}
               postRequest('profile/editprofiledetails',
                 {
                   'email':window.localStorage.getItem('email'),

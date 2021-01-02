@@ -115,8 +115,8 @@ export default function Personal(props) {
         subheader={props.personal == null ? "" : props.personal.headline}
       />
       <CardContent classes={{ root: classes.content }}>
-        {props.personal == null
-          ? "Default Description"
+        {(props.personal==null||!props.personal.profile_description ||!props.personal.profile_description.trim())
+          ? <i>This user prefers staying mysterious</i>
           : props.personal.profile_description}
       </CardContent>
       <CardContent classes={{ root: classes.contenDistinguish }}>
