@@ -154,6 +154,22 @@ export default function SinglePostView(props) {
   const parsedPost = ReactHtmlParser(post);
  // console.log("parsedPost", parsedPost);
 
+  const vote =(vote)=>{
+    postRequest('posts/votepost',
+        {
+          'email':window.localStorage.getItem('email'),
+          'password': window.localStorage.getItem('password'),
+          'post_id': props.item.post_id,
+          'vote':vote
+        },
+        (res)=>{
+          if(res.message=="SUCCESS")
+          {
+            window.location.reload()
+          }
+        }
+      )
+  }
   return (
     <Card className={classes.root}>
       <CardHeader
@@ -220,16 +236,42 @@ export default function SinglePostView(props) {
         </CardContent>
       </Collapse>
 
+
       <CardActions classes = {{root: classes.actions}}>
-        <div className = "post--like__dislike post--active">
-          <LikeIcon onClick = {(event) => console.log(event.style)} style = {{fontSize: 30}}/>
+
+      {props.item.vote==1?
+        <><div className = "post--like__dislike post--active">
+          <LikeIcon onClick={()=>{vote(-1)}} style = {{fontSize: 30}}/>
         </div>
-        <div className = "post--count">100</div>
+        <div className = "post--count">{props.item.likes}</div>
         <div className = "post--like__dislike">
-          <DislikeIcon style = {{fontSize: 30}}/>
+          <DislikeIcon onClick={()=>{vote(-1)}} style = {{fontSize: 30}}/>
         </div>
-        <div className = "post--count">100</div>
-          <Comment postId={props.item.post_id}/>
+        <div className = "post--count">{props.item.dislikes}</div></>:
+
+        props.item.vote==-1?
+        <><div className = "post--like__dislike">
+          <LikeIcon onClick={()=>{vote(+1)}} style = {{fontSize: 30}}/>
+        </div>
+        <div className = "post--count">{props.item.likes}</div>
+        <div className = "post--like__dislike post--active">
+          <DislikeIcon onClick={()=>{vote(+1)}} style = {{fontSize: 30}}/>
+        </div>
+        <div className = "post--count">{props.item.dislikes}</div></>:
+
+        <><div className = "post--like__dislike">
+          <LikeIcon onClick={()=>{vote(+1)}} style = {{fontSize: 30}}/>
+        </div>
+        <div className = "post--count">{props.item.likes}</div>
+        <div className = "post--like__dislike">
+          <DislikeIcon onClick={()=>{vote(-1)}} style = {{fontSize: 30}}/>
+        </div>
+        <div className = "post--count">{props.item.dislikes}</div></>
+
+      }
+       
+        
+        <Comment postId={props.item.post_id}/>
       </CardActions>
     </Card>
   );
