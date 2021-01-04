@@ -23,7 +23,8 @@ export default class EditPage extends React.Component {
       codeforces: '',
       codechef: '',
       error: false,
-      errorMessage: "Enter All Fields Marked *"
+      errorMessage: "Enter All Fields Marked *",
+      bacth: "EUR"
     }
 
    
@@ -49,6 +50,11 @@ export default class EditPage extends React.Component {
       }
     )
   }
+
+  handleChange = (event) => {
+    setCurrency(event.target.value);
+  };
+
   render(){
     return(
       <div className = "edit__detail">
@@ -72,7 +78,7 @@ export default class EditPage extends React.Component {
               onChange={(e)=>this.setState({name:e.target.value})}
               variant = "filled"
               style={{
-                width: '30%',
+                width: '40%',
                 marginLeft: 10,
                 marginRight: 5,
                 marginBottom : 5
@@ -91,6 +97,34 @@ export default class EditPage extends React.Component {
                   fontSize: 15
                 }
               }}
+              disabled
+            />
+            <TextField
+              label='Batch'
+              value={this.state.batch}
+              onChange={(e)=>this.setState({batch:e.target.value})}
+              variant = "filled"
+              style={{
+                width: '20%',
+                marginLeft: 5,
+                marginRight: 10,
+                marginBottom : 5
+              }}
+              InputProps = {{
+                style: {
+                  fontWeight: 300,
+                  color: 'black',
+                  fontSize: 20
+                }
+              }}
+              InputLabelProps = {{
+                style: {
+                  fontWeight: 500,
+                  color: 'purple',
+                  fontSize: 15
+                }
+              }}
+              disabled
             />
             <TextField
               label='Headline*'

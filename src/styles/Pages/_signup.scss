@@ -1,27 +1,49 @@
+.signup--page {
+    margin: $xxl-size;
+}
+
 .signup {
-    display: flex;
-    flex-direction: column;
-    width: 375px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    border: orange solid;
 }
 
 .signup__byline {
     color: $light-blue;
     font-size: $m-size;
     font-style: italic;
+    text-align: center;
 }
 
-.signup__details {
-    display: flex;
-    flex-direction: row;
-    border-color: $purple;
+.signup--details {
+    margin: $m-size;
+    text-align: center;
+}
+
+.signup--password {
+    margin: $m-size;
+    text-align: center;
+}
+
+.signup--password-hints {
+    text-align: left;
+    margin: $xxl-size;
+    width: fit-content;
+    font-size: $ms-size;
+    background-color: black;
+    color: #fff;
+    border-radius: 10px;
+    padding: $s-size;
 }
 
 .signup__connect {
     text-align: center;
+    width: 50%;
+    margin-left: $xxl-size
 }
 
 .signup__button {
     font-size: $m-size;
-    margin-top: $m-size;
-    width: 40%;
+    margin: 75px 190px;
+    width: 50%;
 }

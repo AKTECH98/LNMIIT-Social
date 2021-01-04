@@ -134,11 +134,14 @@ export default class Login extends React.Component
             }
             <div className = "login__login">
               <div>
-                <Button text={(this.state.btnLoad)?<i className="fa fa-spinner fa-spin"></i>:"Login"}
+              {
+                (this.state.btnLoad)?<p><i className="fa fa-spinner fa-spin"></i>Connecting</p>:
+                <Button text="Login"
                         type = "login__button button"
                         onClick = {this.handleLogin}
                         disabled = {this.state.btnLoad}
                 />
+              }
               </div>
               {
                 this.state.redirect?<Redirect to='/home'/>:""

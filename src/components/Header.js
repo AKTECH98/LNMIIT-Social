@@ -191,7 +191,9 @@ export default function Header(props) {
       </div>
 
       <div className='header__hide'>
+        <Link to = {(!props.logout)?"/home":"/Front"} className = "linklink">
         <p className='header__title'>LNMIIT SOCIAL</p>
+        </Link>
         <div className='search'>
           <Search />
         </div>
