@@ -98,7 +98,7 @@ export default class PostModal extends React.Component {
         },
         (res) => {
           if (res.message == "SUCCESS") {
-            <Redirect to="/home" />;
+            location.reload()
           } else {
             {
               window.alert(res);

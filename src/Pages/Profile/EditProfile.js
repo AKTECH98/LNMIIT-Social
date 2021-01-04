@@ -12,8 +12,7 @@ export default class EditPage extends React.Component {
     super(props);
     this.state={
       photo:null,
-      firstName:'',
-      lastName:'',
+      name:'',
       phone:'',
       email: '',
       altEmail: '',
@@ -37,8 +36,7 @@ export default class EditPage extends React.Component {
       },
       (res)=>{
             this.setState({
-              firstName:res.response.first_name,
-              lastName:res.response.last_name,
+              name:res.response.name,
               altEmail: res.response.email,
               phone:res.response.phone,
               about:res.response.profile_description,
@@ -69,40 +67,14 @@ export default class EditPage extends React.Component {
           <div className = "edit__detail--personal">
             <h1>Personal Details</h1>
             <TextField
-              label='First Name*'
-              value={this.state.firstName}
-              onChange={(e)=>this.setState({firstName:e.target.value})}
+              label='Full Name*'
+              value={this.state.name}
+              onChange={(e)=>this.setState({name:e.target.value})}
               variant = "filled"
               style={{
                 width: '30%',
                 marginLeft: 10,
                 marginRight: 5,
-                marginBottom : 5
-              }}
-              InputProps = {{
-                style: {
-                  fontWeight: 300,
-                  color: 'black',
-                  fontSize: 20
-                }
-              }}
-              InputLabelProps = {{
-                style: {
-                  fontWeight: 500,
-                  color: 'purple',
-                  fontSize: 15
-                }
-              }}
-            />
-            <TextField
-              label='Last Name*'
-              value={this.state.lastName}
-              onChange={(e)=>this.setState({lastName:e.target.value})}
-              variant = "filled"
-              style={{
-                width: '30%',
-                marginLeft: 5,
-                marginRight: 10,
                 marginBottom : 5
               }}
               InputProps = {{
@@ -178,7 +150,7 @@ export default class EditPage extends React.Component {
             <h1>Contact Details</h1>
             <div>
               <TextField
-                label='Phone Number*'
+                label='Phone Number'
                 value={this.state.phone}
                 onChange={(e)=>this.setState({phone:e.target.value})}
                 variant = "filled"
@@ -226,7 +198,7 @@ export default class EditPage extends React.Component {
                 disabled
               />
               <TextField
-                label='Alternate E-Mail*'
+                label='Alternate E-Mail'
                 value={this.state.altEmail}
                 onChange={(e)=>this.setState({altEmail:e.target.value})}
                 variant = "filled"
@@ -352,13 +324,17 @@ export default class EditPage extends React.Component {
           </div>
         </div>
 
+        { (this.state.error)?
+          <p className = "error">{this.state.errorMessage}</p>
+          :""
+        }
         <Button
           text = "Save Changes"
           type = "button edit__detail--button"
           onClick = {()=>{
-            if(!this.state.firstName || !this.state.lastName || !this.state.phone)
+            if(!this.state.name)
               this.setState({error:true})
-            else if(!this.state.headline || !this.state.altEmail)
+            else if(!this.state.headline)
               this.setState({error:true})
             else
             {
@@ -368,8 +344,7 @@ export default class EditPage extends React.Component {
                 {
                   'email':window.localStorage.getItem('email'),
                   'password':window.localStorage.getItem('password'),
-                  'first_name':this.state.firstName,
-                  'last_name':this.state.lastName,
+                  'name':this.state.name,
                   'phone':this.state.phone,
                   'about':this.state.about,
                   'headline':this.state.headline,
@@ -393,10 +368,6 @@ export default class EditPage extends React.Component {
             }
           }}
         />
-        { (this.state.error)?
-          <p className = "error">{this.state.errorMessage}</p>
-          :""
-        }
         <div id="snackbar">SAVED</div>
       </div>
     )

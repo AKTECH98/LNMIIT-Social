@@ -110,7 +110,7 @@ export default function Personal(props) {
         title={
           props.personal == null
             ? "Default Name"
-            : props.personal.first_name + " " + props.personal.last_name
+            : props.personal.name
         }
         subheader={props.personal == null ? "" : props.personal.headline}
       />

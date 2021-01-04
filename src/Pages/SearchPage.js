@@ -67,7 +67,7 @@ function SearchPannel(props){
                       <Avatar>
                       </Avatar>
                     }
-                    title = {e.first_name + " " + e.last_name}
+                    title = {e.name}
                     subheader = "Position"
                   />
                   <CardContent classes = {{root: classes.content}}>

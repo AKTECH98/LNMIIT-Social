@@ -31,9 +31,7 @@ export default class SignUp extends React.Component
       postRequest('login/signup',
         {
           'email':this.state.email,
-          'firstName': this.state.firstName,
-          'middleName': this.state.middleName,
-          'lastName': this.state.lastName,
+          'name': this.state.name,
           'password': this.state.password
         },
         (res)=>{
@@ -105,6 +103,30 @@ export default class SignUp extends React.Component
               onChange={this.signUpEmail}
               label='Email'
               autoComplete = "username"
+            />
+            <TextField
+              variant = "filled"
+              style={{
+                marginTop: 5,
+                marginBottom: 5
+              }}
+              InputProps = {{
+                style: {
+                  fontWeight: 300,
+                  color: 'black',
+                  fontSize: 20
+                }
+              }}
+              InputLabelProps = {{
+                style: {
+                  fontWeight: 500,
+                  color: 'purple',
+                  fontSize: 15
+                }
+              }}
+              defaultValue={this.state.email}
+              onChange={(e)=>{this.setState({name:e.target.value})}}
+              label='Full Name'
             />
             <TextField
               variant = "filled"
