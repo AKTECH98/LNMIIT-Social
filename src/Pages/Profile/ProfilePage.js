@@ -7,6 +7,8 @@ import {postRequest} from '../../components/CallApi';
 import WidgetProject from '../../components/WidgetProject';
 import WidgetHack from '../../components/WidgetHack';
 import {Redirect} from 'react-router-dom';
+import PostView from '../../components/PostView'
+import FeedWidget from '../../components/FeedWidget'
 
 export default class ProfilePage extends React.Component {
   constructor(props)
@@ -55,6 +57,24 @@ export default class ProfilePage extends React.Component {
             <div className = "profile__skills">
               <Skills/>
             </div>
+            {
+                /*
+                **TODO: @Anshul Style here and remove comment
+                */
+                (query.split('#')[0]==undefined||query.split('#')[0]==window.localStorage.email)
+                ? /*While viewing own profile*/
+                  <div>
+                    <FeedWidget />
+                    MY POSTS
+                    <PostView author={window.localStorage.getItem('email')}/>
+                  </div>
+                : /*While viewing others' profile*/
+                  <div>
+                    POSTS
+                    <PostView author={query.split('#')[0]}/>
+                  </div>
+            }
+            
           </div>
           <div className = "profile-2">
             <div className = "profile__contact">

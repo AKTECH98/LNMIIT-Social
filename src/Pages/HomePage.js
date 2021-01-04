@@ -19,7 +19,7 @@ export default class HomePage extends React.Component {
           <div className='home__photo'>Photo</div>
           <div className='home__feed'>
             <FeedWidget />
-            <PostView />
+            <PostView author="ALL"/>
           </div>
         </div>
       </div>

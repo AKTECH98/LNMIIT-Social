@@ -197,7 +197,7 @@ export default function SinglePostView(props) {
                       post_id: props.item.post_id
                     },
                     (res) => {
-                      alert("replace this alert with screen refresh and add confirm dialogue")
+                      location.reload()
                     }
                   )
                 }
