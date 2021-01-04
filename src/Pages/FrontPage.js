@@ -4,7 +4,7 @@ import Login from './Login/Login';
 import Header from '../components/Header';
 
 import Anshul from '../img/anshul1.jpg';
-import Abhay from '../img/abhay.jpg';
+import Abhay from '../img/abhay.png';
 import Anupam from '../img/anupam.jpg';
 import Tarun from '../img/DefaultUser.png';
 
