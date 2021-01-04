@@ -13,6 +13,8 @@ import clsx from 'clsx';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DislikeIcon from '@material-ui/icons/ThumbDown';
 import LikeIcon from '@material-ui/icons/ThumbUp';
+import ShareIcon from '@material-ui/icons/Share';
+
 import { Card, CardHeader, CardContent, Avatar, CardActions, Collapse } from "@material-ui/core";
 
 const CommentInput = withStyles((theme) => ({
@@ -272,6 +274,7 @@ export default function SinglePostView(props) {
        
         
         <Comment postId={props.item.post_id}/>
+        <ShareIcon style = {{fontSize: 20}}/>
       </CardActions>
     </Card>
   );
