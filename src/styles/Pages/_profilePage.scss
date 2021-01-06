@@ -4,28 +4,29 @@
 
 .profile {
     display: grid;
-    grid-template-columns: 800px 400px;
+    grid-template-columns: 775px 425px;
+}
+
+.profile-1{
+    margin: 0 0;
 }
 
 .profile__detail {
     margin: 0 0;
 }
 
-.profile__contact {
-    margin: 0 $xxl-size;
-}
-
-.profile__attribute {
-    display: grid;
-    grid-template-columns: 800px 400px;
-}
-
 .profile__skills {
     margin: $xxl-size 0;
+}
+
+.profile-2{
+    margin: 0 0;
 }
 
 .profile__widget {
     margin: $xxl-size;
 }
 
-#more {display: none;}
+.profile__contact {
+    margin: 0 $xxl-size;
+}

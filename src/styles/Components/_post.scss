@@ -1,0 +1,58 @@
+.post--delete {
+    margin: $s-size;
+    background-color: white;
+    color: $pink-red;
+    font-size: $ms-size;
+    border: 2px solid $pink-red;
+    border-radius: 20px;
+}
+
+.post--delete:hover {
+    background-color: $fire-brick;
+    color: white;
+}
+
+.comment--delete {
+    color: $pink-red;
+    font-size: $s-size;
+    background-color: white;
+    border: 2px solid $pink-red;
+    border-radius: 20px;
+}
+
+.comment--delete:hover {
+    background-color: $fire-brick;
+    color: white;
+}
+
+.post--like__dislike {
+    display: flex;
+    color: grey;
+    margin: 0 $xxs-size;
+}
+
+.post--active {
+    color: $light-blue;
+}
+
+.post--count {
+    color: grey;
+    margin-right: $m-size;
+}
+
+.post--comment {
+    margin: 0 $xxl-size;
+    width: 100%;
+}
+
+.post--comment-button {
+    margin: $xs-size $l-size;
+    font-size: $ms-size;   
+}
+
+.commentBox {
+}
+
+.commentBox--post {
+    margin: 0 $s-size;
+}

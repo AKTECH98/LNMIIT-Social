@@ -1,30 +1,30 @@
 .header {
   color: white;
   display: flex;
-  justify-content: space-around;
   margin-bottom: $m-size;
+  background-color: $black-blue;
   padding: 0 $xs-size 0 $xs-size;
   align-items: center;
 }
 
 .header__title {
+  float: center;
   color: white;
   font-size: $xl-size;
-  margin: none;
+  margin-right: $xs-size;
   padding: none;
   padding-right: 5px;
-  width: 20%;
   padding-left: 20px;
 }
 
-.sub__header {
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: $black-blue;
-  height: fit-content;
-  width: 100vw;
+.sub__header{
+  margin-left: 85%;
+  position: relative;
+}
+
+.header__buttons {
+  margin-left: $xs-size;
+  float: right;
 }
 
 .header__button {
@@ -45,25 +45,17 @@
   background-color: $dark-blue;
 }
 
-.search {
-  width: 30%;
-  padding: 5px;
-  margin-top: 20px;
-}
-.search__input {
-  padding: 5px;
-  color: white;
-  background-color: white;
-  min-width: 200px !important;
-}
-
 .header__show {
   display: none;
 }
+
 .header__hide {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
+  color: white;
+  display: grid;
+  grid-template-columns: 27.73% 27.73% 44.54%;
+  align-items: center;
+  height: fit-content;
+  width: 100vw;
 }
 .hamburger__menu {
   z-index: 100;

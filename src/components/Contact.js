@@ -92,38 +92,133 @@ export default function Contact(props){
       <TableContainer component={Paper}>
         <Table>
           <TableBody>
-            <TableRow classes={{root:classes.tableRow}}>
-              <TableCell classes={{root:classes.tableCell}} component="th" scope="row">
-                Phone No.
-              </TableCell>
-              <TableCell classes={{root:classes.tableCell}} align="left">
-                {props.personal==null?'Not Provided':props.personal.phone}
-              </TableCell>
-            </TableRow>
-            <TableRow classes={{root:classes.tableRow}}>
-              <TableCell classes={{root:classes.tableCell}} component="th" scope="row">
-                E-Mail
-              </TableCell>
-              <TableCell classes={{root:classes.tableCell}} align="left" >
-                {props.personal==null?'Not Provided':props.personal.email}
-              </TableCell>
-            </TableRow>
-            <TableRow classes={{root:classes.tableRow}}>
-              <TableCell classes={{root:classes.tableCell}} component="th" scope="row">
-                Codeforces
-              </TableCell>
-              <TableCell classes={{root:classes.tableCell}} align="left">
-                {props.personal==null?'Not Provided':props.personal.codeforces}
-              </TableCell>
-            </TableRow>
-            <TableRow classes={{root:classes.tableRow}}>
-              <TableCell classes={{root:classes.tableCell}} component="th" scope="row">
-                CodeChef
-              </TableCell>
-              <TableCell classes={{root:classes.tableCell}} align="left">
-                {props.personal==null?'Not Provided':props.personal.codechef}
-              </TableCell>
-            </TableRow>
+            {(props.personal==null||!props.personal.phone ||!props.personal.phone.trim())
+                ?  <TableRow classes={{root:classes.tableRow}}>
+                      <TableCell classes={{root:classes.tableCell}} component="th" scope="row">
+                        Phone No.
+                      </TableCell>
+                      <TableCell classes={{root:classes.tableCell}} align="left">
+                        <i>Not Provided</i>
+                      </TableCell>
+                    </TableRow>
+                : <TableRow classes={{root:classes.tableRow}}
+                    onClick = {()=>{
+                      const el = document.createElement('textarea');
+                      el.value = props.personal.phone;
+                      document.body.appendChild(el);
+                      el.select();
+                      document.execCommand('copy');
+                      document.body.removeChild(el);
+
+                      var x = document.getElementById("snackbar");
+                      x.className = "show";
+                      setTimeout(function(){ x.className = x.className.replace("show", ""); },2000);
+                    }}
+                  >
+                    <TableCell classes={{root:classes.tableCell}} component="th" scope="row">
+                      Phone No.
+                    </TableCell>
+                    <TableCell classes={{root:classes.tableCell}} align="left">
+                      {props.personal.phone}
+                    </TableCell>
+                  </TableRow>
+            }
+            {(props.personal==null||!props.personal.email ||!props.personal.email.trim())
+                ?  <TableRow classes={{root:classes.tableRow}}>
+                      <TableCell classes={{root:classes.tableCell}} component="th" scope="row">
+                        Alternate Email
+                      </TableCell>
+                      <TableCell classes={{root:classes.tableCell}} align="left">
+                        <i>Not Provided</i>
+                      </TableCell>
+                    </TableRow>
+                : <TableRow classes={{root:classes.tableRow}}
+                    onClick = {()=>{
+                      const el = document.createElement('textarea');
+                      el.value = props.personal.email;
+                      document.body.appendChild(el);
+                      el.select();
+                      document.execCommand('copy');
+                      document.body.removeChild(el);
+
+                      var x = document.getElementById("snackbar");
+                      x.className = "show";
+                      setTimeout(function(){ x.className = x.className.replace("show", ""); },2000);
+                    }}
+                  >
+                    <TableCell classes={{root:classes.tableCell}} component="th" scope="row">
+                      Alternate Email
+                    </TableCell>
+                    <TableCell classes={{root:classes.tableCell}} align="left">
+                      {props.personal.email}
+                    </TableCell>
+                  </TableRow>
+            }
+            {(props.personal==null||!props.personal.codeforces ||!props.personal.codeforces.trim())
+                ?  <TableRow classes={{root:classes.tableRow}}>
+                      <TableCell classes={{root:classes.tableCell}} component="th" scope="row">
+                        CodeForces
+                      </TableCell>
+                      <TableCell classes={{root:classes.tableCell}} align="left">
+                        <i>Not Provided</i>
+                      </TableCell>
+                    </TableRow>
+                : <TableRow classes={{root:classes.tableRow}}
+                    onClick = {()=>{
+                      const el = document.createElement('textarea');
+                      el.value = props.personal.codeforces;
+                      document.body.appendChild(el);
+                      el.select();
+                      document.execCommand('copy');
+                      document.body.removeChild(el);
+
+                      var x = document.getElementById("snackbar");
+                      x.className = "show";
+                      setTimeout(function(){ x.className = x.className.replace("show", ""); },2000);
+                    }}
+                  >
+                    <TableCell classes={{root:classes.tableCell}} component="th" scope="row">
+                      CodeForces
+                    </TableCell>
+                    <TableCell classes={{root:classes.tableCell}} align="left">
+                      {props.personal.codeforces}
+                    </TableCell>
+                  </TableRow>
+            }
+            
+            {(props.personal==null||!props.personal.codechef ||!props.personal.codechef.trim())
+                ?  <TableRow classes={{root:classes.tableRow}}>
+                      <TableCell classes={{root:classes.tableCell}} component="th" scope="row">
+                        CodeChef
+                      </TableCell>
+                      <TableCell classes={{root:classes.tableCell}} align="left">
+                        <i>Not Provided</i>
+                      </TableCell>
+                    </TableRow>
+                : <TableRow classes={{root:classes.tableRow}}
+                    onClick = {()=>{
+                      const el = document.createElement('textarea');
+                      el.value = props.personal.codechef;
+                      document.body.appendChild(el);
+                      el.select();
+                      document.execCommand('copy');
+                      document.body.removeChild(el);
+
+                      var x = document.getElementById("snackbar");
+                      x.className = "show";
+                      setTimeout(function(){ x.className = x.className.replace("show", ""); },2000);
+                    }}
+                  >
+                    <TableCell classes={{root:classes.tableCell}} component="th" scope="row">
+                      CodeChef
+                    </TableCell>
+                    <TableCell classes={{root:classes.tableCell}} align="left">
+                      {props.personal.codechef}
+                    </TableCell>
+                  </TableRow>
+            }
+            
+            
           </TableBody>
         </Table>
       </TableContainer>
@@ -145,32 +240,29 @@ export default function Contact(props){
       >
         <MailIcon style={{ fontSize: 40, color: "#333745" }} />
       </IconButton>
-      <div id="snackbar">Email Copied To Clipboard..</div>
-      {
-        (props.personal==null)?
-        <IconButton>
-          <LinkedInIcon style={{ fontSize: 40, color: "#4574bf" }} />
-        </IconButton>
-        :
-        <a className = "linklink" href = {"https://"+props.personal.linkedin}>
+      <div id="snackbar">Copied To Clipboard..</div>
+
+      {(props.personal==null||!props.personal.linkedin ||!props.personal.linkedin.trim())
+        ? <IconButton>
+            <LinkedInIcon style={{ fontSize: 40, color: "#cccccc" }} />
+          </IconButton>
+        :<a target="_blank" className = "linklink" href = {props.personal.linkedin.startsWith("https:\/\/")?props.personal.linkedin:"https://"+props.personal.linkedin}>
           <IconButton>
             <LinkedInIcon style={{ fontSize: 40, color: "#4574bf" }} />
           </IconButton>
         </a>
       }
-      {
-        (props.personal==null)?
-        <IconButton>
-          <GitHubIcon style={{ fontSize: 40, color: "black" }} />
-        </IconButton>
-        :
-        <a className = "linklink" href = {props.personal.github}>
+
+      {(props.personal==null||!props.personal.github ||!props.personal.github.trim())
+        ? <IconButton>
+            <GitHubIcon style={{ fontSize: 40, color: "#cccccc" }} />
+          </IconButton>
+        :<a target="_blank"  className = "linklink" href = {props.personal.github.startsWith("https:\/\/")?props.personal.github:"https://"+props.personal.github}>
           <IconButton>
             <GitHubIcon style={{ fontSize: 40, color: "black" }} />
           </IconButton>
         </a>
-      }
-      
+      }      
     </CardActions>
   </Card>
 )}

@@ -21,6 +21,10 @@ const useStyles = makeStyles({
     backgroundColor: '#f5f5f5',
     marginBottom: 5
   },
+  subRootRequest: {
+    backgroundColor: '#f5f5f5',
+    marginBottom: 5
+  },
   pageTitle: {
     fontSize: 30,
     fontFamily: 'cursive'
@@ -119,8 +123,11 @@ export default class NotificationsPage extends React.Component {
     super(props)
     this.state = {
       notifications: []
-    }
+    } 
+  }
 
+  componentDidMount()
+  {
     postRequest('profile/getnotifications',
       {
         'email':window.localStorage.getItem('email'),

@@ -6,20 +6,22 @@ import Recaptcha from "react-recaptcha";
 import Button from '../../components/Button';
 import TextField from '@material-ui/core/TextField';
 import {postRequest} from '../../components/CallApi'
+import Header from '../../components/Header'
 
 export default class ConfirmOTP extends React.Component
 {
-  render()
+  constructor(props)
   {
-  	const url = window.location.href;
-    const parser = require('url-parameter-parser');
-    const res = parser(url);
-
-      console.log(res)
-    return(
-      <div>
-      Negative cases not yet handled
-        {
+    super(props)
+    this.state={
+      otpValid: false
+    }
+  }
+   componentDidMount(){
+      {
+          const url = window.location.href;
+          const parser = require('url-parameter-parser');
+          const res = parser(url);
           postRequest('login/confirmotp',
           {
             'otp':res.otp,                                 
@@ -27,11 +29,25 @@ export default class ConfirmOTP extends React.Component
           (res)=>{
             if(res.message=="SUCCESS")
             {
-              window.alert("Email Verified Successfully")
+              this.setState({otpValid:true})
             }
-            }
+          }
         )
         }
+    }
+  render()
+  {    
+    return(
+      <div className = "center">
+      {
+        (this.state.otpValid)?
+        <p className = "otp--message otp--success"> OTP Verification Succesfully </p>
+        :
+        <p className = "otp--message otp--failed"> OTP INVALID /has been EXPIRED </p>
+      }
+      <Link to="/" className = "linklink opt--redirect">
+        Click Here To Login.....
+      </Link>
       </div>
 
     );

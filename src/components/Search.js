@@ -1,28 +1,20 @@
 import React, { useState } from "react";
-import { Link, Redirect } from "react-router-dom";
-import TextField from "@material-ui/core/TextField";
-import { postRequest } from "./CallApi";
 
-export default function Header(props) {
-  const [searchTerm, setSearchTerm] = useState("Test");
+export default class Search extends React.Component {
 
-  return (
-    <div>
-      <TextField
-        placeholder='Search'
-        className='search__input'
-        onChange={(e) => {
-          setSearchTerm(e.target.value);
-        }}
-        onKeyPress={(e) => {
-          if (e.key === "Enter") {
-            window.open(`/Search?search=${searchTerm}`, "_self");
-          }
-        }}
-      />
-      {/* <Link to={"/Search?search=" + searchTerm} className='search__button'>
-        <button>Search</button>
-      </Link> */}
-    </div>
-  );
+  render(){
+    return (
+      <div>
+        <form onSubmit = {(e)=>{
+            e.preventDefault();
+            const search = e.target.search.value; 
+            window.open(`/Search?search=${search}`, "_self");
+            e.target.search.value = '';
+          }}
+        >
+          <input type="text" className = "search__bar" name = "search" placeholder="Search...."/>
+        </form>
+      </div>
+    )
+  }
 }

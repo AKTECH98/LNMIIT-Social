@@ -5,11 +5,12 @@ const Button = (props) => {
   const{
     onClick,
     type,
-    text
+    text,
+    disabled
   } = props;
 
   return(
-    <button className = {type} onClick={onClick}>
+    <button className = {type} onClick={onClick} disabled = {disabled}>
       {text}
     </button>
   );
@@ -21,7 +22,8 @@ Button.propTypes = {
   //For rendering
   type: PropTypes.string,
   text: PropTypes.string.isRequired,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  disabled: PropTypes.bool
 };
 
 export default Button;

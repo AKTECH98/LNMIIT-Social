@@ -67,7 +67,6 @@ const useStyles = makeStyles((theme) => ({
     content: { flexDirection: "column", width: "90vw", padding: "6px" },
     subRootB: { marginLeft: 0, marginTop: 10, minWidth: "10vw" },
     subRootA: { minWidth: "10vw" },
-    title: { fontSize: "30px" },
   },
 }));
 
@@ -104,20 +103,20 @@ export default function Personal(props) {
                   <EditTwoToneIcon style={{ fontSize: 25, color: "blue" }} />
                 </IconButton>
               </Link>
-              <span className='tooltiptext edit'></span>
+              <span className='tooltiptext edit'>EDIT</span>
             </div>
           )
         }
         title={
           props.personal == null
             ? "Default Name"
-            : props.personal.first_name + " " + props.personal.last_name
+            : props.personal.name
         }
         subheader={props.personal == null ? "" : props.personal.headline}
       />
       <CardContent classes={{ root: classes.content }}>
-        {props.personal == null
-          ? "Default Description"
+        {(props.personal==null||!props.personal.profile_description ||!props.personal.profile_description.trim())
+          ? <i>This user prefers staying mysterious</i>
           : props.personal.profile_description}
       </CardContent>
       <CardContent classes={{ root: classes.contenDistinguish }}>

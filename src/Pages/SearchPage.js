@@ -67,7 +67,7 @@ function SearchPannel(props){
                       <Avatar>
                       </Avatar>
                     }
-                    title = {e.first_name + " " + e.middle_name + " " + e.last_name}
+                    title = {e.name}
                     subheader = "Position"
                   />
                   <CardContent classes = {{root: classes.content}}>
@@ -95,8 +95,8 @@ export default class SearchPage extends React.Component {
       }
     }
   }
-  render(){
-  const url = window.location.href;
+  componentDidMount(){
+    const url = window.location.href;
   const parser = require('url-parameter-parser');
   const res = parser(url);
   const search_term = (res.search==undefined)?"":res.search     
@@ -105,6 +105,8 @@ export default class SearchPage extends React.Component {
                   'name':search_term,
                },
               (res)=>{this.setState({results:res.users})})
+  }
+  render(){
     return (
       <div>
         <Header logout = {true} />

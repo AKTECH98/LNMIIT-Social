@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme)=>({
   root: {
     backgroundColor: 'white',
     height: 'fit-content',
-    width: 800
+    width: '100%'
   },
   rootHeader: {
     height: 'fit-content',

@@ -89,7 +89,7 @@ export default class PostModal extends React.Component {
       if (month.length < 2) month = "0" + month;
       if (day.length < 2) day = "0" + day;
       postRequest(
-        "posts/submitpost",
+        "posts/createpost",
         {
           email: window.localStorage.getItem("email"),
           password: window.localStorage.getItem("password"),
@@ -98,7 +98,7 @@ export default class PostModal extends React.Component {
         },
         (res) => {
           if (res.message == "SUCCESS") {
-            <Redirect to="/home" />;
+            location.reload()
           } else {
             {
               window.alert(res);

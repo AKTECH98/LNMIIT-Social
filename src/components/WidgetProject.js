@@ -53,13 +53,14 @@ export default class WidgetProject extends React.Component {
     this.state = {
       projects: []
     };
+  }
 
+  componentDidMount(){
     const url = window.location.href;
     const parser = require('url-parameter-parser');
     const res = parser(url);
     const query = res.email;
     const user_email = query.split('#')[0];
-
     postRequest('project/fetchprojectsofuser',
       {
         'email': user_email,
@@ -87,9 +88,8 @@ export default class WidgetProject extends React.Component {
           //console.log(this.state.sections)
         }
       }
-    )
-  }
-
+    )}
+    
   render() {
     return (
       <div className = "widget__list">

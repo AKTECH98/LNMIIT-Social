@@ -1,6 +1,5 @@
 import React from 'react';
 import WidgetDetails from './WidgetDetails';
-import {postRequest} from '../components/CallApi'
 
 const WorkView = (props) => (
   <div className = "Widget__View">
@@ -15,6 +14,7 @@ const WorkView = (props) => (
           ViewJoinRequestsWork = {props.ViewJoinRequests}
           Request = {props.Request}
           view = {(work.admin==undefined)?props.view:(!work.admin || props.view)}
+          GetBadgeNumber = {props.GetBadgeNumber}
         />
         </div>
       ))

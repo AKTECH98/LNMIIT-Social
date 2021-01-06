@@ -45,6 +45,7 @@
     "date-fns": "^2.12.0",
     "font-awesome": "^4.7.0",
     "history": "^4.10.1",
+    "pure-react-carousel": "^1.27.6",
     "react": "^16.12.0",
     "react-color": "^2.18.0",
     "react-dom": "^16.12.0",

@@ -7,19 +7,17 @@ export default class PostView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      author: props.author, 
       posts: [
-        {
-          user_name: "default name",
-          content: "Dummy Post for debugging",
-          date_of_post: "Default Date",
-        },
       ],
     };
   }
-
-  render() {
-    postRequest(
-      "posts/fetchposts",
+  componentDidMount()
+  {
+    while(this.state.author === undefined);
+    if(this.state.author == "ALL")
+    {postRequest(
+      "posts/viewallposts",
       {
         email: window.localStorage.getItem("email"),
         password: window.localStorage.getItem("password"),
@@ -27,12 +25,35 @@ export default class PostView extends React.Component {
       (res) => {
         this.setState({ posts: res.results });
       }
-    );
+    )}
+    else
+    {postRequest(
+      "posts/viewallpostsofauser",
+      {
+        email: window.localStorage.getItem("email"),
+        password: window.localStorage.getItem("password"),
+        author: this.state.author,
+      },
+      (res) => {
+        this.setState({ posts: res.results });
+      }
+    )}
+    console.log("STATE:",this.state)
+  }
+  render() {
+    
     return (
       <div>
         {this.state.posts == undefined
           ? ""
-          : this.state.posts.map((item, index) => (
+          :(this.state.posts.length==0)
+            ?<div><center>
+              {this.state.author=="ALL"?<i>Nobody has posted anything yet. Be the first one to post</i>:
+               (this.state.author==window.localStorage.email)?<i>You have not yet posted</i>:
+               <i>This user has not yet posted</i>
+              }
+             </center></div> 
+          :  this.state.posts.map((item, index) => (
               <div key={index}>
                 <SinglePostView item={item} />
               </div>

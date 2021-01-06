@@ -11,8 +11,11 @@
 @import "./Components/optionlist";
 @import "./Components/widgetview";
 @import "./Components/commentbox";
-@import "./Components//skills";
+@import "./Components/skills";
+@import "./Components/search";
+@import "./Components/post";
 
+@import "./Pages/front";
 @import "./Pages/login";
 @import "./Pages/forgotpassword";
 @import "./Pages/signup";
@@ -22,5 +25,6 @@
 @import "./Pages/hackathon";
 @import "./Pages/home";
 @import "./Pages/notification";
+@import "./Pages/otp";
 @import "./Pages/responsive";
 @import "./Pages/test";

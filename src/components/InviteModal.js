@@ -4,6 +4,15 @@ import Button from './Button';
 import {postRequest} from './CallApi'
 
 export default class InviteModal extends React.Component {
+
+  constructor(props){
+    super(props)
+
+    this.state = {
+      success: false
+    }
+  }
+
   render() {
     return (
       <Modal
@@ -28,20 +37,37 @@ export default class InviteModal extends React.Component {
                     (res)=>{
                       if(res.message=="FAILURE")
                       {
-                        alert("ERROR:"+res.reason)
+                        var x = document.getElementById("snackbar");
+                        x.className = "show";
+                        setTimeout(function(){ x.className = x.className.replace("show", ""); },2000);
+                        
+                        this.setState(()=>({success:false}))
+                        console.log(this.state.success)
                       }
                       else
                       {
-                        alert("SUCCESS. Admins notified")
+                        var x = document.getElementById("snackbar");
+                        x.className = "show";
+                        setTimeout(function(){ x.className = x.className.replace("show", ""); },2000);
+                        this.setState(()=>({success:true}))
+                        console.log(this.state.success)
                       }
                       this.props.DiscardDetails()
 
                     }
                   )
+
+                  console.log(this.state.success)
                 
               }}
               text = "CONFIRM" type = "button modal__button"/>
             <Button onClick={this.props.DiscardDetails} text = "Don't Send" type = "button modal__button"/>
+            {
+              (this.state.success)?
+              <div id="snackbar">Request Sent to Author</div>
+              :
+              <div id="snackbar">Request Was Not Sent</div>
+            }
         </div>
       </Modal>
     )
