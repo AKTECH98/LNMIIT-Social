@@ -1,7 +1,7 @@
 import React from "react";
-
+import {Link} from 'react-router-dom'
 import { fade, withStyles, makeStyles } from "@material-ui/core/styles";
-
+import {frontendServerUrl} from '../WebsiteMainFiles/config'
 import ReactHtmlParser from "react-html-parser";
 import { postRequest } from "./CallApi";
 import imageStyles from "./css/SinglePostView.module.css";
@@ -217,27 +217,17 @@ export default function SinglePostView(props) {
       >
         {parsedPost}
       </CardContent>
-      
-      <CardActions disableSpacing>
-        {expanded? "Hide comments":"Show comments"}
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon style = {{color: 'black', fontSize: 30}}/>
-        </IconButton>
-      </CardActions>
-
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
+      { (props.fullPostView==true)
+        ?
+          <div>
           <CommentBox postId={props.item.post_id}/>
-        </CardContent>
-      </Collapse>
-
+          </div>
+        :
+          <Link to={"Post?post_id="+props.item.post_id}>
+            {props.item.number_of_comments}
+            {(props.item.number_of_comments==1)?" Comment ":" Comments "}...
+          </Link>
+      }
 
       <CardActions classes = {{root: classes.actions}}>
 
@@ -272,9 +262,33 @@ export default function SinglePostView(props) {
 
       }
        
+        { (props.fullPostView==true)
+          ?
+            <div>
+              <Comment postId={props.item.post_id}/>
+            </div>
+          :
+            <Link to={"Post?post_id="+props.item.post_id}>
+              View Full Post
+            </Link>
+        }
         
-        <Comment postId={props.item.post_id}/>
-        <ShareIcon style = {{fontSize: 20}}/>
+            <ShareIcon 
+                style = {{fontSize: 20}}
+                onClick = {()=>{
+                  const el = document.createElement('textarea');
+                  el.value = frontendServerUrl+"Post?post_id="+props.item.post_id;
+                  document.body.appendChild(el);
+                  el.select();
+                  document.execCommand('copy');
+                  document.body.removeChild(el);
+
+                  var x = document.getElementById("snackbar");
+                  x.className = "show";
+                  setTimeout(function(){ x.className = x.className.replace("show", ""); },2000);
+                }}
+            />
+            <div id="snackbar">Copied To Clipboard..</div>
       </CardActions>
     </Card>
   );

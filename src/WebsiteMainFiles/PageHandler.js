@@ -16,6 +16,7 @@ import MyHackathon from '../Pages/Profile/MyHackathon'
 import MyProjects from '../Pages/Profile/MyProjects'
 import ProjectsPage from '../Pages/ProjectsPage';
 import HackathonPage from '../Pages/HackathonPage';
+import FullPostView from '../Pages/FullPostView';
 
 export default class PageHandler extends React.Component{
 
@@ -40,6 +41,7 @@ export default class PageHandler extends React.Component{
           <Route path="/MyProjects" component ={MyProjects}/>
           <Route path="/Projects" component = {ProjectsPage}/>
           <Route path="/Hacks" component = {HackathonPage}/>
+          <Route path='/Post' component = {FullPostView}/>
         </Switch>
       </Router>
     );
