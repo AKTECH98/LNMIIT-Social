@@ -253,8 +253,10 @@ export default class EditPage extends React.Component {
               multiline
               variant='filled'
               style={{
-                width: "60%",
-                margin: 10,
+
+                width: '60%',
+                margin: 10
+
               }}
               InputProps={{
                 style: {

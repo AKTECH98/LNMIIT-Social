@@ -21,7 +21,7 @@ export default class ProfileView extends React.Component {
               <Personal veiw = "true" />
             </div>
             <div className = "profile__widget">
-              <WidgetProject link = "/MyProjects" />
+              <WidgetProject link = "/Projects" />
               <WidgetHack />
             </div>
           </div>

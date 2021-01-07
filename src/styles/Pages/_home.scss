@@ -1,39 +1,10 @@
-.post__button{
-    border: none;
-    font-size: $l-size;
-    text-decoration: none;
-    height: auto;
-    margin-top: $s-size;
-    background-color: white;
-    color: $light-blue;
-}
-
-.post__button:hover {
-    border: 0.1rem black solid;
-    background-color: $black-blue;
-    color: white;
-    border-radius: 10px;
-    transition: 0.7s;
-    transform: scale(1.1);
-}
-
-.feed__widget {
-    margin: auto;
-}
-
 .home__view {
     display: grid;
     grid-template-columns: 20% 60%;
 }
 
 .home__feed {
-    margin-left: $m-size;
-    margin-right: $m-size;
-}
-
-.home__feed--wid{
-    background-color: black;
-    width: 100%;
+    margin: 0 $m-size;
 }
 
 .home__photo{

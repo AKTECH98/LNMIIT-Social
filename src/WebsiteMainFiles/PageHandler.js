@@ -13,7 +13,6 @@ import EditProfile from '../Pages/Profile/EditProfile';
 import ProfilePage from '../Pages/Profile/ProfilePage';
 import HomePage from '../Pages/HomePage';
 import MyHackathon from '../Pages/Profile/MyHackathon'
-import MyProjects from '../Pages/Profile/MyProjects'
 import ProjectsPage from '../Pages/ProjectsPage';
 import HackathonPage from '../Pages/HackathonPage';
 import FullPostView from '../Pages/FullPostView';
@@ -38,7 +37,6 @@ export default class PageHandler extends React.Component{
           <Route path="/TestPage" component ={TestPage}/>
           <Route path="/Home" component ={HomePage}/>
           <Route path="/MyHacks" component ={MyHackathon}/>
-          <Route path="/MyProjects" component ={MyProjects}/>
           <Route path="/Projects" component = {ProjectsPage}/>
           <Route path="/Hacks" component = {HackathonPage}/>
           <Route path='/Post' component = {FullPostView}/>

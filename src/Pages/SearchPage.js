@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Header from '../components/Header';
 import { Card, CardContent, CardHeader, Avatar } from '@material-ui/core';
-
+import SinglePostView from "../components/SinglePostView";
 import {postRequest} from '../components/CallApi';
 
 const useStyles = makeStyles({
@@ -36,7 +36,7 @@ const useStyles = makeStyles({
   },
 });
 
-function SearchPannel(props){
+function Users(props){
 
   const classes = useStyles();
 
@@ -48,7 +48,7 @@ function SearchPannel(props){
             title : classes.pageTitle
           }
         }
-        title = "Search Result.  TODO: Remove duplicates from backend"
+        title = "Users"
       />
       <CardContent>
       {
@@ -68,7 +68,7 @@ function SearchPannel(props){
                       </Avatar>
                     }
                     title = {e.name}
-                    subheader = "Position"
+                    subheader = {e.headline}
                   />
                   <CardContent classes = {{root: classes.content}}>
                     {e.desc}
@@ -86,25 +86,67 @@ function SearchPannel(props){
   )
 }
 
+
+function Posts(props){
+
+  const classes = useStyles();
+
+  return(
+    <Card className = {classes.root}>
+      <CardHeader
+        classes = {
+          {
+            title : classes.pageTitle
+          }
+        }
+        title = "Posts"
+      />
+      <CardContent>
+      {
+          props.results.map((e)=>{
+            return (
+              <SinglePostView item={e} />
+            )
+          })
+          
+      }
+       
+      </CardContent>
+    </Card>
+  )
+}
+
+
+
 export default class SearchPage extends React.Component {
   constructor(props){
     super(props)
     {
       this.state={
-        results:[]
+        users:[],
+        posts:[],
+
       }
     }
   }
   componentDidMount(){
     const url = window.location.href;
-  const parser = require('url-parameter-parser');
-  const res = parser(url);
-  const search_term = (res.search==undefined)?"":res.search     
+    const parser = require('url-parameter-parser');
+    const res = parser(url);
+    const search_term = (res.search==undefined)?"":res.search    
     postRequest('search/searchuser',
                 {
-                  'name':search_term,
+                  'search_term':search_term,
                },
-              (res)=>{this.setState({results:res.users})})
+              (res)=>{this.setState({users:res.users})})
+
+    postRequest('search/searchpost',
+                {
+                  'search_term':search_term,
+                  'email': window.localStorage.email,
+                  'password': window.localStorage.password
+               },
+              (res)=>{this.setState({posts:res.posts})})
   }
   render(){
     return (
@@ -112,7 +154,10 @@ export default class SearchPage extends React.Component {
         <Header logout = {true} />
         <div className = "notify">
         <div></div>
-        <SearchPannel results={this.state.results}/>
+        <div>
+        <Users results={this.state.users}/>
+        <Posts results={this.state.posts}/>
+        </div>
         </div>
       </div>
     )

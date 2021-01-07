@@ -3,7 +3,7 @@ import React from "react";
 import { postRequest } from "../components/CallApi";
 import SinglePostView from "../components/SinglePostView";
 import {Redirect} from 'react-router-dom'
-
+import Header from '../components/Header';
 
 export default class FullPostView extends React.Component {
   constructor(props) {
@@ -44,6 +44,7 @@ export default class FullPostView extends React.Component {
     if(post_id==undefined) return <Redirect to ="/"/>
     return (
       <div>
+        <Header logout = {true}/>
         {(this.state.loading)
           ?"Loading Post..."
           :(this.state.error)

@@ -75,10 +75,6 @@ export default function WidgetDetails(props){
     handleClose(event);
   }
 
-  const GetBadgeNumber = () => {
-    return props.GetBadgeNumber(props.index);
-  }
-
   const ViewJoinRequests = (event) => {
     props.ViewJoinRequestsWork(props.index);
     handleClose(event);
@@ -97,13 +93,10 @@ export default function WidgetDetails(props){
     }
   }
 
-  const [badges,setBadges] = React.useState(0)
+  let badges = props.badges
   // return focus to the button when we transitioned from !open -> open
   const prevOpen = React.useRef(open);
   React.useEffect(() => {
-    //console.log(GetBadgeNumber())
-    setBadges(GetBadgeNumber())
-    //console.log(badges)
     if (prevOpen.current === true && open === false) {
       anchorRef.current.focus();
     }
@@ -189,11 +182,10 @@ export default function WidgetDetails(props){
         {
           (props.optionText.colab)?
           <div className = "tooltip">
-            <a href = {props.optionText.project_link}>
               <IconButton onClick = {()=>props.Request(props.index)}>
                 <ColabIcon fontSize = "large" style = {{color:'green'}} />
               </IconButton>
-            </a>
+
             <span className = "tooltiptext colab">Send Colab Request</span>
           </div>
           :" "
