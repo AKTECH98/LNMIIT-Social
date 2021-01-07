@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {Link} from 'react-router-dom'
 import Button from '../components/Button';
 import Header from '../components/Header';
 import ProjectModal from '../components/ProjectModal';
@@ -255,7 +255,23 @@ export default class ProjectsPage extends React.Component {
         <Header logout = {true}/>
         <div className = "widget__list">
         <PageHeader 
-            title= {(user==undefined)?"All Public Projects": (user==window.localStorage.email)?"My Projects":"Projects of "+user}
+            title= {(user==undefined)
+                    
+                        ?<div>
+                        All Public Projects
+                        <Link to={"Projects?email="+window.localStorage.email}> Click here to view your projects</Link>
+                        </div>
+                    :(user==window.localStorage.email)
+                        ?<div>
+                        My Projects
+                        <Link to="Projects"> Click here to view all public projects</Link>
+                        </div>
+                        :<div>
+                        {"Projects of "+user}
+                        <Link to="Projects"> Click here to view all public projects</Link>
+                        </div>
+
+                    }
             newProject = {this.AddDetail} 
             view = {user!=window.localStorage.getItem('email')}
         />
