@@ -34,7 +34,7 @@ function Header(props){
   <Card className = {useStyles().header}>
     <CardContent>
       <Typography className = {useStyles().title}>
-        My Projects
+        Projects
       </Typography>
     </CardContent>
     <CardActions>
