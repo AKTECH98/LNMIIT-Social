@@ -19,6 +19,7 @@ export default class SignUp extends React.Component
       name: '',
       batch: '',
       batches: [],
+      btnLoad: false,
       errorMessage:'',
       redirect:false
     };
@@ -41,6 +42,7 @@ export default class SignUp extends React.Component
   handleSignup = (event) => {
 
     event.preventDefault()
+    this.setState({btnLoad:true});
 
     if (this.state.password ==this.state.confirmPassword)
     {
@@ -56,12 +58,14 @@ export default class SignUp extends React.Component
             this.setState({redirect:true})
           }
           this.setState({errorMessage:res.reason})
+          this.setState({btnLoad:false})
         }
       )
     }
     else
     {
       this.setState({errorMessage:'Passwords Do Not Match'})
+      this.setState({btnLoad:false})
     }
   }
 
@@ -199,10 +203,13 @@ export default class SignUp extends React.Component
                 label='Phone No.'
               />
               <div className = "signup__connect">
+              {
+                (this.state.btnLoad)?<p><i className="fa fa-spinner fa-spin"></i>Connecting</p>:
                 <Button text='Connect'
-                  type = 'button signup__button'
-                  onClick = {this.handleSignup}
+                        type = 'button signup__button'
+                        onClick = {this.handleSignup}
                 />
+              }
               </div>
             </div>
             <div className = "signup--password">

@@ -45,11 +45,17 @@ export default class FullPostView extends React.Component {
     return (
       <div>
         <Header logout = {true}/>
-        {(this.state.loading)
-          ?"Loading Post..."
-          :(this.state.error)
-          ?<div>{this.state.errorMessage}</div>
-          :<SinglePostView item={this.state.post} fullPostView={true}/>
+        {(this.state.loading)?
+          "Loading Post..."
+          :
+          (this.state.error)?
+            <div>{this.state.errorMessage}</div>
+            :
+            <center>
+            <div className = "post--share">
+            <SinglePostView item={this.state.post} fullPostView={true}/>
+            </div>
+            </center>
         }
       </div>
     );

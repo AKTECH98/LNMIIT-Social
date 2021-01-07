@@ -1,95 +1,67 @@
-$dark-grey: #404040;
-$nc-blue: #009999;
-$nc-bl-dark: #009999;
-$red: #fc3f00;
-$default: #c9c9c9;
-
-button {
+.comment--delete {
+  color: $pink-red;
+  font-size: $ms-size;
+  background-color: white;
+  border-radius: 20px;
   border: none;
-  border-radius: 0.25rem;
-  font-size: 0.75rem;
-  font-weight: bold;
-  padding: 0.75em; // 12px/16px
-  display: inline-block;
-  text-decoration: none;
+}
 
-  &:hover {
-    cursor: pointer;
-  }
-  &:focus {
-    text-decoration: none;
-    outline: none;
-  }
+.comment--delete:hover {
+  background-color: $fire-brick;
+  color: white;
 }
-.comment-box {
-  color: #fff;
-  background-color: $default;
 
-  padding: 1rem;
-  margin-top: 50px;
-}
-.comments {
-  max-height: 60vh;
-  overflow-y: scroll;
-}
-.comment-form {
-  background-color: #fff;
-  border-radius: 0.25rem;
-  padding: 0.6rem;
-  margin-top: 2rem;
-}
-.comment-form-fields {
-  margin-bottom: 0.25rem;
+.commentBox {
   display: flex;
-  input,
-  textarea {
-    border: none;
-    border-bottom: 1px solid $dark-grey;
-    font-size: 0.85rem;
-    padding: 0.25rem 0;
-    width: 99%;
-
-    &:focus {
-      border-bottom-color: $nc-blue;
-      outline: none;
-    }
-  }
-  textarea {
-    font-style: italic;
-  }
+  flex-direction: column;
 }
 
-.comment-submit {
-  width: 50px;
-  margin-left: 10px;
-}
-
-.comment-count {
-  color: $dark-grey;
-}
-#comment-reveal {
-  background-color: $nc-blue;
-  color: #fff;
-  margin-left: 55vw;
-  width: 300px;
-}
 .comment {
-  border-top: 0.125rem solid $dark-grey;
+  display: flex;
+  flex-direction: row;
+  margin-top: $l-size;
+  margin-bottom: $ms-size;
 }
-.comment-body {
-  font-style: italic;
-  margin-left: 1rem;
-}
-.comment-footer {
-  margin-bottom: 1rem;
-}
-.comment-footer-delete {
-  padding: 0.2rem 0;
-  color: $dark-grey;
-  text-decoration: none;
 
-  &:hover {
-    color: $nc-blue;
-    font-weight: bold;
-  }
+.comment--avatar {
+  vertical-align: middle;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+}
+
+.comment__content {
+  margin-left: $s-size;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.comment__content .comment--header {
+  color: black;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: $xxs-size;
+}
+
+.comment--header p {
+  margin: 0;
+}
+
+.comment--header .comment--author{
+  margin-right: $m-size;
+  font-size: $lm-size;
+}
+
+.comment--header .comment--date{
+  margin-top: $xxs-size;
+  font-size: $ms-size;
+  color: $dark-blue;
+}
+
+.comment__content .comment--content {
+  color: black;
+  font-size: $ms-size;
+  border-bottom: 1px $dark-blue solid;
+  padding-bottom: $s-size;
 }
