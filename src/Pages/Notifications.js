@@ -9,7 +9,7 @@ import { Card, CardContent, CardHeader, Avatar ,CardActions} from '@material-ui/
 
 const url = window.location.href;
 const parser = require('url-parameter-parser');
-const res = parser(url);const search_term = (res.search==undefined)?"":res.search
+const res = parser(url);
 
 const useStyles = makeStyles({
   root: {
