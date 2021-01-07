@@ -107,17 +107,17 @@ export default function Personal(props) {
             </div>
           )
         }
-        title={
-          props.personal == null
-            ? "Default Name"
-            : props.personal.name
-        }
+        title={props.personal == null ? "Default Name" : props.personal.name}
         subheader={props.personal == null ? "" : props.personal.headline}
       />
       <CardContent classes={{ root: classes.content }}>
-        {(props.personal==null||!props.personal.profile_description ||!props.personal.profile_description.trim())
-          ? <i>This user prefers staying mysterious</i>
-          : props.personal.profile_description}
+        {props.personal == null ||
+        !props.personal.profile_description ||
+        !props.personal.profile_description.trim() ? (
+          <i>This user prefers staying mysterious</i>
+        ) : (
+          props.personal.profile_description
+        )}
       </CardContent>
       <CardContent classes={{ root: classes.contenDistinguish }}>
         {props.personal == null ? "" : props.year + "  (" + props.batch + ")"}
