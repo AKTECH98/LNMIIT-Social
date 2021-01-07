@@ -1,3 +1,16 @@
+.post--add {
+    border: $xxs-size $dark-blue solid;
+    border-radius: 50px;
+    color: $blue;
+    margin: $m-size 0;
+    font-size: $l-size;
+    padding: 5px 0px 5px 20px;
+    cursor: pointer;
+}
+
+.post--share {
+}
+
 .post--delete {
     margin: $s-size;
     background-color: white;
@@ -31,6 +44,10 @@
     margin: 0 $xxs-size;
 }
 
+.post--like__dislike:hover {
+    color: darkgray;
+}
+
 .post--active {
     color: $light-blue;
 }
@@ -40,17 +57,39 @@
     margin-right: $m-size;
 }
 
-.post--comment {
-    margin: 0 $xxl-size;
+.post--comment-count {
+    color: $blue;
+    font-weight: 400;
+    margin: 0 $m-size 0 0;
+    cursor: pointer;
+}
+
+.post--comment{
+    width: 80%;
+}
+
+.post--comment .MuiInputBase-root{
+    border: 2px;
+    border-radius: 50px;
+    line-height: 0%;
+}
+
+.post--comment .MuiOutlinedInput-input{
+    padding: 10px 12px;
+}
+
+.post--showAll {
+    margin: $s-size 0;
+    text-align: center;
+    color: $blue;
+    font-weight: 500;
+    font-size: $m-size;
     width: 100%;
 }
 
-.post--comment-button {
-    margin: $xs-size $l-size;
-    font-size: $ms-size;   
-}
-
 .commentBox {
+    display: flex;
+    flex-direction: column;
 }
 
 .commentBox--post {

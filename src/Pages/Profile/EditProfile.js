@@ -159,7 +159,6 @@ export default class EditPage extends React.Component {
               style={{
                 width: '60%',
                 margin: 10
-                
               }}
               InputProps = {{
                 style: {

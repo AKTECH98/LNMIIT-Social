@@ -38,7 +38,7 @@ export default class PostView extends React.Component {
         this.setState({ posts: res.results });
       }
     )}
-    console.log("STATE:",this.state)
+    //console.log("STATE:",this.state)
   }
   render() {
     
@@ -55,7 +55,7 @@ export default class PostView extends React.Component {
              </center></div> 
           :  this.state.posts.map((item, index) => (
               <div key={index}>
-                <SinglePostView item={item} />
+                <SinglePostView item={item} fullPostView = {false} />
               </div>
             ))}
       </div>

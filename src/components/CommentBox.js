@@ -45,7 +45,7 @@ function SingleComment(props) {
           Pending
         </Avatar>
       }
-      title = <Link to={"ProfilePage?email="+props.comment.author}>{props.comment.name}</Link>
+      title = {<Link to={"ProfilePage?email="+props.comment.author}>{props.comment.name}</Link>}
       subheader = {props.comment.date_time_of_comment}
 
       action = {
@@ -111,17 +111,26 @@ export default class CommentBox extends React.Component {
     return (
       <div className = "commentBox">
         {
-          (this.state.comments.length==0)? "No comments are here yet. Be the first one to comment":
-          (this.state.comments.length==1)? "Showing 1 comment":
-          "Showing " + this.state.comments.length + " comments"
+          (this.state.comments.length==0)?
+          "No comments Be the first one to comment"
+          :""
         }
+
         {
-          this.state.comments.map((comment,index)=>
+          this.state.comments.map((comment,index)=>(
             <div key = {index} className = "commentBox--post">
               <SingleComment comment = {comment}/>
             </div>
-          )
+          ))
         }
+
+        {
+          (this.state.comments.length!=0 && !this.props.allComments)?
+          <Link to = {"Post?post_id="+this.props.postId} className = "linklink post--showAll">
+            SEE ALL
+          </Link>:""
+        }
+
       </div>
     );
   }

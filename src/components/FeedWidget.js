@@ -5,35 +5,30 @@ import PostModal from "./PostModal";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { Card, CardContent } from "@material-ui/core";
+import { isThisHour } from "date-fns";
 
 const useStyles = makeStyles({
   root: {
     backgroundColor: "white",
     textDecoration: "none",
+    height: "fitContent",
+    padding: 0,
     marginBottom: 20,
-    borderRadius: '10px',
+    borderRadius: '50px',
     border: 'grey',
-    borderStyle: 'dotted',
+    borderStyle: 'solid',
     "&:hover":{
-      transition: 10,
-      borderColor: 'black',
-      borderStyle: 'solid',
       
     }
   },
   rootContent: {
-    display: "flex",
-    height: "fit-content",
-    justifyContent: "space-between",
   },
 });
-
+/*
 const FeedWidgetView = (props) => (
   <Card className={useStyles().root}>
     <CardContent classes={{ root: useStyles().rootContent }}>
-      <div/>
       <Button text="+ Write a Post" type="post__button" onClick={props.newPost} />
-      <div/>
       {
         (props.openModal)?
         <PostModal
@@ -45,7 +40,7 @@ const FeedWidgetView = (props) => (
       }
     </CardContent>
   </Card>
-);
+);*/
 
 export default class FeedWidget extends React.Component {
   state = {
@@ -114,15 +109,17 @@ export default class FeedWidget extends React.Component {
 
   render() {
     return (
-      <div>
-        <FeedWidgetView
-          openModal={this.state.openModal}
-          newPost={this.newPost}
-          discardPost={this.discardPost}
-          addPost={this.addPost}
-          imageUpload={this.imageUpload}
-          onDrop={this.onDrop}
-        />
+      <div className = "post--add" onClick={this.newPost}>
+        + Add a Post
+        {
+          (this.state.openModal)?
+          <PostModal
+            openModal={this.state.openModal}
+            discardPost={this.discardPost}
+            addPost={this.addPost}
+          />
+          :""
+        }
       </div>
     );
   }

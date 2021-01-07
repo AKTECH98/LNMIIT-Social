@@ -51,6 +51,7 @@ const useStyles = makeStyles({
   tableRow: {
     "&:hover":{
       backgroundColor: 'black',
+      cursor: 'pointer'
     }
   },
   rootIcon: {
@@ -126,7 +127,7 @@ export default function Contact(props){
             {(props.personal==null||!props.personal.email ||!props.personal.email.trim())
                 ?  <TableRow classes={{root:classes.tableRow}}>
                       <TableCell classes={{root:classes.tableCell}} component="th" scope="row">
-                        Alternate Email
+                        Email
                       </TableCell>
                       <TableCell classes={{root:classes.tableCell}} align="left">
                         <i>Not Provided</i>
@@ -147,7 +148,7 @@ export default function Contact(props){
                     }}
                   >
                     <TableCell classes={{root:classes.tableCell}} component="th" scope="row">
-                      Alternate Email
+                      Email
                     </TableCell>
                     <TableCell classes={{root:classes.tableCell}} align="left">
                       {props.personal.email}
