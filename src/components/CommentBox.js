@@ -1,5 +1,5 @@
 import React from "react";
-
+import {Link} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { CardHeader,CardContent,Card, Avatar} from "@material-ui/core";
 import { postRequest } from "./CallApi";
@@ -45,7 +45,7 @@ function SingleComment(props) {
           Pending
         </Avatar>
       }
-      title = {props.comment.author}
+      title = <Link to={"ProfilePage?email="+props.comment.author}>{props.comment.name}</Link>
       subheader = {props.comment.date_time_of_comment}
 
       action = {

@@ -13,8 +13,8 @@ const WorkView = (props) => (
           EditWork = {props.Edit}
           ViewJoinRequestsWork = {props.ViewJoinRequests}
           Request = {props.Request}
-          view = {(work.admin==undefined)?props.view:(!work.admin || props.view)}
-          GetBadgeNumber = {props.GetBadgeNumber}
+          view = {!work.admin}
+          badges = {work.badges}
         />
         </div>
       ))

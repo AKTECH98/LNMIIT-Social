@@ -38,7 +38,7 @@ function Header(props){
       </Typography>
     </CardContent>
     <CardActions>
-      <Link to = {"MyProjects?email="+props.user}>
+      <Link to = {"Projects?email="+props.user}>
       <Button text = "View All" type = "widget__button"/>
       </Link>
     </CardActions>
@@ -63,7 +63,9 @@ export default class WidgetProject extends React.Component {
     const user_email = query.split('#')[0];
     postRequest('project/fetchprojectsofuser',
       {
-        'email': user_email,
+        'email':window.localStorage.getItem('email'),
+        'password': window.localStorage.getItem('password'),
+        'member_email': user_email,
       },
       (res)=>{
         if(res.message=="SUCCESS")
@@ -83,9 +85,7 @@ export default class WidgetProject extends React.Component {
               project_id: item.project_id
             })
           })
-          //console.log(default_projects)
           this.setState({projects})
-          //console.log(this.state.sections)
         }
       }
     )}
