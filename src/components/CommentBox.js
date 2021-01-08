@@ -13,7 +13,8 @@ export default class CommentBox extends React.Component {
     console.log(props)
     this.state = {
       postId:props.postId,
-      comments:[]
+      comments:[],
+      load: true
     };
   }
   componentDidMount(){
@@ -28,6 +29,7 @@ export default class CommentBox extends React.Component {
         if(res.message=='SUCCESS')
         {
           this.setState({comments:res.results})
+          this.setState({load:false})
         }
       }
     )
@@ -35,11 +37,15 @@ export default class CommentBox extends React.Component {
   render() {
     return (
       <div className = "commentBox">
-        {
-          (this.state.comments.length==0)?
+      {
+        (this.state.load)?
+        <p><i className="fa fa-spinner fa-spin"></i>Loading Comments</p>
+        :
+        (this.state.comments.length==0)?
           "No comments Be the first one to comment"
           :""
-        }
+      }
+        
 
         {
           this.state.comments.map((comment,index)=>(

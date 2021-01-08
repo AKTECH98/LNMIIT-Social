@@ -65,12 +65,10 @@ export default class ProfilePage extends React.Component {
                 ? /*While viewing own profile*/
                   <div>
                     <FeedWidget />
-                    MY POSTS
                     <PostView author={window.localStorage.getItem('email')}/>
                   </div>
                 : /*While viewing others' profile*/
                   <div>
-                    POSTS
                     <PostView author={query.split('#')[0]}/>
                   </div>
             }

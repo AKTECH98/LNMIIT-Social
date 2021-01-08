@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
     subRootB: { marginLeft: 0, marginTop: 10, minWidth: "10vw" },
     subRootA: { minWidth: "10vw" },
   },
-}));
+})); 
 
 export default function Personal(props) {
   const classes = useStyles();

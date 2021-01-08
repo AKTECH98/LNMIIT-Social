@@ -4,8 +4,8 @@ import { Redirect } from "react-router-dom";
 import Header from "../components/Header";
 import FeedWidget from "../components/FeedWidget";
 import PostView from "../components/PostView";
-import WidgetHack from "../components/WidgetHack";
-import WidgetProject from "../components/WidgetProject";
+
+import ProfileWidget from "../components/ProfileWidget";
 
 export default class HomePage extends React.Component {
   render() {
@@ -16,9 +16,11 @@ export default class HomePage extends React.Component {
         <Redirect to={"Home?email=" + user} />
         <Header logout={true} />
         <div className='home__view'>
-          <div className='home__photo'>Photo</div>
+          <div className='home__photo'>
+            <ProfileWidget/>
+          </div>
           <div className='home__feed'>
-            <FeedWidget />
+            <FeedWidget author = "ALL" />
             <PostView author="ALL"/>
           </div>
         </div>

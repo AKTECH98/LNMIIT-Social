@@ -8,6 +8,15 @@
     cursor: pointer;
 }
 
+.post--header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.post--header h3{
+    margin: 0;
+}
+
 .post--share {
     width: 60%;
     text-align: left;

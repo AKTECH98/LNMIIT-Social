@@ -24,87 +24,30 @@ const useStyles = makeStyles({
   rootContent: {
   },
 });
-/*
-const FeedWidgetView = (props) => (
-  <Card className={useStyles().root}>
-    <CardContent classes={{ root: useStyles().rootContent }}>
-      <Button text="+ Write a Post" type="post__button" onClick={props.newPost} />
-      {
-        (props.openModal)?
-        <PostModal
-          openModal={props.openModal}
-          discardPost={props.discardPost}
-          addPost={props.addPost}
-        />
-        :""
-      }
-    </CardContent>
-  </Card>
-);*/
 
 export default class FeedWidget extends React.Component {
-  state = {
-    openModal: false,
-    openImageUploadModal: false,
-    post: " ",
-    file: "",
-    imagePreviewUrl: "",
-  };
+  
+  constructor(props){
+    super(props)
+    
+    this.state = {
+      openModal: false,
+      post: " "
+    };
+  }
 
   newPost = () => {
-    this.setState(() => ({
-      openModal: true,
-    }));
+    this.setState({openModal: true});
   };
 
   discardPost = () => {
-    this.setState(() => ({
-      openModal: false,
-    }));
-  };
+    location.reload()
+  }
 
   addPost = (post) => {
     this.setState(() => ({
-      post,
-      openModal: false,
+      post
     }));
-  };
-  imageChange = (e) => {
-    e.preventDefaule();
-    let reader = new FileReader();
-    e.targer.files[0];
-    reader.onloadend = () => {
-      this.setState({
-        file: file,
-        imagePreviewUrl: reader.result,
-      });
-    };
-    reader.readAsDataURL(file);
-  };
-  imageUpload = () => {
-    this.setState(() => ({
-      openImageUploadModal: true,
-    }));
-  };
-
-  onDrop = (files) => {
-    const reader = new FileReader();
-    let file = files[0];
-
-    reader.onabort = () => console.log("file reading was aborted");
-    reader.onerror = () => console.log("file reading has failed");
-    reader.onloadend = () => {
-      //console.log("reader result", reader.result);
-      this.setState({
-        file: file,
-        imagePreviewUrl: reader.result,
-      });
-
-      // console.log(binaryStr)
-    };
-    reader.readAsDataURL(file);
-
-    // console.log(files);
   };
 
   render() {
