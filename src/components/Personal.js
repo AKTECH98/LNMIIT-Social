@@ -77,7 +77,7 @@ export default function Personal(props) {
     <Card className={classes.root}>
       <CardMedia
         className={classes.media}
-        image='https://material-ui.com/static/images/cards/contemplative-reptile.jpg'
+        image={(props.personal==null)?"":props.personal.background_image}
         title='Profile Picture'
       />
       <CardHeader

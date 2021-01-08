@@ -20,7 +20,6 @@ export default class EditPage extends React.Component {
 
     var src =
       "https://material-ui.com/static/images/cards/contemplative-reptile.jpg";
-    var backgroundImage = src;
 
     this.state = {
       photo: null,
@@ -40,14 +39,13 @@ export default class EditPage extends React.Component {
       preview: null,
       editImage: true,
       src,
-      backgroundImage,
+      backgroundImage:"",/*Replace with URL of loading icon*/
       editImageBackground: false,
       pictures: null,
     };
     this.onCrop = this.onCrop.bind(this);
     this.onClose = this.onClose.bind(this);
     this.onBeforeFileLoad = this.onBeforeFileLoad.bind(this);
-    this.onDrop = this.onDrop.bind(this);
   }
   componentDidMount() {
     postRequest(
@@ -67,6 +65,7 @@ export default class EditPage extends React.Component {
           github: res.response.github,
           codeforces: res.response.codeforces,
           codechef: res.response.codechef,
+          backgroundImage: res.response.background_image,
         });
       }
     );
@@ -88,12 +87,7 @@ export default class EditPage extends React.Component {
       elem.target.value = "";
     }
   }
-  onDrop(picture) {
-    this.setState({
-      backgroundImage: picture,
-      // editImageBackground: false,
-    });
-  }
+
 
   render() {
     return (
@@ -158,14 +152,33 @@ export default class EditPage extends React.Component {
                       />
                     </div>
                   ) : (
+                    <>
+                    <div><button onClick={()=>{this.setState({editImageBackground:false})}}>Cancel</button></div>
                     <ImageUploader
                       withIcon={true}
-                      buttonText='Choose images'
-                      onChange={this.onDrop}
-                      imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+                      buttonText="Choose Background Image"
+                      onChange={(file)=>{
+                        if (file.length==1)
+                        {
+                          let fileReader = new FileReader();
+                          fileReader.addEventListener("load", (e)=>{
+                            this.setState({
+                              backgroundImage:e.target.result,
+                              editImageBackground: false
+                            })
+                          }); 
+                          fileReader.readAsDataURL(file[0]);
+                      
+                        }
+                        
+                        
+                      }}
+                      imgExtension={[".jpg", ".gif", ".png", ".jpeg"]}
+                      singleImage =  {true} 
                       maxFileSize={5242880}
                       withPreview={true}
                     />
+                    </>
                   )}
                 </div>
               </div>
@@ -490,6 +503,7 @@ export default class EditPage extends React.Component {
                     linkedin: this.state.linkedin,
                     codeforces: this.state.codeforces,
                     codechef: this.state.codechef,
+                    background_image: this.state.backgroundImage
                   },
                   (res) => {
                     if (res.message == "SUCCESS") {
