@@ -57,22 +57,21 @@ export default class ProfilePage extends React.Component {
             <div className = "profile__skills">
               <Skills/>
             </div>
-            {
-                /*
-                **TODO: @Anshul Style here and remove comment
-                */
-                (query.split('#')[0]==undefined||query.split('#')[0]==window.localStorage.email)
-                ? /*While viewing own profile*/
-                  <div>
-                    <FeedWidget />
-                    <PostView author={window.localStorage.getItem('email')}/>
-                  </div>
-                : /*While viewing others' profile*/
-                  <div>
-                    <PostView author={query.split('#')[0]}/>
-                  </div>
+            <div className = "post--header">
+              <h3>My Posts</h3>
+            {  
+              (query.split('#')[0]==undefined||query.split('#')[0]==window.localStorage.email)?
+              /*While viewing own profile*/
+                <div>
+                  <FeedWidget />
+                  <PostView author={window.localStorage.getItem('email')}/>
+                </div>
+              : /*While viewing others' profile*/
+                <div>
+                  <PostView author={query.split('#')[0]}/>
+                </div>
             }
-            
+            </div>
           </div>
           <div className = "profile-2">
             <div className = "profile__contact">

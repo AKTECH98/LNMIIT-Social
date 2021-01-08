@@ -8,13 +8,10 @@
     cursor: pointer;
 }
 
-.post--header {
-    display: flex;
-    justify-content: space-between;
-}
-
 .post--header h3{
-    margin: 0;
+    margin: $l-size 0 $l-size 0;
+    font-size: $xxl-size;
+    color: $light-blue;
 }
 
 .post--share {
