@@ -8,6 +8,8 @@ import {
   Avatar,
 } from "@material-ui/core";
 
+import Background from "../img/background.jpg";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "white",
@@ -33,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
   media: {
     height: 100,
-    backgroundColor: '#DC143C'
+    //backgroundColor: '#DC143C'
   },
   avatar: {
     margin: "-65px auto 0",
@@ -51,6 +53,7 @@ export default function ProfileWidget(props) {
     <Card className={classes.root}>
       <CardMedia
         className={classes.media}
+        image = {Background}
       />
       <CardHeader
         classes={{
