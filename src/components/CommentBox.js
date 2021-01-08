@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { postRequest } from "./CallApi";
 
-import Anshul from '../img/anshul1.jpg';
+import DefaultUser from '../img/DefaultUser.png';
 
 import Button from "./Button";
 
@@ -51,7 +51,11 @@ export default class CommentBox extends React.Component {
           this.state.comments.map((comment,index)=>(
             <div key = {index} className = "comment">
               <Link to={"ProfilePage?email="+comment.author}>
-                <img src={Anshul} alt="Avatar" className = "comment--avatar"/>
+                <img 
+                    src={comment.profile_image?comment.profile_image:DefaultUser} 
+                    alt="Avatar" 
+                    className = "comment--avatar"
+                />
               </Link>
               <div className = "comment__content">
                 <div className = "comment--header">

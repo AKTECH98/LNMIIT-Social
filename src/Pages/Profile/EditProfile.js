@@ -2,7 +2,7 @@ import React from "react";
 
 import TextField from "@material-ui/core/TextField";
 import Header from "../../components/Header";
-
+import DefaultUser from "../../img/DefaultUser.png";
 import PhotoSelector from "../../components/PhotoSelector";
 import Button from "../../components/Button";
 import { postRequest } from "../../components/CallApi";
@@ -17,9 +17,6 @@ import ImageUploader from "react-images-upload";
 export default class EditPage extends React.Component {
   constructor(props) {
     super(props);
-
-    var src =
-      "https://material-ui.com/static/images/cards/contemplative-reptile.jpg";
 
     this.state = {
       photo: null,
@@ -36,9 +33,10 @@ export default class EditPage extends React.Component {
       error: false,
       errorMessage: "Enter All Fields Marked *",
       bacth: "",
-      preview: null,
-      editImage: true,
-      src,
+      editImage: false,
+      old_avatar:"",
+      avatar:"",
+      new_avatar:"",
       backgroundImage:"",/*Replace with URL of loading icon*/
       editImageBackground: false,
       pictures: null,
@@ -66,19 +64,20 @@ export default class EditPage extends React.Component {
           codeforces: res.response.codeforces,
           codechef: res.response.codechef,
           backgroundImage: res.response.background_image,
+          old_avatar: res.response.profile_image,
+          avatar: res.response.profile_image,
+          new_avatar: res.response.profile_image,
         });
       }
     );
   }
 
   onClose() {
-    if (this.state.preview) {
-      this.setState({ editImage: false });
-    }
+      this.setState({ editImage: false, avatar:this.state.old_avatar });
   }
 
   onCrop(preview) {
-    this.setState({ preview });
+    this.setState({ avatar:preview });
   }
 
   onBeforeFileLoad(elem) {
@@ -100,21 +99,25 @@ export default class EditPage extends React.Component {
                 <h1>Profile Picture</h1>
                 <center>
                 {this.state.editImage ? (
+                  <>
+                  <button onClick={()=>{this.setState({new_avatar:this.state.avatar,old_avatar:this.state.avatar,editImage: false})}}>{this.state.avatar?"Save":"Default profile picture"}</button>
                   <Avatar
                     width={300}
                     height={170}
                     onCrop={this.onCrop}
                     onClose={this.onClose}
-                    src={this.state.src}
-                    img={this.state.preview}
+                    src={this.state.avatar}
+                    img={this.state.avatar}
                   />
+                  </>
                 ) : (
                   <div>
-                    <img src={this.state.preview} alt='Preview' />
+                    <img src={this.state.avatar?this.state.avatar:DefaultUser} alt='Avatar' />
                     <IconButton
                       onClick={(e) => {
                         e.preventDefault();
-                        this.setState({ editImage: true, preview: null });
+                        this.setState({old_avatar:this.state.avatar})
+                        this.setState({ editImage: true,avatar:""});
                       }}
                     >
                       <EditTwoToneIcon style={{ fontSize: 25, color: "blue" }} />
@@ -503,7 +506,8 @@ export default class EditPage extends React.Component {
                     linkedin: this.state.linkedin,
                     codeforces: this.state.codeforces,
                     codechef: this.state.codechef,
-                    background_image: this.state.backgroundImage
+                    background_image: this.state.backgroundImage,
+                    profile_image: this.state.new_avatar
                   },
                   (res) => {
                     if (res.message == "SUCCESS") {

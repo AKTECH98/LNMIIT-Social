@@ -1,4 +1,5 @@
 import React from "react";
+import DefaultUser from "../img/DefaultUser.png";
 
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -89,7 +90,7 @@ export default function Personal(props) {
         avatar={
           <Avatar
             alt='Profile Picture'
-            src='https://material-ui.com/static/images/cards/contemplative-reptile.jpg'
+            src={(props.personal==null)?DefaultUser:props.personal.profile_image?props.personal.profile_image:DefaultUser}
             className={classes.avatar}
           />
         }

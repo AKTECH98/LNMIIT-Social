@@ -12,6 +12,7 @@ import DislikeIcon from '@material-ui/icons/ThumbDown';
 import LikeIcon from '@material-ui/icons/ThumbUp';
 import ShareIcon from '@material-ui/icons/Share';
 
+import DefaultUser from "../img/DefaultUser.png";
 import TextField from '@material-ui/core/TextField';
 import { Card, CardHeader, CardContent, Avatar, CardActions } from "@material-ui/core";
 import { Collapse } from "@material-ui/core";
@@ -174,9 +175,9 @@ export default function SinglePostView(props) {
           subheader: classes.subheader,
         }}
         avatar = {
-          <Avatar>
-            {props.item.post_id}
-          </Avatar>
+          <Avatar
+          src={(props.item==null)?DefaultUser:props.item.profile_image?props.item.profile_image:DefaultUser}
+          />
         }
 
         action = {
