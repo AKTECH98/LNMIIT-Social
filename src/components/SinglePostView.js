@@ -11,7 +11,7 @@ import Button from "./Button";
 import DislikeIcon from '@material-ui/icons/ThumbDown';
 import LikeIcon from '@material-ui/icons/ThumbUp';
 import ShareIcon from '@material-ui/icons/Share';
-
+import TimeAgo from './TimeAgo';
 import DefaultUser from "../img/DefaultUser.png";
 import TextField from '@material-ui/core/TextField';
 import { Card, CardHeader, CardContent, Avatar, CardActions } from "@material-ui/core";
@@ -118,6 +118,7 @@ export default function SinglePostView(props) {
     setExpanded(!expanded);
   };
 
+  
 //  console.log(content, "content");
   var indexOfLocalhost = content.indexOf("localhost");
   //console.log(indexOfLocalhost);
@@ -204,7 +205,7 @@ export default function SinglePostView(props) {
         }
 
         title = {<Link to={"ProfilePage?email="+props.item.author}>{props.item.name}</Link>}
-        subheader={"Posted On: " + props.item.date_time_of_post}
+        subheader={TimeAgo(Date.parse(props.item.date_time_of_post))}
       />
       <CardContent
         classes={{ root: classes.content }}

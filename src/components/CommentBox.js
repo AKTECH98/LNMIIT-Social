@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { postRequest } from "./CallApi";
 
 import DefaultUser from '../img/DefaultUser.png';
-
+import TimeAgo from './TimeAgo';
 import Button from "./Button";
 
 export default class CommentBox extends React.Component {
@@ -64,7 +64,7 @@ export default class CommentBox extends React.Component {
                     {comment.name}
                     </p>
                   </Link>
-                  <p className = "comment--date">{comment.date_time_of_comment}</p>
+                  <p className = "comment--date">{TimeAgo(Date.parse(comment.date_time_of_comment))}</p>
                 </div>
                 <div className = "comment--content">
                   {comment.content}
