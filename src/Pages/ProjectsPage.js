@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom'
+import {Link,BrowserRouter} from 'react-router-dom'
 import Button from '../components/Button';
 import Header from '../components/Header';
 import ProjectModal from '../components/ProjectModal';
@@ -107,21 +107,27 @@ export default class ProjectsPage extends React.Component {
                 project_id: item.project_id,
                 admin: item.admin
               }
-              postRequest('project/getinterestedmembers',
-                {
-                  'email':window.localStorage.getItem('email'),
-                  'password': window.localStorage.getItem('password'),
-                  'project_id': item.project_id
-                },
-                (res)=>{
-                  if(res.message=="SUCCESS")
-                  {
-                    pro.badges=res.users.length
-                    default_projects.push(pro)
-                    this.setState({projects: default_projects})
-                  }
-                }
-              )
+              if(item.admin){
+                  postRequest('project/getinterestedmembers',
+                    {
+                      'email':window.localStorage.getItem('email'),
+                      'password': window.localStorage.getItem('password'),
+                      'project_id': item.project_id
+                    },
+                    (res)=>{
+                      if(res.message=="SUCCESS")
+                      {
+                        pro.badges=res.users.length
+                        default_projects.push(pro)
+                        this.setState({projects: default_projects})
+                      }
+                    }
+                  )
+              }
+              else{
+                  default_projects.push(pro)
+                  this.setState({projects: default_projects})
+              }
               
             })
             
@@ -154,21 +160,27 @@ export default class ProjectsPage extends React.Component {
                 project_id: item.project_id,
                 admin: item.admin
               }
-              postRequest('project/getinterestedmembers',
-                {
-                  'email':window.localStorage.getItem('email'),
-                  'password': window.localStorage.getItem('password'),
-                  'project_id': item.project_id
-                },
-                (res)=>{
-                  if(res.message=="SUCCESS")
+              if(item.admin){
+                postRequest('project/getinterestedmembers',
                   {
-                    pro.badges=res.users.length
-                    default_projects.push(pro)
-                    this.setState({projects: default_projects})
+                    'email':window.localStorage.getItem('email'),
+                    'password': window.localStorage.getItem('password'),
+                    'project_id': item.project_id
+                  },
+                  (res)=>{
+                    if(res.message=="SUCCESS")
+                    {
+                      pro.badges=res.users.length
+                      default_projects.push(pro)
+                      this.setState({projects: default_projects})
+                    }
                   }
-                }
-              )
+                )
+              }
+              else{
+                  default_projects.push(pro)
+                  this.setState({projects: default_projects})
+              }
               
             })
             
@@ -257,19 +269,19 @@ export default class ProjectsPage extends React.Component {
         <PageHeader 
             title= {(user==undefined)
                     
-                        ?<div>
+                        ?<BrowserRouter forceRefresh={true}>
                         All Public Projects
-                        <Link to={"Projects?email="+window.localStorage.email}> Click here to view your projects</Link>
-                        </div>
+                        <Link to={"Projects?email="+window.localStorage.email} onClick={()=>window.location.reload()}> Click here to view your projects</Link>
+                        </BrowserRouter>
                     :(user==window.localStorage.email)
-                        ?<div>
+                        ?<BrowserRouter forceRefresh={true}>
                         My Projects
                         <Link to="Projects"> Click here to view all public projects</Link>
-                        </div>
-                        :<div>
+                        </BrowserRouter>
+                        :<BrowserRouter forceRefresh={true}>
                         {"Projects of "+user}
                         <Link to="Projects"> Click here to view all public projects</Link>
-                        </div>
+                        </BrowserRouter>
 
                     }
             newProject = {this.AddDetail} 
@@ -283,6 +295,7 @@ export default class ProjectsPage extends React.Component {
           ViewJoinRequests = {this.ViewJoinRequests}
           Request = {this.RequestUser}
         />
+
         {
           (this.state.openModal)?
           <ProjectModal
