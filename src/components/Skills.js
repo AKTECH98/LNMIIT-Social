@@ -52,6 +52,9 @@ function SkillCard(props){
       }  
 
       action = {
+        (props.view)?
+        ""
+        :
         (!open)?
         <IconButton onClick = {handleToggle}>
           <AddIcon style = {{ fontSize: 25, color: "blue" }} />
@@ -111,7 +114,7 @@ export default class Skills extends React.Component {
   render(){
     return (
       <div>
-        <SkillCard skills = {this.state.skills} AddSkills = {this.AddSkills}/>        
+        <SkillCard view = {this.props.view} skills = {this.state.skills} AddSkills = {this.AddSkills}/>        
       </div>
     )
   }

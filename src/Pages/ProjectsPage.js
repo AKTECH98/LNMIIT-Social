@@ -10,6 +10,7 @@ import ViewProjectRequestsModal from '../components/ViewProjectRequestsModal'
 
 import { Card, CardActions, CardContent, Typography} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { TurnedIn } from '@material-ui/icons';
 
 const useStyles = makeStyles({
   header: {
@@ -51,6 +52,7 @@ export default class ProjectsPage extends React.Component {
   {
     super(props)
     this.state = {
+      loading: true,
       projects: [],
       openModal: false,
       openRequestsModal: false,
@@ -131,7 +133,7 @@ export default class ProjectsPage extends React.Component {
               
             })
             
-            
+            this.setState({loading:false})
           }
         })
       }
@@ -287,14 +289,20 @@ export default class ProjectsPage extends React.Component {
             newProject = {this.AddDetail} 
             view = {user!=window.localStorage.getItem('email')}
         />
-        <WorkView
-          works={this.state.projects}
-          ShowDetails={this.ShowDetails}
-          Delete = {this.DeleteProject}
-          Edit = {this.EditDetails}
-          ViewJoinRequests = {this.ViewJoinRequests}
-          Request = {this.RequestUser}
-        />
+
+        {
+          (this.state.loading)?
+          <div className = "loader center"></div>
+          :
+          <WorkView
+            works={this.state.projects}
+            ShowDetails={this.ShowDetails}
+            Delete = {this.DeleteProject}
+            Edit = {this.EditDetails}
+            ViewJoinRequests = {this.ViewJoinRequests}
+            Request = {this.RequestUser}
+          />
+        }
 
         {
           (this.state.openModal)?

@@ -2,7 +2,7 @@
     background: $purple;
     border: none;
     border-radius: 10px;
-    border-bottom: 0.3rem solid darken($purple, 10%);
+    //border-bottom: 0.3rem solid darken($purple, 10%);
     color: white;
     font-weight: 500;
     padding: $xs-size;
@@ -15,13 +15,23 @@
     font-size: $lm-size;
     margin: 0 $l-size;
     font-weight: 500;
-    padding: $xs-size;
+    padding: $s-size;
 }
 
 .request__button:hover {
     background-color: $light-blue;
     color: white;
     transform: scale(1.1);
+}
+
+.accept__request--button {
+    background-color: $green;
+    margin: $xxs-size;
+}
+
+.reject__request--button {
+    background-color: $pink-red;
+    margin: $xxs-size;
 }
 
 .close__button {

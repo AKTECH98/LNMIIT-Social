@@ -54,7 +54,7 @@ export default class ProfilePage extends React.Component {
               <Personal year = {this.state.year} batch = {this.state.batch} personal = {this.state.personal} view={query.split('#')[0]!=window.localStorage.getItem('email')}/>   
             </div>
             <div className = "profile__skills">
-              <Skills/>
+              <Skills view={query.split('#')[0]!=window.localStorage.getItem('email')}/>
             </div>
             <div className = "post--header">
               <h3>My Posts</h3>

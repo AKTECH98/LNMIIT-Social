@@ -6,6 +6,7 @@ import {postRequest} from './CallApi'
 import { makeStyles } from '@material-ui/core/styles';
 
 import Table from '@material-ui/core/Table';
+import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -16,13 +17,24 @@ const useStyles = makeStyles({
   table: {
     width: 'fitContent',
   },
-  tableCell: {
-    color: '#4574bf',
-    fontSize: 15,
+  tableHead: {
+    backgroundColor: '#4574bf',
+    color: 'white',
+    fontSize: 20,
+    fontFamily: 'cursive'
   },
   tableRow: {
     "&:hover":{
     }
+  },
+  tableCell: {
+    color: 'black',
+    fontSize: 15,
+    fontFamily: 'cursive'
+  },
+  tableCellButton: {
+    display: 'flex',
+    flexDirection: 'column'
   },
 });
 
@@ -33,25 +45,37 @@ function Requests(props){
   return(
       <TableContainer component={Paper}>
         <Table>
+          <TableHead>
+            <TableRow classes={{root:classes.tableRow}}>
+              <TableCell align = "center" classes={{root:classes.tableHead}}>Email ID</TableCell>
+              <TableCell align = "center" classes={{root:classes.tableHead}}>Name</TableCell>
+              <TableCell align = "center" classes={{root:classes.tableHead}}>Actions</TableCell>
+            </TableRow>
+          </TableHead>
           <TableBody>
-            {(props.users==undefined)?
-              console.log("Empty")
+            {(props.users.length==0)?
+              <TableRow classes={{root:classes.tableRow}}>
+                <TableCell classes={{root:classes.tableCell}} component="th" scope="row">
+                 No Pending Requests
+                </TableCell>
+              </TableRow>
               :
               props.users.map((user) => (
-              <TableRow key={user} classes={{root:classes.tableRow}}>
+              <TableRow key={user} id = {user} classes={{root:classes.tableRow}}>
                 <TableCell classes={{root:classes.tableCell}} component="th" scope="row">
                   {user /*Email Id*/}
                 </TableCell>
                 <TableCell classes={{root:classes.tableCell}} align="left">
                   Name {/*User Name */}
                 </TableCell>
-                <TableCell classes={{root:classes.tableCell}} align="left">
-                  <Button text = "Confirm" type = "button modal__button" 
+                <TableCell classes={{root:classes.tableCellButton}} align="center">
+                {
+                  (props.confirm)?<p><i className="fa fa-spinner fa-spin"></i>Confirming Request..</p>:
+                  <Button text = "Confirm" type = "button accept__request--button" 
                     onClick = {()=>{props.confirmRequest(user)}}
                   />
-                </TableCell>
-                <TableCell classes={{root:classes.tableCell}} align="left">
-                  <Button text = "Reject" type = "button modal__button"/>
+                }
+                  <Button text = "Reject" type = "button reject__request--button" onClick={props.rejectRequest}/>
                 </TableCell>
               </TableRow>
             ))}
@@ -65,11 +89,14 @@ export default class ViewProjectRequestsModal extends React.Component {
   {
     super(props)
     this.state={
-      users:[]
+      users:[],
+      confirm: false,
+      loading: false
     }
   }
   
   ConfirmRequest = (email_id) => {
+    this.setState({confirm:true})
     postRequest('project/invitetojoin',
       {
         'email':window.localStorage.getItem('email'),
@@ -83,10 +110,18 @@ export default class ViewProjectRequestsModal extends React.Component {
           var x = document.getElementById("snackbar");
           x.className = "show";
           setTimeout(function(){ x.className = x.className.replace("show", ""); },2000);
+
+          var user = document.getElementById(email_id);
+          user.className = "hide";
+        }
+        else
+        {
+          this.setState({confirm:false})
         }
       }
     )
   }  
+
   componentDidMount(){
     postRequest('project/getinterestedmembers',
           {
@@ -103,6 +138,7 @@ export default class ViewProjectRequestsModal extends React.Component {
           }
         )       
   }
+
   render() {
     
     return (
@@ -113,11 +149,20 @@ export default class ViewProjectRequestsModal extends React.Component {
         className = "modal"
         ariaHideApp={false}
       >
-        <h3 className = "modal__header">Pending Requests</h3>
-        <Requests 
-          users = {this.state.users}
-          confirmRequest = {this.ConfirmRequest}
-        />
+        <h2 className = "modal__header">Pending Requests</h2>
+
+        {
+          (this.state.loading)?
+          <p><i className="fa fa-spinner fa-spin"></i>Loading Request...</p>
+          :
+          <Requests 
+            users = {this.state.users}
+            confirm = {this.state.confirm}
+            confirmRequest = {this.ConfirmRequest}
+            rejectRequest = {this.props.close}
+          />
+        }
+
         <Button text = "Close" type = "button modal__button" onClick={this.props.close}/>
         <div id="snackbar">Request Accepted</div>
       </Modal>

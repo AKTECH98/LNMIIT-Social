@@ -1,12 +1,6 @@
 import React from 'react';
-import { Link,Redirect } from 'react-router-dom';
-import Recaptcha from "react-recaptcha";
-
-
-import Button from '../../components/Button';
-import TextField from '@material-ui/core/TextField';
+import { Link} from 'react-router-dom';
 import {postRequest} from '../../components/CallApi'
-import Header from '../../components/Header'
 
 export default class ConfirmOTP extends React.Component
 {
@@ -14,7 +8,8 @@ export default class ConfirmOTP extends React.Component
   {
     super(props)
     this.state={
-      otpValid: false
+      otpValid: false,
+      loading: false
     }
   }
    componentDidMount(){
@@ -40,14 +35,22 @@ export default class ConfirmOTP extends React.Component
     return(
       <div className = "center">
       {
-        (this.state.otpValid)?
-        <p className = "otp--message otp--success"> OTP Verification Succesfully </p>
+        (this.state.loading)?
+          <div className = "loader"></div>
         :
-        <p className = "otp--message otp--failed"> OTP INVALID /has been EXPIRED </p>
+          (this.state.otpValid)?
+            <p className = "otp--message otp--success"> OTP Verification Succesfully </p>
+          :
+            <p className = "otp--message otp--failed"> OTP INVALID /has been EXPIRED </p>
       }
-      <Link to="/" className = "linklink opt--redirect">
-        Click Here To Login.....
-      </Link>
+      {
+        (this.state.loading)?
+        ""
+        :
+          <Link to="/" className = "linklink opt--redirect">
+            Click Here To Login.....
+          </Link>
+      }
       </div>
 
     );

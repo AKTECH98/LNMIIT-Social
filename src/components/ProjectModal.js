@@ -251,6 +251,7 @@ function Details(props){
 export default class ProjectModal extends React.Component {
 
   state = {
+    adding:false,
     project_id:0,
     title: null,
     description: null,
@@ -356,8 +357,9 @@ export default class ProjectModal extends React.Component {
   };
 
   EditDetails = () => {
+    this.setState({adding:true})
     if(!this.state.title || !this.state.member || !this.state.description){
-      this.setState(() => ({error : true}));
+      this.setState(() => ({error : true,adding:false}));
     }
     else {
       let project = this.state
@@ -400,10 +402,12 @@ export default class ProjectModal extends React.Component {
       )
     }
   }
+
   SaveDetails = () => {
 
+    this.setState(()=>({adding:true}))
     if(!this.state.title || !this.state.member || !this.state.description){
-      this.setState(() => ({error : true}));
+      this.setState(() => ({error : true,adding: false}));
     }
     else {
       let project = this.state
@@ -482,19 +486,25 @@ export default class ProjectModal extends React.Component {
         />
         {
           (this.props.editDetail)?
-          <div>
-          <Button text = "Save Changes" type = "button modal__button" onClick = {this.EditDetails}/>
+          <div className = "submission--buttons">
+          {
+            (this.state.adding)?<p><i className="fa fa-spinner fa-spin"></i>..Saving Changes</p>:
+            <Button text = "Save Changes" type = "button modal__button" onClick = {this.EditDetails}/>
+          }
           <Button text = "Discard Details" type = "button modal__button" onClick = {this.props.DiscardDetails}/>
           </div>
           :
-          <div>
-            { (this.state.error)?
-              <p className = "error">Please Enter all Details Marked *</p>
-              :""
-            }
+          <div className = "submission--buttons">
+          {
+            (this.state.adding)?<p><i className="fa fa-spinner fa-spin"></i>..Adding Colab</p>:
             <Button text = "Add Project" type = "button modal__button" onClick = {this.SaveDetails}/>
+          }
             <Button text = "Discard Details" type = "button modal__button" onClick = {this.props.DiscardDetails}/>
           </div>
+        }
+        { (this.state.error)?
+          <p className = "error">Please Enter all Details Marked *</p>
+          :""
         }
         </div>
       </Modal>
