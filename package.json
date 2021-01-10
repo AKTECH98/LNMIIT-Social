@@ -8,6 +8,9 @@
     "build": "webpack --mode production",
     "start": "webpack-dev-server --mode development --open"
   },
+  "engines": {
+    "node": "14.x"
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
