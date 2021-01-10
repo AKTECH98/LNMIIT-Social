@@ -10,7 +10,6 @@ import ViewProjectRequestsModal from '../components/ViewProjectRequestsModal'
 
 import { Card, CardActions, CardContent, Typography} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { TurnedIn } from '@material-ui/icons';
 
 const useStyles = makeStyles({
   header: {
@@ -273,16 +272,16 @@ export default class ProjectsPage extends React.Component {
                     
                         ?<BrowserRouter forceRefresh={true}>
                         All Public Projects
-                        <Link to={"Projects?email="+window.localStorage.email} onClick={()=>window.location.reload()}> Click here to view your projects</Link>
+                        <Link to={"Colaborations?email="+window.localStorage.email} onClick={()=>window.location.reload()}> Click here to view your projects</Link>
                         </BrowserRouter>
                     :(user==window.localStorage.email)
                         ?<BrowserRouter forceRefresh={true}>
                         My Projects
-                        <Link to="Projects"> Click here to view all public projects</Link>
+                        <Link to="Colaborations"> Click here to view all public projects</Link>
                         </BrowserRouter>
                         :<BrowserRouter forceRefresh={true}>
-                        {"Projects of "+user}
-                        <Link to="Projects"> Click here to view all public projects</Link>
+                        {"Colaborations of "+user}
+                        <Link to="Colaborations"> Click here to view all public projects</Link>
                         </BrowserRouter>
 
                     }

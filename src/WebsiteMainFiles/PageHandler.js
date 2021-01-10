@@ -34,7 +34,7 @@ export default class PageHandler extends React.Component{
           <Route path="/ProfilePage" component={ProfilePage}/>
           <Route path="/TestPage" component ={TestPage}/>
           <Route path="/Home" component ={HomePage}/>
-          <Route path="/Projects" component = {ProjectsPage}/>
+          <Route path="/Colaborations" component = {ProjectsPage}/>
           <Route path='/Post' component = {FullPostView}/>
         </Switch>
       </Router>

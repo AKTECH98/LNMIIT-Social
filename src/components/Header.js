@@ -9,8 +9,7 @@ import { IconButton } from "@material-ui/core";
 import NotificationIcon from "@material-ui/icons/NotificationsNoneOutlined";
 import HomeIcon from "@material-ui/icons/Home";
 import ProfileIcon from "@material-ui/icons/PermIdentity";
-import HackIcon from "@material-ui/icons/LayersOutlined";
-import ProjectIcon from "@material-ui/icons/Code";
+import ColaborationIcon from '@material-ui/icons/Group';
 import LogoutIcon from "@material-ui/icons/ArrowForwardIos";
 import ConnectIcon from "@material-ui/icons/VpnKey";
 
@@ -18,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     borderRadius: 0,
     "&:hover": {
-      backgroundColor: "#333745",
+      backgroundColor: "#DC143C",
       transform: "scale(1.2)",
     },
   },
@@ -130,31 +129,17 @@ export default function Header(props) {
                     </Link>
                   </div>
                   <div>
-                    <Link to='/Projects' className='linklink'>
+                    <Link to='/Colaborations' className='linklink'>
                       <IconButton classes={{ root: classes.root }}>
                         <div className='header__button'>
                           <div>
-                            <ProjectIcon
+                            <ColaborationIcon
                               style={{ fontSize: 20, color: "white" }}
                             />
                           </div>
                           <div className='header__button--title'>
-                            Projects
+                            Colaborations
                           </div>
-                        </div>
-                      </IconButton>
-                    </Link>
-                  </div>
-                  <div>
-                    <Link to='/Hacks' className='linklink'>
-                      <IconButton classes={{ root: classes.root }}>
-                        <div className='header__button'>
-                          <div>
-                            <HackIcon
-                              style={{ fontSize: 20, color: "white" }}
-                            />
-                          </div>
-                          <div className='header__button--title'>Hacks</div>
                         </div>
                       </IconButton>
                     </Link>
@@ -261,23 +246,13 @@ export default function Header(props) {
                   </div>
                 </IconButton>
               </Link>
-              <Link to='/Projects' className='linklink'>
+              <Link to='/Colaborations' className='linklink'>
                 <IconButton classes={{ root: classes.root }}>
                   <div className='header__button'>
                     <div>
-                      <ProjectIcon style={{ fontSize: 20, color: "white" }} />
+                      <ColaborationIcon style={{ fontSize: 20, color: "white" }} />
                     </div>
-                    <div className='header__button--title'>Projects</div>
-                  </div>
-                </IconButton>
-              </Link>
-              <Link to='/Hacks' className='linklink'>
-                <IconButton classes={{ root: classes.root }}>
-                  <div className='header__button'>
-                    <div>
-                      <HackIcon style={{ fontSize: 20, color: "white" }} />
-                    </div>
-                    <div className='header__button--title'>Hacks</div>
+                    <div className='header__button--title'>Colaborations</div>
                   </div>
                 </IconButton>
               </Link>

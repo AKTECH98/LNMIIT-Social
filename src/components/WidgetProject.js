@@ -38,7 +38,7 @@ function Header(props){
       </Typography>
     </CardContent>
     <CardActions>
-      <Link to = {"Projects?email="+props.user}>
+      <Link to = {"Colaborations?email="+props.user}>
       <Button text = "View All" type = "widget__button"/>
       </Link>
     </CardActions>
