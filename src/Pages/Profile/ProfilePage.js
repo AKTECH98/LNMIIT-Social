@@ -5,7 +5,6 @@ import Skills from '../../components/Skills';
 import Contact from '../../components/Contact';
 import {postRequest} from '../../components/CallApi';
 import WidgetProject from '../../components/WidgetProject';
-import WidgetHack from '../../components/WidgetHack';
 import {Redirect} from 'react-router-dom';
 import PostView from '../../components/PostView'
 import FeedWidget from '../../components/FeedWidget'
@@ -79,7 +78,6 @@ export default class ProfilePage extends React.Component {
             </div>
             <div className = "profile__widget">
               <WidgetProject user = {(query.split('#')[0]==undefined)?window.localStorage.getItem('email'):query.split('#')[0]}/>
-              <WidgetHack user = {(query.split('#')[0]==undefined)?window.localStorage.getItem('email'):query.split('#')[0]}/>
             </div>
           </div>
         </div>
