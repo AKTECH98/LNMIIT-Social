@@ -1,2 +1,2 @@
 export const backendServerUrl = 'http://localhost:8000/'
-export const frontendServerUrl = 'http://localhost:8080/'
+export const frontendServerUrl = 'https://lnmiit-social.herokuapp.com/'
