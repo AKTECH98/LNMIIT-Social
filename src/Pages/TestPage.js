@@ -6,7 +6,7 @@ export default class TestPage extends React.Component{
   render(){
     return(
       <div>
-        <ProfileWidget/>
+        <div className = "loader"></div>
       </div>
     )
   }
