@@ -1,22 +1,13 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {Link} from "react-router-dom";
-
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import ColabIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
-
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Grow from '@material-ui/core/Grow';
-import Paper from '@material-ui/core/Paper';
-import Popper from '@material-ui/core/Popper';
-import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,7 +20,9 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '10px',
     padding: '5px',
   },
-  header: {backgroundColor: '#101010'},
+  header: {
+    backgroundColor: '#101010'
+  },
   title: {
     color: '#4574bf',
     fontSize : 20,
@@ -40,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize : 12
   },
   content: {
+    color: '#4574bf',
     fontSize: 15,
     minHeight: 125,
     maxHeight: 125
@@ -55,29 +49,22 @@ const useStyles = makeStyles((theme) => ({
 
 export default function WidgetDetails(props){
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const anchorRef = React.useRef(null);
+  
+  const limitContent = (content,limit) => {
+    const len = content.length;
+    let newcontent = [];
 
-  const handleToggle = () => {
-    setOpen((prevOpen) => !prevOpen);
-  };
-
-  const handleClose = (event) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target)) {
-      return;
+    if (len > limit) {
+      if(limit==2){
+        newcontent = content.split(",").splice(0,limit);
+        return (newcontent.join(",")+".....")
+      }
+      else{
+        newcontent = content.split(" ").splice(0,limit);
+        return (newcontent.join(" ")+".....")
+      }
     }
-
-    setOpen(false);
-  };
-
-  const Edit = (event) => {
-    props.EditWork(props.index);
-    handleClose(event);
-  }
-
-  const ViewJoinRequests = (event) => {
-    props.ViewJoinRequestsWork(props.index);
-    handleClose(event);
+    return content;
   }
 
   const Delete = (event) => {
@@ -85,27 +72,9 @@ export default function WidgetDetails(props){
     handleClose(event);
   }
 
-  function handleListKeyDown(event) {
-    //console.log(event.key);
-    if (event.key === 'Tab') {
-      event.preventDefault();
-      setOpen(false);
-    }
-  }
-
-  let badges = props.badges
-  // return focus to the button when we transitioned from !open -> open
-  const prevOpen = React.useRef(open);
-  React.useEffect(() => {
-    if (prevOpen.current === true && open === false) {
-      anchorRef.current.focus();
-    }
-
-    prevOpen.current = open;
-  }, [open]);
-
   return (
     <Card className={classes.root}>
+      <Link className = "linklink" to = {"/CollaborationDetails?colabID="+ props.optionText.project_id}>
       <CardHeader classes={
         {
           root : classes.header,
@@ -113,72 +82,42 @@ export default function WidgetDetails(props){
           subheader : classes.subheader
         }
       }
-        action={
-          (props.view)?'':<div>
-          <IconButton
-            ref={anchorRef}
-            aria-controls={open ? 'menu-list-grow' : undefined}
-            aria-haspopup="true"
-            onClick={handleToggle}
-            classes = {{root: classes.rootIcon}}
-          >
-            <MoreVertIcon />
-            {
-              (badges>0)?<span className="badge--new">{badges}</span>:''
-            }
-          </IconButton>
-          <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
-            {({ TransitionProps, placement }) => (
-              <Grow
-                {...TransitionProps}
-                style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-              >
-              <Paper>
-                <ClickAwayListener onClickAway={handleClose}>
-                  <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                    <MenuItem onClick={Edit}>Edit</MenuItem>
-                    <MenuItem onClick={Delete}>Delete</MenuItem>
-                    <MenuItem /*onClick={ViewJoinRequests}*/>
-                      <Link className = "linklink" to = {"/CollaborationDetails?colabID="+ props.optionText.project_id}>
-                      View Requests
-                      {
-                        (badges>0)?
-                          <span className="badge--new">{badges}</span>
-                        :''
-                      }
-                      </Link>
-                    </MenuItem>
-                  </MenuList>
-                </ClickAwayListener>
-              </Paper>
-              </Grow>
-            )}
-          </Popper>
-          </div>
-        }
+        
         title={props.optionText.title}
         subheader = {
-          <>
+          <div>
           {'Author: Author Name'}<br/>
           {(props.optionText.mentor!=undefined)?"Mentor : " + props.optionText.mentor:"Mentor : None"}<br/>
           {'Members : '+ props.optionText.member}<br/>
-          {(props.optionText.requirements!=undefined)?'Skills : '+props.optionText.requirements:"Skills : None Required"}
-          </>
+          {(props.optionText.requirements!=undefined)?'Skills : '+limitContent(props.optionText.requirements,2):"Skills : None Required"}
+          </div>
         }
       />
       <CardContent classes = {{root: classes.content}}>
         Description :<hr/>
-        {(props.optionText.description==undefined)?'None':props.optionText.description}
+        {(props.optionText.description==undefined)?'None':limitContent(props.optionText.description,13)}
       </CardContent>
+      </Link>
       <CardActions classes = {{root:classes.action}}>
         {
           (props.optionText.project_link)?
           <div className = "tooltip">
-            <a href = {props.optionText.project_link}>
-              <IconButton>
-                <GitHubIcon fontSize = "large" style = {{color:'black'}} />
-              </IconButton>
-            </a>
+            <IconButton classes = {{root:classes.rootIcon}}
+              onClick = {()=>{
+                const el = document.createElement('textarea');
+                el.value = props.optionText.project_link;
+                document.body.appendChild(el);
+                el.select();
+                document.execCommand('copy');
+                document.body.removeChild(el);
+      
+                var x = document.getElementById("snackbar");
+                x.className = "show";
+                setTimeout(function(){ x.className = x.className.replace("show", ""); },2000);
+              }}
+            >
+              <GitHubIcon fontSize = "large" style = {{color:'black'}} />
+            </IconButton>
             <span className = "tooltiptext github">Github Repository</span>
           </div>
           :" "

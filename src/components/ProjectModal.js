@@ -238,7 +238,7 @@ function Details(props){
     <Checkbox
       checked={checked}
       onChange={handleChange}
-      size = "large"
+      size = "medium"
       color = "primary"
       label = "Hello"
     />
@@ -264,28 +264,6 @@ export default class ProjectModal extends React.Component {
     colab: false,
     project_link: null
   };
-
-  componentDidMount() {
-    try {
-      if(this.props.editDetail){
-        this.setState(() => ({
-          project_id: this.props.project.project_id,
-          title : this.props.project.title,
-          description: this.props.project.description,
-          startDate: this.props.project.startDate,
-          endDate: this.props.project.endDate,
-          requirements: this.props.project.requirements,
-          member: this.props.project.member,
-          mentor: this.props.project.mentor,
-          colab: this.props.project.colab,
-          project_link: this.props.project.project_link
-        }))
-        //console.log(this.props.project_link + "Hi there");
-      }
-    } catch(e) {
-      console.log(e);
-    }
-  }
 
   AddColab = (colab) => {
     this.setState(() => ({colab}))
@@ -355,53 +333,6 @@ export default class ProjectModal extends React.Component {
         this.setState(() => ({member}));
     }
   };
-
-  EditDetails = () => {
-    this.setState({adding:true})
-    if(!this.state.title || !this.state.member || !this.state.description){
-      this.setState(() => ({error : true,adding:false}));
-    }
-    else {
-      let project = this.state
-
-      function formatDate(date) {
-        var d = new Date(date),
-            month = '' + (d.getMonth() + 1),
-            day = '' + d.getDate(),
-            year = d.getFullYear();
-
-        if (month.length < 2)
-            month = '0' + month;
-        if (day.length < 2)
-            day = '0' + day;
-
-        return [year, month, day].join('-');
-      }
-
-      postRequest('project/editproject',
-        {
-          'email':window.localStorage.getItem('email'),
-          'password': window.localStorage.getItem('password'),
-          'project_id': project.project_id,
-          'title': project.title,
-          'description': project.description,
-          'startDate': formatDate(project.startDate),
-          'endDate':formatDate(project.endDate),
-          'skillsRequired': project.requirements,
-          'mentor': project.mentor,
-          'members': project.member,
-          'colab': project.colab,
-          'link' : project.project_link
-        },
-        (res)=>{
-          if(res.message=="SUCCESS")
-          {
-            window.location.reload()
-          }
-        }
-      )
-    }
-  }
 
   SaveDetails = () => {
 
@@ -484,24 +415,13 @@ export default class ProjectModal extends React.Component {
           AddColab = {this.AddColab}
           AddLink = {this.AddProjectLink}
         />
+        <div className = "submission--buttons">
         {
-          (this.props.editDetail)?
-          <div className = "submission--buttons">
-          {
-            (this.state.adding)?<p><i className="fa fa-spinner fa-spin"></i>..Saving Changes</p>:
-            <Button text = "Save Changes" type = "button modal__button" onClick = {this.EditDetails}/>
-          }
-          <Button text = "Discard Details" type = "button modal__button" onClick = {this.props.DiscardDetails}/>
-          </div>
-          :
-          <div className = "submission--buttons">
-          {
-            (this.state.adding)?<p><i className="fa fa-spinner fa-spin"></i>..Adding Colab</p>:
-            <Button text = "Add Project" type = "button modal__button" onClick = {this.SaveDetails}/>
-          }
-            <Button text = "Discard Details" type = "button modal__button" onClick = {this.props.DiscardDetails}/>
-          </div>
+          (this.state.adding)?<p><i className="fa fa-spinner fa-spin"></i>..Adding Colab</p>:
+          <Button text = "Add Project" type = "button modal__button" onClick = {this.SaveDetails}/>
         }
+          <Button text = "Discard Details" type = "button modal__button" onClick = {this.props.DiscardDetails}/>
+        </div>
         { (this.state.error)?
           <p className = "error">Please Enter all Details Marked *</p>
           :""

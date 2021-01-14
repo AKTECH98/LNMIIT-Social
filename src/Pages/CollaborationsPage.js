@@ -31,6 +31,11 @@ const useStyles = makeStyles({
     fontSize: 15,
     fontColor: "black",
     color: 'white'
+  },
+  icon: {
+    "&:hover":{
+      backgroundColor: 'gray'
+    }
   }
 });
 
@@ -46,8 +51,8 @@ const PageHeader = (props) => (
         (props.view)?
           "" 
         :   
-          <IconButton onClick = {props.newProject}>
-            <AddIcon style = {{color : 'white', fontSize: 40}}/>
+          <IconButton classes = {{root: useStyles().icon}} onClick = {props.newProject}>
+            <AddIcon style = {{color : 'white',fontSize: 35}}/>
           </IconButton>
       }
 
@@ -95,8 +100,6 @@ export default class ProjectsPage extends React.Component {
       openModal: false,
       openRequestsModal: false,
       addDetail: false,
-      showDetail: false,
-      editDetail: false,
       request: false,
       request_project_id:null,
       project: {
@@ -245,18 +248,6 @@ export default class ProjectsPage extends React.Component {
     }));
   }
 
-  EditDetails = (index) => {
-
-    let pro = this.state.projects[index];
-    
-    this.setState(() => ({
-      project: pro,
-      showDetail: false,
-      editDetail: true,
-      openModal: true
-    }))
-  }
-
   ViewJoinRequests = (index) => {
     let pro = this.state.projects[index];
     this.setState(() => ({
@@ -269,8 +260,6 @@ export default class ProjectsPage extends React.Component {
   DiscardDetails = () => {
     this.setState(() => ({
       addDetail:false,
-      editDetail: false,
-      showDetail: false,
       openModal: false,
       request: false
     }))
@@ -318,25 +307,19 @@ export default class ProjectsPage extends React.Component {
           :
           <WorkView
             works={this.state.projects}
-            ShowDetails={this.ShowDetails}
             Delete = {this.DeleteProject}
-            Edit = {this.EditDetails}
             ViewJoinRequests = {this.ViewJoinRequests}
             Request = {this.RequestUser}
           />
         }
-
+        <div id="snackbar">Link Copied to Clipboard..</div>
         {
           (this.state.openModal)?
           <ProjectModal
             openModal = {this.state.openModal}
             addDetail = {this.state.addDetail}
-            showDetail = {this.state.showDetail}
-            editDetail = {this.state.editDetail}
-            project = {this.state.project}
             SubmitDetails = {this.SubmitDetails}
             DiscardDetails = {this.DiscardDetails}
-            EditProject = {this.EditProject}
           />
           :
           ''
