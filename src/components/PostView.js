@@ -50,7 +50,7 @@ export default class PostView extends React.Component {
           (this.state.posts == undefined)? ""
           :
             (this.state.load)?
-              <center><div className = "loader"></div></center>
+              <center><div className = "center loader"></div></center>
             :
               (this.state.posts.length==0)?
                 <div>

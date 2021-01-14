@@ -1,0 +1,98 @@
+.collaboration {
+    display: grid;
+    grid-template-columns: 65% 35%;
+}
+
+.colab--details {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    margin: $s-size;
+    padding: $s-size;
+}
+
+.colab--details h2{
+    line-height: 0;
+    margin-right: $m-size;
+}
+
+.colab--details-left {
+    margin-right: $m-size;
+}
+
+.colab--skills {
+    margin: $s-size;
+}
+
+.colab--skills-header {
+    display: flex;
+}
+
+.colab--skills-content {
+    margin: $m-size 0;
+    padding: $s-size;
+    height: 150px;
+    border: 0.1rem black solid;
+}
+
+.colab--skills .skill__bar[type=text] {
+    width: 110px;
+    //box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 25px;
+    font-size: 16px;
+    background-color: white;
+    padding: 10px 5px 10px 10px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+  }
+  
+.colab--skills .skill__bar[type=text]:focus {
+    width: 100%;
+}
+
+.colab--details-right {
+    margin-left: $m-size;
+    text-align: center;
+}
+
+.colab--members {
+    margin-top: $l-size;
+    width: fit-content;
+}
+
+.colab--members-content{
+    display: flex;
+    flex-direction: column;
+    margin-top: $xxs-size;
+    height: 120px;
+    overflow: auto;
+    padding: $s-size;
+   // border: 0.1rem black solid;
+}
+
+.member--chip {
+    display: inline-block;
+    padding: 0 3px;
+    height: fit-content;
+    cursor: pointer;
+    font-size: 15px;
+    border-radius: 25px;
+    margin-bottom:  $s-size;
+    background-color:lighten($color: #888, $amount: 30%);
+}
+
+.member--chip .admin--tag {
+    color : white;
+    background-color: black;
+    margin: $xxs-size $s-size;
+    font-size: 12px;
+    padding: 0 3px;
+    float: right;
+    font-weight: bold;
+    border-radius: 25px;
+}
+
+.colab--requests {
+    margin: $s-size;
+    padding: $s-size;
+}

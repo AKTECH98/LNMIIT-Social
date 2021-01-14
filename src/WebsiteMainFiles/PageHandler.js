@@ -12,8 +12,9 @@ import SignUp from '../Pages/Login/SignUp';
 import EditProfile from '../Pages/Profile/EditProfile';
 import ProfilePage from '../Pages/Profile/ProfilePage';
 import HomePage from '../Pages/HomePage';
-import ProjectsPage from '../Pages/ProjectsPage';
+import CollaborationsPage from '../Pages/CollaborationsPage';
 import FullPostView from '../Pages/FullPostView';
+import FullCollaboration from '../Pages/FullColab';
 
 export default class PageHandler extends React.Component{
 
@@ -34,8 +35,9 @@ export default class PageHandler extends React.Component{
           <Route path="/ProfilePage" component={ProfilePage}/>
           <Route path="/TestPage" component ={TestPage}/>
           <Route path="/Home" component ={HomePage}/>
-          <Route path="/Colaborations" component = {ProjectsPage}/>
+          <Route path="/Collaborations" component = {CollaborationsPage}/>
           <Route path='/Post' component = {FullPostView}/>
+          <Route path='/CollaborationDetails' component = {FullCollaboration}/>
         </Switch>
       </Router>
     );

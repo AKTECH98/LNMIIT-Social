@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 
 import TextField from './TextField';
 import Button from './Button';
-import DatePicker from '../components/DatePicker'
+import DatePicker from './DatePicker'
 import {postRequest} from './CallApi'
 
 import Checkbox from '@material-ui/core/Checkbox';
@@ -238,7 +238,7 @@ function Details(props){
     <Checkbox
       checked={checked}
       onChange={handleChange}
-      size = "medium"
+      size = "large"
       color = "primary"
       label = "Hello"
     />

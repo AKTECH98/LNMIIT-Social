@@ -1,48 +1,87 @@
 import React from 'react';
 import {Link,BrowserRouter} from 'react-router-dom'
-import Button from '../components/Button';
+
 import Header from '../components/Header';
 import ProjectModal from '../components/ProjectModal';
 import InviteModal from '../components/InviteModal';
 import WorkView from '../components/WorkView';
 import {postRequest} from '../components/CallApi'
-import ViewProjectRequestsModal from '../components/ViewProjectRequestsModal'
 
-import { Card, CardActions, CardContent, Typography} from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+import { Card, CardHeader, IconButton} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
-  header: {
-    display: 'flex',
-    justifyContent: 'space-around',
-    backgroundColor: '#f5aa0a',
+  root: {
+    height: "fit-content",
+    backgroundColor: 'black',
     marginBottom: '1rem',
-    height: 'fit-content',
-    padding: '0 0.3rem 0 0.3rem',
-    border: 1,
-    borderStyle: 'solid',
-    borderColor: 'grey'
+  },
+  header: {
+    height: "fit-content",
   },
   title: {
+    fontSize: 30,
+    color: "white",
+    fontWeight: 700,
+    fontFamily: "cursive",
+  },
+  subheader: {
+    borderBottom: "0.1rem solid grey",
     fontSize: 15,
-    color: 'white',
-    fontWeight: '500',
+    fontColor: "black",
+    color: 'white'
   }
 });
 
 const PageHeader = (props) => (
-  <Card className = {useStyles().header}>
-    <CardContent>
-      <Typography className = {useStyles().title}>
-        {props.title}
-      </Typography>
-    </CardContent>
-    {
-      (props.view)?"":
-      <CardActions>
-        <Button text = "+Add"  onClick = {props.newProject} type = "widget__button project__add"/>
-      </CardActions>
-    }
+  <Card className = {useStyles().root}>
+    <CardHeader
+      classes = {{
+        root: useStyles().header,
+        title: useStyles().title,
+        subheader: useStyles().subheader,
+      }}
+      action={
+        (props.view)?
+          "" 
+        :   
+          <IconButton onClick = {props.newProject}>
+            <AddIcon style = {{color : 'white', fontSize: 40}}/>
+          </IconButton>
+      }
+
+      title= {
+        (props.user==undefined)?    
+          "All Public Collaborations"
+        :
+          (props.user==window.localStorage.email)?
+            "My Collaborations"
+          :
+            "Collaborations of "+props.user
+      }
+      subheader = {
+        (props.user==undefined)?    
+          <BrowserRouter forceRefresh={true}>
+            <Link className = "colab__public--toggle linklink" to={"Collaborations?email="+window.localStorage.email} onClick={()=>window.location.reload()}> 
+              Click here to view Your Collaborations
+            </Link>
+          </BrowserRouter>
+        :
+          (props.user==window.localStorage.email)?
+            <BrowserRouter forceRefresh={true}>
+              <Link className = "colab__public--toggle linklink" to="Collaborations">
+                Click here to view All Public Collaborations
+              </Link>
+            </BrowserRouter>
+          :
+            <BrowserRouter forceRefresh={true}>
+              <Link className = "colab__public--toggle linklink" to="Collaborations">
+                Click here to view All Public Collaborations
+              </Link>
+            </BrowserRouter>
+      }
+    />
   </Card>
 )
 
@@ -268,25 +307,9 @@ export default class ProjectsPage extends React.Component {
         <Header logout = {true}/>
         <div className = "widget__list">
         <PageHeader 
-            title= {(user==undefined)
-                    
-                        ?<BrowserRouter forceRefresh={true}>
-                        All Public Projects
-                        <Link to={"Colaborations?email="+window.localStorage.email} onClick={()=>window.location.reload()}> Click here to view your projects</Link>
-                        </BrowserRouter>
-                    :(user==window.localStorage.email)
-                        ?<BrowserRouter forceRefresh={true}>
-                        My Projects
-                        <Link to="Colaborations"> Click here to view all public projects</Link>
-                        </BrowserRouter>
-                        :<BrowserRouter forceRefresh={true}>
-                        {"Colaborations of "+user}
-                        <Link to="Colaborations"> Click here to view all public projects</Link>
-                        </BrowserRouter>
-
-                    }
-            newProject = {this.AddDetail} 
-            view = {user!=window.localStorage.getItem('email')}
+          user = {user}
+          newProject = {this.AddDetail} 
+          view = {user!=window.localStorage.getItem('email')}
         />
 
         {
@@ -324,15 +347,6 @@ export default class ProjectsPage extends React.Component {
             request = {this.state.request}
             project_id = {this.state.request_project_id}
             DiscardDetails = {this.DiscardDetails}
-          />
-          :
-          ''
-        }
-        { this.state.openRequestsModal?
-          <ViewProjectRequestsModal
-            isOpen = {this.state.openRequestsModal}
-            project_id = {this.state.request_project_id}
-            close = {()=>{this.setState({openRequestsModal:false,request_project_id:null})}}
           />
           :
           ''

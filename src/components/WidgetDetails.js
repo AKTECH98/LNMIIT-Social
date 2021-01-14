@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from "clsx";
+import {Link} from "react-router-dom";
 
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -138,11 +138,15 @@ export default function WidgetDetails(props){
                   <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                     <MenuItem onClick={Edit}>Edit</MenuItem>
                     <MenuItem onClick={Delete}>Delete</MenuItem>
-                    <MenuItem onClick={ViewJoinRequests}>
+                    <MenuItem /*onClick={ViewJoinRequests}*/>
+                      <Link className = "linklink" to = {"/CollaborationDetails?colabID="+ props.optionText.project_id}>
                       View Requests
                       {
-                      (badges>0)?<span className="badge--new">{badges}</span>:''
+                        (badges>0)?
+                          <span className="badge--new">{badges}</span>
+                        :''
                       }
+                      </Link>
                     </MenuItem>
                   </MenuList>
                 </ClickAwayListener>

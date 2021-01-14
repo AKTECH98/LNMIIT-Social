@@ -34,11 +34,11 @@ function Header(props){
   <Card className = {useStyles().header}>
     <CardContent>
       <Typography className = {useStyles().title}>
-        Projects
+        Collaborations
       </Typography>
     </CardContent>
     <CardActions>
-      <Link to = {"Colaborations?email="+props.user}>
+      <Link to = {"Collaborations?email="+props.user}>
       <Button text = "View All" type = "widget__button"/>
       </Link>
     </CardActions>
