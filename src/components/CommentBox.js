@@ -70,7 +70,7 @@ export default class CommentBox extends React.Component {
                   {comment.content}
                 </div>
                 {
-                (comment.author==window.localStorage.getItem("email"))?
+                (comment.author==window.localStorage.getItem("email") && (this.props.allComments))?
                   <Button
                     text = "Delete Comment"
                     type = "comment--delete"

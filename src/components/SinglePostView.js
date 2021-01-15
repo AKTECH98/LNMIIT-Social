@@ -182,7 +182,7 @@ export default function SinglePostView(props) {
         }
 
         action = {
-          (props.item.author==window.localStorage.getItem("email"))? /*Show delete only if author ==user*/
+          (props.item.author==window.localStorage.getItem("email") && (props.fullPostView))? /*Show delete only if author ==user*/
             <Button 
               text = "Delete Post"
               type = "post--delete"
