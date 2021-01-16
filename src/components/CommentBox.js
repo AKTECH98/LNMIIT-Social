@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { postRequest } from "./CallApi";
 
-import DefaultUser from '../img/DefaultUser.png';
+import DefaultUser from '../img/DefaultUser.jpg';
 import TimeAgo from './TimeAgo';
 import Button from "./Button";
 

@@ -129,7 +129,7 @@ export default function Header(props) {
                     </Link>
                   </div>
                   <div>
-                    <Link to='/Colaborations' className='linklink'>
+                    <Link to='/Collaborations' className='linklink'>
                       <IconButton classes={{ root: classes.root }}>
                         <div className='header__button'>
                           <div>
@@ -138,7 +138,7 @@ export default function Header(props) {
                             />
                           </div>
                           <div className='header__button--title'>
-                            Colaborations
+                            Collaborations
                           </div>
                         </div>
                       </IconButton>
@@ -246,13 +246,13 @@ export default function Header(props) {
                   </div>
                 </IconButton>
               </Link>
-              <Link to='/Colaborations' className='linklink'>
+              <Link to='/Collaborations' className='linklink'>
                 <IconButton classes={{ root: classes.root }}>
                   <div className='header__button'>
                     <div>
                       <ColaborationIcon style={{ fontSize: 20, color: "white" }} />
                     </div>
-                    <div className='header__button--title'>Colaborations</div>
+                    <div className='header__button--title'>Collaborations</div>
                   </div>
                 </IconButton>
               </Link>

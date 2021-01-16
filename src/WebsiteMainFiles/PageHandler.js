@@ -7,7 +7,6 @@ import SearchPage from '../Pages/SearchPage';
 import NotificationsPage from '../Pages/Notifications';
 import ConfirmOTP from '../Pages/Login/ConfirmOTP';
 import ForgotPassword from '../Pages/Login/ForgotPassword';
-import TestPage from '../Pages/TestPage';
 import SignUp from '../Pages/Login/SignUp';
 import EditProfile from '../Pages/Profile/EditProfile';
 import ProfilePage from '../Pages/Profile/ProfilePage';
@@ -33,7 +32,6 @@ export default class PageHandler extends React.Component{
           <Route path="/ForgotPassword" component={ForgotPassword}/>
           <Route path="/EditProfile" component={EditProfile}/>
           <Route path="/ProfilePage" component={ProfilePage}/>
-          <Route path="/TestPage" component ={TestPage}/>
           <Route path="/Home" component ={HomePage}/>
           <Route path="/Collaborations" component = {CollaborationsPage}/>
           <Route path='/Post' component = {FullPostView}/>

@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 
 import Background from "../img/background.jpg";
+import DefaultUser from "../img/DefaultUser.jpg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -64,7 +65,7 @@ export default function ProfileWidget(props) {
         avatar={
           <Avatar
             alt='Profile Picture'
-            src='https://material-ui.com/static/images/cards/contemplative-reptile.jpg'
+            src={(props.personal==null)?DefaultUser:props.personal.profile_image?props.personal.profile_image:DefaultUser}
             className={classes.avatar}
           />
         }

@@ -12,7 +12,7 @@ import DislikeIcon from '@material-ui/icons/ThumbDown';
 import LikeIcon from '@material-ui/icons/ThumbUp';
 import ShareIcon from '@material-ui/icons/Share';
 import TimeAgo from './TimeAgo';
-import DefaultUser from "../img/DefaultUser.png";
+import DefaultUser from "../img/DefaultUser.jpg";
 import TextField from '@material-ui/core/TextField';
 import { Card, CardHeader, CardContent, Avatar, CardActions } from "@material-ui/core";
 import { Collapse } from "@material-ui/core";

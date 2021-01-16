@@ -1,5 +1,5 @@
 import React from "react";
-import DefaultUser from "../img/DefaultUser.png";
+import DefaultUser from "../img/DefaultUser.jpg";
 
 import { makeStyles } from "@material-ui/core/styles";
 import {

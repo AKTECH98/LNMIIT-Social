@@ -28,7 +28,7 @@ export default class ProfilePage extends React.Component {
     const query = res.email
     postRequest('profile/getprofiledetails',
             {
-              'email':query.split('#')[0],
+              'email':query,
             },
             (res)=>{this.setState({personal:res.response})}
           )

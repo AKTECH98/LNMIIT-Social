@@ -6,7 +6,7 @@ import Header from '../components/Header';
 import Anshul from '../img/anshul1.jpg';
 import Abhay from '../img/abhay.png';
 import Anupam from '../img/anupam.jpg';
-import Tarun from '../img/DefaultUser.png';
+import Tarun from '../img/DefaultUser.jpg';
 
 export default class FrontPage extends React.Component {
   render(){
@@ -62,4 +62,3 @@ export default class FrontPage extends React.Component {
     )
   }
 }
-//Dummy Comment

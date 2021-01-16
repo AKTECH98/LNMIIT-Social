@@ -2,7 +2,7 @@ import React from "react";
 
 import TextField from "@material-ui/core/TextField";
 import Header from "../../components/Header";
-import DefaultUser from "../../img/DefaultUser.png";
+import DefaultUser from "../../img/DefaultUser.jpg";
 import PhotoSelector from "../../components/PhotoSelector";
 import Button from "../../components/Button";
 import { postRequest } from "../../components/CallApi";
@@ -96,10 +96,21 @@ export default class EditPage extends React.Component {
           <div className='edit__detail--top'>
             <div className='edit__detail--picture'>
               <div className = "profile--image">
-                <h1>Profile Picture</h1>
+                <h1>
+                  Profile Picture
+                  <IconButton
+                    onClick={(e) => {
+                      e.preventDefault();
+                      this.setState({old_avatar:this.state.avatar})
+                      this.setState({ editImage: true,avatar:""});
+                    }}
+                  >
+                    <EditTwoToneIcon style={{ fontSize: 25, color: "blue" }} />
+                  </IconButton>
+                </h1>
                 <center>
-                {this.state.editImage ? (
-                  <>
+                {this.state.editImage ?
+                  <div>
                   <button onClick={()=>{this.setState({new_avatar:this.state.avatar,old_avatar:this.state.avatar,editImage: false})}}>{this.state.avatar?"Save":"Default profile picture"}</button>
                   <Avatar
                     width={300}
@@ -109,21 +120,10 @@ export default class EditPage extends React.Component {
                     src={this.state.avatar}
                     img={this.state.avatar}
                   />
-                  </>
-                ) : (
-                  <div>
-                    <img src={this.state.avatar?this.state.avatar:DefaultUser} alt='Avatar' />
-                    <IconButton
-                      onClick={(e) => {
-                        e.preventDefault();
-                        this.setState({old_avatar:this.state.avatar})
-                        this.setState({ editImage: true,avatar:""});
-                      }}
-                    >
-                      <EditTwoToneIcon style={{ fontSize: 25, color: "blue" }} />
-                    </IconButton>
                   </div>
-                )}
+                 :
+                  <img src={this.state.avatar?this.state.avatar:DefaultUser} alt='Avatar' />
+                }
                 </center>
               </div>
               <div className = "background--image">
