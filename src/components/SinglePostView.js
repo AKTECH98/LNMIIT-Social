@@ -58,7 +58,7 @@ class Comment extends React.Component {
     super(props);
     //console.log(props)
     this.state = {
-      content:[],
+      content:"",
       postId: props.postId
     };
   }
@@ -69,21 +69,25 @@ class Comment extends React.Component {
         <form onSubmit = {
           (e)=>{
             e.preventDefault();
-            postRequest(
-              "posts/createcomment",
-              {
-                email: window.localStorage.getItem("email"),
-                password: window.localStorage.getItem("password"),
-                content: this.state.content,
-                post_id: this.state.postId
-              },
-              (res) => {
-                if(res.message=='SUCCESS')
-                {
-                  location.reload()
-                }
-              }
-            )
+            if(this.state.content!="")
+            {
+                this.setState({content:""})
+                postRequest(
+                  "posts/createcomment",
+                  {
+                    email: window.localStorage.getItem("email"),
+                    password: window.localStorage.getItem("password"),
+                    content: this.state.content,
+                    post_id: this.state.postId
+                  },
+                  (res) => {
+                    if(res.message=='SUCCESS')
+                    {
+                      this.props.onAddComment()
+                    }
+                  }
+                )
+            }
           }
         }>
         <TextField
@@ -97,6 +101,7 @@ class Comment extends React.Component {
               fontSize: 15
             }
           }}
+          value = {this.state.content}
           variant = "outlined"
           placeholder = "Add a Comment ...."
           onChange={(e)=>{this.setState({content:e.target.value})}}
@@ -116,13 +121,18 @@ export default function SinglePostView(props) {
   const [vote, setVote] = React.useState(props.item.vote);
   const [likes, setLikes] = React.useState(props.item.likes)
   const [dislikes, setDislikes] = React.useState(props.item.dislikes)
+  const [isDeleted, setIsDeleted] = React.useState(false)
+  const [refreshCommentBoxCount, setRefreshCommentBoxCount] = React.useState(0)
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
+  const onAddComment = ()=>{
+    setRefreshCommentBoxCount(refreshCommentBoxCount+1)
+  }
   
-//  console.log(content, "content");
+  //  console.log(content, "content");
   var indexOfLocalhost = content.indexOf("localhost");
   //console.log(indexOfLocalhost);
   var post = "";
@@ -156,6 +166,7 @@ export default function SinglePostView(props) {
         }
       )
   }
+  if(isDeleted) return ""
   return (
     <Card className={classes.root}>
       <CardHeader
@@ -170,7 +181,7 @@ export default function SinglePostView(props) {
         }
 
         action = {
-          (props.item.author==window.localStorage.getItem("email") && (props.fullPostView))? /*Show delete only if author ==user*/
+          (props.item.author==window.localStorage.getItem("email") /*&& (props.fullPostView)*/)? /*Show delete only if author ==user*/
             <Button 
               text = "Delete Post"
               type = "post--delete"
@@ -183,7 +194,7 @@ export default function SinglePostView(props) {
                       post_id: props.item.post_id
                     },
                     (res) => {
-                      location.reload()
+                      setIsDeleted(true)
                     }
                   )
                 }
@@ -213,12 +224,12 @@ export default function SinglePostView(props) {
 
       <Collapse in={expanded || props.fullPostView} timeout="auto" unmountOnExit>
         <CardContent>
-          <CommentBox postId={props.item.post_id} allComments = {props.fullPostView}/>
+          <CommentBox key={refreshCommentBoxCount} postId={props.item.post_id} allComments = {props.fullPostView}/>
         </CardContent>
       </Collapse>
 
       <CardActions>
-        <Comment postId={props.item.post_id}/>
+        <Comment postId={props.item.post_id} onAddComment={onAddComment}/>
         {
           (vote==1)
           ?<div className = "post--like__dislike post--active">

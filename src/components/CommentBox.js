@@ -7,6 +7,76 @@ import DefaultUser from '../img/DefaultUser.jpg';
 import TimeAgo from './TimeAgo';
 import Button from "./Button";
 
+
+class Comment extends React.Component {
+  constructor(props)
+  {
+    super(props);
+    this.state= {
+      comment: props.comment,
+      isDeleted:false
+    }
+  }
+
+  
+
+  render()
+  {
+    if(this.state.isDeleted) return "" 
+    return(
+      <div className = "comment">
+              <Link to={"ProfilePage?email="+this.state.comment.author}>
+                <img 
+                    src={this.state.comment.profile_image?this.state.comment.profile_image:DefaultUser} 
+                    alt="Avatar" 
+                    className = "comment--avatar"
+                />
+              </Link>
+              <div className = "comment__content">
+                <div className = "comment--header">
+                  <Link to={"ProfilePage?email="+this.state.comment.author}>
+                    <p className = "comment--author">
+                    {this.state.comment.name}
+                    </p>
+                  </Link>
+                  <p className = "comment--date">{TimeAgo(Date.parse(this.state.comment.date_time_of_comment))}</p>
+                  {
+                    (this.state.comment.author==window.localStorage.getItem("email") /*&&(this.props.allComments)*/)?
+                      <Button
+                        text = "Delete Comment"
+                        type = "comment--delete"
+                        onClick = {
+                          ()=>{
+                            postRequest(
+                              "posts/deletecomment",
+                              {
+                                email: window.localStorage.getItem("email"),
+                                password: window.localStorage.getItem("password"),
+                                comment_id: this.state.comment.comment_id
+                              },
+                              (res) => {
+                                if(res.message=='SUCCESS')
+                                {
+                                  this.setState({isDeleted:true})
+                                }
+                              }
+                            )
+                          }
+                        }
+                      />
+                      :""
+                  }
+                </div>
+                <div className = "comment--content">
+                  {this.state.comment.content}
+                </div>
+              </div>
+      </div>
+    )
+  }
+}
+
+
 export default class CommentBox extends React.Component {
   constructor(props) {
     super(props);
@@ -18,21 +88,42 @@ export default class CommentBox extends React.Component {
     };
   }
   componentDidMount(){
-    postRequest(
-      "posts/viewallcomments",
-      {
-        email: window.localStorage.getItem("email"),
-        password: window.localStorage.getItem("password"),
-        post_id: this.state.postId
-      },
-      (res) => {
-        if(res.message=='SUCCESS')
-        {
-          this.setState({comments:res.results})
-          this.setState({load:false})
-        }
-      }
-    )
+    if(this.props.allComments)
+    {
+        postRequest(
+          "posts/viewallcomments",
+          {
+            email: window.localStorage.getItem("email"),
+            password: window.localStorage.getItem("password"),
+            post_id: this.state.postId
+          },
+          (res) => {
+            if(res.message=='SUCCESS')
+            {
+              this.setState({comments:res.results})
+              this.setState({load:false})
+            }
+          }
+        )
+    }
+    else
+    {
+        postRequest(
+          "posts/viewtopcomments",
+          {
+            email: window.localStorage.getItem("email"),
+            password: window.localStorage.getItem("password"),
+            post_id: this.state.postId
+          },
+          (res) => {
+            if(res.message=='SUCCESS')
+            {
+              this.setState({comments:res.results})
+              this.setState({load:false})
+            }
+          }
+        )
+    }  
   }
   render() {
     return (
@@ -49,54 +140,7 @@ export default class CommentBox extends React.Component {
 
         {
           this.state.comments.map((comment,index)=>(
-            <div key = {index} className = "comment">
-              <Link to={"ProfilePage?email="+comment.author}>
-                <img 
-                    src={comment.profile_image?comment.profile_image:DefaultUser} 
-                    alt="Avatar" 
-                    className = "comment--avatar"
-                />
-              </Link>
-              <div className = "comment__content">
-                <div className = "comment--header">
-                  <Link to={"ProfilePage?email="+comment.author}>
-                    <p className = "comment--author">
-                    {comment.name}
-                    </p>
-                  </Link>
-                  <p className = "comment--date">{TimeAgo(Date.parse(comment.date_time_of_comment))}</p>
-                </div>
-                <div className = "comment--content">
-                  {comment.content}
-                </div>
-                {
-                (comment.author==window.localStorage.getItem("email") && (this.props.allComments))?
-                  <Button
-                    text = "Delete Comment"
-                    type = "comment--delete"
-                    onClick = {
-                      ()=>{
-                        postRequest(
-                          "posts/deletecomment",
-                          {
-                            email: window.localStorage.getItem("email"),
-                            password: window.localStorage.getItem("password"),
-                            comment_id: comment.comment_id
-                          },
-                          (res) => {
-                            if(res.message=='SUCCESS')
-                            {
-                              location.reload()
-                            }
-                          }
-                        )
-                      }
-                    }
-                  />
-                  :""
-                }
-              </div>
-            </div>
+            <Comment key = {index} comment = {comment}/>
           ))
         }
 
