@@ -113,6 +113,9 @@ export default function SinglePostView(props) {
   const content = props.item.content;
 
   const [expanded, setExpanded] = React.useState(false);
+  const [vote, setVote] = React.useState(props.item.vote);
+  const [likes, setLikes] = React.useState(props.item.likes)
+  const [dislikes, setDislikes] = React.useState(props.item.dislikes)
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -133,37 +136,22 @@ export default function SinglePostView(props) {
   const parsedPost = ReactHtmlParser(post);
  // console.log("parsedPost", parsedPost);
 
-  const vote =(vote)=>{
-
-    var like = document.getElementById("like")
-    var dislike = document.getElementById("dislike")
-
-    if(vote==1)
-    {
-      if(dislike.classList.contains("post--active"))
-        dislike.classList.remove("post--active")
-      
-      like.classList.add("post--active")
-    }
-    else
-    {
-      if(dislike.classList.contains("post--active"))
-        dislike.classList.remove("post--active")
-      
-      like.classList.add("post--active")
-    }
+  const make_vote =(v,l,d)=>{
 
     postRequest('posts/votepost',
         {
           'email':window.localStorage.getItem('email'),
           'password': window.localStorage.getItem('password'),
           'post_id': props.item.post_id,
-          'vote':vote
+          'vote':v
         },
         (res)=>{
           if(res.message=="SUCCESS")
           {
-            window.location.reload()
+            console.log(v,l,d)
+            setVote(v)
+            setLikes(likes+l)
+            setDislikes(dislikes+d)
           }
         }
       )
@@ -231,14 +219,34 @@ export default function SinglePostView(props) {
 
       <CardActions>
         <Comment postId={props.item.post_id}/>
-        <div className = "post--like__dislike">
-        <LikeIcon id = "like" onClick={()=>{vote(+1)}} style = {{fontSize: 25}}/>
-      </div>
-      <div className = "post--count">{props.item.likes}</div>
-      <div className = "post--like__dislike">
-        <DislikeIcon id = "dislike" onClick={()=>{vote(-1)}} style = {{fontSize: 25}}/>
-      </div>
-      <div className = "post--count">{props.item.dislikes}</div>
+        {
+          (vote==1)
+          ?<div className = "post--like__dislike post--active">
+              <LikeIcon onClick={()=>{make_vote(0,-1,0)}} style = {{fontSize: 25}}/>
+           </div>
+          :(vote==-1)
+          ?<div className = "post--like__dislike">
+              <LikeIcon onClick={()=>{make_vote(+1,1,-1)}} style = {{fontSize: 25}}/>
+           </div>
+          :<div className = "post--like__dislike">
+              <LikeIcon onClick={()=>{make_vote(+1,1,0)}} style = {{fontSize: 25}}/>
+           </div>
+        }
+      <div className = "post--count">{likes}</div>
+      {
+          (vote==-1)
+          ?<div className = "post--like__dislike post--active">
+              <DislikeIcon onClick={()=>{make_vote(0,0,-1)}} style = {{fontSize: 25}}/>
+           </div>
+          :(vote==1)
+          ?<div className = "post--like__dislike">
+              <DislikeIcon onClick={()=>{make_vote(-1,-1,1)}} style = {{fontSize: 25}}/>
+           </div>
+          :<div className = "post--like__dislike">
+              <DislikeIcon onClick={()=>{make_vote(-1,0,1)}} style = {{fontSize: 25}}/>
+           </div>
+      }
+      <div className = "post--count">{dislikes}</div>
         
       <ShareIcon 
           style = {{color: 'blue',fontSize: 25}}
