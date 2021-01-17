@@ -1,17 +1,18 @@
 import React from 'react';
 import {Link,BrowserRouter} from 'react-router-dom'
-
+import clsx from 'clsx'
 import Header from '../components/Header';
 import ProjectModal from '../components/ProjectModal';
 import InviteModal from '../components/InviteModal';
 import WorkView from '../components/WorkView';
+import ColabDetails from '../components/ColabDetails';
 import {postRequest} from '../components/CallApi'
 
 import AddIcon from '@material-ui/icons/Add';
-import { Card, CardHeader, IconButton} from '@material-ui/core';
+import { Card, CardHeader, IconButton, CardContent, Collapse} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) =>({
   root: {
     height: "fit-content",
     backgroundColor: 'black',
@@ -36,59 +37,96 @@ const useStyles = makeStyles({
     "&:hover":{
       backgroundColor: 'gray'
     }
+  },
+  expand: {
+    transform: 'rotate(0deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)',
+  },
+  container: {
+    position: "absolute",
+    zIndex: 5,
+  },
+  addDetail: {
+    backgroundColor: 'white',
   }
-});
+}));
 
-const PageHeader = (props) => (
-  <Card className = {useStyles().root}>
-    <CardHeader
-      classes = {{
-        root: useStyles().header,
-        title: useStyles().title,
-        subheader: useStyles().subheader,
-      }}
-      action={
-        (props.view)?
-          "" 
-        :   
-          <IconButton classes = {{root: useStyles().icon}} onClick = {props.newProject}>
-            <AddIcon style = {{color : 'white',fontSize: 35}}/>
-          </IconButton>
-      }
+function PageHeader(props){
 
-      title= {
-        (props.user==undefined)?    
-          "All Public Collaborations"
-        :
-          (props.user==window.localStorage.email)?
-            "My Collaborations"
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
+  return(
+    <Card className = {useStyles().root}>
+      <CardHeader
+        classes = {{
+          root: useStyles().header,
+          title: useStyles().title,
+          subheader: useStyles().subheader,
+        }}
+        action={
+          (props.view)?
+            "" 
+          :   
+            <IconButton 
+              className={clsx(useStyles().expand, {
+                [useStyles().expandOpen]: expanded,
+              })}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+            >
+              <AddIcon style = {{color : 'white',fontSize: 35}}/>
+            </IconButton>
+        }
+
+        title= {
+          (props.user==undefined)?    
+            "All Public Collaborations"
           :
-            "Collaborations of "+props.user
-      }
-      subheader = {
-        (props.user==undefined)?    
-          <BrowserRouter forceRefresh={true}>
-            <Link className = "colab__public--toggle linklink" to={"Collaborations?email="+window.localStorage.email} onClick={()=>window.location.reload()}> 
-              Click here to view Your Collaborations
-            </Link>
-          </BrowserRouter>
-        :
-          (props.user==window.localStorage.email)?
+            (props.user==window.localStorage.email)?
+              "My Collaborations"
+            :
+              "Collaborations of "+props.user
+        }
+        subheader = {
+          (props.user==undefined)?    
             <BrowserRouter forceRefresh={true}>
-              <Link className = "colab__public--toggle linklink" to="Collaborations">
-                Click here to view All Public Collaborations
+              <Link className = "colab__public--toggle linklink" to={"Collaborations?email="+window.localStorage.email} onClick={()=>window.location.reload()}> 
+                Click here to view Your Collaborations
               </Link>
             </BrowserRouter>
           :
-            <BrowserRouter forceRefresh={true}>
-              <Link className = "colab__public--toggle linklink" to="Collaborations">
-                Click here to view All Public Collaborations
-              </Link>
-            </BrowserRouter>
-      }
-    />
-  </Card>
-)
+            (props.user==window.localStorage.email)?
+              <BrowserRouter forceRefresh={true}>
+                <Link className = "colab__public--toggle linklink" to="Collaborations">
+                  Click here to view All Public Collaborations
+                </Link>
+              </BrowserRouter>
+            :
+              <BrowserRouter forceRefresh={true}>
+                <Link className = "colab__public--toggle linklink" to="Collaborations">
+                  Click here to view All Public Collaborations
+                </Link>
+              </BrowserRouter>
+        }
+      />
+      <Collapse in={expanded} timeout="auto" unmountOnExit classes = {{container: useStyles().container}}>
+        <CardContent classes = {{root: useStyles().addDetail}}>
+          <ColabDetails/>
+        </CardContent>
+      </Collapse>
+    </Card>
+  )
+}
 
 export default class ProjectsPage extends React.Component {
   constructor(props)
@@ -204,21 +242,21 @@ export default class ProjectsPage extends React.Component {
                 admin: item.admin
               }
               if(item.admin){
-                postRequest('project/getinterestedmembers',
-                  {
-                    'email':window.localStorage.getItem('email'),
-                    'password': window.localStorage.getItem('password'),
-                    'project_id': item.project_id
-                  },
-                  (res)=>{
-                    if(res.message=="SUCCESS")
+                  postRequest('project/getinterestedmembers',
                     {
-                      pro.badges=res.users.length
-                      default_projects.push(pro)
-                      this.setState({projects: default_projects})
+                      'email':window.localStorage.getItem('email'),
+                      'password': window.localStorage.getItem('password'),
+                      'project_id': item.project_id
+                    },
+                    (res)=>{
+                      if(res.message=="SUCCESS")
+                      {
+                        pro.badges=res.users.length
+                        default_projects.push(pro)
+                        this.setState({projects: default_projects})
+                      }
                     }
-                  }
-                )
+                  )
               }
               else{
                   default_projects.push(pro)
@@ -227,7 +265,7 @@ export default class ProjectsPage extends React.Component {
               
             })
             
-            
+            this.setState({loading:false})
           }
         })
       }
