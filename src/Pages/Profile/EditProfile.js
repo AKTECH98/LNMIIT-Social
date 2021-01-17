@@ -122,7 +122,7 @@ export default class EditPage extends React.Component {
                   />
                   </div>
                  :
-                  <img src={this.state.avatar?this.state.avatar:DefaultUser} alt='Avatar' />
+                  <img src={this.state.avatar?this.state.avatar:DefaultUser} alt='Avatar' height = {170} />
                 }
                 </center>
               </div>

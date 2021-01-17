@@ -6,7 +6,11 @@ export default class TestPage extends React.Component{
   render(){
     return(
       <div>
-        <div className = "loader"></div>
+        <Link className="linklink">
+        <div className = "loader">
+        hELLO
+        </div>
+        </Link>
       </div>
     )
   }
