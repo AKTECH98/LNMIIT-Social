@@ -8,6 +8,7 @@ import ColabDetails from '../components/ColabDetails';
 import {postRequest} from '../components/CallApi'
 
 import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
 import { Card, CardHeader, IconButton, CardContent, Collapse} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -83,7 +84,8 @@ function PageHeader(props){
               onClick={handleExpandClick}
               aria-expanded={expanded}
             >
-              <AddIcon style = {{color : 'white',fontSize: 35}}/>
+              {expanded?<RemoveIcon style = {{color : 'white',fontSize: 35}}/>:<AddIcon style = {{color : 'white',fontSize: 35}}/>}
+              
             </IconButton>
         }
 
