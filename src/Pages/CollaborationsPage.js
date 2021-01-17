@@ -2,7 +2,6 @@ import React from 'react';
 import {Link,BrowserRouter} from 'react-router-dom'
 import clsx from 'clsx'
 import Header from '../components/Header';
-import ProjectModal from '../components/ProjectModal';
 import InviteModal from '../components/InviteModal';
 import WorkView from '../components/WorkView';
 import ColabDetails from '../components/ColabDetails';
@@ -53,7 +52,7 @@ const useStyles = makeStyles((theme) =>({
     zIndex: 5,
   },
   addDetail: {
-    backgroundColor: 'white',
+    backgroundColor: '#f5f5f5'
   }
 }));
 
@@ -135,7 +134,6 @@ export default class ProjectsPage extends React.Component {
     this.state = {
       loading: true,
       projects: [],
-      openModal: false,
       openRequestsModal: false,
       addDetail: false,
       request: false,
@@ -279,30 +277,6 @@ export default class ProjectsPage extends React.Component {
     }))
   }
 
-  AddDetail = () => {
-    this.setState(() => ({
-      openModal: true,
-      addDetail: true
-    }));
-  }
-
-  ViewJoinRequests = (index) => {
-    let pro = this.state.projects[index];
-    this.setState(() => ({
-      request_project_id: pro.project_id,
-      openRequestsModal: true
-    }))
-  }
-
-
-  DiscardDetails = () => {
-    this.setState(() => ({
-      addDetail:false,
-      openModal: false,
-      request: false
-    }))
-  }
-
   DeleteProject = (projectIndex) => {
     let projects=this.state.projects;
     let item = projects[projectIndex];
@@ -346,22 +320,12 @@ export default class ProjectsPage extends React.Component {
           <WorkView
             works={this.state.projects}
             Delete = {this.DeleteProject}
-            ViewJoinRequests = {this.ViewJoinRequests}
             Request = {this.RequestUser}
           />
         }
+
         <div id="snackbar">Link Copied to Clipboard..</div>
-        {
-          (this.state.openModal)?
-          <ProjectModal
-            openModal = {this.state.openModal}
-            addDetail = {this.state.addDetail}
-            SubmitDetails = {this.SubmitDetails}
-            DiscardDetails = {this.DiscardDetails}
-          />
-          :
-          ''
-        }
+
         {
           (this.state.request)?
           <InviteModal

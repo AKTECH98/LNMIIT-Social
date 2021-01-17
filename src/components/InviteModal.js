@@ -42,16 +42,11 @@ export default class InviteModal extends React.Component {
                       (res)=>{
                         if(res.message=="FAILURE")
                         {
-                          this.setState({sending:false})
                           window.alert("Request Not Sent")
                         }
                         else
                         {
-                          this.setState({sending:false})
-                          var x = document.getElementById("snackbar");
-                          x.className = "show";
-                          setTimeout(function(){ x.className = x.className.replace("show", ""); },2000);
-                          this.setState(()=>({sent:true}))
+                          window.alert("Request Sent")
                         }
                       }
                     )
@@ -60,7 +55,6 @@ export default class InviteModal extends React.Component {
                 text = "CONFIRM" type = "button modal__button"/>
             }
             <Button onClick={this.props.DiscardDetails} text = "Don't Send" type = "button modal__button"/>
-            <div id="snackbar">Request Sent</div>
         </div>
       </Modal>
     )
