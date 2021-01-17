@@ -203,30 +203,27 @@ export default function SinglePostView(props) {
           :""
         }
 
-        title = {<Link to={"ProfilePage?email="+props.item.author}>{props.item.name}</Link>}
+        title = {<Link className="linklink" to={"ProfilePage?email="+props.item.author}>{props.item.name}</Link>}
         subheader={TimeAgo(Date.parse(props.item.date_time_of_post))}
       />
-      <CardContent
-        classes={{ root: classes.content }}
-        className={imageStyles.image}
-      >
-        {parsedPost}
-      </CardContent>
+      {
+        !(props.fullPostView)
+        ?<Link to = {"Post?post_id="+props.item.post_id} className="linklink">
+          <CardContent
+            classes={{ root: classes.content }}
+            className={imageStyles.image}
+          >
+            {parsedPost}
+          </CardContent>
+        </Link>
+        :<CardContent
+            classes={{ root: classes.content }}
+            className={imageStyles.image}
+          >
+            {parsedPost}
+          </CardContent>
+      }
 
-      <CardActions classes = {{root: classes.actions}}>
-        <div className = "linklink post--comment-count" 
-          onClick = {handleExpandClick}
-        >
-          {props.item.number_of_comments}
-          {(props.item.number_of_comments<=1)?" Comment ":" Comments "}
-        </div>
-      </CardActions>
-
-      <Collapse in={expanded || props.fullPostView} timeout="auto" unmountOnExit>
-        <CardContent>
-          <CommentBox key={refreshCommentBoxCount} postId={props.item.post_id} allComments = {props.fullPostView}/>
-        </CardContent>
-      </Collapse>
 
       <CardActions>
         <Comment postId={props.item.post_id} onAddComment={onAddComment}/>
@@ -276,7 +273,11 @@ export default function SinglePostView(props) {
       />
       <div id="share--snackbar">Share Link Copied</div>
       </CardActions>
-
+      
+      <hr/>
+        <CardContent>
+          <CommentBox key={refreshCommentBoxCount} postId={props.item.post_id} allComments = {props.fullPostView}/>
+        </CardContent>
     </Card>
   );
 }

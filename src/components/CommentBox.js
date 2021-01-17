@@ -25,7 +25,7 @@ class Comment extends React.Component {
     if(this.state.isDeleted) return "" 
     return(
       <div className = "comment">
-              <Link to={"ProfilePage?email="+this.state.comment.author}>
+              <Link className="linklink" to={"ProfilePage?email="+this.state.comment.author}>
                 <img 
                     src={this.state.comment.profile_image?this.state.comment.profile_image:DefaultUser} 
                     alt="Avatar" 
@@ -34,7 +34,7 @@ class Comment extends React.Component {
               </Link>
               <div className = "comment__content">
                 <div className = "comment--header">
-                  <Link to={"ProfilePage?email="+this.state.comment.author}>
+                  <Link className="linklink" to={"ProfilePage?email="+this.state.comment.author}>
                     <p className = "comment--author">
                     {this.state.comment.name}
                     </p>
@@ -133,8 +133,10 @@ export default class CommentBox extends React.Component {
         <p><i className="fa fa-spinner fa-spin"></i>Loading Comments</p>
         :
         (this.state.comments.length==0)?
-          "No comments Be the first one to comment"
-          :""
+          "No comments. Be the first one to comment"
+        :(this.props.allComments)?
+          "Showing all " + this.state.comments.length + " comments"
+        : "Comments" 
       }
         
 
