@@ -130,7 +130,7 @@ export default class CommentBox extends React.Component {
       <div className = "commentBox">
       {
         (this.state.load)?
-        <p><i className="fa fa-spinner fa-spin"></i>Loading Comments</p>
+        <p><div className = "loader--component"><div/><div/><div/><div/></div>Loading Comments</p>
         :
         (this.state.comments.length==0)?
           "No comments. Be the first one to comment"

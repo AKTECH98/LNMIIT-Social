@@ -46,7 +46,7 @@ export default class FullPostView extends React.Component {
       <div>
         <Header logout = {true}/>
         {(this.state.loading)?
-          <div className = "loader center"></div>
+          <center><div className = "loader--square"><div/><div/></div></center>
           :
           (this.state.error)?
             <div>{this.state.errorMessage}</div>

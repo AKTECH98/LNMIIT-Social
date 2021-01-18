@@ -1,234 +1,320 @@
 .container {
-    max-width: 120rem;
-    margin: 0 auto;
-    height: fit-content;
-    padding: 0 $m-size;
+  max-width: 120rem;
+  margin: 0 auto;
+  height: fit-content;
+  padding: 0 $m-size;
 }
 
 .center{
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 .linklink{
-    text-decoration: none;
-    color: black;
+  text-decoration: none;
+  color: black;
 }
 
 .error {
-    font-size: $m-size;
-    font-weight: 1000;
-    color: red;
+  font-size: $m-size;
+  font-weight: 1000;
+  color: red;
 }
 
 .tooltip {
-    position: relative;
-    display: inline-block;
+  position: relative;
+  display: inline-block;
 }
 
 .tooltip .tooltiptext {
-    visibility: hidden;
-    width: fit-content;
-    font-size: $s-size;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: $s-size;
+  visibility: hidden;
+  width: fit-content;
+  font-size: $s-size;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: $s-size;
 }
 
 .tooltip:hover .tooltiptext {
-    visibility: visible;
+  visibility: visible;
 }
 
 .tooltip .edit {
-    position: absolute;
-    z-index: 1;
-    top: 100%;
-    left: 100%;
-    margin-left: -50px;
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 100%;
+  margin-left: -50px;
 }
 
 .tooltip .edit::after {
-    content: "";
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent transparent black transparent;
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
 }
 
 .tooltip .github {
-    position: absolute;
-    z-index: 1;
-    bottom: 100%;
-    left: 50%;
-    margin-left: -35px;
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -35px;
 }
 
 .tooltip .github::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: black transparent transparent transparent;
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
 }
 
 .tooltip .colab {
-    position: absolute;
-    z-index: 1;
-    bottom: 100%;
-    left: 50%;
-    margin-left: -35px;
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -35px;
 }
 
 .tooltip .colab::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: black transparent transparent transparent;
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
 }
 
 .badge--request {
-    position: absolute;
-    top: 58px;
-    right: 5px;
-    font-size: $s-size;
-    padding: 2px 4px;
-    border-radius: 50%;
-    opacity: 0.75;
-    background: $black-blue;
-    color: white;
+  position: absolute;
+  top: 58px;
+  right: 5px;
+  font-size: $s-size;
+  padding: 2px 4px;
+  border-radius: 50%;
+  opacity: 0.75;
+  background: $black-blue;
+  color: white;
 }
 
 .badge--new {
-    position: absolute;
-    top: -2px;
-    right: -2px;
-    font-size: $ms-size;
-    padding: 4px 8px;
-    border-radius: 50%;
-    opacity: 0.75;
-    background: $black-blue;
-    color: white;
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  font-size: $ms-size;
+  padding: 4px 8px;
+  border-radius: 50%;
+  opacity: 0.75;
+  background: $black-blue;
+  color: white;
 }
 
 .badge--notify {
-    position: absolute;
-    top: 5px;
-    right: 22px;
-    font-size: $s-size;
-    padding: 2px 4px;
-    border-radius: 50%;
-    opacity: 1;
-    background: $pink-red;
-    color: white;
+  position: absolute;
+  top: 5px;
+  right: 22px;
+  font-size: $s-size;
+  padding: 2px 4px;
+  border-radius: 50%;
+  opacity: 1;
+  background: $pink-red;
+  color: white;
 }
 
 .loader {
-    border: 5px solid white;
-    border-radius: 50%;
-    border-bottom: 5px solid $blue;
-    border-top: 5px solid $blue;
-    //border-top: 16px solid red;
-    width: 70px;
-    height: 70px;
-    -webkit-animation: spin 1s linear infinite; /* Safari */
-    animation: spin 1s linear infinite;
-  }
-  
-  /* Safari */
-  @-webkit-keyframes spin {
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(360deg); }
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
+width: 100px;
+height: 100px;
+position: relative;
+transform: translateY(50%);
+}
+
+.loader div {
+box-sizing: border-box;
+position: absolute;
+width: 100px;
+height: 100px;
+border: 8px solid transparent;
+border-top-color: $purple;
+border-radius: 50%;
+animation: spinnerOne 1.2s linear infinite;
+}
+
+.loader div:nth-child(2){
+border: 8px solid transparent;
+border-bottom-color: $purple;
+animation: spinnerTwo 1.2s linear infinite;
+}
+
+@keyframes spinnerOne {
+0% {transform: rotate(0deg); border-width: 8px}
+50% {transform: rotate(180deg); border-width: 1px}
+100% {transform: rotate(360deg); border-width: 8px}
+}
+
+@keyframes spinnerTwo {
+0% {transform: rotate(0deg); border-width: 1px}
+50% {transform: rotate(180deg); border-width: 8px}
+100% {transform: rotate(360deg); border-width: 1px}
+}
+
+.loader--component {
+display: flex;
+justify-content: space-around;
+align-items: flex-end;
+width: 50px;
+height: 20px;
+}
+
+.loader--component div {
+width: 10px;
+height: 10px;
+background: $light-blue;
+border-radius: 50%;
+animation: loader--component 0.5s cubic-bezier(.19,.57,.3,.98) infinite alternate;
+}
+
+.loader--component div:nth-child(2){
+animation-delay: 0.1s;
+}
+
+.loader--component div:nth-child(3){
+animation-delay: 0.2s;
+}
+
+.loader--component div:nth-child(4){
+animation-delay: 0.3s;
+}
+
+@keyframes loader--component{
+from {transform: translateY(0);}
+to {transform: translateY(-10px); background: $pink-red;}
+}
+
+.loader--square {
+width: 100px;
+height: 100px;
+position: relative;
+perspective: 200px;
+transform: translateY(50%);
+}
+
+.loader--square div {
+position: absolute;
+top: 0;
+height: 50px;
+width: 50px;
+background-color: $pink-red;
+animation: filpOne 2s linear infinite;
+transform-origin: right bottom;
+transform: rotateX(180deg) rotateY(180deg);
+}
+
+.loader--square div:nth-child(2) {
+animation: filpTwo 2s linear infinite;
+opacity: 0.5;
+}
+
+@keyframes filpOne {
+0% {transform: rotateX(180deg) rotateY(180deg);}
+25% {transform: rotateX(180deg) rotateY(0);}
+50% {transform: rotateX(0) rotateY(0);}
+75% {transform: rotateX(0) rotateY(180deg);}
+100% {transform: rotateX(180deg) rotateY(180deg);}
+}
+
+@keyframes filpTwo {
+75% {transform: rotateX(180deg) rotateY(0);}
+100% {transform: rotateX(0) rotateY(0);}
+0% {transform: rotateX(0) rotateY(0);}
+25% {transform: rotateX(0) rotateY(180deg);}
+50% {transform: rotateX(180deg) rotateY(180deg);}
+}
 
 .hide {
+visibility: hidden;
+-webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+#snackbar {
   visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  top: 30px;
+  font-size: 17px;
+  opacity: 0.85;
+}
+
+#snackbar.show {
+  visibility: visible;
   -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 
-#snackbar {
-    visibility: hidden;
-    min-width: 250px;
-    margin-left: -125px;
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    border-radius: 2px;
-    padding: 16px;
-    position: fixed;
-    z-index: 1;
-    left: 50%;
-    top: 30px;
-    font-size: 17px;
-    opacity: 0.85;
-  }
-  
-#snackbar.show {
-    visibility: visible;
-    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+#share--snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  top: 30px;
+  font-size: 17px;
+  opacity: 0.85;
 }
 
-#share--snackbar {
-    visibility: hidden;
-    min-width: 250px;
-    margin-left: -125px;
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    border-radius: 2px;
-    padding: 16px;
-    position: fixed;
-    z-index: 1;
-    left: 50%;
-    top: 30px;
-    font-size: 17px;
-    opacity: 0.85;
-  }
-  
 #share--snackbar.show {
-    visibility: visible;
-    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-    animation: fadein 0.5s, fadeout 0.5s 2.5s;
-  }
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
 
-  @-webkit-keyframes fadein {
-    from {top: 0; opacity: 0;} 
-    to {top: 30px; opacity: 0.75;}
-  }
-  
-  @keyframes fadein {
-    from {top: 0; opacity: 0;}
-    to {top: 30px; opacity: 0.75;}
-  }
-  
-  @-webkit-keyframes fadeout {
-    from {top: 30px; opacity: 1;} 
-    to {top: 0; opacity: 0.75;}
-  }
-  
-  @keyframes fadeout {
-    from {top: 30px; opacity: 1;}
-    to {top: 0; opacity: 0;}
-  }
+@-webkit-keyframes fadein {
+  from {top: 0; opacity: 0;} 
+  to {top: 30px; opacity: 0.75;}
+}
+
+@keyframes fadein {
+  from {top: 0; opacity: 0;}
+  to {top: 30px; opacity: 0.75;}
+}
+
+@-webkit-keyframes fadeout {
+  from {top: 30px; opacity: 1;} 
+  to {top: 0; opacity: 0.75;}
+}
+
+@keyframes fadeout {
+  from {top: 30px; opacity: 1;}
+  to {top: 0; opacity: 0;}
+}

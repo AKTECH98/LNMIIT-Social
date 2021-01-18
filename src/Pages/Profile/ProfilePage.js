@@ -14,6 +14,7 @@ export default class ProfilePage extends React.Component {
   {
     super(props)
     this.state={
+      loader: true,
       personal:null,
       year: "4th Year",
       batch: "Y17 Batch"
@@ -30,7 +31,7 @@ export default class ProfilePage extends React.Component {
             {
               'email':query,
             },
-            (res)=>{this.setState({personal:res.response})}
+            (res)=>{this.setState({personal:res.response,loader:false})}
           )
   }
   render(){
@@ -48,39 +49,44 @@ export default class ProfilePage extends React.Component {
           : ""
         }
         <Header logout={true}/>
-        <div className = "profile">
-          <div className = "profile-1">
-            <div className = "profile__detail">
-              <Personal year = {this.state.year} batch = {this.state.batch} personal = {this.state.personal} view={query.split('#')[0]!=window.localStorage.getItem('email')}/>   
+        {
+          (this.state.loader)?
+            <center><div className = "loader--square"><div/><div/></div></center>
+          :
+          <div className = "profile">
+            <div className = "profile-1">
+              <div className = "profile__detail">
+                <Personal year = {this.state.year} batch = {this.state.batch} personal = {this.state.personal} view={query!=window.localStorage.getItem('email')}/>   
+              </div>
+              <div className = "profile__skills">
+                <Skills view={query!=window.localStorage.getItem('email')}/>
+              </div>
+              <div className = "post--header">
+                <h3>My Posts</h3>
+              {  
+                (query==undefined||query==window.localStorage.email)?
+                /*While viewing own profile*/
+                  <div>
+                    <FeedWidget />
+                    <PostView author={window.localStorage.getItem('email')}/>
+                  </div>
+                : /*While viewing others' profile*/
+                  <div>
+                    <PostView author={query}/>
+                  </div>
+              }
+              </div>
             </div>
-            <div className = "profile__skills">
-              <Skills view={query.split('#')[0]!=window.localStorage.getItem('email')}/>
-            </div>
-            <div className = "post--header">
-              <h3>My Posts</h3>
-            {  
-              (query.split('#')[0]==undefined||query.split('#')[0]==window.localStorage.email)?
-              /*While viewing own profile*/
-                <div>
-                  <FeedWidget />
-                  <PostView author={window.localStorage.getItem('email')}/>
-                </div>
-              : /*While viewing others' profile*/
-                <div>
-                  <PostView author={query.split('#')[0]}/>
-                </div>
-            }
+            <div className = "profile-2">
+              <div className = "profile__contact">
+                <Contact personal = {this.state.personal} view={query!=window.localStorage.getItem('email')}/>   
+              </div>
+              <div className = "profile__widget">
+                <WidgetProject user = {(query==undefined)?window.localStorage.getItem('email'):query}/>
+              </div>
             </div>
           </div>
-          <div className = "profile-2">
-            <div className = "profile__contact">
-              <Contact personal = {this.state.personal} view={query.split('#')[0]!=window.localStorage.getItem('email')}/>   
-            </div>
-            <div className = "profile__widget">
-              <WidgetProject user = {(query.split('#')[0]==undefined)?window.localStorage.getItem('email'):query.split('#')[0]}/>
-            </div>
-          </div>
-        </div>
+        }
       </div>
     )
   }

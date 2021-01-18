@@ -36,7 +36,7 @@ export default class ConfirmOTP extends React.Component
       <div className = "center">
       {
         (this.state.loading)?
-          <div className = "loader"></div>
+          <center><div className = "loader--sqaure"><div/><div/></div></center>
         :
           (this.state.otpValid)?
             <p className = "otp--message otp--success"> OTP Verification Succesfully </p>

@@ -51,7 +51,8 @@ export default class WidgetProject extends React.Component {
   {
     super(props)
     this.state = {
-      projects: []
+      projects: [],
+      loader: true
     };
   }
 
@@ -86,6 +87,7 @@ export default class WidgetProject extends React.Component {
             })
           })
           this.setState({projects})
+          this.setState({loader:false})
         }
       }
     )}
@@ -95,8 +97,13 @@ export default class WidgetProject extends React.Component {
       <div className = "widget__list">
         <Header user = {this.props.user}/>
         {
-          (this.state.projects.length==0)? "No Projects to Show":
-          <WidgetView work = {this.state.projects} />
+          (this.state.loader)?
+            <div className = "loader--component"><div/><div/><div/><div/></div>
+          :
+            (this.state.projects.length==0)?
+              "No Projects to Show"
+            :
+              <WidgetView work = {this.state.projects} />
         }
       </div>
     );

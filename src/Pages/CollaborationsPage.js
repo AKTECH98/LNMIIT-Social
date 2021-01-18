@@ -150,8 +150,7 @@ export default class ProjectsPage extends React.Component {
         mentor:null,
         colab: false,
         project_id:0,
-        project_link:null,
-        badges:0
+        project_link:null
       }
     }
   }
@@ -188,31 +187,11 @@ export default class ProjectsPage extends React.Component {
                 project_id: item.project_id,
                 admin: item.admin
               }
-              if(item.admin){
-                  postRequest('project/getinterestedmembers',
-                    {
-                      'email':window.localStorage.getItem('email'),
-                      'password': window.localStorage.getItem('password'),
-                      'project_id': item.project_id
-                    },
-                    (res)=>{
-                      if(res.message=="SUCCESS")
-                      {
-                        pro.badges=res.users.length
-                        default_projects.push(pro)
-                        this.setState({projects: default_projects})
-                      }
-                    }
-                  )
-              }
-              else{
-                  default_projects.push(pro)
-                  this.setState({projects: default_projects})
-              }
               
+              default_projects.push(pro)
+              this.setState({projects: default_projects})
+              this.setState({loading:false})
             })
-            
-            this.setState({loading:false})
           }
         })
       }
@@ -241,31 +220,12 @@ export default class ProjectsPage extends React.Component {
                 project_id: item.project_id,
                 admin: item.admin
               }
-              if(item.admin){
-                  postRequest('project/getinterestedmembers',
-                    {
-                      'email':window.localStorage.getItem('email'),
-                      'password': window.localStorage.getItem('password'),
-                      'project_id': item.project_id
-                    },
-                    (res)=>{
-                      if(res.message=="SUCCESS")
-                      {
-                        pro.badges=res.users.length
-                        default_projects.push(pro)
-                        this.setState({projects: default_projects})
-                      }
-                    }
-                  )
-              }
-              else{
-                  default_projects.push(pro)
-                  this.setState({projects: default_projects})
-              }
+              
+              default_projects.push(pro)
+              this.setState({projects: default_projects})
+              this.setState({loading:false})
               
             })
-            
-            this.setState({loading:false})
           }
         })
       }
@@ -317,7 +277,7 @@ export default class ProjectsPage extends React.Component {
 
         {
           (this.state.loading)?
-          <div className = "loader center"></div>
+          <center><div className = "loader--square"><div/><div/></div></center>
           :
           <WorkView
             works={this.state.projects}

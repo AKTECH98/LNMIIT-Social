@@ -19,6 +19,7 @@ export default class EditPage extends React.Component {
     super(props);
 
     this.state = {
+      loader: true,
       photo: null,
       name: "",
       phone: "",
@@ -67,6 +68,7 @@ export default class EditPage extends React.Component {
           old_avatar: res.response.profile_image,
           avatar: res.response.profile_image,
           new_avatar: res.response.profile_image,
+          loader: false
         });
       }
     );
@@ -93,6 +95,11 @@ export default class EditPage extends React.Component {
       <div>
         <Header logout={true} />
         <div className = "edit__detail">
+        {
+          (this.state.loader)?
+          <center><div className = "loader--square"><div/><div/></div></center>
+          :
+          <>
           <div className='edit__detail--top'>
             <div className='edit__detail--picture'>
               <div className = "profile--image">
@@ -524,6 +531,8 @@ export default class EditPage extends React.Component {
               }
             }}
           />
+          </>
+        }
         </div>
         <div id='snackbar'>SAVED</div>
       </div>
