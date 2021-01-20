@@ -15,7 +15,6 @@ export default class ColabDetails extends React.Component{
     this.state = {
       error: false,
       saving: false,
-      loader: true,
       admin: true,
       colab_id: '',
       title:'', 
@@ -75,8 +74,6 @@ export default class ColabDetails extends React.Component{
               skills = this.state.skills_required.split(",")
               this.setState({skills:skills})
             }
-            
-            this.setState({loader:false})
           }
         }
       )
@@ -229,11 +226,6 @@ export default class ColabDetails extends React.Component{
 
   render(){
     return(
-      <>
-      {
-        (this.state.loader)?
-        <center><div className = "loader--square"><div/><div/></div></center>
-        :
       <div>
         <div className = "colab--details">
           <div className = "colab--details-left">
@@ -543,15 +535,8 @@ export default class ColabDetails extends React.Component{
           :""
         }
         </center>
-        {
-          this.state.isMember?
-          <Chats colab_id={this.state.colab_id}/>
-          :""
-        }
 
       </div>
-      }
-      </>
     )
   }
 }
