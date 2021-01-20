@@ -120,7 +120,7 @@ function PageHeader(props){
               </BrowserRouter>
         }
       />
-      <Collapse in={expanded} timeout="auto" unmountOnExit classes = {{container: useStyles().container}}>
+      <Collapse in={expanded} timeout={900} unmountOnExit classes = {{container: useStyles().container}}>
         <CardContent classes = {{root: useStyles().addDetail}}>
           <ColabDetails/>
         </CardContent>
