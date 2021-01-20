@@ -1,8 +1,9 @@
 import React from "react";
 
 import {postRequest} from '../components/CallApi'
+import Chats from '../components/Chats'
 import Button from "../components/Button";
-
+import Radio from '@material-ui/core/Radio';
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 
@@ -27,7 +28,9 @@ export default class ColabDetails extends React.Component{
       members: ["Author"],
       member: 1,
       link: '',
-      colab: false
+      colab: false,
+      colabType: "OTHER",
+      isMember: false,
     }
   }
 
@@ -53,6 +56,7 @@ export default class ColabDetails extends React.Component{
             this.setState(() => (
               {
                 admin: res.return_value.admin,
+                isMember: res.return_value.is_member,
                 link:res.return_value.link,
                 colab:res.return_value.colab,
                 title:res.return_value.title, 
@@ -60,7 +64,7 @@ export default class ColabDetails extends React.Component{
                 endDate:res.return_value.endDate,
                 skills_required:res.return_value.skills_required,
                 mentor:res.return_value.mentor,
-                description:res.return_value.description
+                description:res.return_value.description,
               })
             )
 
@@ -232,27 +236,41 @@ export default class ColabDetails extends React.Component{
             <h2>Type</h2>
             <div className = "colab--type-content">
               <div>
-                <Checkbox
-                  checked= {true}
+                <Radio
+                  checked= {this.state.colabType=="PROJECT"}
                   style = {{
                     transform: 'scale(1.5)'
                   }}
                   color = "primary"
                   disabled = {!this.state.admin}
+                  onClick={()=>this.setState({colabType:"PROJECT"})}
                 />
                 Project
               </div>
               <div>
-                <Checkbox
-                  checked= {false}
+                <Radio
+                  checked= {this.state.colabType=="HACKATHON"}
                   style = {{
                     transform: 'scale(1.5)'
                   }}
                   color = "primary"
                   disabled = {!this.state.admin}
+                  onClick={()=>this.setState({colabType:"HACKATHON"})}
                 />
                 Hackathon
               </div>
+              <div>
+                <Radio
+                  checked= {this.state.colabType=="OTHER"}
+                  style = {{
+                    transform: 'scale(1.5)'
+                  }}
+                  color = "primary"
+                  disabled = {!this.state.admin}
+                  onClick={()=>this.setState({colabType:"OTHER"})}
+                />
+                Other
+            </div>
             </div>
           </div>
           
@@ -520,6 +538,11 @@ export default class ColabDetails extends React.Component{
           :""
         }
         </center>
+        {
+          this.state.isMember?
+          <Chats colab_id={this.state.colab_id}/>
+          :""
+        }
       </div>
     )
   }
