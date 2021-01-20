@@ -12,6 +12,7 @@ export default class FullColab extends React.Component {
     super(props)
 
     this.state = {
+      loader: true,
       admin: false,
       colab_id: '',
       users: []
@@ -40,6 +41,8 @@ export default class FullColab extends React.Component {
         {
           this.setState({admin:false})
         }
+
+        this.setState({loader:false})
       }
     )
   }
@@ -53,35 +56,37 @@ export default class FullColab extends React.Component {
           <ColabDetails/>  
 
           <div className = "colab--requests">
-          {
-            (this.state.admin)?
-              <div>
-              <Request users = {this.state.users} id = {this.state.colab_id}/>
-              </div>
+          { (this.state.loader)?
+              <div className = "loader--component"><div/><div/><div/><div/></div>
             :
-            <Button text = "Send Colab Request" type = "button colab--button"
-              onClick=
-                {()=>{
+              (this.state.admin)?
+                <div>
+                <Request users = {this.state.users} id = {this.state.colab_id}/>
+                </div>
+              :
+              <Button text = "Send Colab Request" type = "button colab--button"
+                onClick=
+                  {()=>{
 
-                  postRequest('project/requesttojoin',
-                      {
-                        'email':window.localStorage.getItem('email'),
-                        'password': window.localStorage.getItem('password'),
-                        'project_id': this.state.colab_id
-                      },
-                      (res)=>{
-                        if(res.message=="FAILURE")
+                    postRequest('project/requesttojoin',
                         {
-                          window.alert("Request Not Sent")
+                          'email':window.localStorage.getItem('email'),
+                          'password': window.localStorage.getItem('password'),
+                          'project_id': this.state.colab_id
+                        },
+                        (res)=>{
+                          if(res.message=="FAILURE")
+                          {
+                            window.alert("Request Not Sent")
+                          }
+                          else
+                          {
+                            window.alert("Request Sent")
+                          }
                         }
-                        else
-                        {
-                          window.alert("Request Sent")
-                        }
-                      }
-                    )
-                }}
-            />
+                      )
+                  }}
+              />
           }
           </div>
         </div>

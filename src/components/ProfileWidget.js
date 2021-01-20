@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardMedia,
   Avatar,
+  CardContent,
 } from "@material-ui/core";
 
 import Background from "../img/background.jpg";
@@ -56,7 +57,13 @@ export default function ProfileWidget(props) {
         className={classes.media}
         image = {Background}
       />
-      <CardHeader
+      {
+        (props.personal==null)?
+        <CardContent>
+        <div className = "loader--component"><div/><div/><div/><div/></div>
+        </CardContent>
+        :
+        <CardHeader
         classes={{
           root: classes.rootHeader,
           title: classes.title,
@@ -71,7 +78,8 @@ export default function ProfileWidget(props) {
         }
         title={props.personal == null ? "Default Name" : props.personal.name}
         subheader={props.personal == null ? "Member of LNMIIT" : props.personal.headline}
-      />
+        />
+      }
     </Card>
   )
 }

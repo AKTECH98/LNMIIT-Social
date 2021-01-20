@@ -229,6 +229,11 @@ export default class ColabDetails extends React.Component{
 
   render(){
     return(
+      <>
+      {
+        (this.state.loader)?
+        <center><div className = "loader--square"><div/><div/></div></center>
+        :
       <div>
         <div className = "colab--details">
           <div className = "colab--details-left">
@@ -476,51 +481,51 @@ export default class ColabDetails extends React.Component{
             disabled = {!this.state.admin}
           />
         
-        <TextField
-          variant = "outlined"
-          style={{
-            marginTop: 10,
-            marginBottom: 5,
-            width: '100%'
-          }}
-          InputProps = {{
-            style: {
-              fontWeight: 300,
-              color: 'black',
-              fontSize: 20
-            }
-          }}
-          InputLabelProps = {{
-            style: {
-              fontWeight: 500,
-              color: 'purple',
-              fontSize: 15
-            }
-          }}
-          label='Mentor'
-          value = {this.state.mentor}
-          onChange = {(e)=>this.setState({mentor:e.target.value})}
-          disabled = {!this.state.admin}
-        />
+            <TextField
+              variant = "outlined"
+              style={{
+                marginTop: 10,
+                marginBottom: 5,
+                width: '100%'
+              }}
+              InputProps = {{
+                style: {
+                  fontWeight: 300,
+                  color: 'black',
+                  fontSize: 20
+                }
+              }}
+              InputLabelProps = {{
+                style: {
+                  fontWeight: 500,
+                  color: 'purple',
+                  fontSize: 15
+                }
+              }}
+              label='Mentor'
+              value = {this.state.mentor}
+              onChange = {(e)=>this.setState({mentor:e.target.value})}
+              disabled = {!this.state.admin}
+            />
 
-        <div className = "colab--members">
-          <h2>Members : 1</h2>
-          <div className = "colab--members-content">
-            
-            {
-              this.state.members.map((member,index)=>(
-                <div className="member--chip" key = {index}>
-                  {member}
-                  {/*If Author/Admin */}
-                  <div className = "admin--tag">ADIM</div>
-                </div>
-              ))
-            }
-            
+            <div className = "colab--members">
+              <h2>Members : 1</h2>
+              <div className = "colab--members-content">
+                
+                {
+                  this.state.members.map((member,index)=>(
+                    <div className="member--chip" key = {index}>
+                      {member}
+                      {/*If Author/Admin */}
+                      <div className = "admin--tag">ADIM</div>
+                    </div>
+                  ))
+                }
+                
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
         <center>
         { (this.state.error)?
           <p className = "error">Please Enter all Details Marked *</p>
@@ -543,7 +548,10 @@ export default class ColabDetails extends React.Component{
           <Chats colab_id={this.state.colab_id}/>
           :""
         }
+
       </div>
+      }
+      </>
     )
   }
 }
