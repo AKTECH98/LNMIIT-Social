@@ -25,7 +25,7 @@ export default class ColabDetails extends React.Component{
       skills: [],
       description:'',
       members: ["Author"],
-      member: 1,
+      member_count: "?",
       link: '',
       colab: false,
       colab_type: "",
@@ -63,6 +63,7 @@ export default class ColabDetails extends React.Component{
                 endDate:res.return_value.endDate,
                 skills_required:res.return_value.skills_required,
                 mentor:res.return_value.mentor,
+                member_count: res.return_value.member_count,
                 description:res.return_value.description,
                 colab_type:res.return_value.colab_type,
               })
@@ -177,7 +178,6 @@ export default class ColabDetails extends React.Component{
           'endDate': this.formatDate(),
           'skillsRequired': colab.skills_required,
           'mentor': colab.mentor,
-          'members': colab.member,
           'colab': colab.colab,
           'link' : colab.link,
           'colab_type': colab.colab_type,
@@ -211,7 +211,6 @@ export default class ColabDetails extends React.Component{
           'endDate': this.formatDate(),
           'skillsRequired': colab.skills_required,
           'mentor': colab.mentor,
-          'members': colab.member,
           'colab': colab.colab,
           'link' : colab.link,
           'colab_type':colab.colab_type,
@@ -504,7 +503,7 @@ export default class ColabDetails extends React.Component{
             />
 
             <div className = "colab--members">
-              <h2>Members : 1</h2>
+              <h2>Members : {this.state.member_count}</h2>
               <div className = "colab--members-content">
                 
                 {
