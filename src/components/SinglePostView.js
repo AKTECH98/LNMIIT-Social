@@ -133,14 +133,14 @@ export default function SinglePostView(props) {
   }
   
   //  console.log(content, "content");
-  var indexOfLocalhost = content.indexOf("localhost");
+  var indexOfLocalhost = content.indexOf("lnmiitsocial-backend.herokuapp.com");
   //console.log(indexOfLocalhost);
   var post = "";
 
   if (indexOfLocalhost === -1) {
     post = content;
   } else {
-    post = content.replace("localhost", "http://localhost");
+    post = content.replace("lnmiitsocial-backend.herokuapp.com", "https://lnmiitsocial-backend.herokuapp.com");
   }
 
   const parsedPost = ReactHtmlParser(post);
