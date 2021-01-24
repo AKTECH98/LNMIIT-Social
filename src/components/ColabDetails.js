@@ -1,5 +1,5 @@
 import React from "react";
-
+import {Link} from 'react-router-dom';
 import {postRequest} from '../components/CallApi'
 import Chats from '../components/Chats'
 import Button from "../components/Button";
@@ -41,6 +41,22 @@ export default class ColabDetails extends React.Component{
     if(res.colabID!=undefined)
     {
       this.setState({colab_id:res.colabID})
+
+      postRequest('project/fetchprojectmembers',
+        {
+          'email':window.localStorage.getItem('email'),
+          'password': window.localStorage.getItem('password'),
+          'project_id': res.colabID
+        },
+        (res)=>{
+          if(res.message=="SUCCESS")
+          {
+            //console.log(res.return_value)
+            this.setState({members:res.results})
+            
+          }
+        }
+      )
 
       postRequest('project/getcolabdetails',
         {
@@ -159,7 +175,7 @@ export default class ColabDetails extends React.Component{
   SaveDetails = () => {
 
     this.setState(()=>({saving:true}))
-    if(!this.state.title || !this.state.member || !this.state.description){
+    if(!this.state.title || !this.state.description){
       this.setState(() => ({error : true,saving: false}));
     }
     else {
@@ -194,7 +210,7 @@ export default class ColabDetails extends React.Component{
 
   EditDetails = () => {
     this.setState({saving:true})
-    if(!this.state.title || !this.state.member || !this.state.description){
+    if(!this.state.title || !this.state.description){
       this.setState(() => ({error : true,saving:false}));
     }
     else {
@@ -508,11 +524,11 @@ export default class ColabDetails extends React.Component{
                 
                 {
                   this.state.members.map((member,index)=>(
-                    <div className="member--chip" key = {index}>
-                      {member}
-                      {/*If Author/Admin */}
-                      <div className = "admin--tag">ADIM</div>
+                    <Link  key = {index} className="linklink" to={"ProfilePage?email="+member.email}>
+                    <div className="member--chip">
+                      {member.name} {(member.admin)?<div className = "admin--tag">Admin</div>:""}
                     </div>
+                    </Link>
                   ))
                 }
                 
