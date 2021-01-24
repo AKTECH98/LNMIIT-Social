@@ -19,8 +19,8 @@ export default class ColabDetails extends React.Component{
       colab_id: '',
       title:'', 
       mentor: " ",
-      startDate: null, 
-      endDate:null,
+      startDate: this.formatDate(), 
+      endDate:this.formatDate(),
       skills_required:'',
       skills: [],
       description:'',
@@ -190,8 +190,8 @@ export default class ColabDetails extends React.Component{
           'project_id': colab.colab_id,
           'title': colab.title,
           'description': colab.description,
-          'startDate': this.formatDate(),
-          'endDate': this.formatDate(),
+          'startDate': colab.startDate,
+          'endDate': colab.endDate,
           'skillsRequired': colab.skills_required,
           'mentor': colab.mentor,
           'colab': colab.colab,
@@ -223,8 +223,8 @@ export default class ColabDetails extends React.Component{
           'project_id': colab.colab_id,
           'title': colab.title,
           'description': colab.description,
-          'startDate': this.formatDate(),
-          'endDate': this.formatDate(),
+          'startDate': colab.startDate,
+          'endDate': colab.endDate,
           'skillsRequired': colab.skills_required,
           'mentor': colab.mentor,
           'colab': colab.colab,
@@ -441,12 +441,12 @@ export default class ColabDetails extends React.Component{
         <div className = "colab--details-right">
           <TextField
             type = "date"
-            defaultValue = {this.formatDate()}
             variant = "outlined"
             style={{
               marginBottom: 5,
               width: "100%"
             }}
+            inputProps ={{max:this.state.endDate}}
             InputProps = {{
               style: {
                 fontWeight: 300,
@@ -461,18 +461,20 @@ export default class ColabDetails extends React.Component{
                 fontSize: 15
               }
             }}
+            value={this.state.startDate}
+            onChange={(e)=>this.setState({startDate:e.target.value})}
             label='Start Date'
             disabled = {!this.state.admin}
           />
           <TextField
             type = "date"
-            defaultValue = {this.formatDate()}
             variant = "outlined"
             style={{
               marginTop: 10,
               marginBottom: 5,
               width: "100%"
             }}
+            inputProps ={{min:this.state.startDate}}
             InputProps = {{
               style: {
                 fontWeight: 300,
@@ -487,6 +489,8 @@ export default class ColabDetails extends React.Component{
                 fontSize: 15
               }
             }}
+            value={this.state.endDate}
+            onChange={(e)=>this.setState({endDate:e.target.value})}
             label='End Date'
             disabled = {!this.state.admin}
           />
