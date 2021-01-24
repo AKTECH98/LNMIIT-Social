@@ -28,7 +28,7 @@ export default class ColabDetails extends React.Component{
       member: 1,
       link: '',
       colab: false,
-      colabType: "OTHER",
+      colab_type: "",
       isMember: false,
     }
   }
@@ -64,6 +64,7 @@ export default class ColabDetails extends React.Component{
                 skills_required:res.return_value.skills_required,
                 mentor:res.return_value.mentor,
                 description:res.return_value.description,
+                colab_type:res.return_value.colab_type,
               })
             )
 
@@ -179,6 +180,7 @@ export default class ColabDetails extends React.Component{
           'members': colab.member,
           'colab': colab.colab,
           'link' : colab.link,
+          'colab_type': colab.colab_type,
         },
         (res)=>{
           if(res.message=="SUCCESS")
@@ -211,7 +213,8 @@ export default class ColabDetails extends React.Component{
           'mentor': colab.mentor,
           'members': colab.member,
           'colab': colab.colab,
-          'link' : colab.link
+          'link' : colab.link,
+          'colab_type':colab.colab_type,
         },
         (res)=>{
           if(res.message=="SUCCESS")
@@ -234,37 +237,37 @@ export default class ColabDetails extends React.Component{
             <div className = "colab--type-content">
               <div>
                 <Radio
-                  checked= {this.state.colabType=="PROJECT"}
+                  checked= {this.state.colab_type=="PROJECT"}
                   style = {{
                     transform: 'scale(1.5)'
                   }}
                   color = "primary"
                   disabled = {!this.state.admin}
-                  onClick={()=>this.setState({colabType:"PROJECT"})}
+                  onClick={()=>this.setState({colab_type:"PROJECT"})}
                 />
                 Project
               </div>
               <div>
                 <Radio
-                  checked= {this.state.colabType=="HACKATHON"}
+                  checked= {this.state.colab_type=="HACKATHON"}
                   style = {{
                     transform: 'scale(1.5)'
                   }}
                   color = "primary"
                   disabled = {!this.state.admin}
-                  onClick={()=>this.setState({colabType:"HACKATHON"})}
+                  onClick={()=>this.setState({colab_type:"HACKATHON"})}
                 />
                 Hackathon
               </div>
               <div>
                 <Radio
-                  checked= {this.state.colabType=="OTHER"}
+                  checked= {this.state.colab_type=="OTHER"}
                   style = {{
                     transform: 'scale(1.5)'
                   }}
                   color = "primary"
                   disabled = {!this.state.admin}
-                  onClick={()=>this.setState({colabType:"OTHER"})}
+                  onClick={()=>this.setState({colab_type:"OTHER"})}
                 />
                 Other
             </div>

@@ -185,7 +185,8 @@ export default class ProjectsPage extends React.Component {
                 colab: item.colab,
                 project_link: item.link,
                 project_id: item.project_id,
-                admin: item.admin
+                admin: item.admin,
+                colab_type: item.colab_type,
               }
               
               default_projects.push(pro)
@@ -218,7 +219,8 @@ export default class ProjectsPage extends React.Component {
                 colab: item.colab,
                 project_link: item.link,
                 project_id: item.project_id,
-                admin: item.admin
+                admin: item.admin,
+                colab_type: item.colab_type,
               }
               
               default_projects.push(pro)

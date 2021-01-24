@@ -83,7 +83,8 @@ export default class WidgetProject extends React.Component {
               mentor: item.mentor,
               colab: item.colab,
               project_link: item.link,
-              project_id: item.project_id
+              project_id: item.project_id,
+              colab_type: item.colab_type
             })
           })
           this.setState({projects})
