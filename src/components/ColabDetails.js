@@ -526,7 +526,7 @@ export default class ColabDetails extends React.Component{
                   this.state.members.map((member,index)=>(
                     <Link  key = {index} className="linklink" to={"ProfilePage?email="+member.email}>
                     <div className="member--chip">
-                      {member.name} {(member.admin)?<div className = "admin--tag">Admin</div>:""}
+                      {member.email==window.localStorage.email?"You":member.name} {(member.admin)?<div className = "admin--tag">Admin</div>:""}
                     </div>
                     </Link>
                   ))
