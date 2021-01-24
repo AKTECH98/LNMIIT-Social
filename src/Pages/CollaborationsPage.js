@@ -192,6 +192,7 @@ export default class ProjectsPage extends React.Component {
               default_projects.push(pro)
               this.setState({projects: default_projects})
               this.setState({loading:false})
+              console.log("hi")
             })
           }
         })
@@ -276,7 +277,7 @@ export default class ProjectsPage extends React.Component {
           newProject = {this.AddDetail} 
           view = {user!=window.localStorage.getItem('email')}
         />
-
+        {console.log(this.state.loading)}
         {
           (this.state.loading)?
           <center><div className = "loader--square"><div/><div/></div></center>
