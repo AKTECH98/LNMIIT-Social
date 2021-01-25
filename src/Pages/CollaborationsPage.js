@@ -140,18 +140,6 @@ export default class ProjectsPage extends React.Component {
       addDetail: false,
       request: false,
       request_project_id:null,
-      project: {
-        title: null,
-        description: null,
-        startDate: null,
-        endDate: null,
-        requirements: null,
-        member: 0,
-        mentor:null,
-        colab: false,
-        project_id:0,
-        project_link:null
-      }
     }
   }
 

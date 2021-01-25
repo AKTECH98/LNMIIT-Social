@@ -133,6 +133,7 @@ export default function WidgetDetails(props){
           </div>
           :" "
         }
+        {props.optionText.colab_type}
       </CardActions>
     </Card>
   );

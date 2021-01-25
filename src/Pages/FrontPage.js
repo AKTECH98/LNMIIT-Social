@@ -7,7 +7,7 @@ import Anshul from '../img/anshul1.jpg';
 import Abhay from '../img/abhay.png';
 import Anupam from '../img/anupam.jpg';
 import Tarun from '../img/tarun.jpeg';
-import Vikas from '../img/DefaultUser.jpg';
+import Vikas from '../img/vikas.jpg';
 
 export default class FrontPage extends React.Component {
   render(){
