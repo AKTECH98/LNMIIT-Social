@@ -6,7 +6,8 @@ import Header from '../components/Header';
 import Anshul from '../img/anshul1.jpg';
 import Abhay from '../img/abhay.png';
 import Anupam from '../img/anupam.jpg';
-import Tarun from '../img/DefaultUser.jpg';
+import Tarun from '../img/tarun.jpeg';
+import Vikas from '../img/DefaultUser.jpg';
 
 export default class FrontPage extends React.Component {
   render(){
@@ -52,7 +53,7 @@ export default class FrontPage extends React.Component {
             </div>
             <div className = "developer">
               <a href = "https://www.linkedin.com/in/tarun-gupta-3956a5143/" target="_blank">
-                <img src={Tarun} alt="Tarun" className="avatar"/>
+                <img src={Vikas} alt="Tarun" className="avatar"/>
                 <p className = "dev__name">Vikas Bajpai<br/>Mentor</p>
               </a>
             </div>
