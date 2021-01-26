@@ -166,7 +166,7 @@ export default function SinglePostView(props) {
         }
       )
   }
-  if(isDeleted) return ""
+  
   return (
     <Card className={classes.root}>
       <CardHeader
@@ -181,25 +181,29 @@ export default function SinglePostView(props) {
         }
 
         action = {
-          (props.item.author==window.localStorage.getItem("email") && (props.fullPostView))? /*Show delete only if author ==user*/
-            <Button 
-              text = "Delete Post"
-              type = "post--delete"
-              onClick = {()=>{
-                  postRequest(
-                    "posts/deletepost",
-                    {
-                      email: window.localStorage.getItem("email"),
-                      password: window.localStorage.getItem("password"),
-                      post_id: props.item.post_id
-                    },
-                    (res) => {
-                      setIsDeleted(true)
-                    }
-                  )
+          (props.item.author==window.localStorage.getItem("email") && (props.fullPostView))?
+            (isDeleted==true)?
+            <div className = "pulse">Deleting...</div>
+            :
+              <Button 
+                text = "Delete Post"
+                type = "post--delete"
+                onClick = {()=>{
+                    setIsDeleted(true)
+                    postRequest(
+                      "posts/deletepost",
+                      {
+                        email: window.localStorage.getItem("email"),
+                        password: window.localStorage.getItem("password"),
+                        post_id: props.item.post_id
+                      },
+                      (res) => {
+                        window.open(`Home?email=`+window.localStorage.getItem('email'), "_self")
+                      }
+                    )
+                  }
                 }
-              }
-            />
+              />
           :""
         }
 
