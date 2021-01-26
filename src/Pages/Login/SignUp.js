@@ -55,6 +55,11 @@ export default class SignUp extends React.Component
       this.setState({errorMessage:'Select a Batch or Select Faculty if you are a Faculty Member'})
       this.setState({btnLoad:false})
     }
+    else if(!this.state.name || !this.state.name.trim())
+    {
+      this.setState({errorMessage:'Enter your name'})
+      this.setState({btnLoad:false})
+    }
     else
     {
       postRequest('login/signup',
@@ -155,7 +160,7 @@ export default class SignUp extends React.Component
                 }}
                 defaultValue={this.state.email}
                 onChange={(e)=>{this.setState({name:e.target.value})}}
-                label='Full Name'
+                label='Full Name*'
               />
               <TextField
                 select
