@@ -17,7 +17,7 @@ export default class SignUp extends React.Component
       password:'',
       confirmPassword:'',
       name: '',
-      batch: '',
+      batch: null,
       batches: [],
       btnLoad: false,
       errorMessage:'',
@@ -46,11 +46,23 @@ export default class SignUp extends React.Component
 
     if (this.state.password ==this.state.confirmPassword)
     {
+      this.setState({errorMessage:'Passwords Do Not Match'})
+      this.setState({btnLoad:false})
+    }
+    else if(this.state.batch==null)
+    {
+      this.setState({errorMessage:'Select a batch'})
+      this.setState({btnLoad:false})
+    }
+    else
+    {
       postRequest('login/signup',
         {
           'email':this.state.email,
           'name': this.state.name,
-          'password': this.state.password
+          'password': this.state.password,
+          'batch': this.state.batch,
+          'phone': this.state.phone
         },
         (res)=>{
           if(res.message=="SUCCESS")
@@ -61,11 +73,6 @@ export default class SignUp extends React.Component
           this.setState({btnLoad:false})
         }
       )
-    }
-    else
-    {
-      this.setState({errorMessage:'Passwords Do Not Match'})
-      this.setState({btnLoad:false})
     }
   }
 
