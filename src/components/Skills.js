@@ -119,7 +119,7 @@ export default class Skills extends React.Component {
   componentDidMount(){
      postRequest('profile/viewskills',
         {
-          'email':window.localStorage.getItem('email'),
+          'email':this.props.user,
         },
         (res)=>{
           if(res.message=="SUCCESS")
