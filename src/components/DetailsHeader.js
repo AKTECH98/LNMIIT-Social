@@ -102,9 +102,9 @@ export default function HeaderDetails(props) {
         title={props.optionText.title}
         subheader = {
           <div>
-          {'Author: Author Name'}<br/>
+          {/*{'Author: Author Name'}<br/>*/}
           {(props.optionText.mentor!=undefined)?"Mentor : " + props.optionText.mentor:"Mentor : None"}<br/>
-          {'Members : '+ props.optionText.member}<br/>
+          {/*{'Members : '+ props.optionText.member}<br/>*/}
           {(props.optionText.requirements!=undefined)?'Skills : '+props.optionText.requirements:"Skills : None Required"}
           </div>
         }
