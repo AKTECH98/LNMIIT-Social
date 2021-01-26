@@ -44,7 +44,7 @@ export default class SignUp extends React.Component
     event.preventDefault()
     this.setState({btnLoad:true});
 
-    if (this.state.password ==this.state.confirmPassword)
+    if (this.state.password !=this.state.confirmPassword)
     {
       this.setState({errorMessage:'Passwords Do Not Match'})
       this.setState({btnLoad:false})
