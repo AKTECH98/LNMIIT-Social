@@ -47,6 +47,8 @@ export default function Requests(props){
             <TableRow classes={{root:classes.tableRow}}>
               <TableCell align = "center" classes={{root:classes.tableHead}}>Email ID</TableCell>
               <TableCell align = "center" classes={{root:classes.tableHead}}>Name</TableCell>
+              <TableCell align = "center" classes={{root:classes.tableHead}}>{/*Confirm*/}</TableCell>
+              <TableCell align = "center" classes={{root:classes.tableHead}}>{/*Reject*/}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -61,13 +63,11 @@ export default function Requests(props){
             <>
             <TableRow key={user} id = {user} classes={{root:classes.tableRow}}>
               <TableCell classes={{root:classes.tableCell}}>
-                {user /*Email Id*/}
+                {user.email}
               </TableCell>
               <TableCell classes={{root:classes.tableCell}}>
-                Name {/*User Name */}
+                {user.name}
               </TableCell>
-            </TableRow>
-            <TableRow classes={{root:classes.tableRow}}>
               <TableCell classes={{root:classes.tableCell}}>
                 <Button text = "Confirm" type = "button accept__request--button"
                   onClick = {()=>{
@@ -76,7 +76,7 @@ export default function Requests(props){
                         'email':window.localStorage.getItem('email'),
                         'password': window.localStorage.getItem('password'),
                         'project_id': props.id,
-                        'user': user
+                        'user': user.email
                       },
                       (res)=>{
                         if(res.message=="SUCCESS")
@@ -92,8 +92,29 @@ export default function Requests(props){
                   }}
                 />
               </TableCell>
+
               <TableCell classes={{root:classes.tableCell}}> 
-                <Button text = "Reject" type = "button reject__request--button"/>
+                <Button text = "Reject" type = "button reject__request--button"
+                  onClick = {()=>{
+                    postRequest('project/rejectrequesttojoin',
+                      {
+                        'email':window.localStorage.getItem('email'),
+                        'password': window.localStorage.getItem('password'),
+                        'project_id': props.id,
+                        'user_email': user.email
+                      },
+                      (res)=>{
+                        if(res.message=="SUCCESS")
+                        {
+                          window.alert("Success")
+                        }
+                        else
+                        {
+                          window.alert("Fail")
+                        }
+                      }
+                    )
+                  }}/>
               </TableCell>
             </TableRow>
             </>
