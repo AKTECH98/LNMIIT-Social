@@ -68,6 +68,8 @@ export default function Requests(props){
               <TableCell classes={{root:classes.tableCell}}>
                 {user.name}
               </TableCell>
+            </TableRow>
+            <TableRow>
               <TableCell classes={{root:classes.tableCell}}>
                 <Button text = "Confirm" type = "button accept__request--button"
                   onClick = {()=>{

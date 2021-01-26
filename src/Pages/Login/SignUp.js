@@ -209,6 +209,7 @@ export default class SignUp extends React.Component
                 onChange={(e)=>{this.setState({phone:e.target.value})}}
                 label='Phone No.'
               />
+              <center>
               <div className = "signup__connect">
               {
                 (this.state.btnLoad)?<p><i className="fa fa-spinner fa-spin"></i>Connecting</p>:
@@ -218,6 +219,7 @@ export default class SignUp extends React.Component
                 />
               }
               </div>
+              </center>
             </div>
             <div className = "signup--password">
             <TextField

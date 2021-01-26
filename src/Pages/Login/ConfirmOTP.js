@@ -9,7 +9,7 @@ export default class ConfirmOTP extends React.Component
     super(props)
     this.state={
       otpValid: false,
-      loading: false
+      loading: true
     }
   }
    componentDidMount(){
@@ -24,7 +24,7 @@ export default class ConfirmOTP extends React.Component
           (res)=>{
             if(res.message=="SUCCESS")
             {
-              this.setState({otpValid:true})
+              this.setState({otpValid:true,loading:false})
             }
           }
         )
@@ -47,9 +47,11 @@ export default class ConfirmOTP extends React.Component
         (this.state.loading)?
         ""
         :
-          <Link to="/" className = "linklink opt--redirect">
-            Click Here To Login.....
-          </Link>
+          (this.state.otpValid)?
+            <Link to="/" className = "linklink opt--redirect">
+              Click Here To Login.....
+            </Link>
+          :''
       }
       </div>
 
