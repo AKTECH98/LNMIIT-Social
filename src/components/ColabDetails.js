@@ -27,11 +27,11 @@ export default class ColabDetails extends React.Component{
       skills_required: '',
       skills: [],
       description:'',
-      members: ["Author"],
-      member_count: "?",
+      members: [{name:"You",admin:true,email:window.localStorage.email}],
+      member_count: "1",
       link: '',
       colab: false,
-      colab_type: "",
+      colab_type: "OTHER",
       isMember: false,
     }
   }
