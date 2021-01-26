@@ -120,7 +120,7 @@ export default function Personal(props) {
         )}
       </CardContent>
       <CardContent classes={{ root: classes.contenDistinguish }}>
-        {props.personal == null ? "" : props.personal.batch}
+        {props.personal == null ? "" : "Batch : "+props.personal.batch}
       </CardContent>
     </Card>
   );
