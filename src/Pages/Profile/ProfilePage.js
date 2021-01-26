@@ -16,8 +16,6 @@ export default class ProfilePage extends React.Component {
     this.state={
       loader: true,
       personal:null,
-      year: "4th Year",
-      batch: "Y17 Batch"
     }
   }
 
@@ -56,7 +54,7 @@ export default class ProfilePage extends React.Component {
           <div className = "profile">
             <div className = "profile-1">
               <div className = "profile__detail">
-                <Personal year = {this.state.year} batch = {this.state.batch} personal = {this.state.personal} view={query!=window.localStorage.getItem('email')}/>   
+                <Personal personal = {this.state.personal} view={query!=window.localStorage.getItem('email')}/>   
               </div>
               <div className = "profile__skills">
                 <Skills view={query!=window.localStorage.getItem('email')} user={res.email}/>

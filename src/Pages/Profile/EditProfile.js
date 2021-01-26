@@ -55,6 +55,7 @@ export default class EditPage extends React.Component {
       },
       (res) => {
         this.setState({
+          batch: res.response.batch,
           name: res.response.name,
           altEmail: res.response.email,
           phone: res.response.phone,
