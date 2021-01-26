@@ -83,7 +83,7 @@ export default function WidgetDetails(props){
           <div>
           {/*{'Author: Author Name'}<br/>*/}
           {(props.optionText.mentor!=undefined)?"Mentor : " + props.optionText.mentor:"Mentor : None"}<br/>
-          {/*{'Members : '+ props.optionText.member}<br/>*/}
+          {'Members : '+ props.optionText.member_count}<br/>
           {(props.optionText.requirements!=undefined)?'Skills : '+limitContent(props.optionText.requirements,2):"Skills : None Required"}
           </div>
         }

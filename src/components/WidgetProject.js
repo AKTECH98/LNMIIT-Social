@@ -74,6 +74,7 @@ export default class WidgetProject extends React.Component {
           let projects = []
           res.return_value.forEach((item)=>{
             projects.push({
+              member_count: item.member_count,
               title : item.title,
               description: item.description,
               startDate: item.startDate,
