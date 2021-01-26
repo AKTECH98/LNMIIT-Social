@@ -270,14 +270,19 @@ export default class ColabDetails extends React.Component{
           </div>
         :
           <>
-          <div className = "colab--delete">
           {
-            (!this.state.colab_id)?'':
-            <IconButton onClick = {this.DeleteColab}>
-              <DeleteIcon style={{ fontSize: 35, color: "#D11A2A" }}/>
-            </IconButton>
+            (this.state.admin)?
+              <div className = "colab--delete">
+              {
+                (!this.state.colab_id)?'':
+                <IconButton onClick = {this.DeleteColab}>
+                  <DeleteIcon style={{ fontSize: 35, color: "#D11A2A" }}/>
+                </IconButton>
+              }
+              </div>
+            :
+              ''
           }
-          </div>
           <div className = "colab--details">
             <div className = "colab--details-left">
             <div className = "colab--type">
