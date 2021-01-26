@@ -161,29 +161,29 @@ export default class ProjectsPage extends React.Component {
           if(res.message=="SUCCESS")
           {
             let default_projects = []
-            res.return_value.forEach((item)=>{
-              let pro = {
-                author: item.author,
-                member_count:item.member_count,
-                title : item.title,
-                description: item.description,
-                startDate: item.startDate,
-                endDate: item.endDate,
-                requirements: item.skills_required,
-                member: item.members,
-                mentor: item.mentor,
-                colab: item.colab,
-                project_link: item.link,
-                project_id: item.project_id,
-                admin: item.admin,
-                colab_type: item.colab_type,
+
+              res.return_value.forEach((item)=>{
+                let pro = {
+                  author: item.author,
+                  title : item.title,
+                  description: item.description,
+                  startDate: item.startDate,
+                  endDate: item.endDate,
+                  requirements: item.skills_required,
+                  member: item.members,
+                  mentor: item.mentor,
+                  colab: item.colab,
+                  project_link: item.link,
+                  project_id: item.project_id,
+                  admin: item.admin,
+                  colab_type: item.colab_type,
+                }
+                
+                default_projects.push(pro)
+                this.setState({projects: default_projects})
               }
-              
-              default_projects.push(pro)
-              this.setState({projects: default_projects})
-              this.setState({loading:false})
-              console.log("hi")
-            })
+            )
+            this.setState({loading:false})
           }
         })
       }
@@ -198,6 +198,7 @@ export default class ProjectsPage extends React.Component {
           if(res.message=="SUCCESS")
           {
             let default_projects = []
+<<<<<<< HEAD
             res.return_value.forEach((item)=>{
               let pro = {
                 author: item.author,
@@ -214,13 +215,29 @@ export default class ProjectsPage extends React.Component {
                 project_id: item.project_id,
                 admin: item.admin,
                 colab_type: item.colab_type,
+=======
+              res.return_value.forEach((item)=>{
+                let pro = {
+                  title : item.title,
+                  description: item.description,
+                  startDate: item.startDate,
+                  endDate: item.endDate,
+                  requirements: item.skills_required,
+                  member: item.members,
+                  mentor: item.mentor,
+                  colab: item.colab,
+                  project_link: item.link,
+                  project_id: item.project_id,
+                  admin: item.admin,
+                  colab_type: item.colab_type,
+                }
+                
+                default_projects.push(pro)
+                this.setState({projects: default_projects})    
+>>>>>>> 83a7e0d25e8d963afebd00fec69e20362070c265
               }
-              
-              default_projects.push(pro)
-              this.setState({projects: default_projects})
-              this.setState({loading:false})
-              
-            })
+            )
+            this.setState({loading:false})
           }
         })
       }
