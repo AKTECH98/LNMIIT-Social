@@ -15,6 +15,9 @@
   .home__widget {
     display: none;
   }
+  .header {
+    background-color: white;
+  }
   .home__photo {
     display: none;
   }
@@ -65,6 +68,27 @@
     width: 90vw;
   }
   .profile__detail {
+    font-size: 10px;
+  }
+  .front__page {
+    grid-template-columns: auto;
+  }
+  .login__form {
+    margin: auto;
+  }
+  .description {
+    margin: auto;
+    font-size: 10px;
+  }
+  .avatar {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 10px;
+  }
+  .dev__name {
+    display: none;
+  }
+  .login__byline {
     font-size: 10px;
   }
 }
