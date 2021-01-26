@@ -1,86 +1,86 @@
 import React from "react";
 import {Link} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { CardHeader,CardContent,Card, Avatar} from "@material-ui/core";
 import { postRequest } from "./CallApi";
 
+import DefaultUser from '../img/DefaultUser.jpg';
+import TimeAgo from './TimeAgo';
 import Button from "./Button";
-import { grey } from "@material-ui/core/colors";
 
-const useStyles = makeStyles({
-  root:{
-    borderTop: '1px grey solid',
-    backgroundColor: 'white',
-    Height: 'fit-content',
-    Width: 636
-  },
-  title: {
-    fontSize: 15,
-    color: '#4574bf',
-    fontColor: 'black'
-  },
-  subHeader: {
-    borderBottom: '0.1rem solid grey',
-    fontSize: 10,
-    fontColor: 'black'
-  },
-  content: {
-    Width: 636
+
+class Comment extends React.Component {
+  constructor(props)
+  {
+    super(props);
+    this.state= {
+      comment: props.comment,
+      isDeleted:false
+    }
   }
-});
 
-function SingleComment(props) {
-
-  const classes = useStyles();
-
-  return (
-    <Card className = {classes.root}>
-      <CardHeader
-      classes = {{
-        title: classes.title,
-        subheader: classes.subHeader
-      }}
-      avatar = {
-        <Avatar>
-          Pending
-        </Avatar>
-      }
-      title = {<Link to={"ProfilePage?email="+props.comment.author}>{props.comment.name}</Link>}
-      subheader = {props.comment.date_time_of_comment}
-
-      action = {
-        (props.comment.author==window.localStorage.getItem("email"))?
-          <Button
-            text = "Delete"
-            type = "comment--delete"
-            onClick = {
-              ()=>{
-                postRequest(
-                  "posts/deletecomment",
-                  {
-                    email: window.localStorage.getItem("email"),
-                    password: window.localStorage.getItem("password"),
-                    comment_id: props.comment.comment_id
-                  },
-                  (res) => {
-                    if(res.message=='SUCCESS')
-                    {
-                      location.reload()
-                    }
-                  }
-                )
-              }
-            }
-          />
-          :""
-        } 
-      />
-      <CardContent classes = {{root:classes.content}}>
-        {props.comment.content}
-      </CardContent>
-    </Card>
-  )
+  render()
+  {
+    return(
+      <div className = "comment">
+              <Link className="linklink" to={"ProfilePage?email="+this.state.comment.author}>
+                <img 
+                    src={this.state.comment.profile_image?this.state.comment.profile_image:DefaultUser} 
+                    alt="Avatar" 
+                    className = "comment--avatar"
+                />
+              </Link>
+              <div className = "comment__content">
+                <div className = "comment--header">
+                  <Link className="linklink" to={"ProfilePage?email="+this.state.comment.author}>
+                    <p className = "comment--author">
+                    {this.state.comment.name}
+                    </p>
+                  </Link>
+                  <p className = "comment--date">{TimeAgo(Date.parse(this.state.comment.date_time_of_comment))}</p>
+                </div>
+                <div className = "comment--content">
+                  {this.state.comment.content}
+                </div>
+                {
+                  (this.state.comment.author==window.localStorage.getItem("email") && (this.props.showDelete))?
+                    (this.state.isDeleted)?
+                      <center><p><i className="fa fa-spinner fa-spin"></i>Deleting...</p></center>
+                    :
+                      <Button
+                        text = "Delete Comment"
+                        type = "comment--delete"
+                        onClick = {
+                          ()=>{
+                            this.setState({isDeleted:true})
+                            postRequest(
+                              "posts/deletecomment",
+                              {
+                                email: window.localStorage.getItem("email"),
+                                password: window.localStorage.getItem("password"),
+                                comment_id: this.state.comment.comment_id
+                              },
+                              (res) => {
+                                if(res.message=='SUCCESS')
+                                {
+                                  location.reload();
+                                }
+                                else
+                                {
+                                  this.setState({isDeleted:false})
+                                }
+                              }
+                            )
+                          }
+                        }
+                      />
+                    :""
+                }
+              </div>
+      </div>
+    )
+  }
 }
+
 
 export default class CommentBox extends React.Component {
   constructor(props) {
@@ -88,39 +88,66 @@ export default class CommentBox extends React.Component {
     console.log(props)
     this.state = {
       postId:props.postId,
-      comments:[]
+      comments:[],
+      load: true
     };
   }
   componentDidMount(){
-    postRequest(
-      "posts/viewallcomments",
-      {
-        email: window.localStorage.getItem("email"),
-        password: window.localStorage.getItem("password"),
-        post_id: this.state.postId
-      },
-      (res) => {
-        if(res.message=='SUCCESS')
-        {
-          this.setState({comments:res.results})
-        }
-      }
-    )
+    if(this.props.allComments)
+    {
+        postRequest(
+          "posts/viewallcomments",
+          {
+            email: window.localStorage.getItem("email"),
+            password: window.localStorage.getItem("password"),
+            post_id: this.state.postId
+          },
+          (res) => {
+            if(res.message=='SUCCESS')
+            {
+              this.setState({comments:res.results})
+              this.setState({load:false})
+            }
+          }
+        )
+    }
+    else
+    {
+        postRequest(
+          "posts/viewtopcomments",
+          {
+            email: window.localStorage.getItem("email"),
+            password: window.localStorage.getItem("password"),
+            post_id: this.state.postId
+          },
+          (res) => {
+            if(res.message=='SUCCESS')
+            {
+              this.setState({comments:res.results})
+              this.setState({load:false})
+            }
+          }
+        )
+    }  
   }
   render() {
     return (
       <div className = "commentBox">
-        {
-          (this.state.comments.length==0)?
-          "No comments Be the first one to comment"
-          :""
-        }
+      {
+        (this.state.load)?
+        <p><div className = "loader--component"><div/><div/><div/><div/></div>Loading Comments</p>
+        :
+        (this.state.comments.length==0)?
+          "No comments. Be the first one to comment"
+        :(this.props.allComments)?
+          "Showing all " + this.state.comments.length + " comments"
+        : "Comments" 
+      }
+        
 
         {
           this.state.comments.map((comment,index)=>(
-            <div key = {index} className = "commentBox--post">
-              <SingleComment comment = {comment}/>
-            </div>
+            <Comment key = {index} comment = {comment} showDelete = {this.props.allComments}/>
           ))
         }
 

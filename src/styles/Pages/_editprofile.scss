@@ -1,20 +1,28 @@
 .edit__detail {
     text-align: center;
+    border: orange solid;
+    min-height: 50vw; 
 }
 
 .edit__detail--top {
-    display: grid;
-    grid-template-columns: 25% 75%;
     margin-top: $xxl-size;
 }
 
 .edit__detail--picture {
     margin-right: $xxl-size;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    margin-bottom: $xxl-size;
+}
+
+.profile--image {
+}
+
+.background--image {
 }
 
 .edit__detail--personal {
     margin-left: $xxl-size;
-    border: red solid;
 }
 
 .edit__detail--bottom {

@@ -7,15 +7,13 @@ import SearchPage from '../Pages/SearchPage';
 import NotificationsPage from '../Pages/Notifications';
 import ConfirmOTP from '../Pages/Login/ConfirmOTP';
 import ForgotPassword from '../Pages/Login/ForgotPassword';
-import TestPage from '../Pages/TestPage';
 import SignUp from '../Pages/Login/SignUp';
 import EditProfile from '../Pages/Profile/EditProfile';
 import ProfilePage from '../Pages/Profile/ProfilePage';
 import HomePage from '../Pages/HomePage';
-import MyHackathon from '../Pages/Profile/MyHackathon'
-import ProjectsPage from '../Pages/ProjectsPage';
-import HackathonPage from '../Pages/HackathonPage';
+import CollaborationsPage from '../Pages/CollaborationsPage';
 import FullPostView from '../Pages/FullPostView';
+import FullCollaboration from '../Pages/FullColab';
 
 export default class PageHandler extends React.Component{
 
@@ -34,12 +32,10 @@ export default class PageHandler extends React.Component{
           <Route path="/ForgotPassword" component={ForgotPassword}/>
           <Route path="/EditProfile" component={EditProfile}/>
           <Route path="/ProfilePage" component={ProfilePage}/>
-          <Route path="/TestPage" component ={TestPage}/>
           <Route path="/Home" component ={HomePage}/>
-          <Route path="/MyHacks" component ={MyHackathon}/>
-          <Route path="/Projects" component = {ProjectsPage}/>
-          <Route path="/Hacks" component = {HackathonPage}/>
+          <Route path="/Collaborations" component = {CollaborationsPage}/>
           <Route path='/Post' component = {FullPostView}/>
+          <Route path='/CollaborationDetails' component = {FullCollaboration}/>
         </Switch>
       </Router>
     );

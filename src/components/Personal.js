@@ -1,4 +1,5 @@
 import React from "react";
+import DefaultUser from "../img/DefaultUser.jpg";
 
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -10,7 +11,6 @@ import {
 } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import EditTwoToneIcon from "@material-ui/icons/EditTwoTone";
-import Button from "./Button";
 
 import { Link } from "react-router-dom";
 
@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
     subRootB: { marginLeft: 0, marginTop: 10, minWidth: "10vw" },
     subRootA: { minWidth: "10vw" },
   },
-}));
+})); 
 
 export default function Personal(props) {
   const classes = useStyles();
@@ -77,7 +77,7 @@ export default function Personal(props) {
     <Card className={classes.root}>
       <CardMedia
         className={classes.media}
-        image='https://material-ui.com/static/images/cards/contemplative-reptile.jpg'
+        image={(props.personal==null)?"":props.personal.background_image}
         title='Profile Picture'
       />
       <CardHeader
@@ -89,7 +89,7 @@ export default function Personal(props) {
         avatar={
           <Avatar
             alt='Profile Picture'
-            src='https://material-ui.com/static/images/cards/contemplative-reptile.jpg'
+            src={(props.personal==null)?DefaultUser:props.personal.profile_image?props.personal.profile_image:DefaultUser}
             className={classes.avatar}
           />
         }
@@ -120,7 +120,7 @@ export default function Personal(props) {
         )}
       </CardContent>
       <CardContent classes={{ root: classes.contenDistinguish }}>
-        {props.personal == null ? "" : props.year + "  (" + props.batch + ")"}
+        {props.personal == null ? "" : "Batch : "+props.personal.batch}
       </CardContent>
     </Card>
   );

@@ -9,8 +9,7 @@ import { IconButton } from "@material-ui/core";
 import NotificationIcon from "@material-ui/icons/NotificationsNoneOutlined";
 import HomeIcon from "@material-ui/icons/Home";
 import ProfileIcon from "@material-ui/icons/PermIdentity";
-import HackIcon from "@material-ui/icons/LayersOutlined";
-import ProjectIcon from "@material-ui/icons/Code";
+import ColaborationIcon from '@material-ui/icons/Group';
 import LogoutIcon from "@material-ui/icons/ArrowForwardIos";
 import ConnectIcon from "@material-ui/icons/VpnKey";
 
@@ -18,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     borderRadius: 0,
     "&:hover": {
-      backgroundColor: "#333745",
+      backgroundColor: "#DC143C",
       transform: "scale(1.2)",
     },
   },
@@ -130,31 +129,17 @@ export default function Header(props) {
                     </Link>
                   </div>
                   <div>
-                    <Link to='/Projects' className='linklink'>
+                    <Link to='/Collaborations' className='linklink'>
                       <IconButton classes={{ root: classes.root }}>
                         <div className='header__button'>
                           <div>
-                            <ProjectIcon
+                            <ColaborationIcon
                               style={{ fontSize: 20, color: "white" }}
                             />
                           </div>
                           <div className='header__button--title'>
-                            Projects
+                            Collaborations
                           </div>
-                        </div>
-                      </IconButton>
-                    </Link>
-                  </div>
-                  <div>
-                    <Link to='/Hacks' className='linklink'>
-                      <IconButton classes={{ root: classes.root }}>
-                        <div className='header__button'>
-                          <div>
-                            <HackIcon
-                              style={{ fontSize: 20, color: "white" }}
-                            />
-                          </div>
-                          <div className='header__button--title'>Hacks</div>
                         </div>
                       </IconButton>
                     </Link>
@@ -197,107 +182,99 @@ export default function Header(props) {
         <div className='search'>
           <Search />
         </div>
-
-        {!props.logout ? (
-          <div className = "sub__header">
-            {
-              (window.localStorage.getItem('email')!=null)?
-              <Redirect to ='/home'/>:''
-            }
-            <Link to='/SignUp' className='linklink'>
-              <IconButton classes={{ root: classes.root }}>
-                <div className='header__button'>
-                  <div>
-                    <ConnectIcon style={{ fontSize: 20, color: "white" }} />
-                  </div>
-                  <div className='header__button--title'>Connect</div>
-                </div>
-              </IconButton>
-            </Link>
-          </div>
-        ) : (
-          <div className='header__buttons'>
-            {window.localStorage.getItem("email") == null ? (
-              <Redirect to='/Front' />
-            ) : (
-              ""
-            )}
-
-            <Link to='/Home' className='linklink'>
-              <IconButton classes={{ root: classes.root }}>
-                <div className='header__button'>
-                  <div>
-                    <HomeIcon style={{ fontSize: 20, color: "white" }} />
-                  </div>
-                  <div className='header__button--title'>Home</div>
-                </div>
-              </IconButton>
-            </Link>
-            <Link to='/Notifications' className='linklink'>
-              <IconButton classes={{ root: classes.root }}>
-                <div className='header__button'>
-                  <div>
-                    <NotificationIcon
-                      style={{ fontSize: 20, color: "white" }}
-                    />
-                  </div>
-                  <div className='header__button--title'>Notify</div>
-                </div>
-              </IconButton>
-            </Link>
-            <Link
-              to={
-                "/ProfilePage?email=" + window.localStorage.getItem("email")
+        <div className = "header__buttons">
+          {!props.logout ?
+            <div className = "sub__header">
+              {
+                (window.localStorage.getItem('email')!=null)?
+                <Redirect to ='/home'/>:''
               }
-              className='linklink'
-            >
-              <IconButton classes={{ root: classes.root }}>
-                <div className='header__button'>
-                  <div>
-                    <ProfileIcon style={{ fontSize: 20, color: "white" }} />
+              <Link to='/SignUp' className='linklink'>
+                <IconButton classes={{ root: classes.root }}>
+                  <div className='header__button'>
+                    <div>
+                      <ConnectIcon style={{ fontSize: 20, color: "white" }} />
+                    </div>
+                    <div className='header__button--title'>Connect</div>
                   </div>
-                  <div className='header__button--title'>My Profile</div>
-                </div>
-              </IconButton>
-            </Link>
-            <Link to='/Projects' className='linklink'>
-              <IconButton classes={{ root: classes.root }}>
-                <div className='header__button'>
-                  <div>
-                    <ProjectIcon style={{ fontSize: 20, color: "white" }} />
+                </IconButton>
+              </Link>
+            </div>
+          : 
+            <div className='sub__header'>
+              
+              {
+                (window.localStorage.getItem("email")==null)?
+                <Redirect to='/Front' />
+                :""
+              }
+
+              <Link to='/Home' className='linklink'>
+                <IconButton classes={{ root: classes.root }}>
+                  <div className='header__button'>
+                    <div>
+                      <HomeIcon style={{ fontSize: 20, color: "white" }} />
+                    </div>
+                    <div className='header__button--title'>Home</div>
                   </div>
-                  <div className='header__button--title'>Projects</div>
-                </div>
-              </IconButton>
-            </Link>
-            <Link to='/Hacks' className='linklink'>
-              <IconButton classes={{ root: classes.root }}>
-                <div className='header__button'>
-                  <div>
-                    <HackIcon style={{ fontSize: 20, color: "white" }} />
+                </IconButton>
+              </Link>
+              <Link to='/Notifications' className='linklink'>
+                <IconButton classes={{ root: classes.root }}>
+                  <div className='header__button'>
+                    <div>
+                      <NotificationIcon
+                        style={{ fontSize: 20, color: "white" }}
+                      />
+                    </div>
+                    <div className='header__button--title'>Notify</div>
                   </div>
-                  <div className='header__button--title'>Hacks</div>
-                </div>
-              </IconButton>
-            </Link>
-            <Link to='/Front' className='linklink'>
-              <IconButton
-                onClick={() => {
-                  window.localStorage.removeItem("email");
-                  window.localStorage.removeItem("password");
-                }}
-                classes={{ root: classes.root }}
+                </IconButton>
+              </Link>
+              <Link
+                to={
+                  "/ProfilePage?email=" + window.localStorage.getItem("email")
+                }
+                className='linklink'
               >
-                <div className='header__button'>
-                  <div>
-                    <LogoutIcon style={{ fontSize: 20, color: "white" }} />
+                <IconButton classes={{ root: classes.root }}>
+                  <div className='header__button'>
+                    <div>
+                      <ProfileIcon style={{ fontSize: 20, color: "white" }} />
+                    </div>
+                    <div className='header__button--title'>My Profile</div>
                   </div>
-                  <div className='header__button--title'>Logout</div>
-                </div>
-              </IconButton>
-            </Link>
-          </div>
-        )}
+                </IconButton>
+              </Link>
+              <Link to='/Collaborations' className='linklink'>
+                <IconButton classes={{ root: classes.root }}>
+                  <div className='header__button'>
+                    <div>
+                      <ColaborationIcon style={{ fontSize: 20, color: "white" }} />
+                    </div>
+                    <div className='header__button--title'>Collaborations</div>
+                  </div>
+                </IconButton>
+              </Link>
+              <Link to='/Front' className='linklink'>
+                <IconButton
+                  onClick={() => {
+                    window.localStorage.removeItem("email");
+                    window.localStorage.removeItem("password");
+                  }}
+                  classes={{ root: classes.root }}
+                >
+                  <div className='header__button'>
+                    <div>
+                      <LogoutIcon style={{ fontSize: 20, color: "white" }} />
+                    </div>
+                    <div className='header__button--title'>Logout</div>
+                  </div>
+                </IconButton>
+              </Link>
+            </div>
+          }
+        </div>
       </div>
     </div>
   );

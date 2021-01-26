@@ -1,18 +1,18 @@
 .skill--chip {
     display: inline-block;
-    padding: 0 25px;
-    height: 50px;
+    padding: 0 3px;
+    height: fit-content;
     font-size: 16px;
-    line-height: 50px;
+    line-height: 25px;
     border-radius: 25px;
     margin: $s-size;
-    background-color: #f1f1f1;
+    background-color:lighten($color: #888, $amount: 30%);
   }
   
   .button--close {
     visibility: hidden;
-    padding-left: 10px;
-    color: #888;
+    padding-left: 8px;
+    color: black;
     font-weight: bold;
     float: right;
     font-size: 20px;
@@ -20,7 +20,7 @@
   }
   
   .button--close:hover {
-    color: #000;
+    color: $pink-red;
   }
 
   .skill--chip:hover .button--close{

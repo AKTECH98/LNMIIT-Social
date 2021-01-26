@@ -9,9 +9,7 @@ const WorkView = (props) => (
         <WidgetDetails
           optionText = {work}
           index = {index}
-          DeleteWork = {props.Delete}
           EditWork = {props.Edit}
-          ViewJoinRequestsWork = {props.ViewJoinRequests}
           Request = {props.Request}
           view = {!work.admin}
           badges = {work.badges}

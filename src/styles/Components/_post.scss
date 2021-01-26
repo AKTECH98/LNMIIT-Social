@@ -8,7 +8,15 @@
     cursor: pointer;
 }
 
+.post--header h3{
+    margin: $l-size 0 $l-size 0;
+    font-size: $xxl-size;
+    color: $light-blue;
+}
+
 .post--share {
+    width: 60%;
+    text-align: left;
 }
 
 .post--delete {
@@ -18,22 +26,10 @@
     font-size: $ms-size;
     border: 2px solid $pink-red;
     border-radius: 20px;
+    padding: $xs-size;
 }
 
 .post--delete:hover {
-    background-color: $fire-brick;
-    color: white;
-}
-
-.comment--delete {
-    color: $pink-red;
-    font-size: $s-size;
-    background-color: white;
-    border: 2px solid $pink-red;
-    border-radius: 20px;
-}
-
-.comment--delete:hover {
     background-color: $fire-brick;
     color: white;
 }
@@ -85,13 +81,4 @@
     font-weight: 500;
     font-size: $m-size;
     width: 100%;
-}
-
-.commentBox {
-    display: flex;
-    flex-direction: column;
-}
-
-.commentBox--post {
-    margin: 0 $s-size;
 }

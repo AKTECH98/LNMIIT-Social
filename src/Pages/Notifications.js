@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-
 import {postRequest} from '../components/CallApi'
 import Header from '../components/Header';
 import Button from '../components/Button';
 import { Card, CardContent, CardHeader, Avatar ,CardActions} from '@material-ui/core';
+import TimeAgo from '../components//TimeAgo';
 
 const url = window.location.href;
 const parser = require('url-parameter-parser');
@@ -67,8 +67,21 @@ function NotificationPannel(props){
       { 
         props.Notifications.map((notify,index)=>
             <div key = {index}>
+            {/*<button onClick={postRequest('profile/deletenotifications',
+              {
+                'email':window.localStorage.getItem('email'),
+                'password': window.localStorage.getItem('password'),
+                'notification_id': notify.notification_id
+              },
+              (res)=>{
+                if(res.message=="SUCCESS")
+                {
+                  window.refresh()
+                }
+              }
+            )}>Delete</button>*/}
               {//I have passed it as an prop but make it a type taken from notifications itself
-                (props.request==true)?
+                (notify.request==true)?
                 <Card className = {classes.subRootRequest}>
                 <CardHeader
                   classes = {
@@ -80,15 +93,11 @@ function NotificationPannel(props){
                   subheader = "Date when the Request is Generated"
                   />
                   <CardContent classes = {{root: classes.content}}>
-                    You have recieved a request from this user to collaborate of your Project Title/
-                    This user wants to join your team for this hackathon
+                    This person is intersted in working with you on this colab
                   </CardContent>
-                  <CardActions classes = {{root: classes.action}}>
-                    <Button text = "Accept" type = "request__button"/>
-                    <Button text = "Reject" type = "request__button"/>
-                  </CardActions>
                 </Card>
                 :
+                
                 <Card className = {classes.subRoot}>
                   <CardHeader
                     classes = {
@@ -100,13 +109,16 @@ function NotificationPannel(props){
                       <Avatar>
                       </Avatar>
                     }
-                    title = "Project Added/Hack Added"
-                    subheader = "Date When It was Posted"
+                    title = {notify.title}
+                    subheader = {TimeAgo(Date.parse(notify.date_time_of_notification))}
                   />
+                  <a classes="linklink" href={notify.link}>
                   <CardContent classes = {{root: classes.content}}>
-                    {notify}{/*Description of The Project*/}
+                    {notify.message}
                   </CardContent>
+                  </a>
                 </Card>
+                
               }
             </div>
         )

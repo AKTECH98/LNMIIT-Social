@@ -11,7 +11,8 @@ import Button from "./Button";
 import DislikeIcon from '@material-ui/icons/ThumbDown';
 import LikeIcon from '@material-ui/icons/ThumbUp';
 import ShareIcon from '@material-ui/icons/Share';
-
+import TimeAgo from './TimeAgo';
+import DefaultUser from "../img/DefaultUser.jpg";
 import TextField from '@material-ui/core/TextField';
 import { Card, CardHeader, CardContent, Avatar, CardActions } from "@material-ui/core";
 import { Collapse } from "@material-ui/core";
@@ -57,7 +58,7 @@ class Comment extends React.Component {
     super(props);
     //console.log(props)
     this.state = {
-      content:[],
+      content:"",
       postId: props.postId
     };
   }
@@ -68,21 +69,25 @@ class Comment extends React.Component {
         <form onSubmit = {
           (e)=>{
             e.preventDefault();
-            postRequest(
-              "posts/createcomment",
-              {
-                email: window.localStorage.getItem("email"),
-                password: window.localStorage.getItem("password"),
-                content: this.state.content,
-                post_id: this.state.postId
-              },
-              (res) => {
-                if(res.message=='SUCCESS')
-                {
-                  location.reload()
-                }
-              }
-            )
+            if(this.state.content!="")
+            {
+                this.setState({content:""})
+                postRequest(
+                  "posts/createcomment",
+                  {
+                    email: window.localStorage.getItem("email"),
+                    password: window.localStorage.getItem("password"),
+                    content: this.state.content,
+                    post_id: this.state.postId
+                  },
+                  (res) => {
+                    if(res.message=='SUCCESS')
+                    {
+                      this.props.onAddComment()
+                    }
+                  }
+                )
+            }
           }
         }>
         <TextField
@@ -96,6 +101,7 @@ class Comment extends React.Component {
               fontSize: 15
             }
           }}
+          value = {this.state.content}
           variant = "outlined"
           placeholder = "Add a Comment ...."
           onChange={(e)=>{this.setState({content:e.target.value})}}
@@ -112,60 +118,55 @@ export default function SinglePostView(props) {
   const content = props.item.content;
 
   const [expanded, setExpanded] = React.useState(false);
+  const [vote, setVote] = React.useState(props.item.vote);
+  const [likes, setLikes] = React.useState(props.item.likes)
+  const [dislikes, setDislikes] = React.useState(props.item.dislikes)
+  const [isDeleted, setIsDeleted] = React.useState(false)
+  const [refreshCommentBoxCount, setRefreshCommentBoxCount] = React.useState(0)
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-//  console.log(content, "content");
-  var indexOfLocalhost = content.indexOf("localhost");
+  const onAddComment = ()=>{
+    setRefreshCommentBoxCount(refreshCommentBoxCount+1)
+  }
+  
+  //  console.log(content, "content");
+  var indexOfLocalhost = content.indexOf("lnmiitsocial-backend.herokuapp.com");
   //console.log(indexOfLocalhost);
   var post = "";
 
   if (indexOfLocalhost === -1) {
     post = content;
   } else {
-    post = content.replace("localhost", "http://localhost");
+    post = content.replace("lnmiitsocial-backend.herokuapp.com", "https://lnmiitsocial-backend.herokuapp.com");
   }
 
   const parsedPost = ReactHtmlParser(post);
  // console.log("parsedPost", parsedPost);
 
-  const vote =(vote)=>{
-
-    var like = document.getElementById("like")
-    var dislike = document.getElementById("dislike")
-
-    if(vote==1)
-    {
-      if(dislike.classList.contains("post--active"))
-        dislike.classList.remove("post--active")
-      
-      like.classList.add("post--active")
-    }
-    else
-    {
-      if(dislike.classList.contains("post--active"))
-        dislike.classList.remove("post--active")
-      
-      like.classList.add("post--active")
-    }
+  const make_vote =(v,l,d)=>{
 
     postRequest('posts/votepost',
         {
           'email':window.localStorage.getItem('email'),
           'password': window.localStorage.getItem('password'),
           'post_id': props.item.post_id,
-          'vote':vote
+          'vote':v
         },
         (res)=>{
           if(res.message=="SUCCESS")
           {
-            window.location.reload()
+            console.log(v,l,d)
+            setVote(v)
+            setLikes(likes+l)
+            setDislikes(dislikes+d)
           }
         }
       )
   }
+  
   return (
     <Card className={classes.root}>
       <CardHeader
@@ -174,69 +175,90 @@ export default function SinglePostView(props) {
           subheader: classes.subheader,
         }}
         avatar = {
-          <Avatar>
-            {props.item.post_id}
-          </Avatar>
+          <Avatar
+          src={(props.item==null)?DefaultUser:props.item.profile_image?props.item.profile_image:DefaultUser}
+          />
         }
 
         action = {
-          (props.item.author==window.localStorage.getItem("email"))? /*Show delete only if author ==user*/
-            <Button 
-              text = "Delete Post"
-              type = "post--delete"
-              onClick = {()=>{
-                  postRequest(
-                    "posts/deletepost",
-                    {
-                      email: window.localStorage.getItem("email"),
-                      password: window.localStorage.getItem("password"),
-                      post_id: props.item.post_id
-                    },
-                    (res) => {
-                      location.reload()
-                    }
-                  )
+          (props.item.author==window.localStorage.getItem("email") && (props.fullPostView))?
+            (isDeleted==true)?
+            <div className = "pulse">Deleting...</div>
+            :
+              <Button 
+                text = "Delete Post"
+                type = "post--delete"
+                onClick = {()=>{
+                    setIsDeleted(true)
+                    postRequest(
+                      "posts/deletepost",
+                      {
+                        email: window.localStorage.getItem("email"),
+                        password: window.localStorage.getItem("password"),
+                        post_id: props.item.post_id
+                      },
+                      (res) => {
+                        window.open(`Home?email=`+window.localStorage.getItem('email'), "_self")
+                      }
+                    )
+                  }
                 }
-              }
-            />
+              />
           :""
         }
 
-        title = {<Link to={"ProfilePage?email="+props.item.author}>{props.item.name}</Link>}
-        subheader={"Posted On: " + props.item.date_time_of_post}
+        title = {<Link className="linklink" to={"ProfilePage?email="+props.item.author}>{props.item.name}</Link>}
+        subheader={TimeAgo(Date.parse(props.item.date_time_of_post))}
       />
-      <CardContent
-        classes={{ root: classes.content }}
-        className={imageStyles.image}
-      >
-        {parsedPost}
-      </CardContent>
+      {
+        !(props.fullPostView)
+        ?<Link to = {"Post?post_id="+props.item.post_id} className="linklink">
+          <CardContent
+            classes={{ root: classes.content }}
+            className={imageStyles.image}
+          >
+            {parsedPost}
+          </CardContent>
+        </Link>
+        :<CardContent
+            classes={{ root: classes.content }}
+            className={imageStyles.image}
+          >
+            {parsedPost}
+          </CardContent>
+      }
 
-      <CardActions classes = {{root: classes.actions}}>
-        <div className = "linklink post--comment-count" 
-          onClick = {handleExpandClick}
-        >
-          {props.item.number_of_comments}
-          {(props.item.number_of_comments<=1)?" Comment ":" Comments "}
-        </div>
-      </CardActions>
-
-      <Collapse in={expanded || props.fullPostView} timeout="auto" unmountOnExit>
-        <CardContent>
-          <CommentBox postId={props.item.post_id} allComments = {props.fullPostView}/>
-        </CardContent>
-      </Collapse>
 
       <CardActions>
-        <Comment postId={props.item.post_id}/>
-        <div className = "post--like__dislike">
-        <LikeIcon id = "like" onClick={()=>{vote(+1)}} style = {{fontSize: 25}}/>
-      </div>
-      <div className = "post--count">{props.item.likes}</div>
-      <div className = "post--like__dislike">
-        <DislikeIcon id = "dislike" onClick={()=>{vote(-1)}} style = {{fontSize: 25}}/>
-      </div>
-      <div className = "post--count">{props.item.dislikes}</div>
+        <Comment postId={props.item.post_id} onAddComment={onAddComment}/>
+        {
+          (vote==1)
+          ?<div className = "post--like__dislike post--active">
+              <LikeIcon onClick={()=>{make_vote(0,-1,0)}} style = {{fontSize: 25}}/>
+           </div>
+          :(vote==-1)
+          ?<div className = "post--like__dislike">
+              <LikeIcon onClick={()=>{make_vote(+1,1,-1)}} style = {{fontSize: 25}}/>
+           </div>
+          :<div className = "post--like__dislike">
+              <LikeIcon onClick={()=>{make_vote(+1,1,0)}} style = {{fontSize: 25}}/>
+           </div>
+        }
+      <div className = "post--count">{likes}</div>
+      {
+          (vote==-1)
+          ?<div className = "post--like__dislike post--active">
+              <DislikeIcon onClick={()=>{make_vote(0,0,-1)}} style = {{fontSize: 25}}/>
+           </div>
+          :(vote==1)
+          ?<div className = "post--like__dislike">
+              <DislikeIcon onClick={()=>{make_vote(-1,-1,1)}} style = {{fontSize: 25}}/>
+           </div>
+          :<div className = "post--like__dislike">
+              <DislikeIcon onClick={()=>{make_vote(-1,0,1)}} style = {{fontSize: 25}}/>
+           </div>
+      }
+      <div className = "post--count">{dislikes}</div>
         
       <ShareIcon 
           style = {{color: 'blue',fontSize: 25}}
@@ -255,7 +277,11 @@ export default function SinglePostView(props) {
       />
       <div id="share--snackbar">Share Link Copied</div>
       </CardActions>
-
+      
+      <hr/>
+        <CardContent>
+          <CommentBox key={refreshCommentBoxCount} postId={props.item.post_id} allComments = {props.fullPostView}/>
+        </CardContent>
     </Card>
   );
 }

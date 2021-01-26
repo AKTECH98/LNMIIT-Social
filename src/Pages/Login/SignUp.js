@@ -17,10 +17,12 @@ export default class SignUp extends React.Component
       password:'',
       confirmPassword:'',
       name: '',
-      batch: '',
+      batch: null,
       batches: [],
+      btnLoad: false,
       errorMessage:'',
-      redirect:false
+      redirect:false,
+      phone:''
     };
   }
 
@@ -41,14 +43,32 @@ export default class SignUp extends React.Component
   handleSignup = (event) => {
 
     event.preventDefault()
+    this.setState({btnLoad:true,errorMessage:null});
 
-    if (this.state.password ==this.state.confirmPassword)
+    if (this.state.password !=this.state.confirmPassword)
+    {
+      this.setState({errorMessage:'Passwords Do Not Match'})
+      this.setState({btnLoad:false})
+    }
+    else if(this.state.batch==null)
+    {
+      this.setState({errorMessage:'Select a Batch or Select Faculty if you are a Faculty Member'})
+      this.setState({btnLoad:false})
+    }
+    else if(!this.state.name || !this.state.name.trim())
+    {
+      this.setState({errorMessage:'Enter your name'})
+      this.setState({btnLoad:false})
+    }
+    else
     {
       postRequest('login/signup',
         {
           'email':this.state.email,
           'name': this.state.name,
-          'password': this.state.password
+          'password': this.state.password,
+          'batch': this.state.batch,
+          'phone': this.state.phone
         },
         (res)=>{
           if(res.message=="SUCCESS")
@@ -56,12 +76,9 @@ export default class SignUp extends React.Component
             this.setState({redirect:true})
           }
           this.setState({errorMessage:res.reason})
+          this.setState({btnLoad:false})
         }
       )
-    }
-    else
-    {
-      this.setState({errorMessage:'Passwords Do Not Match'})
     }
   }
 
@@ -118,7 +135,7 @@ export default class SignUp extends React.Component
                 }}
                 defaultValue={this.state.email}
                 onChange={this.signUpEmail}
-                label='Email'
+                label='Email*'
                 autoComplete = "username"
               />
               <TextField
@@ -143,7 +160,7 @@ export default class SignUp extends React.Component
                 }}
                 defaultValue={this.state.email}
                 onChange={(e)=>{this.setState({name:e.target.value})}}
-                label='Full Name'
+                label='Full Name*'
               />
               <TextField
                 select
@@ -165,7 +182,7 @@ export default class SignUp extends React.Component
                     fontSize: 15
                   }
                 }}
-                label="Batch/Faculty"
+                label="Batch/Faculty*"
                 onChange={(e)=>this.setState({batch:e.target.value})}
                 variant="filled"
               >
@@ -198,12 +215,17 @@ export default class SignUp extends React.Component
                 onChange={(e)=>{this.setState({phone:e.target.value})}}
                 label='Phone No.'
               />
+              <center>
               <div className = "signup__connect">
+              {
+                (this.state.btnLoad)?<p><i className="fa fa-spinner fa-spin"></i>Connecting</p>:
                 <Button text='Connect'
-                  type = 'button signup__button'
-                  onClick = {this.handleSignup}
+                        type = 'button signup__button'
+                        onClick = {this.handleSignup}
                 />
+              }
               </div>
+              </center>
             </div>
             <div className = "signup--password">
             <TextField
@@ -229,7 +251,7 @@ export default class SignUp extends React.Component
               }}
               onChange={this.signUpPassword}
               defaultValue={this.state.password}
-              label='Password'
+              label='Password*'
               type="password"
               autoComplete = "current-password"
             />
@@ -256,7 +278,7 @@ export default class SignUp extends React.Component
               }}
               onChange={this.signUpConfirm}
               defaultValue={this.state.confirmPassword}
-              label='Confirm Password'
+              label='Confirm Password*'
               type="password"
               autoComplete = "password"
             />

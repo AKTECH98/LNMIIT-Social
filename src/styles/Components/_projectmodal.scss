@@ -1,10 +1,9 @@
-.continue__button{
-    font-size: $ms-size;
-    font-weight: 600;
-    width: fit-content;
+.modal__details{
+    display: flex;
+    justify-content: space-around;
 }
 
-.modal__details{
+.submission--buttons{
     display: flex;
     justify-content: space-around;
 }

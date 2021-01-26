@@ -6,7 +6,7 @@ import 'react-image-crop/dist/ReactCrop.css';
 import SingleFileUpload from './SingleFileUpload';
 import Button from './Button';
 
-import DefaultUser from '../img/DefaultUser.png';
+import DefaultUser from '../img/DefaultUser.jpg';
 
 function PhotoSelector(props)
 {

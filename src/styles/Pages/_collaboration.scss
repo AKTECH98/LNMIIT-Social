@@ -1,0 +1,122 @@
+.collaboration {
+    display: grid;
+    grid-template-columns: 65% 35%;
+}
+
+.colab--delete{
+    color: black;
+    float: right;
+}
+
+.colab--details {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    margin: $s-size;
+    padding: $s-size;
+}
+
+.colab--details h2{
+    line-height: 0;
+    margin-right: $m-size;
+}
+
+.colab--details-left {
+    margin-right: $m-size;
+}
+
+.colab--type {
+    margin-bottom: $m-size;
+}
+
+.colab--type-content {
+    display: flex;
+    justify-content: space-around;
+    border: 0.1rem black solid;
+    border-radius: 20px;
+}
+
+.colab--skills {
+    margin: $s-size;
+}
+
+.colab--skills-header {
+    display: flex;
+}
+
+.colab--skills-content {
+    margin: $m-size 0;
+    //padding: $s-size;
+    height: 150px;
+    border: 0.1rem black solid;
+}
+
+.colab--skills .MuiInputBase-root{
+    border: 2px;
+    border-radius: 50px;
+    line-height: 0%;
+}
+
+.colab--skills .MuiOutlinedInput-input{
+    padding: 10px 12px;
+}
+
+.colab--details-right {
+    margin-left: $m-size;
+    text-align: center;
+}
+
+.colab--members {
+    margin-top: $l-size;
+    width: fit-content;
+}
+
+.colab--members-content{
+    display: flex;
+    flex-direction: column;
+    margin-top: $xxs-size;
+    height: 120px;
+    overflow: auto;
+    padding: $s-size;
+   // border: 0.1rem black solid;
+}
+
+.member--chip {
+    display: inline-block;
+    padding: 0 3px;
+    height: fit-content;
+    cursor: pointer;
+    font-size: 15px;
+    border-radius: 25px;
+    margin-bottom:  $s-size;
+    background-color:lighten($color: #888, $amount: 30%);
+}
+
+.member--chip .admin--tag {
+    color : white;
+    background-color: black;
+    margin: $xxs-size $s-size;
+    font-size: 12px;
+    padding: 0 3px;
+    float: right;
+    font-weight: bold;
+    border-radius: 25px;
+}
+
+.colab--button {
+    margin-bottom: $m-size;
+    width: 100%;
+    background-color: white;
+    color: black;
+    border: 0.3rem $green solid;
+    font-size: $lm-size;
+}
+
+.colab--button:hover {
+    background-color: $green;
+    color: white;
+}
+
+.colab--requests {
+    margin: $s-size;
+    padding: $s-size;
+}

@@ -3,11 +3,13 @@ import React from "react";
 import Login from "./Login/Login";
 import Header from "../components/Header";
 
-import Anshul from "../img/anshul1.jpg";
-import Abhay from "../img/abhay.png";
-import Anupam from "../img/anupam.jpg";
-import Tarun from "../img/tarun.jpeg";
-import Vikas from "../img/vikas.jpg";
+
+import Anshul from '../img/anshul1.jpg';
+import Abhay from '../img/abhay.png';
+import Anupam from '../img/anupam.jpg';
+import Tarun from '../img/tarun.jpeg';
+import Vikas from '../img/vikas.jpg';
+
 
 export default class FrontPage extends React.Component {
   render() {
@@ -77,6 +79,7 @@ export default class FrontPage extends React.Component {
                 </p>
               </a>
             </div>
+
             <div className='developer'>
               <a
                 href='https://www.linkedin.com/in/tarun-gupta-3956a5143/'
@@ -95,4 +98,6 @@ export default class FrontPage extends React.Component {
       </div>
     );
   }
+
 }
+

@@ -34,11 +34,11 @@ function Header(props){
   <Card className = {useStyles().header}>
     <CardContent>
       <Typography className = {useStyles().title}>
-        Projects
+        Collaborations
       </Typography>
     </CardContent>
     <CardActions>
-      <Link to = {"Projects?email="+props.user}>
+      <Link to = {"Collaborations?email="+props.user}>
       <Button text = "View All" type = "widget__button"/>
       </Link>
     </CardActions>
@@ -51,7 +51,8 @@ export default class WidgetProject extends React.Component {
   {
     super(props)
     this.state = {
-      projects: []
+      projects: [],
+      loader: true
     };
   }
 
@@ -73,6 +74,8 @@ export default class WidgetProject extends React.Component {
           let projects = []
           res.return_value.forEach((item)=>{
             projects.push({
+              author: item.author,
+              member_count: item.member_count,
               title : item.title,
               description: item.description,
               startDate: item.startDate,
@@ -82,10 +85,12 @@ export default class WidgetProject extends React.Component {
               mentor: item.mentor,
               colab: item.colab,
               project_link: item.link,
-              project_id: item.project_id
+              project_id: item.project_id,
+              colab_type: item.colab_type
             })
           })
           this.setState({projects})
+          this.setState({loader:false})
         }
       }
     )}
@@ -95,8 +100,13 @@ export default class WidgetProject extends React.Component {
       <div className = "widget__list">
         <Header user = {this.props.user}/>
         {
-          (this.state.projects.length==0)? "No Projects to Show":
-          <WidgetView work = {this.state.projects} />
+          (this.state.loader)?
+            <div className = "loader--component"><div/><div/><div/><div/></div>
+          :
+            (this.state.projects.length==0)?
+              "No Projects to Show"
+            :
+              <WidgetView work = {this.state.projects} />
         }
       </div>
     );
