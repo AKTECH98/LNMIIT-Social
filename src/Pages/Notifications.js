@@ -79,11 +79,8 @@ function NotificationPannel(props){
                   subheader = "Date when the Request is Generated"
                   />
                   <CardContent classes = {{root: classes.content}}>
-                    {notify.message}
+                    This person is intersted in working with you on this colab
                   </CardContent>
-                  <CardActions classes = {{root: classes.action}}>
-                    <a href={notify.link}><Button text = "Take me there" type = "request__button"/></a>
-                  </CardActions>
                 </Card>
                 :
                 <Card className = {classes.subRoot}>
@@ -101,7 +98,7 @@ function NotificationPannel(props){
                     subheader = "Date When It was Posted"
                   />
                   <CardContent classes = {{root: classes.content}}>
-                    {notify}{/*Description of The Project*/}
+                    This person Created a public colab. Check it out 
                   </CardContent>
                 </Card>
               }
