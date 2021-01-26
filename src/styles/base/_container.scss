@@ -318,3 +318,18 @@ animation: fadein 0.5s, fadeout 0.5s 2.5s;
   from {top: 30px; opacity: 1;}
   to {top: 0; opacity: 0;}
 }
+
+.pulse {
+  width: fit-content;
+  padding: $s-size;
+  color: $fire-brick;
+  border-radius: 50px;
+  font-size: $xxl-size;
+  animation: pulse 3s cubic-bezier(.19,.57,.3,.98) infinite;
+  opacity: 0.25;
+}
+
+@keyframes pulse {
+  from {opacity: 0.25;} 
+  to {opacity: 1;}
+}

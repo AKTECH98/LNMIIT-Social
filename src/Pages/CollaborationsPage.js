@@ -272,7 +272,6 @@ export default class ProjectsPage extends React.Component {
           :
           <WorkView
             works={this.state.projects}
-            Delete = {this.DeleteProject}
             Request = {this.RequestUser}
           />
         }

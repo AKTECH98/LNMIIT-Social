@@ -42,7 +42,7 @@ export default class SignUp extends React.Component
   handleSignup = (event) => {
 
     event.preventDefault()
-    this.setState({btnLoad:true});
+    this.setState({btnLoad:true,errorMessage:null});
 
     if (this.state.password !=this.state.confirmPassword)
     {
@@ -51,7 +51,7 @@ export default class SignUp extends React.Component
     }
     else if(this.state.batch==null)
     {
-      this.setState({errorMessage:'Select a batch'})
+      this.setState({errorMessage:'Select a Batch or Select Faculty if you are a Faculty Member'})
       this.setState({btnLoad:false})
     }
     else
