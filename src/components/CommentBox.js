@@ -18,8 +18,6 @@ class Comment extends React.Component {
     }
   }
 
-  
-
   render()
   {
     if(this.state.isDeleted) return "" 
@@ -41,7 +39,7 @@ class Comment extends React.Component {
                   </Link>
                   <p className = "comment--date">{TimeAgo(Date.parse(this.state.comment.date_time_of_comment))}</p>
                   {
-                    (this.state.comment.author==window.localStorage.getItem("email") &&(this.props.allComments))?
+                    (this.state.comment.author==window.localStorage.getItem("email"))?
                       <Button
                         text = "Delete Comment"
                         type = "comment--delete"
