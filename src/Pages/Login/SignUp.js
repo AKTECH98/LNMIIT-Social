@@ -129,7 +129,7 @@ export default class SignUp extends React.Component
                 }}
                 defaultValue={this.state.email}
                 onChange={this.signUpEmail}
-                label='Email'
+                label='Email*'
                 autoComplete = "username"
               />
               <TextField
@@ -176,7 +176,7 @@ export default class SignUp extends React.Component
                     fontSize: 15
                   }
                 }}
-                label="Batch/Faculty"
+                label="Batch/Faculty*"
                 onChange={(e)=>this.setState({batch:e.target.value})}
                 variant="filled"
               >
@@ -243,7 +243,7 @@ export default class SignUp extends React.Component
               }}
               onChange={this.signUpPassword}
               defaultValue={this.state.password}
-              label='Password'
+              label='Password*'
               type="password"
               autoComplete = "current-password"
             />
@@ -270,7 +270,7 @@ export default class SignUp extends React.Component
               }}
               onChange={this.signUpConfirm}
               defaultValue={this.state.confirmPassword}
-              label='Confirm Password'
+              label='Confirm Password*'
               type="password"
               autoComplete = "password"
             />
