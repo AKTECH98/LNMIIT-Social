@@ -81,7 +81,7 @@ export default function WidgetDetails(props){
         title={props.optionText.title}
         subheader = {
           <div>
-          {/*{'Author: Author Name'}<br/>*/}
+          {'Author: '+props.optionText.author}<br/>
           {(props.optionText.mentor!=undefined)?"Mentor : " + props.optionText.mentor:"Mentor : None"}<br/>
           {'Members : '+ props.optionText.member_count}<br/>
           {(props.optionText.requirements!=undefined)?'Skills : '+limitContent(props.optionText.requirements,2):"Skills : None Required"}

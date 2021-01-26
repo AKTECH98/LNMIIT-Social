@@ -68,6 +68,7 @@ export default class ColabDetails extends React.Component{
           {
             this.setState(() => (
               {
+                author: res.return_value.author,
                 admin: res.return_value.admin,
                 isMember: res.return_value.is_member,
                 link:res.return_value.link,

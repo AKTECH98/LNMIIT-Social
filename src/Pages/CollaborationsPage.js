@@ -163,6 +163,7 @@ export default class ProjectsPage extends React.Component {
             let default_projects = []
             res.return_value.forEach((item)=>{
               let pro = {
+                author: item.author,
                 member_count:item.member_count,
                 title : item.title,
                 description: item.description,
@@ -199,6 +200,7 @@ export default class ProjectsPage extends React.Component {
             let default_projects = []
             res.return_value.forEach((item)=>{
               let pro = {
+                author: item.author,
                 member_count:item.member_count,
                 title : item.title,
                 description: item.description,
