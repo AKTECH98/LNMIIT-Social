@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { postRequest } from "./CallApi";
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardContent, CardHeader, CardActions} from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
@@ -76,21 +76,31 @@ function SkillCard(props){
             
             if(skill)
               props.AddSkills(skill)
+              document.getElementById("skill_input").value = ""
           }}
         >
-          <input type="text" className = "skill__bar" name = "skill" placeholder="Add a Skill..."/>
+          <input id = "skill_input" type="text" className = "skill__bar" name = "skill" placeholder="Add a Skill..."/>
         </form>
+        {
+          props.showSavebtn?<button onClick={()=>props.SaveSkills()}>Save</button>:""
+        }
       </CardActions> 
       :''
     }
     <CardContent classes = {{root:classes.content}}>
     { 
-      props.skills.map((skill,index) => (
-        <div className="skill--chip" key = {index}>
+      open?props.skills.map((skill,index) => (
+        <div className="skill--chip" key = {index} onClick={()=>{props.RemoveSkill(index)}}>
           {skill}
-        <span className = "button--close">x</span>
+        <span className = "button--close" >x</span>
         </div>
       ))
+      :props.old_skills.map((skill,index) => (
+        <div className="skill--chip" key = {index} onClick={()=>{props.RemoveSkill(index)}}>
+          {skill}
+        </div>
+      ))
+
     }
     </CardContent>
   </Card>
@@ -101,20 +111,55 @@ export default class Skills extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      skills: []
+      skills: [],
+      old_skills:[]
     }
+  }
+
+  componentDidMount(){
+     postRequest('profile/viewskills',
+        {
+          'email':window.localStorage.getItem('email'),
+        },
+        (res)=>{
+          if(res.message=="SUCCESS")
+          {
+            this.setState({skills:eval(res.skills)})
+            this.setState({old_skills:eval(res.skills)})
+          }
+        }
+      )
+  }
+  SaveSkills = ()=>{
+    postRequest('profile/editskills',
+        {
+          'email':window.localStorage.getItem('email'),
+          'password':window.localStorage.getItem('password'),
+          'skills':JSON.stringify(this.state.skills)
+        },
+        (res)=>{
+          if(res.message=="SUCCESS")
+          {
+            this.setState({old_skills:this.state.skills})
+          }
+        }
+      )
   }
 
   AddSkills = (skill) => {
       this.setState((prevState)=>({skills: prevState.skills.concat(skill)}))
+  }
 
-      console.log(this.state.skills)
+  RemoveSkill = (index) => {
+      let skills = this.state.skills
+      skills.splice(index,1)
+      this.setState({skills})
   }
 
   render(){
     return (
       <div>
-        <SkillCard view = {this.props.view} skills = {this.state.skills} AddSkills = {this.AddSkills}/>        
+        <SkillCard showSavebtn={''+this.state.skills!=''+this.state.old_skills} SaveSkills={this.SaveSkills} view = {this.props.view} old_skills={this.state.old_skills} skills = {this.state.skills} AddSkills = {this.AddSkills} RemoveSkill={this.RemoveSkill}/>        
       </div>
     )
   }
