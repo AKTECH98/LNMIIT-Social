@@ -161,8 +161,10 @@ export default class ProjectsPage extends React.Component {
           if(res.message=="SUCCESS")
           {
             let default_projects = []
+
               res.return_value.forEach((item)=>{
                 let pro = {
+                  author: item.author,
                   title : item.title,
                   description: item.description,
                   startDate: item.startDate,
@@ -196,8 +198,10 @@ export default class ProjectsPage extends React.Component {
           if(res.message=="SUCCESS")
           {
             let default_projects = []
+
               res.return_value.forEach((item)=>{
                 let pro = {
+                  author: item.author,
                   title : item.title,
                   description: item.description,
                   startDate: item.startDate,
@@ -213,7 +217,7 @@ export default class ProjectsPage extends React.Component {
                 }
                 
                 default_projects.push(pro)
-                this.setState({projects: default_projects})    
+                this.setState({projects: default_projects})
               }
             )
             this.setState({loading:false})
