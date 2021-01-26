@@ -21,7 +21,8 @@ export default class SignUp extends React.Component
       batches: [],
       btnLoad: false,
       errorMessage:'',
-      redirect:false
+      redirect:false,
+      phone:''
     };
   }
 
