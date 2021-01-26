@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 
 import Button from './Button';
 import {postRequest} from './CallApi'
@@ -37,7 +37,7 @@ const useStyles = makeStyles({
 });
 
 export default function Requests(props){
-
+  const [refreshCount, setRefreshCount]=useState(0)
   const classes = useStyles();
   
   return(
@@ -83,11 +83,11 @@ export default function Requests(props){
                       (res)=>{
                         if(res.message=="SUCCESS")
                         {
-                          window.alert("Success")
+                          setRefreshCount(refreshCount+1)
                         }
                         else
                         {
-                          window.alert("Fail")
+                          window.alert("Failed to confirm. Try again after some time")
                         }
                       }
                     )
@@ -108,11 +108,11 @@ export default function Requests(props){
                       (res)=>{
                         if(res.message=="SUCCESS")
                         {
-                          window.alert("Success")
+                          setRefreshCount(refreshCount+1)
                         }
                         else
                         {
-                          window.alert("Fail")
+                          window.alert("Failed to reject. Try again after some time")
                         }
                       }
                     )
