@@ -3,6 +3,11 @@
     grid-template-columns: 65% 35%;
 }
 
+.colab--delete{
+    color: black;
+    float: right;
+}
+
 .colab--details {
     display: grid;
     grid-template-columns: 60% 40%;

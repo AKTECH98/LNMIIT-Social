@@ -67,11 +67,6 @@ export default function WidgetDetails(props){
     return content;
   }
 
-  const Delete = (event) => {
-    props.DeleteWork(props.index);
-    handleClose(event);
-  }
-
   return (
     <Card className={classes.root}>
       <Link className = "linklink" to = {"/CollaborationDetails?colabID="+ props.optionText.project_id}>
