@@ -20,7 +20,6 @@ class Comment extends React.Component {
 
   render()
   {
-    if(this.state.isDeleted) return "" 
     return(
       <div className = "comment">
               <Link className="linklink" to={"ProfilePage?email="+this.state.comment.author}>
@@ -38,13 +37,21 @@ class Comment extends React.Component {
                     </p>
                   </Link>
                   <p className = "comment--date">{TimeAgo(Date.parse(this.state.comment.date_time_of_comment))}</p>
-                  {
-                    (this.state.comment.author==window.localStorage.getItem("email"))?
+                </div>
+                <div className = "comment--content">
+                  {this.state.comment.content}
+                </div>
+                {
+                  (this.state.comment.author==window.localStorage.getItem("email") && (this.props.showDelete))?
+                    (this.state.isDeleted)?
+                      <center><p><i className="fa fa-spinner fa-spin"></i>Deleting...</p></center>
+                    :
                       <Button
                         text = "Delete Comment"
                         type = "comment--delete"
                         onClick = {
                           ()=>{
+                            this.setState({isDeleted:true})
                             postRequest(
                               "posts/deletecomment",
                               {
@@ -55,19 +62,19 @@ class Comment extends React.Component {
                               (res) => {
                                 if(res.message=='SUCCESS')
                                 {
-                                  this.setState({isDeleted:true})
+                                  location.reload();
+                                }
+                                else
+                                {
+                                  this.setState({isDeleted:false})
                                 }
                               }
                             )
                           }
                         }
                       />
-                      :""
-                  }
-                </div>
-                <div className = "comment--content">
-                  {this.state.comment.content}
-                </div>
+                    :""
+                }
               </div>
       </div>
     )
@@ -140,7 +147,7 @@ export default class CommentBox extends React.Component {
 
         {
           this.state.comments.map((comment,index)=>(
-            <Comment key = {index} comment = {comment}/>
+            <Comment key = {index} comment = {comment} showDelete = {this.props.allComments}/>
           ))
         }
 

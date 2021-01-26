@@ -1,6 +1,5 @@
 import React from "react";
 import Modal from "react-modal";
-import { Redirect } from "react-router-dom";
 import Button from "./Button";
 
 import { postRequest } from "./CallApi";
@@ -70,6 +69,7 @@ export default class PostModal extends React.Component {
   state = {
     post: "",
     error: false,
+    btnload: false
   };
 
   Post = (e) => {
@@ -78,6 +78,7 @@ export default class PostModal extends React.Component {
   };
 
   PostPost = () => {
+    this.setState({btnload:true})
     if (this.state.post) {
       let myPost = this.state.post;
       this.props.addPost(myPost);
@@ -108,7 +109,7 @@ export default class PostModal extends React.Component {
         }
       );
     } else {
-      this.setState(() => ({ error: true }));
+      this.setState(() => ({ error: true,btnload:false }));
     }
   };
 
@@ -159,41 +160,16 @@ export default class PostModal extends React.Component {
             console.log("Focus.", editor);
           }}
         />
-        {/* <TextField
-          default=""
-          label="Post"
-          multiline
-          FeildStyle={{
-            width: 275,
-            marginTop: 5,
-            marginBottom: 5,
-          }}
-          inputprops={{
-            style: {
-              fontWeight: 300,
-              color: "white",
-              fontSize: 20,
-            },
-          }}
-          LabelStyle={{
-            style: {
-              fontWeight: 500,
-              color: "white",
-              fontSize: 15,
-            },
-          }}
-          Change={this.Post}
-        />
-        {this.state.error ? (
-          <div>Please Enter some details. Post cannot be blank</div>
-        ) : (
-          ""
-        )} */}
-        <Button
-          text="Post"
-          type="button modal__button"
-          onClick={this.PostPost}
-        />
+        {
+          (this.state.btnload)?
+          <center><p><i className="fa fa-spinner fa-spin"></i>Adding Post...</p></center>
+          :
+            <Button
+              text="Post"
+              type="button modal__button"
+              onClick={this.PostPost}
+            />
+        }
       </Modal>
     );
   }
