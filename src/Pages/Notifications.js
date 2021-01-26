@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-
 import {postRequest} from '../components/CallApi'
 import Header from '../components/Header';
 import Button from '../components/Button';
@@ -80,12 +79,10 @@ function NotificationPannel(props){
                   subheader = "Date when the Request is Generated"
                   />
                   <CardContent classes = {{root: classes.content}}>
-                    You have recieved a request from this user to collaborate of your Project Title/
-                    This user wants to join your team for this hackathon
+                    {notify.message}
                   </CardContent>
                   <CardActions classes = {{root: classes.action}}>
-                    <Button text = "Accept" type = "request__button"/>
-                    <Button text = "Reject" type = "request__button"/>
+                    <a href={notify.link}><Button text = "Take me there" type = "request__button"/></a>
                   </CardActions>
                 </Card>
                 :
