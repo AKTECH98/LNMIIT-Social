@@ -29,6 +29,19 @@ export default class FrontPage extends React.Component {
           <div className='footer--bottom'>
             <div className='developer'>
               <a
+                href='https://in.linkedin.com/public-profile/in/vikas-bajpai-6047605/'
+                target='_blank'
+              >
+                <img src={Vikas} alt='Vikas' className='avatar' />
+                <p className='dev__name'>
+                  Vikas Bajpai
+                  <br />
+                  Mentor
+                </p>
+              </a>
+            </div>
+            <div className='developer'>
+              <a
                 href='https://www.linkedin.com/in/abhayaravinda/'
                 target='_blank'
               >
@@ -80,19 +93,7 @@ export default class FrontPage extends React.Component {
               </a>
             </div>
 
-            <div className='developer'>
-              <a
-                href='https://www.linkedin.com/in/tarun-gupta-3956a5143/'
-                target='_blank'
-              >
-                <img src={Vikas} alt='Tarun' className='avatar' />
-                <p className='dev__name'>
-                  Vikas Bajpai
-                  <br />
-                  Mentor
-                </p>
-              </a>
-            </div>
+            
           </div>
         </div>
       </div>
