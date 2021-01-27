@@ -55,12 +55,12 @@ export default class FrontPage extends React.Component {
             </div>
             <div className='developer'>
               <a
-                href='https://www.linkedin.com/in/anupam-shah-033718152/'
+                href='https://www.linkedin.com/in/anshul-kiyawat-06210b147/'
                 target='_blank'
               >
-                <img src={Anupam} alt='Anupam' className='avatar' />
+                <img src={Anshul} alt='Anshul' className='avatar' />
                 <p className='dev__name'>
-                  Anupam Shah
+                  Anshul Kiyawat
                   <br />
                   Developer
                 </p>
@@ -68,12 +68,12 @@ export default class FrontPage extends React.Component {
             </div>
             <div className='developer'>
               <a
-                href='https://www.linkedin.com/in/anshul-kiyawat-06210b147/'
+                href='https://www.linkedin.com/in/anupam-shah-033718152/'
                 target='_blank'
               >
-                <img src={Anshul} alt='Anshul' className='avatar' />
+                <img src={Anupam} alt='Anupam' className='avatar' />
                 <p className='dev__name'>
-                  Anshul Kiyawat
+                  Anupam Shah
                   <br />
                   Developer
                 </p>
