@@ -55,16 +55,16 @@ export default class ColabView extends React.Component{
   render(){
     return(
       <div>
+        <div id = "filterColab">
+          <button className="filter__button active" onClick={()=>this.filterSelection('all')}> Show all</button>
+          <button className="filter__button" onClick={()=>this.filterSelection('PROJECT')}> Projects</button>
+          <button className="filter__button" onClick={()=>this.filterSelection('HACKATHON')}> Hackathons</button>
+          <button className="filter__button" onClick={()=>this.filterSelection('OTHER')}> Other</button>
+        </div>
         {
           (this.props.collaborations.length==0)?
             "No Collaborations To Show"
-          :
-          <div id = "filterColab">
-            <button className="filter__button active" onClick={()=>this.filterSelection('all')}> Show all</button>
-            <button className="filter__button" onClick={()=>this.filterSelection('PROJECT')}> Projects</button>
-            <button className="filter__button" onClick={()=>this.filterSelection('HACKATHON')}> Hackathons</button>
-            <button className="filter__button" onClick={()=>this.filterSelection('OTHER')}> Other</button>
-          </div>
+          :''
         }
         <div className = "Widget__View">
         { 
