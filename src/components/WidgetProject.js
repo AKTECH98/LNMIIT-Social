@@ -104,7 +104,7 @@ export default class WidgetProject extends React.Component {
             <div className = "loader--component"><div/><div/><div/><div/></div>
           :
             (this.state.projects.length==0)?
-              "No Projects to Show"
+              "No Collaborations To Show"
             :
               <WidgetView work = {this.state.projects} />
         }
