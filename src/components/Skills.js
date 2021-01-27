@@ -100,18 +100,12 @@ function SkillCard(props){
     }
     <CardContent classes = {{root:classes.content}}>
     { 
-      open?props.skills.map((skill,index) => (
-        <div className="skill--chip" key = {index} onClick={()=>{props.RemoveSkill(index)}}>
+      props.skills.map((skill,index) => (
+        <div className="skill--chip" key = {index}>
           {skill}
-        <span className = "button--close" >x</span>
+        <span className = "button--close" onClick={()=>{props.RemoveSkill(index)}}>x</span>
         </div>
       ))
-      :props.old_skills.map((skill,index) => (
-        <div className="skill--chip" key = {index} onClick={()=>{props.RemoveSkill(index)}}>
-          {skill}
-        </div>
-      ))
-
     }
     </CardContent>
   </Card>
