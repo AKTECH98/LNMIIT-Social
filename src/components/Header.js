@@ -55,7 +55,9 @@ export default function Header(props) {
                 )}
                 <ul>
                   <div className='search'>
+                  {(!props.logout)?'':
                     <Search />
+                  }
                   </div>
                   <div>
                     {" "}
@@ -166,7 +168,10 @@ export default function Header(props) {
                     </Link>
                   </div>
                   <div className='search'>
+                  {
+                    (!props.logout)?'':
                     <Search />
+                  }
                   </div>
                 </ul>
               </div>
@@ -180,7 +185,10 @@ export default function Header(props) {
         <p className='header__title'>LNMIIT SOCIAL</p>
         </Link>
         <div className='search'>
+        {
+          (!props.logout)?'':
           <Search />
+        }
         </div>
         <div className = "header__buttons">
           {!props.logout ?

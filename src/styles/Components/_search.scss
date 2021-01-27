@@ -3,23 +3,19 @@
   margin: $l-size $m-size;
 }
 
-.search .search__bar[type=text] {
-  width: 110px;
-  //box-sizing: border-box;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
+.search .MuiInputBase-root{
+  border: 2px;
+  border-radius: 50px;
+  line-height: 0%;
   background-color: white;
   background-image: url('../img/search.png');
   background-size: contain;
-  //background-position: 10px 10px; 
   background-repeat: no-repeat;
-  padding: 10px 0px 10px 40px;
+  padding: 2px 35px;
   -webkit-transition: width 0.4s ease-in-out;
   transition: width 0.4s ease-in-out;
 }
 
-.search .search__bar[type=text]:focus {
-  width: 90%;
-  border: 2px solid $light-blue;
+.search .MuiOutlinedInput-input{
+  padding: 10px 12px;
 }

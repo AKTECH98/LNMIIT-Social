@@ -13,6 +13,7 @@ import EditTwoToneIcon from "@material-ui/icons/EditTwoTone";
 import Avatar from "react-avatar-edit";
 
 import ImageUploader from "react-images-upload";
+import { FastfoodOutlined } from "@material-ui/icons";
 
 export default class EditPage extends React.Component {
   constructor(props) {
@@ -41,6 +42,7 @@ export default class EditPage extends React.Component {
       backgroundImage:"",/*Replace with URL of loading icon*/
       editImageBackground: false,
       pictures: null,
+      btnload: false
     };
     this.onCrop = this.onCrop.bind(this);
     this.onClose = this.onClose.bind(this);
@@ -489,49 +491,57 @@ export default class EditPage extends React.Component {
           ) : (
             ""
           )}
-          <Button
-            text='Save Changes'
-            type='button edit__detail--button'
-            onClick={() => {
-              if (!this.state.name) this.setState({ error: true });
-              else if (!this.state.headline) this.setState({ error: true });
-              else {
-                this.setState({ error: false });
-                if (!this.state.about || !this.state.about.trim()) {
-                  this.setState({ about: "" });
-                }
-                postRequest(
-                  "profile/editprofiledetails",
-                  {
-                    email: window.localStorage.getItem("email"),
-                    password: window.localStorage.getItem("password"),
-                    name: this.state.name,
-                    phone: this.state.phone,
-                    about: this.state.about,
-                    headline: this.state.headline,
-                    altEmail: this.state.altEmail,
-                    github: this.state.github,
-                    linkedin: this.state.linkedin,
-                    codeforces: this.state.codeforces,
-                    codechef: this.state.codechef,
-                    background_image: this.state.backgroundImage,
-                    profile_image: this.state.new_avatar
-                  },
-                  (res) => {
-                    if (res.message == "SUCCESS") {
-                      var x = document.getElementById("snackbar");
-                      x.className = "show";
-                      setTimeout(function () {
-                        x.className = x.className.replace("show", "");
-                      }, 1000);
-                    }
+          {
+            (this.state.btnload)?
+              <p><i className="fa fa-spinner fa-spin"></i>Saving</p>
+            :
+              <Button
+                text='Save Changes'
+                type='button edit__detail--button'
+                onClick={() => {
 
-                    this.setState({ errorMessage: res.reason });
+                  this.setState({btnload:true})
+
+                  if (!this.state.name) this.setState({ error: true, btnload:false });
+                  else if (!this.state.headline) this.setState({ error: true,btnload:false });
+                  else {
+                    this.setState({ error: false });
+                    if (!this.state.about || !this.state.about.trim()) {
+                      this.setState({ about: "" });
+                    }
+                    postRequest(
+                      "profile/editprofiledetails",
+                      {
+                        email: window.localStorage.getItem("email"),
+                        password: window.localStorage.getItem("password"),
+                        name: this.state.name,
+                        phone: this.state.phone,
+                        about: this.state.about,
+                        headline: this.state.headline,
+                        altEmail: this.state.altEmail,
+                        github: this.state.github,
+                        linkedin: this.state.linkedin,
+                        codeforces: this.state.codeforces,
+                        codechef: this.state.codechef,
+                        background_image: this.state.backgroundImage,
+                        profile_image: this.state.new_avatar
+                      },
+                      (res) => {
+                        if (res.message == "SUCCESS") {
+                          var x = document.getElementById("snackbar");
+                          x.className = "show";
+                          setTimeout(function () {
+                            x.className = x.className.replace("show", "");
+                          }, 1000);
+                        }
+
+                        this.setState({ errorMessage: res.reason ,btnload: false});
+                      }
+                    );
                   }
-                );
-              }
-            }}
-          />
+                }}
+              />
+          }
           </>
         }
         </div>

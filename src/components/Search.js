@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import TextField from '@material-ui/core/TextField';
 
 export default class Search extends React.Component {
 
@@ -12,7 +13,22 @@ export default class Search extends React.Component {
             e.target.search.value = '';
           }}
         >
-          <input type="text" className = "search__bar" name = "search" placeholder="Search...."/>
+          <TextField
+            id = "search"
+            style={{
+              width: '100%',
+              height: 'fitContent',
+            }}
+            InputProps = {{
+              style: {
+                color: 'black',
+                fontSize: 16
+              }
+            }}
+            variant = "outlined"
+            placeholder = "Search...."
+            autoComplete = "off"
+          />
         </form>
       </div>
     )
