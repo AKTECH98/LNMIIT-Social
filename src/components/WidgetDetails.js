@@ -50,20 +50,28 @@ const useStyles = makeStyles((theme) => ({
 export default function WidgetDetails(props){
   const classes = useStyles();
   
-  const limitContent = (content,limit) => {
-    const len = content.length;
+  const limitContent = (content,limit,isSkill) => {
+
     let newcontent = [];
 
-    if (len > limit) {
-      if(limit==2){
-        newcontent = content.split(",").splice(0,limit);
-        return (newcontent.join(",")+".....")
-      }
-      else{
-        newcontent = content.split(" ").splice(0,limit);
-        return (newcontent.join(" ")+".....")
-      }
+    //console.log(content,len)
+
+    if(isSkill==1)
+    {
+      newcontent = content.split(",")
+      newcontent = newcontent.splice(1)
+      content = newcontent.join(",")
     }
+    else
+      newcontent = content.split(" ")
+
+    const len = newcontent.length;
+    
+    if (len > limit) {
+      newcontent = newcontent.splice(0,limit);
+      return (newcontent.join(" ")+".....")
+    }
+    
     return content;
   }
 
@@ -78,19 +86,19 @@ export default function WidgetDetails(props){
         }
       }
         
-        title={props.optionText.title}
+        title={limitContent(props.optionText.title,2,0)}
         subheader = {
           <div>
           {'Author: '+props.optionText.author}<br/>
-          {(props.optionText.mentor!=undefined)?"Mentor : " + props.optionText.mentor:"Mentor : None"}<br/>
+          {(props.optionText.mentor.length!=1)?"Mentor : " + limitContent(props.optionText.mentor,4,0):"Mentor : None"}<br/>
           {'Members : '+ props.optionText.member_count}<br/>
-          {(props.optionText.requirements!=undefined)?'Skills : '+limitContent(props.optionText.requirements,2):"Skills : None Required"}
+          {(props.optionText.requirements!="")?'Skills : '+limitContent(props.optionText.requirements,2,1):"Skills : None Required"}
           </div>
         }
       />
       <CardContent classes = {{root: classes.content}}>
         Description :<hr/>
-        {(props.optionText.description==undefined)?'None':limitContent(props.optionText.description,13)}
+        {(props.optionText.description==undefined)?'None':limitContent(props.optionText.description,13,0)}
       </CardContent>
       </Link>
       <CardActions classes = {{root:classes.action}}>

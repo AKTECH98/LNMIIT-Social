@@ -27,18 +27,12 @@
   visibility: visible;
 }
 
-.profile__skills .skill__bar[type=text] {
-  width: 110px;
-  //box-sizing: border-box;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-  background-color: white;
-  padding: 10px 5px 10px 10px;
-  -webkit-transition: width 0.4s ease-in-out;
-  transition: width 0.4s ease-in-out;
+.profile__skills .MuiInputBase-root{
+  border: 2px;
+  border-radius: 50px;
+  line-height: 0%;
 }
 
-.profile__skills .skill__bar[type=text]:focus {
-  width: 100%;
+.profile__skills .MuiOutlinedInput-input{
+  padding: 10px 12px;
 }

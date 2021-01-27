@@ -225,28 +225,30 @@ export default function Contact(props){
       </TableContainer>
     </CardContent>
     <CardActions disableSpacing>
-      <IconButton classes = {{root:classes.rootIcon}}
-        onClick = {()=>{
-          const el = document.createElement('textarea');
-          el.value = props.personal.email;
-          document.body.appendChild(el);
-          el.select();
-          document.execCommand('copy');
-          document.body.removeChild(el);
+      {
+        (props.personal==null||!props.personal.email ||!props.personal.email.trim())?''
+        :
+        <IconButton classes = {{root:classes.rootIcon}}
+          onClick = {()=>{
+            const el = document.createElement('textarea');
+            el.value = props.personal.email;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
 
-          var x = document.getElementById("snackbar");
-          x.className = "show";
-          setTimeout(function(){ x.className = x.className.replace("show", ""); },2000);
-        }}
-      >
-        <MailIcon style={{ fontSize: 40, color: "#333745" }} />
-      </IconButton>
+            var x = document.getElementById("snackbar");
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); },2000);
+          }}
+        >
+          <MailIcon style={{ fontSize: 40, color: "#333745" }} />
+        </IconButton>
+      }
       <div id="snackbar">Copied To Clipboard..</div>
 
       {(props.personal==null||!props.personal.linkedin ||!props.personal.linkedin.trim())
-        ? <IconButton>
-            <LinkedInIcon style={{ fontSize: 40, color: "#cccccc" }} />
-          </IconButton>
+        ? ''
         :<a target="_blank" className = "linklink" href = {props.personal.linkedin.startsWith("https:\/\/")?props.personal.linkedin:"https://"+props.personal.linkedin}>
           <IconButton>
             <LinkedInIcon style={{ fontSize: 40, color: "#4574bf" }} />
@@ -255,9 +257,7 @@ export default function Contact(props){
       }
 
       {(props.personal==null||!props.personal.github ||!props.personal.github.trim())
-        ? <IconButton>
-            <GitHubIcon style={{ fontSize: 40, color: "#cccccc" }} />
-          </IconButton>
+        ? ''
         :<a target="_blank"  className = "linklink" href = {props.personal.github.startsWith("https:\/\/")?props.personal.github:"https://"+props.personal.github}>
           <IconButton>
             <GitHubIcon style={{ fontSize: 40, color: "black" }} />

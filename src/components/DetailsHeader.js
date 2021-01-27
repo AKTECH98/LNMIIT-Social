@@ -1,22 +1,10 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from "clsx";
 
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import IconButton from '@material-ui/core/IconButton';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import GitHubIcon from '@material-ui/icons/GitHub';
-import ColabIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
 
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Grow from '@material-ui/core/Grow';
-import Paper from '@material-ui/core/Paper';
-import Popper from '@material-ui/core/Popper';
-import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,55 +31,33 @@ const useStyles = makeStyles((theme) => ({
 
 export default function HeaderDetails(props) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const anchorRef = React.useRef(null);
 
-  const handleToggle = () => {
-    setOpen((prevOpen) => !prevOpen);
-  };
+  const limitContent = (content,limit,isSkill) => {
 
-  const handleClose = (event) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target)) {
-      return;
+    let newcontent = [];
+
+    if(isSkill==1)
+    {
+      newcontent = content.split(",")
+      newcontent = newcontent.splice(1)
+      content = newcontent.join(",")
     }
+    else
+      newcontent = content.split(" ")
 
-    setOpen(false);
-  };
-
-  const Edit = (event) => {
-    props.EditWork(props.index);
-    handleClose(event);
-  }
-
-  const ViewJoinRequests = (event) => {
-    props.ViewJoinRequestsWork(props.index);
-    handleClose(event);
-  }
-
-  const Delete = (event) => {
-    props.DeleteWork(props.index);
-    handleClose(event);
-  }
-
-  function handleListKeyDown(event) {
-    if (event.key === 'Tab') {
-      event.preventDefault();
-      setOpen(false);
+    const len = newcontent.length;
+    
+    if (len > limit) {
+      newcontent = newcontent.splice(0,limit);
+      return (newcontent.join(" ")+".....")
     }
+    
+    return content;
   }
-
-  // return focus to the button when we transitioned from !open -> open
-  const prevOpen = React.useRef(open);
-  React.useEffect(() => {
-    if (prevOpen.current === true && open === false) {
-      anchorRef.current.focus();
-    }
-
-    prevOpen.current = open;
-  }, [open]);
 
   return (
     <Card className={classes.root}>
+      <Link className = "linklink" to = {"/CollaborationDetails?colabID="+ props.optionText.project_id}>
       <CardHeader classes={
         {
           root : classes.header,
@@ -102,12 +68,13 @@ export default function HeaderDetails(props) {
         subheader = {
           <div>
           {'Author: '+props.optionText.author}<br/>
-          {(props.optionText.mentor!=undefined)?"Mentor : " + props.optionText.mentor:"Mentor : None"}<br/>
+          {(props.optionText.mentor.length!=1)?"Mentor : " + limitContent(props.optionText.mentor,4,0):"Mentor : None"}<br/>
           {'Members : '+ props.optionText.member_count}<br/>
-          {(props.optionText.requirements!=undefined)?'Skills : '+props.optionText.requirements:"Skills : None Required"}
+          {(props.optionText.requirements!="")?'Skills : '+limitContent(props.optionText.requirements,2,1):"Skills : None Required"}
           </div>
         }
       />
+      </Link>
     </Card>
   );
 }

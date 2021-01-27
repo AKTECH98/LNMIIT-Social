@@ -48,10 +48,6 @@ const useStyles = makeStyles((theme) =>({
   expandOpen: {
     transform: 'rotate(180deg)',
   },
-  container: {
-    position: "absolute",
-    zIndex: 5,
-  },
   addDetail: {
     backgroundColor: '#f5f5f5'
   }
@@ -120,7 +116,7 @@ function PageHeader(props){
               </BrowserRouter>
         }
       />
-      <Collapse in={expanded} timeout={900} unmountOnExit classes = {{container: useStyles().container}}>
+      <Collapse in={expanded} timeout={900} unmountOnExit>
         <CardContent classes = {{root: useStyles().addDetail}}>
           <ColabDetails/>
         </CardContent>

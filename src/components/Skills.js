@@ -5,8 +5,7 @@ import { Card, CardContent, CardHeader, CardActions} from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
-import Button from './Button';
-
+import TextField from '@material-ui/core/TextField';
 const useStyles = makeStyles((theme)=>({
   root: {
     backgroundColor: 'white',
@@ -73,13 +72,28 @@ function SkillCard(props){
         <form onSubmit = {(e)=>{
             e.preventDefault();
             const skill = e.target.skill.value; 
-            
+            e.target.skill.value = ""
+
             if(skill)
               props.AddSkills(skill)
-              document.getElementById("skill_input").value = ""
           }}
         >
-          <input id = "skill_input" type="text" className = "skill__bar" name = "skill" placeholder="Add a Skill..."/>
+          <TextField
+            id = "skill"
+            style={{
+              width: '100%',
+              height: 'fitContent'
+            }}
+            InputProps = {{
+              style: {
+                color: 'black',
+                fontSize: 15
+              }
+            }}
+            variant = "outlined"
+            placeholder = "Add a Skill..."
+            autoComplete = "off"
+          />
         </form>
       </CardActions> 
       :''
