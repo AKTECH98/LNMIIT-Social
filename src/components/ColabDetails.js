@@ -33,6 +33,7 @@ export default class ColabDetails extends React.Component{
       colab: false,
       colab_type: "OTHER",
       isMember: false,
+      loader: true
     }
   }
 
@@ -91,7 +92,7 @@ export default class ColabDetails extends React.Component{
               skills = this.state.skills_required.split(",")
               skills = skills.slice(1)
              
-              this.setState({skills:skills})
+              this.setState({skills:skills,loader:false})
             }
           }
         }
@@ -265,275 +266,140 @@ export default class ColabDetails extends React.Component{
     return(
       <div>
       {
-        (this.state.deleting)?
-          <div className = "pulse">
-            Deleting....
-          </div>
+        (this.state.loader)?
+          <div className = "loader--component"><div/><div/><div/><div/></div>
         :
-          <>
-          {
-            (this.state.admin)?
-              <div className = "colab--delete">
-              {
-                (!this.state.colab_id)?'':
-                <IconButton onClick = {this.DeleteColab}>
-                  <DeleteIcon style={{ fontSize: 35, color: "#D11A2A" }}/>
-                </IconButton>
-              }
-              </div>
-            :
-              ''
-          }
-          <div className = "colab--details">
-            <div className = "colab--details-left">
-            <div className = "colab--type">
-              <h2>Type</h2>
-              <div className = "colab--type-content">
-                <div>
-                  <Radio
-                    checked= {this.state.colab_type=="PROJECT"}
-                    style = {{
-                      transform: 'scale(1.5)'
-                    }}
-                    color = "primary"
-                    disabled = {!this.state.admin}
-                    onClick={()=>this.setState({colab_type:"PROJECT"})}
-                  />
-                  Project
-                </div>
-                <div>
-                  <Radio
-                    checked= {this.state.colab_type=="HACKATHON"}
-                    style = {{
-                      transform: 'scale(1.5)'
-                    }}
-                    color = "primary"
-                    disabled = {!this.state.admin}
-                    onClick={()=>this.setState({colab_type:"HACKATHON"})}
-                  />
-                  Hackathon
-                </div>
-                <div>
-                  <Radio
-                    checked= {this.state.colab_type=="OTHER"}
-                    style = {{
-                      transform: 'scale(1.5)'
-                    }}
-                    color = "primary"
-                    disabled = {!this.state.admin}
-                    onClick={()=>this.setState({colab_type:"OTHER"})}
-                  />
-                  Other
-              </div>
-              </div>
+          (this.state.deleting)?
+            <div className = "pulse">
+              Deleting....
             </div>
-            
-            <div>
-              <Checkbox
-                checked= {this.state.colab}
-                style = {{
-                  transform: 'scale(1.5)'
+          :
+            <>
+            {
+              (this.state.admin)?
+                <div className = "colab--delete">
+                {
+                  (!this.state.colab_id)?'':
+                  <IconButton onClick = {this.DeleteColab}>
+                    <DeleteIcon style={{ fontSize: 35, color: "#D11A2A" }}/>
+                  </IconButton>
+                }
+                </div>
+              :
+                ''
+            }
+            <div className = "colab--details">
+              <div className = "colab--details-left">
+              <div className = "colab--type">
+                <h2>Type</h2>
+                <div className = "colab--type-content">
+                  <div>
+                    <Radio
+                      checked= {this.state.colab_type=="PROJECT"}
+                      style = {{
+                        transform: 'scale(1.5)'
+                      }}
+                      color = "primary"
+                      disabled = {!this.state.admin}
+                      onClick={()=>this.setState({colab_type:"PROJECT"})}
+                    />
+                    Project
+                  </div>
+                  <div>
+                    <Radio
+                      checked= {this.state.colab_type=="HACKATHON"}
+                      style = {{
+                        transform: 'scale(1.5)'
+                      }}
+                      color = "primary"
+                      disabled = {!this.state.admin}
+                      onClick={()=>this.setState({colab_type:"HACKATHON"})}
+                    />
+                    Hackathon
+                  </div>
+                  <div>
+                    <Radio
+                      checked= {this.state.colab_type=="OTHER"}
+                      style = {{
+                        transform: 'scale(1.5)'
+                      }}
+                      color = "primary"
+                      disabled = {!this.state.admin}
+                      onClick={()=>this.setState({colab_type:"OTHER"})}
+                    />
+                    Other
+                </div>
+                </div>
+              </div>
+              
+              <div>
+                <Checkbox
+                  checked= {this.state.colab}
+                  style = {{
+                    transform: 'scale(1.5)'
+                  }}
+                  onChange = {(e)=>{
+                    this.setState({colab:e.target.checked})    
+                  }}
+                  color = "primary"
+                  disabled = {!this.state.admin}
+                />
+                Invite Collaborations
+              </div>
+                    
+              <TextField
+                variant = "outlined"
+                style={{
+                  marginTop: 20,
+                  marginBottom: 5,
+                  width: '100%'
                 }}
-                onChange = {(e)=>{
-                  this.setState({colab:e.target.checked})    
+                InputProps = {{
+                  style: {
+                    fontWeight: 300,
+                    color: 'black',
+                    fontSize: 20
+                  }
                 }}
-                color = "primary"
+                InputLabelProps = {{
+                  style: {
+                    fontWeight: 500,
+                    color: 'purple',
+                    fontSize: 15
+                  }
+                }}
+                label='Title*'
+                onChange = {this.AddTitle}
+                value = {this.state.title}
                 disabled = {!this.state.admin}
               />
-              Invite Collaborations
-            </div>
-                  
-            <TextField
-              variant = "outlined"
-              style={{
-                marginTop: 20,
-                marginBottom: 5,
-                width: '100%'
-              }}
-              InputProps = {{
-                style: {
-                  fontWeight: 300,
-                  color: 'black',
-                  fontSize: 20
-                }
-              }}
-              InputLabelProps = {{
-                style: {
-                  fontWeight: 500,
-                  color: 'purple',
-                  fontSize: 15
-                }
-              }}
-              label='Title*'
-              onChange = {this.AddTitle}
-              value = {this.state.title}
-              disabled = {!this.state.admin}
-            />
-            <TextField
-              multiline
-              variant = "outlined"
-              style={{
-                marginTop: 10,
-                marginBottom: 5,
-                width: '100%'
-              }}
-              InputProps = {{
-                style: {
-                  fontWeight: 300,
-                  color: 'black',
-                  fontSize: 20
-                }
-              }}
-              InputLabelProps = {{
-                style: {
-                  fontWeight: 500,
-                  color: 'purple',
-                  fontSize: 15
-                }
-              }}
-              label='Description*'
-              value = {this.state.description}
-              onChange = {this.AddDescription}
-              disabled = {!this.state.admin}
-            />
-            <TextField
-              variant = "outlined"
-              style={{
-                marginTop: 10,
-                marginBottom: 5,
-                width: '100%'
-              }}
-              InputProps = {{
-                style: {
-                  fontWeight: 300,
-                  color: 'black',
-                  fontSize: 20
-                }
-              }}
-              InputLabelProps = {{
-                style: {
-                  fontWeight: 500,
-                  color: 'purple',
-                  fontSize: 15
-                }
-              }}
-              label='Github'
-              value = {this.state.link}
-              onChange = {(e)=>this.setState({link:e.target.value})}
-              disabled = {!this.state.admin}
-            />
-
-            <div className = "colab--skills">
-              <div className = "colab--skills-header">
-                <h2>Skills</h2>
-                { (this.state.admin)?
-                <form onSubmit = {(e)=>{
-                    e.preventDefault();
-                    
-                    const skill = e.target.skill.value;
-                    e.target.skill.value = ""; 
-                    
-                    if(skill)
-                      this.AddSkill(skill)
-                  }}
-                >
-                  <TextField
-                    id = "skill"
-                    style={{
-                      width: '100%',
-                      height: 'fitContent'
-                    }}
-                    InputProps = {{
-                      style: {
-                        color: 'black',
-                        fontSize: 15
-                      }
-                    }}
-                    variant = "outlined"
-                    placeholder = "Add a Skill..."
-                    autoComplete = "off"
-                  />
-                </form>
-                :""
-                }
-              </div>
-              <div className = "colab--skills-content">
-              {
-                (this.state.skills.length==0)?
-                  "No Skill Requirements"
-                :
-                  this.state.skills.map((skill,index)=>(
-                    <div className="skill--chip" key = {index}>
-                      {skill}
-                    {
-                      (this.state.admin)?
-                      <span className = "button--close" onClick = {()=>{this.DeleteSkill(index)}}>x</span>
-                      :""
-                    }
-                    </div>
-                  ))
-              }
-              </div>
-            </div>
-          </div>
-
-          <div className = "colab--details-right">
-            <TextField
-              type = "date"
-              variant = "outlined"
-              style={{
-                marginBottom: 5,
-                width: "100%"
-              }}
-              inputProps ={{max:this.state.endDate}}
-              InputProps = {{
-                style: {
-                  fontWeight: 300,
-                  color: 'black',
-                  fontSize: 20
-                }
-              }}
-              InputLabelProps = {{
-                style: {
-                  fontWeight: 500,
-                  color: 'purple',
-                  fontSize: 15
-                }
-              }}
-              value={this.state.startDate}
-              onChange={(e)=>this.setState({startDate:e.target.value})}
-              label='Start Date'
-              disabled = {!this.state.admin}
-            />
-            <TextField
-              type = "date"
-              variant = "outlined"
-              style={{
-                marginTop: 10,
-                marginBottom: 5,
-                width: "100%"
-              }}
-              inputProps ={{min:this.state.startDate}}
-              InputProps = {{
-                style: {
-                  fontWeight: 300,
-                  color: 'black',
-                  fontSize: 20
-                }
-              }}
-              InputLabelProps = {{
-                style: {
-                  fontWeight: 500,
-                  color: 'purple',
-                  fontSize: 15
-                }
-              }}
-              value={this.state.endDate}
-              onChange={(e)=>this.setState({endDate:e.target.value})}
-              label='End Date'
-              disabled = {!this.state.admin}
-            />
-          
+              <TextField
+                multiline
+                variant = "outlined"
+                style={{
+                  marginTop: 10,
+                  marginBottom: 5,
+                  width: '100%'
+                }}
+                InputProps = {{
+                  style: {
+                    fontWeight: 300,
+                    color: 'black',
+                    fontSize: 20
+                  }
+                }}
+                InputLabelProps = {{
+                  style: {
+                    fontWeight: 500,
+                    color: 'purple',
+                    fontSize: 15
+                  }
+                }}
+                label='Description*'
+                value = {this.state.description}
+                onChange = {this.AddDescription}
+                disabled = {!this.state.admin}
+              />
               <TextField
                 variant = "outlined"
                 style={{
@@ -555,53 +421,191 @@ export default class ColabDetails extends React.Component{
                     fontSize: 15
                   }
                 }}
-                label='Mentor'
-                value = {this.state.mentor}
-                onChange = {(e)=>this.setState({mentor:e.target.value})}
+                label='Github'
+                value = {this.state.link}
+                onChange = {(e)=>this.setState({link:e.target.value})}
                 disabled = {!this.state.admin}
               />
 
-              <div className = "colab--members">
-                <h2>Members : {this.state.member_count}</h2>
-                <div className = "colab--members-content">
-                  
-                  {
-                    this.state.members.map((member,index)=>(
-                      <Link  key = {index} className="linklink" to={"ProfilePage?email="+member.email}>
-                      <div className="member--chip">
-                        {member.email==window.localStorage.email?"You":member.name} {(member.admin)?<div className = "admin--tag">Admin</div>:""}
-                      </div>
-                      </Link>
-                    ))
+              <div className = "colab--skills">
+                <div className = "colab--skills-header">
+                  <h2>Skills</h2>
+                  { (this.state.admin)?
+                  <form onSubmit = {(e)=>{
+                      e.preventDefault();
+                      
+                      const skill = e.target.skill.value;
+                      e.target.skill.value = ""; 
+                      
+                      if(skill)
+                        this.AddSkill(skill)
+                    }}
+                  >
+                    <TextField
+                      id = "skill"
+                      style={{
+                        width: '100%',
+                        height: 'fitContent'
+                      }}
+                      InputProps = {{
+                        style: {
+                          color: 'black',
+                          fontSize: 15
+                        }
+                      }}
+                      variant = "outlined"
+                      placeholder = "Add a Skill..."
+                      autoComplete = "off"
+                    />
+                  </form>
+                  :""
                   }
-                  
+                </div>
+                <div className = "colab--skills-content">
+                {
+                  (this.state.skills.length==0)?
+                    "No Skill Requirements"
+                  :
+                    this.state.skills.map((skill,index)=>(
+                      <div className="skill--chip" key = {index}>
+                        {skill}
+                      {
+                        (this.state.admin)?
+                        <span className = "button--close" onClick = {()=>{this.DeleteSkill(index)}}>x</span>
+                        :""
+                      }
+                      </div>
+                    ))
+                }
                 </div>
               </div>
             </div>
-          </div>
-          <center>
-          { (this.state.error)?
-            <p className = "error">Please Enter all Details Marked *</p>
-            :""
-          }
-          {
-            (this.state.admin)?
-              (this.state.saving)?
-                (!this.state.colab_id)?
-                  <p><i className="fa fa-spinner fa-spin"></i>...Adding Colab</p>
+
+            <div className = "colab--details-right">
+              <TextField
+                type = "date"
+                variant = "outlined"
+                style={{
+                  marginBottom: 5,
+                  width: "100%"
+                }}
+                inputProps ={{max:this.state.endDate}}
+                InputProps = {{
+                  style: {
+                    fontWeight: 300,
+                    color: 'black',
+                    fontSize: 20
+                  }
+                }}
+                InputLabelProps = {{
+                  style: {
+                    fontWeight: 500,
+                    color: 'purple',
+                    fontSize: 15
+                  }
+                }}
+                value={this.state.startDate}
+                onChange={(e)=>this.setState({startDate:e.target.value})}
+                label='Start Date'
+                disabled = {!this.state.admin}
+              />
+              <TextField
+                type = "date"
+                variant = "outlined"
+                style={{
+                  marginTop: 10,
+                  marginBottom: 5,
+                  width: "100%"
+                }}
+                inputProps ={{min:this.state.startDate}}
+                InputProps = {{
+                  style: {
+                    fontWeight: 300,
+                    color: 'black',
+                    fontSize: 20
+                  }
+                }}
+                InputLabelProps = {{
+                  style: {
+                    fontWeight: 500,
+                    color: 'purple',
+                    fontSize: 15
+                  }
+                }}
+                value={this.state.endDate}
+                onChange={(e)=>this.setState({endDate:e.target.value})}
+                label='End Date'
+                disabled = {!this.state.admin}
+              />
+            
+                <TextField
+                  variant = "outlined"
+                  style={{
+                    marginTop: 10,
+                    marginBottom: 5,
+                    width: '100%'
+                  }}
+                  InputProps = {{
+                    style: {
+                      fontWeight: 300,
+                      color: 'black',
+                      fontSize: 20
+                    }
+                  }}
+                  InputLabelProps = {{
+                    style: {
+                      fontWeight: 500,
+                      color: 'purple',
+                      fontSize: 15
+                    }
+                  }}
+                  label='Mentor'
+                  value = {this.state.mentor}
+                  onChange = {(e)=>this.setState({mentor:e.target.value})}
+                  disabled = {!this.state.admin}
+                />
+
+                <div className = "colab--members">
+                  <h2>Members : {this.state.member_count}</h2>
+                  <div className = "colab--members-content">
+                    
+                    {
+                      this.state.members.map((member,index)=>(
+                        <Link  key = {index} className="linklink" to={"ProfilePage?email="+member.email}>
+                        <div className="member--chip">
+                          {member.email==window.localStorage.email?"You":member.name} {(member.admin)?<div className = "admin--tag">Admin</div>:""}
+                        </div>
+                        </Link>
+                      ))
+                    }
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+            <center>
+            { (this.state.error)?
+              <p className = "error">Please Enter all Details Marked *</p>
+              :""
+            }
+            {
+              (this.state.admin)?
+                (this.state.saving)?
+                  (!this.state.colab_id)?
+                    <p><i className="fa fa-spinner fa-spin"></i>...Adding Colab</p>
+                  :
+                    <p><i className="fa fa-spinner fa-spin"></i>...Saving Changes</p>
                 :
-                  <p><i className="fa fa-spinner fa-spin"></i>...Saving Changes</p>
-              :
-                (this.state.colab_id=="")?
-                <Button text = "Add Collaboration" type = "button" onClick = {this.SaveColab}/>   
-                :
-                <Button text = "Save Changes" type = "button" onClick = {this.EditColab}/>
-            :""
-          }
-          </center>
-          </>
-      }
-      </div>
-    )
+                  (this.state.colab_id=="")?
+                  <Button text = "Add Collaboration" type = "button" onClick = {this.SaveColab}/>   
+                  :
+                  <Button text = "Save Changes" type = "button" onClick = {this.EditColab}/>
+              :""
+            }
+            </center>
+            </>
+        }
+        </div>
+      )
   }
 }

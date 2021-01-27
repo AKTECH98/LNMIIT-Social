@@ -18,7 +18,7 @@ export default class FrontPage extends React.Component {
         <Header />
         <div className='front__page'>
           <div className='description'>
-            <h1>UNDER CONSTRUCTION</h1>
+            <h1>Connect Your Skills</h1>
           </div>
           <div className='login__form'>
             <Login />

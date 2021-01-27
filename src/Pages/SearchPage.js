@@ -32,7 +32,8 @@ const useStyles = makeStyles({
     borderBottom: '0.1rem solid grey'
   },
   content: {
-    fontSize: 15
+    fontSize: 15,
+    backgroundColor: 'white'
   },
 });
 
@@ -50,8 +51,11 @@ function Users(props){
         }
         title = "Users"
       />
-      <CardContent>
+      <CardContent classes = {{root: classes.content}}>
       {
+        (props.results.length==0)?
+          "No Corresponding Users Found"
+        :
           props.results.map((e)=>{
             return (
               <Link to={"ProfilePage?email="+e.email}>
@@ -101,16 +105,17 @@ function Posts(props){
         }
         title = "Posts"
       />
-      <CardContent>
+      <CardContent classes = {{root: classes.content}}>
       {
+        (props.results.length==0)?
+          "No Corresponding Posts Found"
+        :
           props.results.map((e)=>{
             return (
               <SinglePostView item={e} />
             )
-          })
-          
+          })   
       }
-       
       </CardContent>
     </Card>
   )

@@ -37,7 +37,8 @@ const useStyles = makeStyles({
 });
 
 export default function Requests(props){
-  const [refreshCount, setRefreshCount]=useState(0)
+  const [acceptload, setacceptload] = useState(false)
+  const [rejectload, setrejectload] = useState(false)
   const classes = useStyles();
   
   return(
@@ -47,8 +48,6 @@ export default function Requests(props){
             <TableRow classes={{root:classes.tableRow}}>
               <TableCell align = "center" classes={{root:classes.tableHead}}>Email ID</TableCell>
               <TableCell align = "center" classes={{root:classes.tableHead}}>Name</TableCell>
-              <TableCell align = "center" classes={{root:classes.tableHead}}>{/*Confirm*/}</TableCell>
-              <TableCell align = "center" classes={{root:classes.tableHead}}>{/*Reject*/}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -71,52 +70,67 @@ export default function Requests(props){
             </TableRow>
             <TableRow>
               <TableCell classes={{root:classes.tableCell}}>
-                <Button text = "Confirm" type = "button accept__request--button"
-                  onClick = {()=>{
-                    postRequest('project/invitetojoin',
-                      {
-                        'email':window.localStorage.getItem('email'),
-                        'password': window.localStorage.getItem('password'),
-                        'project_id': props.id,
-                        'user': user.email
-                      },
-                      (res)=>{
-                        if(res.message=="SUCCESS")
-                        {
-                          setRefreshCount(refreshCount+1)
-                        }
-                        else
-                        {
-                          window.alert("Failed to confirm. Try again after some time")
-                        }
-                      }
-                    )
-                  }}
-                />
+                {
+                  (acceptload)?
+                    <p><i className="fa fa-spinner fa-spin"></i>Accepting...</p>  
+                  :
+                    <Button text = "Confirm" type = "button accept__request--button"
+                      onClick = {()=>{
+                        setacceptload(true)
+                        postRequest('project/invitetojoin',
+                          {
+                            'email':window.localStorage.getItem('email'),
+                            'password': window.localStorage.getItem('password'),
+                            'project_id': props.id,
+                            'user': user.email
+                          },
+                          (res)=>{
+                            if(res.message=="SUCCESS")
+                            {
+                              window.alert("Request Accepted")
+                              location.reload();
+                            }
+                            else
+                            {
+                              window.alert("Failed to confirm. Try again after some time")
+                            }
+                          }
+                        )
+                      }}
+                    />
+                }
               </TableCell>
 
-              <TableCell classes={{root:classes.tableCell}}> 
-                <Button text = "Reject" type = "button reject__request--button"
-                  onClick = {()=>{
-                    postRequest('project/rejectrequesttojoin',
-                      {
-                        'email':window.localStorage.getItem('email'),
-                        'password': window.localStorage.getItem('password'),
-                        'project_id': props.id,
-                        'user_email': user.email
-                      },
-                      (res)=>{
-                        if(res.message=="SUCCESS")
+              <TableCell classes={{root:classes.tableCell}}>
+                {
+                  (rejectload)?
+                    <p><i className="fa fa-spinner fa-spin"></i>Rejecting...</p>  
+                  :
+                  <Button text = "Reject" type = "button reject__request--button"
+                    onClick = {()=>{
+                      setrejectload(true)
+                      postRequest('project/rejectrequesttojoin',
                         {
-                          setRefreshCount(refreshCount+1)
+                          'email':window.localStorage.getItem('email'),
+                          'password': window.localStorage.getItem('password'),
+                          'project_id': props.id,
+                          'user_email': user.email
+                        },
+                        (res)=>{
+                          if(res.message=="SUCCESS")
+                          {
+                            window.alert("Request Rejected")
+                            location.reload();
+                          }
+                          else
+                          {
+                            window.alert("Failed to reject. Try again after some time")
+                          }
                         }
-                        else
-                        {
-                          window.alert("Failed to reject. Try again after some time")
-                        }
-                      }
-                    )
-                  }}/>
+                      )
+                    }}
+                  />
+                }
               </TableCell>
             </TableRow>
             </>

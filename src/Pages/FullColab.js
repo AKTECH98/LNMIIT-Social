@@ -15,6 +15,7 @@ export default class FullColab extends React.Component {
       loader: true,
       admin: false,
       colab_id: '',
+      requestload: false,
       users: []
     }
   }
@@ -66,29 +67,34 @@ export default class FullColab extends React.Component {
                   <Request users = {this.state.users} id = {this.state.colab_id}/>
                   </div>
                 :
-                <Button text = "Send Colab Request" type = "button colab--button"
-                  onClick=
-                    {()=>{
-
-                      postRequest('project/requesttojoin',
-                          {
-                            'email':window.localStorage.getItem('email'),
-                            'password': window.localStorage.getItem('password'),
-                            'project_id': this.state.colab_id
-                          },
-                          (res)=>{
-                            if(res.message=="FAILURE")
+                  (this.state.requestload)?
+                    <center><p><i className="fa fa-spinner fa-spin"></i>Sending Request...</p></center>
+                  :
+                  <Button text = "Send Colab Request" type = "button colab--button"
+                    onClick = {
+                      ()=>{
+                        this.setState({requestload:true})
+                        postRequest('project/requesttojoin',
                             {
-                              window.alert("Request Not Sent")
+                              'email':window.localStorage.getItem('email'),
+                              'password': window.localStorage.getItem('password'),
+                              'project_id': this.state.colab_id
+                            },
+                            (res)=>{
+                              if(res.message=="FAILURE")
+                              {
+                                window.alert("Request Not Sent")
+                                this.setState({requestload:false})
+                              }
+                              else
+                              {
+                                window.alert("Request Sent")
+                                this.setState({requestload:false})
+                              }
                             }
-                            else
-                            {
-                              window.alert("Request Sent")
-                            }
-                          }
-                        )
-                    }}
-                />
+                          )
+                      }}
+                  />
               }
               </div>
             </div>
