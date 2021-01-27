@@ -7,6 +7,7 @@
   border-radius: 25px;
   margin: $s-size;
   background-color:lighten($color: #888, $amount: 30%);
+  cursor: pointer;
 }
 
 .button--close {
