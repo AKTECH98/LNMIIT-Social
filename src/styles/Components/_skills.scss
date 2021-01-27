@@ -1,44 +1,44 @@
 .skill--chip {
-    display: inline-block;
-    padding: 0 3px;
-    height: fit-content;
-    font-size: 16px;
-    line-height: 25px;
-    border-radius: 25px;
-    margin: $s-size;
-    background-color:lighten($color: #888, $amount: 30%);
-  }
-  
-  .button--close {
-    visibility: hidden;
-    padding-left: 8px;
-    color: black;
-    font-weight: bold;
-    float: right;
-    font-size: 20px;
-    cursor: pointer;
-  }
-  
-  .button--close:hover {
-    color: $pink-red;
-  }
+  display: inline-block;
+  padding: 8px;
+  height: fit-content;
+  font-size: 16px;
+  line-height: 25px;
+  border-radius: 25px;
+  margin: $s-size;
+  background-color:lighten($color: #888, $amount: 30%);
+}
 
-  .skill--chip:hover .button--close{
-    visibility: visible;
-  }
-  
-  .profile__skills .skill__bar[type=text] {
-    width: 110px;
-    //box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    background-color: white;
-    padding: 10px 5px 10px 10px;
-    -webkit-transition: width 0.4s ease-in-out;
-    transition: width 0.4s ease-in-out;
-  }
-  
-  .profile__skills .skill__bar[type=text]:focus {
-    width: 100%;
-  }
+.button--close {
+  visibility: hidden;
+  padding-left: 8px;
+  color: black;
+  font-weight: bold;
+  float: right;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.button--close:hover {
+  color: $pink-red;
+}
+
+.skill--chip:hover .button--close{
+  visibility: visible;
+}
+
+.profile__skills .skill__bar[type=text] {
+  width: 110px;
+  //box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  padding: 10px 5px 10px 10px;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+}
+
+.profile__skills .skill__bar[type=text]:focus {
+  width: 100%;
+}

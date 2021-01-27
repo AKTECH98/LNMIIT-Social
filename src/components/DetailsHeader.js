@@ -74,7 +74,6 @@ export default function HeaderDetails(props) {
   }
 
   function handleListKeyDown(event) {
-    console.log(event.key);
     if (event.key === 'Tab') {
       event.preventDefault();
       setOpen(false);

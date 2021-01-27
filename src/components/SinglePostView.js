@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
 class Comment extends React.Component {
   constructor(props) {
     super(props);
-    //console.log(props)
+
     this.state = {
       content:"",
       postId: props.postId
@@ -132,9 +132,8 @@ export default function SinglePostView(props) {
     setRefreshCommentBoxCount(refreshCommentBoxCount+1)
   }
   
-  //  console.log(content, "content");
   var indexOfLocalhost = content.indexOf("lnmiitsocial-backend.herokuapp.com");
-  //console.log(indexOfLocalhost);
+
   var post = "";
 
   if (indexOfLocalhost === -1) {
@@ -144,7 +143,6 @@ export default function SinglePostView(props) {
   }
 
   const parsedPost = ReactHtmlParser(post);
- // console.log("parsedPost", parsedPost);
 
   const make_vote =(v,l,d)=>{
 
@@ -158,7 +156,6 @@ export default function SinglePostView(props) {
         (res)=>{
           if(res.message=="SUCCESS")
           {
-            console.log(v,l,d)
             setVote(v)
             setLikes(likes+l)
             setDislikes(dislikes+d)

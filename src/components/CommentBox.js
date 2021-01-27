@@ -85,7 +85,7 @@ class Comment extends React.Component {
 export default class CommentBox extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props)
+    
     this.state = {
       postId:props.postId,
       comments:[],

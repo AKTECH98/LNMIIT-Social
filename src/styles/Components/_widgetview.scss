@@ -1,9 +1,10 @@
 .Widget__View{
-    display: grid;
-    grid-gap: 89px;
-    grid-template-columns: 230px 230px 230px 230px;
+  margin-top: $m-size;
+  display: grid;
+  grid-gap: 89px;
+  grid-template-columns: 230px 230px 230px 230px;
 }
 
 .item {
-  margin-left: 50px;
+margin-left: 50px;
 }

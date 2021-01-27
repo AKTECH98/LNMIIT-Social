@@ -81,9 +81,6 @@ function SkillCard(props){
         >
           <input id = "skill_input" type="text" className = "skill__bar" name = "skill" placeholder="Add a Skill..."/>
         </form>
-        {
-          props.showSavebtn?<button onClick={()=>props.SaveSkills()}>Save</button>:""
-        }
       </CardActions> 
       :''
     }
@@ -119,7 +116,7 @@ export default class Skills extends React.Component {
   componentDidMount(){
      postRequest('profile/viewskills',
         {
-          'email':this.props.user,
+          'email':window.localStorage.getItem('email'),
         },
         (res)=>{
           if(res.message=="SUCCESS")
@@ -130,36 +127,44 @@ export default class Skills extends React.Component {
         }
       )
   }
-  SaveSkills = ()=>{
+  
+  SaveSkills = (skills)=>{
     postRequest('profile/editskills',
         {
           'email':window.localStorage.getItem('email'),
           'password':window.localStorage.getItem('password'),
-          'skills':JSON.stringify(this.state.skills)
+          'skills': JSON.stringify(skills)
         },
         (res)=>{
           if(res.message=="SUCCESS")
           {
-            this.setState({old_skills:this.state.skills})
+            //this.setState({old_skills:this.state.skills})
           }
         }
       )
   }
 
   AddSkills = (skill) => {
-      this.setState((prevState)=>({skills: prevState.skills.concat(skill)}))
+
+      let skills = this.state.skills;
+      skills = skills.concat(skill)
+      this.setState({skills})
+
+      this.SaveSkills(skills)
   }
 
   RemoveSkill = (index) => {
       let skills = this.state.skills
       skills.splice(index,1)
       this.setState({skills})
+
+      this.SaveSkills(skills)
   }
 
   render(){
     return (
       <div>
-        <SkillCard showSavebtn={''+this.state.skills!=''+this.state.old_skills} SaveSkills={this.SaveSkills} view = {this.props.view} old_skills={this.state.old_skills} skills = {this.state.skills} AddSkills = {this.AddSkills} RemoveSkill={this.RemoveSkill}/>        
+        <SkillCard view = {this.props.view} old_skills={this.state.old_skills} skills = {this.state.skills} AddSkills = {this.AddSkills} RemoveSkill={this.RemoveSkill}/>        
       </div>
     )
   }

@@ -3,8 +3,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {postRequest} from '../components/CallApi'
 import Header from '../components/Header';
-import Button from '../components/Button';
-import { Card, CardContent, CardHeader, Avatar ,CardActions} from '@material-ui/core';
+import { Card, CardContent, CardHeader} from '@material-ui/core';
 import TimeAgo from '../components//TimeAgo';
 
 const url = window.location.href;
@@ -31,7 +30,8 @@ const useStyles = makeStyles({
   },
   title: {
     fontSize : 18,
-    fontFamily: 'cursive'
+    fontFamily: 'cursive',
+    color: 'black'
   },
   subheader: {
     color: 'gray',
@@ -40,7 +40,8 @@ const useStyles = makeStyles({
     borderBottom: '0.1rem solid grey'
   },
   content: {
-    fontSize: 15
+    fontSize: 15,
+    color: 'black'
   },
   action: {
     borderTopStyle: 'solid',
@@ -66,61 +67,43 @@ function NotificationPannel(props){
       <CardContent>
       { 
         props.Notifications.map((notify,index)=>
-            <div key = {index}>
-            {/*<button onClick={postRequest('profile/deletenotifications',
+          <div key = {index}>
+          {
+            (notify.request==true)?
+            <Card className = {classes.subRootRequest}>
+            <CardHeader
+              classes = {
               {
-                'email':window.localStorage.getItem('email'),
-                'password': window.localStorage.getItem('password'),
-                'notification_id': notify.notification_id
-              },
-              (res)=>{
-                if(res.message=="SUCCESS")
+                title : classes.title,
+                subheader : classes.subheader
+              }}
+              title = "Colaboration Request"
+              subheader = "Date when the Request is Generated"
+              />
+              <CardContent classes = {{root: classes.content}}>
+                This person is intersted in working with you on this colab
+              </CardContent>
+            </Card>
+            :
+            
+            <Card className = {classes.subRoot}>
+              <a classes="linklink" href={notify.link}>
+              <CardHeader
+                classes = {
                 {
-                  window.refresh()
-                }
-              }
-            )}>Delete</button>*/}
-              {//I have passed it as an prop but make it a type taken from notifications itself
-                (notify.request==true)?
-                <Card className = {classes.subRootRequest}>
-                <CardHeader
-                  classes = {
-                  {
-                    title : classes.title,
-                    subheader : classes.subheader
-                  }}
-                  title = "Colaboration Request"
-                  subheader = "Date when the Request is Generated"
-                  />
-                  <CardContent classes = {{root: classes.content}}>
-                    This person is intersted in working with you on this colab
-                  </CardContent>
-                </Card>
-                :
-                
-                <Card className = {classes.subRoot}>
-                  <CardHeader
-                    classes = {
-                    {
-                      title : classes.title,
-                      subheader : classes.subheader
-                    }}
-                    avatar={
-                      <Avatar>
-                      </Avatar>
-                    }
-                    title = {notify.title}
-                    subheader = {TimeAgo(Date.parse(notify.date_time_of_notification))}
-                  />
-                  <a classes="linklink" href={notify.link}>
-                  <CardContent classes = {{root: classes.content}}>
-                    {notify.message}
-                  </CardContent>
-                  </a>
-                </Card>
-                
-              }
-            </div>
+                  title : classes.title,
+                  subheader : classes.subheader
+                }}
+                title = {notify.title}
+                subheader = {TimeAgo(Date.parse(notify.date_time_of_notification))}
+              />
+              <CardContent classes = {{root: classes.content}}>
+                {notify.message}
+              </CardContent>
+              </a>
+            </Card> 
+          }
+          </div>
         )
       }
       </CardContent>

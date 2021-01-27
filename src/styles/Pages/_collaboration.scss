@@ -3,6 +3,14 @@
     grid-template-columns: 65% 35%;
 }
 
+.colabDiv{
+    display: none;
+}
+
+.showColab {
+    display: block;
+}
+
 .colab--delete{
     color: black;
     float: right;
@@ -82,7 +90,7 @@
 
 .member--chip {
     display: inline-block;
-    padding: 0 3px;
+    padding: 8px;
     height: fit-content;
     cursor: pointer;
     font-size: 15px;

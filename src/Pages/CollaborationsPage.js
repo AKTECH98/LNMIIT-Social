@@ -3,7 +3,7 @@ import {Link,BrowserRouter} from 'react-router-dom'
 import clsx from 'clsx'
 import Header from '../components/Header';
 import InviteModal from '../components/InviteModal';
-import WorkView from '../components/WorkView';
+import ColabView from '../components/ColabView';
 import ColabDetails from '../components/ColabDetails';
 import {postRequest} from '../components/CallApi'
 
@@ -145,90 +145,90 @@ export default class ProjectsPage extends React.Component {
 
   componentDidMount()
   {
-      const url = window.location.href;
-      const parser = require('url-parameter-parser');
-      const res = parser(url);
-      const user = res.email;
-      if(user!=undefined)
+    const url = window.location.href;
+    const parser = require('url-parameter-parser');
+    const res = parser(url);
+    const user = res.email;
+    if(user!=undefined)
+    {
+      postRequest('project/fetchprojectsofuser',
       {
-        postRequest('project/fetchprojectsofuser',
+        'member_email': user,
+        'email':window.localStorage.getItem('email'),
+        'password': window.localStorage.getItem('password'),
+      },
+      (res)=>{
+        if(res.message=="SUCCESS")
         {
-          'member_email': user,
-          'email':window.localStorage.getItem('email'),
-          'password': window.localStorage.getItem('password'),
-        },
-        (res)=>{
-          if(res.message=="SUCCESS")
-          {
-            let default_projects = []
+          let default_projects = []
 
-              res.return_value.forEach((item)=>{
-                let pro = {
-                  author: item.author,
-                  
-                  member_count: item.member_count,
-                  title : item.title,
-                  description: item.description,
-                  startDate: item.startDate,
-                  endDate: item.endDate,
-                  requirements: item.skills_required,
-                  member: item.members,
-                  mentor: item.mentor,
-                  colab: item.colab,
-                  project_link: item.link,
-                  project_id: item.project_id,
-                  admin: item.admin,
-                  colab_type: item.colab_type,
-                }
+            res.return_value.forEach((item)=>{
+              let pro = {
+                author: item.author,
                 
-                default_projects.push(pro)
-                this.setState({projects: default_projects})
+                member_count: item.member_count,
+                title : item.title,
+                description: item.description,
+                startDate: item.startDate,
+                endDate: item.endDate,
+                requirements: item.skills_required,
+                member: item.members,
+                mentor: item.mentor,
+                colab: item.colab,
+                project_link: item.link,
+                project_id: item.project_id,
+                admin: item.admin,
+                colab_type: item.colab_type,
               }
-            )
-            this.setState({loading:false})
-          }
-        })
-      }
-      else
+              
+              default_projects.push(pro)
+              this.setState({projects: default_projects})
+            }
+          )
+          this.setState({loading:false})
+        }
+      })
+    }
+    else
+    {
+      postRequest('project/fetchpublicprojects',
       {
-        postRequest('project/fetchpublicprojects',
+        'email':window.localStorage.getItem('email'),
+        'password': window.localStorage.getItem('password'),
+      },
+      (res)=>{
+        if(res.message=="SUCCESS")
         {
-          'email':window.localStorage.getItem('email'),
-          'password': window.localStorage.getItem('password'),
-        },
-        (res)=>{
-          if(res.message=="SUCCESS")
-          {
-            let default_projects = []
+          let default_projects = []
 
-              res.return_value.forEach((item)=>{
-                let pro = {
-                  author: item.author,
-                  member_count: item.member_count,
-                  title : item.title,
-                  description: item.description,
-                  startDate: item.startDate,
-                  endDate: item.endDate,
-                  requirements: item.skills_required,
-                  member: item.members,
-                  mentor: item.mentor,
-                  colab: item.colab,
-                  project_link: item.link,
-                  project_id: item.project_id,
-                  admin: item.admin,
-                  colab_type: item.colab_type,
-                }
-                
-                default_projects.push(pro)
-                this.setState({projects: default_projects})
+            res.return_value.forEach((item)=>{
+              let pro = {
+                author: item.author,
+                member_count: item.member_count,
+                title : item.title,
+                description: item.description,
+                startDate: item.startDate,
+                endDate: item.endDate,
+                requirements: item.skills_required,
+                member: item.members,
+                mentor: item.mentor,
+                colab: item.colab,
+                project_link: item.link,
+                project_id: item.project_id,
+                admin: item.admin,
+                colab_type: item.colab_type,
               }
-            )
-            this.setState({loading:false})
-          }
-        })
-      }
-
+              
+              default_projects.push(pro)
+              this.setState({projects: default_projects})
+            }
+          )
+          this.setState({loading:false})
+        }
+      })
+    }
   } 
+
   RequestUser = (index) => {
     let pro = this.state.projects[index];
     this.setState(()=>({
@@ -272,13 +272,12 @@ export default class ProjectsPage extends React.Component {
           newProject = {this.AddDetail} 
           view = {user!=window.localStorage.getItem('email')}
         />
-        {console.log(this.state.loading)}
         {
           (this.state.loading)?
           <center><div className = "loader--square"><div/><div/></div></center>
           :
-          <WorkView
-            works={this.state.projects}
+          <ColabView
+            collaborations={this.state.projects}
             Request = {this.RequestUser}
           />
         }

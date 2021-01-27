@@ -80,3 +80,20 @@
     margin-left: -12px;
     margin-right: 8px;;
   }
+
+.filter__button {
+    border: none;
+    outline: none;
+    padding: 12px 16px;
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+.filter__button:hover{
+  background-color: #ddd;  
+}
+
+.filter__button.active {
+    background-color: $light-blue;
+    color: white;
+}

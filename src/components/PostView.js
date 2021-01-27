@@ -40,7 +40,6 @@ export default class PostView extends React.Component {
         this.setState({load:false})
       }
     )}
-    //console.log("STATE:",this.state)
   }
   render() {
     
