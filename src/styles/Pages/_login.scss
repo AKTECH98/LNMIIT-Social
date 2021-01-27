@@ -1,61 +1,61 @@
-.login__form{
-    float: right;
-    z-index: 1000;
-    box-shadow: 0 10px 14px 0 rgba(0, 0, 0, 0.2), 0 12px 26px 0 rgba(0, 0, 0, 0.19);
-    padding: $xxl-size;
-    margin-bottom: $m-size;
-    width: fit-content;
+.login__form {
+  float: right;
+  z-index: 1000;
+  box-shadow: 0 10px 14px 0 rgba(0, 0, 0, 0.2),
+    0 12px 26px 0 rgba(0, 0, 0, 0.19);
+  padding: $xxl-size;
+  margin-bottom: $m-size;
+  width: fit-content;
 }
 
 .login {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .login__header {
-    font-family: cursive;
-    color: $purple;
-    text-align:  center;
-    line-height: 0.5;
+  font-family: cursive;
+  color: $purple;
+  text-align: center;
+  line-height: 0.5;
 }
 
 .login__title {
-    font-size: $xl-size;
+  font-size: $xl-size;
 }
 
 .login__subtitle {
-    font-size: $lm-size;
-    font-weight: 500;
+  font-size: $lm-size;
+  font-weight: 500;
 }
 
 .login__byline {
-    color: $orange-yellow;
-    font-size: $m-size;
-    font-style: italic;
+  color: $orange-yellow;
+  font-size: $m-size;
+  font-style: italic;
 }
 
 .login__login {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .login__button {
-    font-size: $m-size;
-    margin-top: $m-size;
-    text-align: center;
-    text-decoration: none;
-    padding: $xs-size;
-    width: 115px;
+  font-size: $m-size;
+  margin-top: $m-size;
+  text-align: center;
+  text-decoration: none;
+  padding: $xs-size;
+  width: 115px;
 }
 
 .login__forgot {
-    margin-top: $ms-size;
-    font-size: $m-size;
+  margin-top: $ms-size;
+  font-size: $m-size;
 }
 
-
 .login__new {
-    margin-top: $xxs-size;
-    font-size: $ms-size;
+  margin-top: $xxs-size;
+  font-size: $ms-size;
 }
