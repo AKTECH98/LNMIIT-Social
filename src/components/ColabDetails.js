@@ -98,6 +98,8 @@ export default class ColabDetails extends React.Component{
         }
       )
     }
+    else
+      this.setState({loader:false})
   }
 
   AddSkill = (skill) => {
